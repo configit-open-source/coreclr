@@ -1,7 +1,0 @@
-include(${CLR_DIR}/crossgen.cmake)
-
-if(CLR_CMAKE_PLATFORM_ARCH_I386 OR CLR_CMAKE_PLATFORM_ARCH_ARM)
-  add_definitions(-DLEGACY_BACKEND)
-endif(CLR_CMAKE_PLATFORM_ARCH_I386 OR CLR_CMAKE_PLATFORM_ARCH_ARM)
-
-add_library_clr(jit_crossgen ${SOURCES})
