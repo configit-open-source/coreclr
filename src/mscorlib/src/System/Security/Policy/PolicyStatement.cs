@@ -1,17 +1,7 @@
-using System.Diagnostics.Contracts;
+using System.Text;
 
 namespace System.Security.Policy
 {
-    using System;
-    using System.Security;
-    using System.Security.Util;
-    using Math = System.Math;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Security.Permissions;
-    using System.Text;
-    using System.Globalization;
-
     [Flags]
     public enum PolicyStatementAttribute
     {

@@ -1,8 +1,5 @@
 namespace System
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public delegate void ConsoleCancelEventHandler(Object sender, ConsoleCancelEventArgs e);
     public sealed class ConsoleCancelEventArgs : EventArgs
     {

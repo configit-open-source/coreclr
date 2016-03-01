@@ -1,14 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System.Text
 {
-    using System;
-    using System.Security;
-    using System.Globalization;
-    using System.Text;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public enum NormalizationForm
     {
     }

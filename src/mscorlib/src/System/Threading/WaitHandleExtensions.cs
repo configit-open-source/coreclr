@@ -1,5 +1,4 @@
 using Microsoft.Win32.SafeHandles;
-using System.Security;
 
 namespace System.Threading
 {

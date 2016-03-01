@@ -1,22 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Security;
+using System.Text;
+using System.Threading;
+
 namespace System.Resources
 {
-    using System;
-    using System.IO;
-    using System.Globalization;
-    using System.Collections;
-    using System.Text;
-    using System.Reflection;
-    using System.Runtime.Serialization;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Threading;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using Microsoft.Win32;
-    using System.Collections.Generic;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     internal class WindowsRuntimeResourceManagerBase
     {
         public virtual bool Initialize(string libpath, string reswFilename, out PRIExceptionInfo exceptionInfo)

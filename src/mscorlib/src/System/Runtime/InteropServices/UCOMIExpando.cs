@@ -1,8 +1,7 @@
+using System.Reflection;
+
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Reflection;
-
     internal interface UCOMIExpando : UCOMIReflect
     {
         FieldInfo AddField(String name);

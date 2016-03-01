@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Threading;
-    using System.Diagnostics.Contracts;
-
     public class CultureNotFoundException : ArgumentException, ISerializable
     {
         private string m_invalidCultureName;

@@ -1,18 +1,10 @@
+using System;
+using System.Diagnostics.Tracing;
+using System.Runtime.InteropServices;
+using System.Text;
+
 namespace Microsoft.Win32
 {
-    using Microsoft.Win32;
-    using Microsoft.Win32.SafeHandles;
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization;
-    using System.Runtime.Versioning;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Text;
-    using System.Diagnostics.Tracing;
-
     internal static class UnsafeNativeMethods
     {
         internal static extern int GetTimeZoneInformation(out Win32Native.TimeZoneInformation lpTimeZoneInformation);

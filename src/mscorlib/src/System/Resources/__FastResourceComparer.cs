@@ -1,10 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+
 namespace System.Resources
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-
     internal sealed class FastResourceComparer : IComparer, IEqualityComparer, IComparer<String>, IEqualityComparer<String>
     {
         internal static readonly FastResourceComparer Default = new FastResourceComparer();

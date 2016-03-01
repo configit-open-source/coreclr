@@ -1,8 +1,7 @@
+using System.Reflection;
+
 namespace System.Runtime.InteropServices.Expando
 {
-    using System;
-    using System.Reflection;
-
     public interface IExpando : IReflect
     {
         FieldInfo AddField(String name);

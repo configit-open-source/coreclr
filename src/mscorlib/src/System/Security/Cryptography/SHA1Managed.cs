@@ -1,9 +1,5 @@
 namespace System.Security.Cryptography
 {
-    using System;
-    using System.Security;
-    using System.Diagnostics.Contracts;
-
     public class SHA1Managed : SHA1
     {
         private SafeHashHandle _safeHashHandle = null;

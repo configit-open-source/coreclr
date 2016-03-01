@@ -1,19 +1,14 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Diagnostics.Tracing;
+using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
+
+using Microsoft.Win32;
+
 namespace System.Threading
 {
-    using System.Security;
-    using System.Runtime.Remoting;
-    using System.Security.Permissions;
-    using System;
-    using Microsoft.Win32;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Tracing;
-
     internal static class ThreadPoolGlobals
     {
         public static uint tpQuantum = 30U;

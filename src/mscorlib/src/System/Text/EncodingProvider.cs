@@ -1,9 +1,5 @@
 namespace System.Text
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-
     public abstract class EncodingProvider
     {
         public EncodingProvider()

@@ -1,13 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Security.Permissions;
+
 namespace System.Security.Policy
 {
-    using System.Security.Util;
-    using ZoneIdentityPermission = System.Security.Permissions.ZoneIdentityPermission;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.Contracts;
-
     public sealed class Zone : EvidenceBase, IIdentityPermissionFactory
     {
         private SecurityZone m_zone;

@@ -1,7 +1,3 @@
-using System.Diagnostics.Contracts;
-using System.Security.Permissions;
-using System.Runtime.CompilerServices;
-
 namespace System.Threading
 {
     public struct CancellationTokenRegistration : IEquatable<CancellationTokenRegistration>, IDisposable

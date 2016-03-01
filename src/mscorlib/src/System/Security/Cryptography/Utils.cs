@@ -1,17 +1,13 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Permissions;
+
+using Microsoft.Win32;
+
 namespace System.Security.Cryptography
 {
-    using Microsoft.Win32;
-    using System.IO;
-    using System.Globalization;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Security.Permissions;
-    using System.Text;
-    using System.Threading;
-    using System.Diagnostics.Contracts;
-    using System.Runtime.Versioning;
-
     internal enum CspAlgorithmType
     {
         Rsa = 0,

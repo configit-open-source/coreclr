@@ -1,11 +1,10 @@
+using System.Globalization;
+using System.Runtime.InteropServices;
+
+using Microsoft.Win32;
+
 namespace System
 {
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Reflection;
-    using Microsoft.Win32;
-    using CultureInfo = System.Globalization.CultureInfo;
-
     internal class OleAutBinder : DefaultBinder
     {
         public override Object ChangeType(Object value, Type type, CultureInfo cultureInfo)

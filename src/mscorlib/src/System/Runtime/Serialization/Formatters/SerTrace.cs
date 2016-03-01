@@ -1,12 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Reflection;
+
 namespace System.Runtime.Serialization.Formatters
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Reflection;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-
     public sealed class InternalRM
     {
         public static void InfoSoap(params Object[] messages)

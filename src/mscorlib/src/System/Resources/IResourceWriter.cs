@@ -1,8 +1,5 @@
 namespace System.Resources
 {
-    using System;
-    using System.IO;
-
     public interface IResourceWriter : IDisposable
     {
         void AddResource(String name, String value);

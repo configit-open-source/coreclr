@@ -1,13 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+using System.Text;
+
 namespace System.Security
 {
-    using System.Security;
-    using System;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Reflection;
-    using System.Text;
-    using System.Diagnostics.Contracts;
-
     public class HostProtectionException : SystemException
     {
         private HostProtectionResource m_protected;

@@ -1,8 +1,6 @@
-using System.Security;
 using System.Diagnostics.Contracts;
-using System.Runtime.ExceptionServices;
 using System.Runtime.CompilerServices;
-using System.Threading;
+using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace System.Threading.Tasks

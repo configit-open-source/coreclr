@@ -1,9 +1,7 @@
+using System.Reflection;
+
 namespace System.Runtime.InteropServices.TCEAdapterGen
 {
-    using System;
-    using System.Reflection;
-    using System.Collections;
-
     internal class EventItfInfo
     {
         public EventItfInfo(String strEventItfName, String strSrcItfName, String strEventProviderName, RuntimeAssembly asmImport, RuntimeAssembly asmSrcItf)

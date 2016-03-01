@@ -1,11 +1,5 @@
 namespace System.Security.Permissions
 {
-    using System;
-    using System.IO;
-    using System.Security;
-    using System.Security.Util;
-    using System.Globalization;
-
     public enum IsolatedStorageContainment
     {
         None = 0x00,

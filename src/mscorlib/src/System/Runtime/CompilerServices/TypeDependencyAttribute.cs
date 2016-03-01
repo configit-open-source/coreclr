@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Runtime.CompilerServices
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     internal sealed class TypeDependencyAttribute : Attribute
     {
         private string typeName;

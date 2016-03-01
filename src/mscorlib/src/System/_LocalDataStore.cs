@@ -1,10 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Threading;
+
 namespace System
 {
-    using System;
-    using System.Threading;
-    using System.Runtime.CompilerServices;
-    using System.Diagnostics.Contracts;
-
     sealed internal class LocalDataStoreHolder
     {
         private LocalDataStore m_Store;

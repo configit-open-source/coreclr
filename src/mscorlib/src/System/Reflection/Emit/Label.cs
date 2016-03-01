@@ -1,10 +1,5 @@
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Reflection;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-
     public struct Label
     {
         internal int m_label;

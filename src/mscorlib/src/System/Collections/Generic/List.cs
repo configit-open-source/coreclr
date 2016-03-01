@@ -1,13 +1,9 @@
+using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
+using System.Runtime.Versioning;
+
 namespace System.Collections.Generic
 {
-    using System;
-    using System.Runtime;
-    using System.Runtime.Versioning;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-    using System.Collections.ObjectModel;
-    using System.Security.Permissions;
-
     public class List<T> : IList<T>, System.Collections.IList, IReadOnlyList<T>
     {
         private const int _defaultCapacity = 4;

@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class OutOfMemoryException : SystemException
     {
         public OutOfMemoryException(): base (GetMessageFromNativeResources(ExceptionMessageKind.OutOfMemory))

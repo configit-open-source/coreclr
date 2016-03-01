@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class TargetException : Exception
     {
         public TargetException(): base ()

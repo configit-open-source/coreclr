@@ -1,14 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Text;
+
 namespace System
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Security;
-    using System.Text;
-    using System.Diagnostics.Contracts;
-
     internal class Number
     {
         private Number()

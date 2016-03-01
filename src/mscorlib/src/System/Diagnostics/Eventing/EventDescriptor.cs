@@ -1,7 +1,3 @@
-using System;
-using System.Runtime.InteropServices;
-using Contract = System.Diagnostics.Contracts.Contract;
-
 namespace System.Diagnostics.Tracing
 {
     internal struct EventDescriptor

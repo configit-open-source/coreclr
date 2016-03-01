@@ -1,8 +1,5 @@
 namespace System.Diagnostics.SymbolStore
 {
-    using System;
-    using System.Runtime.InteropServices;
-
     public struct SymbolToken
     {
         internal int m_token;

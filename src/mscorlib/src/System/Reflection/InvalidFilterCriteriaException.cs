@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Runtime.Serialization;
-    using ApplicationException = System.ApplicationException;
-
     public class InvalidFilterCriteriaException : Exception
     {
         public InvalidFilterCriteriaException(): base (Environment.GetResourceString("Arg_InvalidFilterCriteriaException"))

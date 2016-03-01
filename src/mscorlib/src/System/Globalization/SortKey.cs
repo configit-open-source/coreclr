@@ -1,10 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.Contracts;
-
     public class SortKey
     {
         internal String localeName;

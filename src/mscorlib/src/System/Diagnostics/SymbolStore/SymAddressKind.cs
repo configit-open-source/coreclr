@@ -1,7 +1,5 @@
 namespace System.Diagnostics.SymbolStore
 {
-    using System;
-
     public enum SymAddressKind
     {
         ILOffset = 1,

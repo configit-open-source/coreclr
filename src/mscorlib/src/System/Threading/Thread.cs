@@ -1,21 +1,14 @@
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
+using System.Security.Permissions;
+using System.Security.Principal;
+
 namespace System.Threading
 {
-    using System.Threading;
-    using System.Runtime;
-    using System.Runtime.InteropServices;
-    using System;
-    using System.Diagnostics;
-    using System.Security.Permissions;
-    using System.Security.Principal;
-    using System.Globalization;
-    using System.Collections.Generic;
-    using System.Runtime.Serialization;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Security;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     internal delegate Object InternalCrossContextDelegate(Object[] args);
     internal class ThreadHelper
     {
@@ -171,7 +164,7 @@ namespace System.Threading
         extern public int ManagedThreadId
         {
             [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             [System.Security.SecuritySafeCritical]
             get;
         }

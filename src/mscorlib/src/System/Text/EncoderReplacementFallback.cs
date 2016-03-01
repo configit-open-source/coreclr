@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Text
 {
-    using System;
-    using System.Runtime;
-    using System.Diagnostics.Contracts;
-
     public sealed class EncoderReplacementFallback : EncoderFallback
     {
         private String strDefault;

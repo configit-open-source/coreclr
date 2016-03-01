@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public class PersianCalendar : Calendar
     {
         public static readonly int PersianEra = 1;

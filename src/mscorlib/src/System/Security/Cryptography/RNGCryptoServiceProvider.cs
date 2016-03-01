@@ -1,12 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Cryptography
 {
-    using Microsoft.Win32;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Security;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public sealed class RNGCryptoServiceProvider : RandomNumberGenerator
     {
         SafeCspHandle m_cspHandle;

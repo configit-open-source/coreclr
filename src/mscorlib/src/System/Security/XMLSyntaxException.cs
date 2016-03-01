@@ -1,9 +1,8 @@
+using System.Globalization;
+using System.Runtime.Serialization;
+
 namespace System.Security
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Globalization;
-
     sealed public class XmlSyntaxException : SystemException
     {
         public XmlSyntaxException(): base (Environment.GetResourceString("XMLSyntax_InvalidSyntax"))

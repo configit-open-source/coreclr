@@ -1,18 +1,5 @@
 namespace System.Security.Permissions
 {
-    using System.Security.Util;
-    using System.IO;
-    using System.Security.Policy;
-    using System.Text;
-    using System.Runtime.Serialization.Formatters;
-    using System.Threading;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Remoting;
-    using System.Runtime.Serialization;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public enum SecurityAction
     {
         Demand = 2,

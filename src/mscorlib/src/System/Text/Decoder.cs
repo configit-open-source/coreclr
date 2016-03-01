@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Text
 {
-    using System.Runtime.Serialization;
-    using System.Text;
-    using System;
-    using System.Diagnostics.Contracts;
-
     public abstract class Decoder
     {
         internal DecoderFallback m_fallback = null;

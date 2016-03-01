@@ -1,19 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Reflection;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Reflection;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Security;
-    using System.Security.Principal;
-    using System.Security.Permissions;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.IO;
-    using System.Diagnostics.Contracts;
-
     internal sealed class GlobalizationAssembly
     {
         internal unsafe static byte *GetGlobalizationResourceBytePtr(Assembly assembly, String tableName)

@@ -1,18 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Text;
+
 namespace System.Resources
 {
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Security.Permissions;
-    using System.Security;
-    using System.Globalization;
-    using System.Configuration.Assemblies;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     internal struct ResourceLocator
     {
         internal Object _value;

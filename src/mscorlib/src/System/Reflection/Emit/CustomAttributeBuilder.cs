@@ -1,14 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Reflection;
-    using System.IO;
-    using System.Text;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public class CustomAttributeBuilder : _CustomAttributeBuilder
     {
         public CustomAttributeBuilder(ConstructorInfo con, Object[] constructorArgs)

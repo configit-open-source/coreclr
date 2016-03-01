@@ -1,12 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Reflection;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-
     public sealed class PropertyBuilder : PropertyInfo, _PropertyBuilder
     {
         private PropertyBuilder()

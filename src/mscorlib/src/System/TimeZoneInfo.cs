@@ -1,24 +1,17 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Security;
+using System.Security.Permissions;
+using System.Text;
+
+using Microsoft.Win32;
+
 namespace System
 {
-    using Microsoft.Win32;
-    using Microsoft.Win32.SafeHandles;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-    using System.IO;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization;
-    using System.Runtime.Versioning;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Text;
-    using System.Threading;
-
     [Flags]
     internal enum TimeZoneInfoOptions
     {

@@ -1,9 +1,7 @@
-using System;
-using System.Runtime.InteropServices;
-using System.Security;
-using System.Collections.ObjectModel;
-using Contract = System.Diagnostics.Contracts.Contract;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace System.Diagnostics.Tracing

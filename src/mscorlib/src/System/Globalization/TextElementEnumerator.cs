@@ -1,10 +1,9 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
 using System.Runtime.Serialization;
 
 namespace System.Globalization
 {
-    using System.Collections;
-    using System.Diagnostics.Contracts;
-
     public class TextElementEnumerator : IEnumerator
     {
         private String str;

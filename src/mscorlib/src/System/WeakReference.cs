@@ -1,13 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Security;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public class WeakReference : ISerializable
     {
         internal IntPtr m_handle;
@@ -41,7 +38,7 @@ namespace System
 
         public extern virtual bool IsAlive
         {
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             [SecuritySafeCritical]
             get;
         }
@@ -56,10 +53,10 @@ namespace System
 
         public extern virtual Object Target
         {
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             [SecuritySafeCritical]
             get;
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             [SecuritySafeCritical]
             set;
         }

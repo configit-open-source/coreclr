@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Util
 {
-    using System;
-    using System.Security;
-    using System.Diagnostics.Contracts;
-
     internal static class Hex
     {
         static char HexDigit(int num)

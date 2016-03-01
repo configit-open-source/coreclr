@@ -1,8 +1,5 @@
 namespace System.Runtime.CompilerServices
 {
-    using System;
-    using System.Runtime.InteropServices;
-
     public enum LoadHint
     {
         Default = 0x0000,

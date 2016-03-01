@@ -1,11 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.Serialization;
+
 namespace System.Text
 {
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-
     internal class ISCIIEncoding : EncodingNLS, ISerializable
     {
         private const int CodeDefault = 0;

@@ -1,12 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Reflection;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public sealed class GenericTypeParameterBuilder : TypeInfo
     {
         public override bool IsAssignableFrom(System.Reflection.TypeInfo typeInfo)

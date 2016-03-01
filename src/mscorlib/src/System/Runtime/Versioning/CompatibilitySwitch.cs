@@ -1,7 +1,3 @@
-using System;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-
 namespace System.Runtime.Versioning
 {
     public static class CompatibilitySwitch

@@ -1,17 +1,6 @@
-using System;
-using System.Reflection;
-using System.Globalization;
-using System.Threading;
-using System.Diagnostics;
-using System.Security.Permissions;
-using System.Collections;
-using System.Runtime.CompilerServices;
-using System.Security;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Configuration.Assemblies;
-using System.Runtime.Versioning;
 using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace System.Reflection
 {

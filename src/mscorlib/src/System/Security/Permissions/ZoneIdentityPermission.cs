@@ -1,12 +1,8 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Permissions
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-
     sealed public class ZoneIdentityPermission : CodeAccessPermission, IBuiltInPermission
     {
         private const uint AllZones = 0x1f;

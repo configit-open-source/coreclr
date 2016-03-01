@@ -1,13 +1,8 @@
+using System.Collections.Generic;
+using System.Security.Util;
+
 namespace System.Security.Permissions
 {
-    using System;
-    using SiteString = System.Security.Util.SiteString;
-    using System.Text;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-
     sealed public class SiteIdentityPermission : CodeAccessPermission, IBuiltInPermission
     {
         private bool m_unrestricted;

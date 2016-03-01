@@ -1,19 +1,17 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+using System.Security.Util;
+using System.Text;
+
+using Microsoft.Win32;
+
 namespace System.Security.Cryptography.X509Certificates
 {
-    using Microsoft.Win32;
-    using System;
-    using System.IO;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Security.Util;
-    using System.Text;
-    using System.Runtime.Versioning;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public enum X509ContentType
     {
         Unknown = 0x00,

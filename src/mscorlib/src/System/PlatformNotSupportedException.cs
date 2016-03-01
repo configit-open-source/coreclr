@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class PlatformNotSupportedException : NotSupportedException
     {
         public PlatformNotSupportedException(): base (Environment.GetResourceString("Arg_PlatformNotSupported"))

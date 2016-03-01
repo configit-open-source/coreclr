@@ -1,11 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Security.Util;
+using System.Text;
+
 namespace System.Security.Cryptography
 {
-    using System.Text;
-    using System.Runtime.Serialization;
-    using System.Security.Util;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public struct DSAParameters
     {
         public byte[] P;

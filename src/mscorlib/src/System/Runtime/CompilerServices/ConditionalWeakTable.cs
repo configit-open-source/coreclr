@@ -1,10 +1,7 @@
+using System.Collections.Generic;
+
 namespace System.Runtime.CompilerServices
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.Versioning;
-    using System.Runtime.InteropServices;
-
     public sealed class ConditionalWeakTable<TKey, TValue>
         where TKey : class where TValue : class
     {

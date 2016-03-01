@@ -1,13 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
+using System.Text;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Security;
-    using System.Globalization;
-    using System.Text;
-    using System.Runtime.Versioning;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-
     public sealed class IdnMapping
     {
         const int M_labelLimit = 63;
@@ -646,7 +642,7 @@ namespace System.Globalization
         private const int IDN_ALLOW_UNASSIGNED = 0x1;
         private const int IDN_USE_STD3_ASCII_RULES = 0x2;
         private const int ERROR_INVALID_NAME = 123;
-        private static extern int IdnToAscii(uint dwFlags, [InAttribute()][MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)] String lpUnicodeCharStr, int cchUnicodeChar, [System.Runtime.InteropServices.OutAttribute()] char[] lpASCIICharStr, int cchASCIIChar);
-        private static extern int IdnToUnicode(uint dwFlags, [InAttribute()][MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lpASCIICharStr, int cchASCIIChar, [System.Runtime.InteropServices.OutAttribute()] char[] lpUnicodeCharStr, int cchUnicodeChar);
+        private static extern int IdnToAscii(uint dwFlags, [In()][MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPWStr)] String lpUnicodeCharStr, int cchUnicodeChar, [Out()] char[] lpASCIICharStr, int cchASCIIChar);
+        private static extern int IdnToUnicode(uint dwFlags, [In()][MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lpASCIICharStr, int cchASCIIChar, [Out()] char[] lpUnicodeCharStr, int cchUnicodeChar);
     }
 }

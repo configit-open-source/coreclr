@@ -1,7 +1,5 @@
 namespace System.Diagnostics.SymbolStore
 {
-    using System;
-
     public class SymLanguageType
     {
         public static readonly Guid C = new Guid(0x63a08714, unchecked ((short)0xfc37), 0x11d2, 0x90, 0x4c, 0x0, 0xc0, 0x4f, 0xa3, 0x02, 0xa1);

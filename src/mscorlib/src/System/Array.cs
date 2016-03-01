@@ -1,17 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
+
 namespace System
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public abstract class Array : ICloneable, IList, IStructuralComparable, IStructuralEquatable
     {
         internal Array()
@@ -481,7 +476,7 @@ namespace System
             [Pure]
             [System.Security.SecuritySafeCritical]
             [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             get;
         }
 

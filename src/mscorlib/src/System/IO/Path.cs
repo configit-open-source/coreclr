@@ -1,14 +1,10 @@
-using System;
-using System.Security.Permissions;
-using Win32Native = Microsoft.Win32.Win32Native;
-using System.Text;
+using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
-using System.Runtime.CompilerServices;
-using System.Globalization;
-using System.Runtime.Versioning;
-using System.Diagnostics.Contracts;
+using System.Text;
+
+using Microsoft.Win32;
 
 namespace System.IO
 {

@@ -1,10 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Threading
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Threading;
-    using System.Runtime.InteropServices;
-
     public class AbandonedMutexException : SystemException
     {
         private int m_MutexIndex = -1;

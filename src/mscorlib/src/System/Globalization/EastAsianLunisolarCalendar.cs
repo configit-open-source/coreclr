@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public abstract class EastAsianLunisolarCalendar : Calendar
     {
         internal const int LeapMonth = 0;

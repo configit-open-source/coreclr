@@ -1,7 +1,5 @@
 namespace System
 {
-    using System;
-
     public struct RuntimeArgumentHandle
     {
         private IntPtr m_ptr;

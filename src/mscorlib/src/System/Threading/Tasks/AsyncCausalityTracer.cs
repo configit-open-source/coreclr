@@ -1,10 +1,8 @@
-using System;
-using System.Security;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+
 using WFD = Windows.Foundation.Diagnostics;
 
 namespace System.Threading.Tasks

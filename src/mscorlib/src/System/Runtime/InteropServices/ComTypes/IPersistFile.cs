@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices.ComTypes
 {
-    using System;
-
     public interface IPersistFile
     {
         void GetClassID(out Guid pClassID);

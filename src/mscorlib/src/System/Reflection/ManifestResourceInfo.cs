@@ -1,7 +1,5 @@
 namespace System.Reflection
 {
-    using System;
-
     public class ManifestResourceInfo
     {
         private Assembly _containingAssembly;

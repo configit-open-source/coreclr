@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
-
     public class KoreanCalendar : Calendar
     {
         public const int KoreanEra = 1;

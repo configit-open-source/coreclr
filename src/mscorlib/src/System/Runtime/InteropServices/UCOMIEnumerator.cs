@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-
     internal interface UCOMIEnumerator
     {
         bool MoveNext();

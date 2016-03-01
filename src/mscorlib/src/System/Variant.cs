@@ -1,14 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
 namespace System
 {
-    using System;
-    using System.Reflection;
-    using System.Threading;
-    using System.Runtime.InteropServices;
-    using System.Globalization;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     internal struct Variant
     {
         private Object m_objref;

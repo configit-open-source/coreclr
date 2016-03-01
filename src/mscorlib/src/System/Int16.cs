@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-
     public struct Int16 : IComparable, IFormattable, IConvertible, IComparable<Int16>, IEquatable<Int16>
     {
         internal short m_value;

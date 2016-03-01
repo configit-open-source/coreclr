@@ -1,13 +1,12 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace System.Security.Cryptography
 {
-    using System;
-    using System.IO;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Runtime.CompilerServices;
-
     public enum CryptoStreamMode
     {
         Read = 0,

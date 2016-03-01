@@ -1,15 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Threading
 {
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Runtime.ConstrainedExecution;
-    using System.Diagnostics.Contracts;
-    using System.Collections.Concurrent;
-
     public struct NativeOverlapped
     {
         public IntPtr InternalLow;

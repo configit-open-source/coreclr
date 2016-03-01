@@ -1,7 +1,5 @@
 namespace System.Collections
 {
-    using System.Diagnostics;
-
     internal class KeyValuePairs
     {
         private object key;

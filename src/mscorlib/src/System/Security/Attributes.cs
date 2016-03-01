@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace System.Security
 {
     sealed internal class DynamicSecurityMethodAttribute : System.Attribute

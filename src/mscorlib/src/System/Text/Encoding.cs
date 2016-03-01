@@ -1,20 +1,11 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.Serialization;
+using System.Threading;
+
 namespace System.Text
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Runtime;
-    using System.Runtime.Remoting;
-    using System.Runtime.Serialization;
-    using System.Globalization;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Threading;
-    using System.Text;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
-    using Win32Native = Microsoft.Win32.Win32Native;
-
     public abstract class Encoding : ICloneable
     {
         private static volatile Encoding defaultEncoding;

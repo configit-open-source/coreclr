@@ -1,14 +1,10 @@
-using Microsoft.Win32;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Security.Permissions;
-using System.Threading;
-using System;
-using Contract = System.Diagnostics.Contracts.Contract;
+
+using Microsoft.Win32;
 
 namespace System.Diagnostics.Tracing
 {

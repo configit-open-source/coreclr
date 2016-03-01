@@ -1,8 +1,5 @@
 namespace System.Reflection
 {
-    using System;
-    using System.Globalization;
-
     internal class __Filters
     {
         public virtual bool FilterTypeName(Type cls, Object filterCriteria)

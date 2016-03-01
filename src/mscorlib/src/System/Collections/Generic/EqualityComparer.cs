@@ -1,16 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security;
+using System.Diagnostics.Contracts;
 using System.Runtime.Serialization;
 
 namespace System.Collections.Generic
 {
-    using System.Globalization;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.Diagnostics.Contracts;
-
     public abstract class EqualityComparer<T> : IEqualityComparer, IEqualityComparer<T>
     {
         static volatile EqualityComparer<T> defaultComparer;

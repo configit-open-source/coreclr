@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System
 {
-    using System.Globalization;
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-
     public struct SByte : IComparable, IFormattable, IConvertible, IComparable<SByte>, IEquatable<SByte>
     {
         private sbyte m_value;

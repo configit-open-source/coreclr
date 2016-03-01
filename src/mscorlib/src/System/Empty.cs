@@ -1,11 +1,8 @@
 using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
 
 namespace System
 {
-    using System;
-    using System.Runtime.Remoting;
-    using System.Runtime.Serialization;
-
     internal sealed class Empty : ISerializable
     {
         private Empty()

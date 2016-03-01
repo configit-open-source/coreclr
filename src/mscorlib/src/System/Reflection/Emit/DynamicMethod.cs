@@ -1,17 +1,13 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.CompilerServices;
+using System.Security;
+using System.Security.Permissions;
+using System.Threading;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Collections.Generic;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.Reflection;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Threading;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-    using System.Runtime.InteropServices;
-
     public sealed class DynamicMethod : MethodInfo
     {
         private RuntimeType[] m_parameterTypes;

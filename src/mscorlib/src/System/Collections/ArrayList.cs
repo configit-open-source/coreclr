@@ -1,15 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
+
 namespace System.Collections
 {
-    using System;
-    using System.Runtime;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Diagnostics;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
-
     public class ArrayList : IList, ICloneable
     {
         private Object[] _items;

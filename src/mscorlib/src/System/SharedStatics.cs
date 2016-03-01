@@ -1,14 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Security.Util;
+using System.Threading;
+
 namespace System
 {
-    using System.Threading;
-    using System.Runtime.Remoting;
-    using System.Security;
-    using System.Security.Util;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Diagnostics.Contracts;
-    using StringMaker = System.Security.Util.Tokenizer.StringMaker;
-
     internal sealed class SharedStatics
     {
         private static SharedStatics _sharedStatics;
@@ -47,10 +43,10 @@ namespace System
             }
         }
 
-        private StringMaker _maker;
-        static public StringMaker GetSharedStringMaker()
+        private Tokenizer.StringMaker _maker;
+        static public Tokenizer.StringMaker GetSharedStringMaker()
         {
-            StringMaker maker = null;
+            Tokenizer.StringMaker maker = null;
             bool tookLock = false;
             RuntimeHelpers.PrepareConstrainedRegions();
             try
@@ -70,13 +66,13 @@ namespace System
 
             if (maker == null)
             {
-                maker = new StringMaker();
+                maker = new Tokenizer.StringMaker();
             }
 
             return maker;
         }
 
-        static public void ReleaseSharedStringMaker(ref StringMaker maker)
+        static public void ReleaseSharedStringMaker(ref Tokenizer.StringMaker maker)
         {
             bool tookLock = false;
             RuntimeHelpers.PrepareConstrainedRegions();

@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
-
     public class TaiwanCalendar : Calendar
     {
         static internal EraInfo[] taiwanEraInfo = new EraInfo[]{new EraInfo(1, 1912, 1, 1, 1911, 1, GregorianCalendar.MaxYear - 1911)};

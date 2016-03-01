@@ -1,11 +1,7 @@
-using System;
 using System.Runtime.InteropServices;
-using Win32Native = Microsoft.Win32.Win32Native;
-using System.Text;
-using System.Globalization;
 using System.Security;
-using System.Security.Permissions;
-using System.Diagnostics.Contracts;
+
+using Microsoft.Win32;
 
 namespace System.IO
 {

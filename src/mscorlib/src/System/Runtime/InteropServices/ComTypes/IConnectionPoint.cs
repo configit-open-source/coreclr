@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices.ComTypes
 {
-    using System;
-
     public interface IConnectionPoint
     {
         void GetConnectionInterface(out Guid pIID);

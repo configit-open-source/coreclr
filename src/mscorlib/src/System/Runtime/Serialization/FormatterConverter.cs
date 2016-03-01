@@ -1,9 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System.Runtime.Serialization
 {
-    using System;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public class FormatterConverter : IFormatterConverter
     {
         public FormatterConverter()

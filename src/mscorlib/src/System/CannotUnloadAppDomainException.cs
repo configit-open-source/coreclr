@@ -1,7 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System.Runtime.Serialization;
-
     public class CannotUnloadAppDomainException : SystemException
     {
         public CannotUnloadAppDomainException(): base (Environment.GetResourceString("Arg_CannotUnloadAppDomainException"))

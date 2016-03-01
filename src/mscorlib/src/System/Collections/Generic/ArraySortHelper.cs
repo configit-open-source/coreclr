@@ -1,11 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Versioning;
+
 namespace System.Collections.Generic
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.CompilerServices;
-    using System.Diagnostics.Contracts;
-    using System.Runtime.Versioning;
-
     internal interface IArraySortHelper<TKey>
     {
         void Sort(TKey[] keys, int index, int length, IComparer<TKey> comparer);

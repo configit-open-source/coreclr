@@ -1,9 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Text;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Text;
-    using System.Diagnostics.Contracts;
-
     internal struct HebrewNumberParsingContext
     {
         internal HebrewNumber.HS state;

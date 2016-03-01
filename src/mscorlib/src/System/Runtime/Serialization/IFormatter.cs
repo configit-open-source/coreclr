@@ -1,9 +1,7 @@
+using System.IO;
+
 namespace System.Runtime.Serialization
 {
-    using System.Runtime.Remoting;
-    using System;
-    using System.IO;
-
     public interface IFormatter
     {
         Object Deserialize(Stream serializationStream);

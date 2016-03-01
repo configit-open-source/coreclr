@@ -1,14 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Threading;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Reflection;
-    using System.Security;
-    using System.Diagnostics.Contracts;
-
     public static class CharUnicodeInfo
     {
         internal const char HIGH_SURROGATE_START = '\ud800';

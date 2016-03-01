@@ -1,5 +1,3 @@
-using System;
-
 namespace System.Runtime.Versioning
 {
     [Flags]

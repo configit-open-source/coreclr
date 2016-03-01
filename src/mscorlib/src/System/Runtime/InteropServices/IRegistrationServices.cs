@@ -1,10 +1,7 @@
+using System.Reflection;
+
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Reflection;
-    using System.Security;
-    using System.Security.Permissions;
-
     public enum AssemblyRegistrationFlags
     {
         None = 0x00000000,

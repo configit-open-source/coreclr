@@ -1,14 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Diagnostics.SymbolStore;
+using System.IO;
+using System.Runtime.InteropServices;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using TextWriter = System.IO.TextWriter;
-    using System.Diagnostics.SymbolStore;
-    using System.Runtime.InteropServices;
-    using System.Reflection;
-    using System.Security.Permissions;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public class ILGenerator : _ILGenerator
     {
         private const int defaultSize = 16;

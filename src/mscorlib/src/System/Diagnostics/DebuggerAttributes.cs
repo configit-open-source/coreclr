@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Diagnostics
 {
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-
     public sealed class DebuggerStepThroughAttribute : Attribute
     {
         public DebuggerStepThroughAttribute()

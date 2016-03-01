@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-
     public interface UCOMIConnectionPoint
     {
         void GetConnectionInterface(out Guid pIID);

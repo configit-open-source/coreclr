@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Windows.Foundation.Diagnostics

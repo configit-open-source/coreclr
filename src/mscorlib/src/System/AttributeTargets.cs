@@ -1,7 +1,5 @@
 namespace System
 {
-    using System;
-
     [Flags]
     public enum AttributeTargets
     {

@@ -1,20 +1,7 @@
+using System.Security.Permissions;
+
 namespace System.Security
 {
-    using System;
-    using System.Security.Util;
-    using System.Security.Permissions;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.Contracts;
-    using Microsoft.Win32;
-    using System.Collections;
-    using System.Globalization;
-    using System.IO;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Remoting;
-    using System.Runtime.Versioning;
-    using System.Text;
-
     public sealed class NamedPermissionSet : PermissionSet
     {
         internal static PermissionSet GetBuiltInSet(string name)

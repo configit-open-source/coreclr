@@ -1,5 +1,3 @@
-using System;
-
 namespace System.IO
 {
     [Flags]

@@ -1,13 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Security;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Security;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public sealed class WeakReference<T> : ISerializable where T : class
     {
         internal IntPtr m_handle;
@@ -47,10 +44,10 @@ namespace System
 
         private extern T Target
         {
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             [SecuritySafeCritical]
             get;
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             [SecuritySafeCritical]
             set;
         }

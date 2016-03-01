@@ -1,17 +1,16 @@
-using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Security;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.StubHelpers;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 [assembly: Guid("BED7F4EA-1A96-11d2-8F08-00A0C9A6186D")]
 [assembly: System.Runtime.InteropServices.ComCompatibleVersion(1, 0, 3300, 0)]
 [assembly: System.Runtime.InteropServices.TypeLibVersion(2, 4)]
-[assembly: DefaultDependencyAttribute(LoadHint.Always)]
-[assembly: System.Runtime.CompilerServices.StringFreezingAttribute()]
+[assembly: DefaultDependency(LoadHint.Always)]
+[assembly: StringFreezing()]
 namespace System
 {
     static class Internal

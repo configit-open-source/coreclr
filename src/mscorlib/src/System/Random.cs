@@ -1,11 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System
 {
-    using System;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public class Random
     {
         private const int MBIG = Int32.MaxValue;

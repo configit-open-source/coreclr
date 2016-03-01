@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Text
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public class UTF7Encoding : Encoding
     {
         private const String base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";

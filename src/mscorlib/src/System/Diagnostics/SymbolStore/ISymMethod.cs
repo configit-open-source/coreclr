@@ -1,8 +1,5 @@
 namespace System.Diagnostics.SymbolStore
 {
-    using System.Runtime.InteropServices;
-    using System;
-
     public interface ISymbolMethod
     {
         SymbolToken Token

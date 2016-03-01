@@ -1,7 +1,5 @@
 namespace System.Runtime.CompilerServices
 {
-    using System;
-
     public sealed class RuntimeCompatibilityAttribute : Attribute
     {
         private bool m_wrapNonExceptionThrows;

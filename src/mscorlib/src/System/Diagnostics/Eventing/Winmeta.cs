@@ -1,7 +1,5 @@
 namespace System.Diagnostics.Tracing
 {
-    using System;
-
     public enum EventLevel
     {
         LogAlways = 0,

@@ -1,7 +1,5 @@
 namespace System.Reflection
 {
-    using System;
-
     public struct InterfaceMapping
     {
         public Type TargetType;

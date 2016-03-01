@@ -1,23 +1,17 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Diagnostics.SymbolStore;
+using System.Globalization;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Security.Permissions;
+using System.Security.Policy;
+using System.Threading;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.SymbolStore;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.IO;
-    using System.Reflection;
-    using System.Resources;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization;
-    using System.Runtime.Versioning;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Security.Policy;
-    using System.Threading;
-
     [Flags]
     internal enum DynamicAssemblyFlags
     {

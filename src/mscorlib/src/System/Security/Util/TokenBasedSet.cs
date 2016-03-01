@@ -1,13 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+using System.Threading;
+
 namespace System.Security.Util
 {
-    using System;
-    using System.Collections;
-    using System.Security.Permissions;
-    using System.Runtime.Serialization;
-    using System.Threading;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.CodeAnalysis;
-
     internal class TokenBasedSet
     {
         private int m_initSize = 24;

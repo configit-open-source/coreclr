@@ -1,5 +1,3 @@
-using System;
-
 namespace System
 {
     internal static partial class AppContextDefaultValues

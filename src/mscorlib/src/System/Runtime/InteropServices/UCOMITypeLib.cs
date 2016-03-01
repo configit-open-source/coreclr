@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-
     public enum SYSKIND
     {
         SYS_WIN16 = 0,

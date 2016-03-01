@@ -1,17 +1,11 @@
+using System.Diagnostics.Contracts;
+using System.Security;
+
+using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
+
 namespace System.IO.IsolatedStorage
 {
-    using System;
-    using System.IO;
-    using Microsoft.Win32;
-    using Microsoft.Win32.SafeHandles;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Threading;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public class IsolatedStorageFileStream : FileStream
     {
         private const int s_BlockSize = 1024;

@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public sealed class InvalidProgramException : SystemException
     {
         public InvalidProgramException(): base (Environment.GetResourceString("InvalidProgram_Default"))

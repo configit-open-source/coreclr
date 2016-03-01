@@ -1,14 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
+
 namespace System.Resources
 {
-    using System;
-    using System.IO;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Reflection;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     internal sealed class RuntimeResourceSet : ResourceSet, IEnumerable
     {
         internal const int Version = 2;

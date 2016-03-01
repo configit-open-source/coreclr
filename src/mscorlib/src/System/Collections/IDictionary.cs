@@ -1,8 +1,5 @@
 namespace System.Collections
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public interface IDictionary : ICollection
     {
         Object this[Object key]

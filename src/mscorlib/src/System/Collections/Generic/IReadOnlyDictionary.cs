@@ -1,6 +1,3 @@
-using System;
-using System.Diagnostics.Contracts;
-
 namespace System.Collections.Generic
 {
     public interface IReadOnlyDictionary<TKey, TValue> : IReadOnlyCollection<KeyValuePair<TKey, TValue>>

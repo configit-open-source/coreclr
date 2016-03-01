@@ -1,15 +1,8 @@
+using System.Reflection;
+using System.Threading;
+
 namespace System.Security
 {
-    using System;
-    using System.Globalization;
-    using System.Threading;
-    using System.Reflection;
-    using System.Collections;
-    using System.Runtime.CompilerServices;
-    using System.Security.Permissions;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     internal class SecurityRuntime
     {
         private SecurityRuntime()

@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Collections
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public abstract class CollectionBase : IList
     {
         ArrayList list;

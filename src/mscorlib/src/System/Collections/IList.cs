@@ -1,8 +1,5 @@
 namespace System.Collections
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public interface IList : ICollection
     {
         Object this[int index]

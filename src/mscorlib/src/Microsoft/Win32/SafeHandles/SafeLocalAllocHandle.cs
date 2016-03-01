@@ -1,10 +1,8 @@
+using System;
+using System.Runtime.InteropServices;
+
 namespace Microsoft.Win32.SafeHandles
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.ConstrainedExecution;
-
     internal sealed class SafeLocalAllocHandle : SafeBuffer
     {
         private SafeLocalAllocHandle(): base (true)

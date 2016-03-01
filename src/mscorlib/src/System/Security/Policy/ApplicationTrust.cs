@@ -1,17 +1,8 @@
+using System.Collections.Generic;
+using System.Security.Permissions;
+
 namespace System.Security.Policy
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Security.Permissions;
-    using System.Security.Util;
-    using System.Text;
-    using System.Threading;
-    using System.Diagnostics.Contracts;
-
     public enum ApplicationVersionMatch
     {
         MatchExactVersion,

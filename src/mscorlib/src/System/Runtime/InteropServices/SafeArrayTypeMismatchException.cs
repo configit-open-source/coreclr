@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class SafeArrayTypeMismatchException : SystemException
     {
         public SafeArrayTypeMismatchException(): base (Environment.GetResourceString("Arg_SafeArrayTypeMismatchException"))

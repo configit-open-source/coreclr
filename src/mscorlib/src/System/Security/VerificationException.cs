@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Security
 {
-    using System.Security;
-    using System;
-    using System.Runtime.Serialization;
-
     public class VerificationException : SystemException
     {
         public VerificationException(): base (Environment.GetResourceString("Verification_Exception"))

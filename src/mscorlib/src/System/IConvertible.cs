@@ -1,8 +1,5 @@
 namespace System
 {
-    using System.Diagnostics.Contracts;
-    using System.Threading;
-
     public interface IConvertible
     {
         TypeCode GetTypeCode();

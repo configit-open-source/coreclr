@@ -1,18 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
+using Microsoft.Win32.SafeHandles;
+
 namespace System.Security
 {
-    using System.Text;
-    using System.Runtime.CompilerServices;
-    using System.Threading;
-    using System;
-    using System.Collections;
-    using System.Security.Permissions;
-    using System.Globalization;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-    using Microsoft.Win32.SafeHandles;
-    using System.Security.Principal;
-
     internal class FrameSecurityDescriptor
     {
         private PermissionSet m_assertions;

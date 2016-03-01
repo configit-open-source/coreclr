@@ -1,8 +1,5 @@
 namespace System.Diagnostics.SymbolStore
 {
-    using System;
-    using System.Runtime.InteropServices;
-
     public interface ISymbolReader
     {
         ISymbolDocument GetDocument(String url, Guid language, Guid languageVendor, Guid documentType);

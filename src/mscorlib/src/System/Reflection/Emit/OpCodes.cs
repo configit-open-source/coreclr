@@ -1,8 +1,5 @@
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Security.Permissions;
-
     internal enum OpCodeValues
     {
         Nop = 0x00,

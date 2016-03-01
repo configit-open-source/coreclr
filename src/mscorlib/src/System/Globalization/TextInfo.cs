@@ -1,18 +1,8 @@
-using System.Security;
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
 
 namespace System.Globalization
 {
-    using System;
-    using System.Text;
-    using System.Threading;
-    using System.Runtime;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Serialization;
-    using System.Runtime.Versioning;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public class TextInfo : ICloneable, IDeserializationCallback
     {
         private String m_listSeparator;

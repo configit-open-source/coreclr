@@ -1,11 +1,10 @@
-using System;
-using System.Text;
-using System.Runtime.InteropServices;
-using Microsoft.Win32;
-using System.Security.Permissions;
-using System.Runtime.Serialization;
-using System.Runtime.Versioning;
 using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+using System.Text;
+
+using Microsoft.Win32;
 
 namespace System.IO
 {

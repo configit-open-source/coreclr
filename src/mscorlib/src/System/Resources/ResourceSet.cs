@@ -1,16 +1,9 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+using System.IO;
+
 namespace System.Resources
 {
-    using System;
-    using System.Collections;
-    using System.IO;
-    using System.Globalization;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-    using System.Reflection;
-    using System.Runtime.Serialization;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public class ResourceSet : IDisposable, IEnumerable
     {
         protected IResourceReader Reader;

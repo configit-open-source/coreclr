@@ -1,9 +1,7 @@
+using System.Reflection;
+
 namespace System
 {
-    using System;
-    using System.Reflection;
-    using System.Globalization;
-
     internal class __Filters
     {
         internal static readonly __Filters Instance = new __Filters();

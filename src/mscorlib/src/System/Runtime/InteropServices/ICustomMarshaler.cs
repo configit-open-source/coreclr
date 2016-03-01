@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-
     public interface ICustomMarshaler
     {
         Object MarshalNativeToManaged(IntPtr pNativeData);

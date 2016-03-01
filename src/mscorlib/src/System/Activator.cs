@@ -1,19 +1,14 @@
+using System.Configuration.Assemblies;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.Remoting;
+using System.Security.Policy;
+using System.Threading;
+
 namespace System
 {
-    using System;
-    using System.Reflection;
-    using System.Runtime.Remoting;
-    using System.Security;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using Evidence = System.Security.Policy.Evidence;
-    using StackCrawlMark = System.Threading.StackCrawlMark;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Security.Permissions;
-    using AssemblyHashAlgorithm = System.Configuration.Assemblies.AssemblyHashAlgorithm;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public sealed class Activator : _Activator
     {
         internal const int LookupMask = 0x000000FF;

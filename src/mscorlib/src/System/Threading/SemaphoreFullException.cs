@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Threading
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Runtime.InteropServices;
-
     public class SemaphoreFullException : SystemException
     {
         public SemaphoreFullException(): base (Environment.GetResourceString("Threading_SemaphoreFullException"))

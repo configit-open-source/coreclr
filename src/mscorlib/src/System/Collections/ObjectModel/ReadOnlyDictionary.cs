@@ -1,11 +1,8 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+
 namespace System.Collections.ObjectModel
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-
     public class ReadOnlyDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, IReadOnlyDictionary<TKey, TValue>
     {
         private readonly IDictionary<TKey, TValue> m_dictionary;

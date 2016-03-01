@@ -1,5 +1,3 @@
-using System;
-
 namespace System.Collections
 {
     public static class StructuralComparisons

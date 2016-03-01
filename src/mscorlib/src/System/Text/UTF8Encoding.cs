@@ -1,11 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.Serialization;
+
 namespace System.Text
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public class UTF8Encoding : Encoding
     {
         private const int UTF8_CODEPAGE = 65001;

@@ -1,15 +1,10 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization;
-    using System.Runtime.ConstrainedExecution;
-    using System.Security.Permissions;
-    using RuntimeTypeCache = System.RuntimeType.RuntimeTypeCache;
-
     public abstract class EventInfo : MemberInfo, _EventInfo
     {
         protected EventInfo()
@@ -158,7 +153,7 @@ namespace System.Reflection
         private EventAttributes m_flags;
         private string m_name;
         private void *m_utf8name;
-        private RuntimeTypeCache m_reflectedTypeCache;
+        private RuntimeType.RuntimeTypeCache m_reflectedTypeCache;
         private RuntimeMethodInfo m_addMethod;
         private RuntimeMethodInfo m_removeMethod;
         private RuntimeMethodInfo m_raiseMethod;
@@ -169,7 +164,7 @@ namespace System.Reflection
         {
         }
 
-        internal RuntimeEventInfo(int tkEvent, RuntimeType declaredType, RuntimeTypeCache reflectedTypeCache, out bool isPrivate)
+        internal RuntimeEventInfo(int tkEvent, RuntimeType declaredType, RuntimeType.RuntimeTypeCache reflectedTypeCache, out bool isPrivate)
         {
             Contract.Requires(declaredType != null);
             Contract.Requires(reflectedTypeCache != null);

@@ -1,12 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Reflection;
-    using System.Runtime;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.Contracts;
-    using System.Reflection.Emit;
-
     public abstract class MulticastDelegate : Delegate
     {
         private Object _invocationList;

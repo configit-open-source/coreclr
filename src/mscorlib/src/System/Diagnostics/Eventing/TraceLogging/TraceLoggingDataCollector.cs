@@ -1,6 +1,3 @@
-using System;
-using System.Security;
-
 namespace System.Diagnostics.Tracing
 {
     internal unsafe class TraceLoggingDataCollector

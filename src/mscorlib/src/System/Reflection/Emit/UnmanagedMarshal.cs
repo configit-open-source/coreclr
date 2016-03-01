@@ -1,9 +1,7 @@
+using System.Runtime.InteropServices;
+
 namespace System.Reflection.Emit
 {
-    using System.Runtime.InteropServices;
-    using System;
-    using System.Security.Permissions;
-
     public sealed class UnmanagedMarshal
     {
         public static UnmanagedMarshal DefineUnmanagedMarshal(UnmanagedType unmanagedType)

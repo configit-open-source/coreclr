@@ -1,24 +1,14 @@
+using System.Diagnostics.Contracts;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Security;
+using System.Threading;
+
 namespace System
 {
-    using System;
-    using System.Reflection;
-    using System.Reflection.Emit;
-    using System.Runtime;
-    using System.Runtime.ConstrainedExecution;
-    using System.Diagnostics;
-    using System.Runtime.Serialization;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Threading;
-    using System.Runtime.Versioning;
-    using System.Text;
-    using System.Globalization;
-    using System.Security;
-    using System.Security.Permissions;
-    using Microsoft.Win32.SafeHandles;
-    using System.Diagnostics.Contracts;
-    using StackCrawlMark = System.Threading.StackCrawlMark;
-
     public unsafe struct RuntimeTypeHandle : ISerializable
     {
         internal RuntimeTypeHandle GetNativeHandle()

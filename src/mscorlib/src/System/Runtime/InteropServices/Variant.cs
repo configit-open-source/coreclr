@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System.Diagnostics;
-
     internal struct Variant
     {
         static Variant()

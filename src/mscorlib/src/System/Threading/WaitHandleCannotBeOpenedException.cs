@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Threading
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Runtime.InteropServices;
-
     public class WaitHandleCannotBeOpenedException : Exception
     {
         public WaitHandleCannotBeOpenedException(): base (Environment.GetResourceString("Threading.WaitHandleCannotBeOpenedException"))

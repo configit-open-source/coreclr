@@ -1,8 +1,5 @@
 namespace System.Runtime.Serialization
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class SerializationException : SystemException
     {
         private static String _nullMessage = Environment.GetResourceString("Arg_SerializationException");

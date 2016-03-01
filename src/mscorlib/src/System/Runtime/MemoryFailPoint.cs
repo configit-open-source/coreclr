@@ -1,13 +1,11 @@
-using System;
+using System.Diagnostics.Contracts;
 using System.IO;
-using Microsoft.Win32;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
-using System.Security.Permissions;
-using System.Runtime.Versioning;
-using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
+using System.Threading;
+
+using Microsoft.Win32;
 
 namespace System.Runtime
 {

@@ -1,8 +1,5 @@
 namespace System.Text
 {
-    using System;
-    using System.Text;
-
     public sealed class EncodingInfo
     {
         int iCodePage;

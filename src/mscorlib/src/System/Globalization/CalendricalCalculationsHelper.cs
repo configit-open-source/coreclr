@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     internal class CalendricalCalculationsHelper
     {
         const double FullCircleOfArc = 360.0;

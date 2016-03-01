@@ -1,14 +1,5 @@
 namespace System.Diagnostics
 {
-    using System;
-    using System.Security.Permissions;
-    using System.IO;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.CodeAnalysis;
-
     internal static class Assert
     {
         internal const int COR_E_FAILFAST = unchecked ((int)0x80131623);

@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Threading;
+
 namespace System.Text
 {
-    using System;
-    using System.Text;
-    using System.Threading;
-    using System.Diagnostics.Contracts;
-
     internal sealed class InternalDecoderBestFitFallback : DecoderFallback
     {
         internal Encoding encoding = null;

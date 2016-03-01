@@ -1,9 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Text
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.Contracts;
-
     public sealed class EncoderExceptionFallback : EncoderFallback
     {
         public EncoderExceptionFallback()

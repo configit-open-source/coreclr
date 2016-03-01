@@ -1,13 +1,8 @@
+using System.Globalization;
+using System.Runtime.InteropServices;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.Security.Permissions;
-
     sealed public class EnumBuilder : TypeInfo, _EnumBuilder
     {
         public override bool IsAssignableFrom(System.Reflection.TypeInfo typeInfo)

@@ -1,17 +1,11 @@
+using System.Diagnostics.Contracts;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+using System.Security.Policy;
+
 namespace System.Security
 {
-    using System.Security;
-    using System;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Reflection;
-    using System.Text;
-    using System.Security.Policy;
-    using System.IO;
-    using System.Globalization;
-    using System.Security.Util;
-    using System.Diagnostics.Contracts;
-
     public class SecurityException : SystemException
     {
         internal static string GetResString(string sResourceName)

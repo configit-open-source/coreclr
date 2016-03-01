@@ -1,7 +1,5 @@
 namespace System.Reflection
 {
-    using System;
-
     public enum MemberTypes
     {
         Constructor = 0x01,

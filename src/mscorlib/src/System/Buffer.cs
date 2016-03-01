@@ -1,14 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-    using System.Security;
-    using System.Runtime;
-
     public static class Buffer
     {
         public static extern void BlockCopy(Array src, int srcOffset, Array dst, int dstOffset, int count);

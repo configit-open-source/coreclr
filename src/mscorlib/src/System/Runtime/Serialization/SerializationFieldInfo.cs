@@ -1,11 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Reflection;
+
 namespace System.Runtime.Serialization
 {
-    using System;
-    using System.Reflection;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-    using System.Threading;
-
     internal sealed class SerializationFieldInfo : FieldInfo
     {
         internal const String FakeNameSeparatorString = "+";

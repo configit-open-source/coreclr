@@ -1,9 +1,5 @@
-using System.Runtime.InteropServices;
-
 namespace System.Configuration.Assemblies
 {
-    using System;
-
     public enum AssemblyHashAlgorithm
     {
         None = 0,

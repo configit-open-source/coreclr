@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices.ComTypes
 {
-    using System;
-
     public interface IEnumConnectionPoints
     {
         int Next(int celt, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] IConnectionPoint[] rgelt, IntPtr pceltFetched);

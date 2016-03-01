@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Text
 {
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-
     public sealed class UTF32Encoding : Encoding
     {
         private bool emitUTF32ByteOrderMark = false;

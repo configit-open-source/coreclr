@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System.Runtime.Serialization;
-    using System.Runtime.CompilerServices;
-
     public class InvalidTimeZoneException : Exception
     {
         public InvalidTimeZoneException(String message): base (message)

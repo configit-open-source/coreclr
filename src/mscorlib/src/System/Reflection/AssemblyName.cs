@@ -1,16 +1,13 @@
+using System.Configuration.Assemblies;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+
 namespace System.Reflection
 {
-    using System;
-    using System.IO;
-    using System.Configuration.Assemblies;
-    using System.Runtime.CompilerServices;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public sealed class AssemblyName : _AssemblyName, ICloneable, ISerializable, IDeserializationCallback
     {
         private String _Name;

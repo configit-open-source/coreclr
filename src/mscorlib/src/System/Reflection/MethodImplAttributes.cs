@@ -1,7 +1,5 @@
 namespace System.Reflection
 {
-    using System;
-
     public enum MethodImplAttributes
     {
         CodeTypeMask = 0x0003,

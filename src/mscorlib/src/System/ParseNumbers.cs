@@ -1,9 +1,5 @@
 namespace System
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-
     internal static class ParseNumbers
     {
         internal const int PrintAsI1 = 0x40;

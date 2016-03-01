@@ -1,17 +1,11 @@
+using System.Diagnostics.Contracts;
+using System.Reflection;
+using System.Security.Permissions;
+using System.Security.Policy;
+using System.Threading;
+
 namespace System.Security
 {
-    using System;
-    using System.Threading;
-    using System.Security.Util;
-    using System.Collections;
-    using System.Runtime.CompilerServices;
-    using System.Security.Permissions;
-    using System.Reflection;
-    using System.Globalization;
-    using System.Security.Policy;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     internal enum PermissionType
     {
         SecurityUnmngdCodeAccess = 0,

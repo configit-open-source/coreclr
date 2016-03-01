@@ -1,6 +1,5 @@
-using System;
-using System.Runtime.InteropServices;
 using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
 
 namespace System.IO
 {

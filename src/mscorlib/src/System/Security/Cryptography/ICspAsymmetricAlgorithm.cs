@@ -1,8 +1,7 @@
+using System.Security.Permissions;
+
 namespace System.Security.Cryptography
 {
-    using System.Security.AccessControl;
-    using System.Security.Permissions;
-
     public enum KeyNumber
     {
         Exchange = 1,

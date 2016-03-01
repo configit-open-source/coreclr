@@ -1,8 +1,7 @@
+using System.Runtime.ConstrainedExecution;
+
 namespace System
 {
-    using System;
-    using System.Runtime.ConstrainedExecution;
-
     public class UnhandledExceptionEventArgs : EventArgs
     {
         private Object _Exception;

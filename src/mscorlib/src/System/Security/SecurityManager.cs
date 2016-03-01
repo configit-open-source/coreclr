@@ -1,20 +1,8 @@
+using System.Runtime.CompilerServices;
+using System.Security.Permissions;
+
 namespace System.Security
 {
-    using System;
-    using System.Security.Util;
-    using System.Security.Policy;
-    using System.Security.Permissions;
-    using System.Collections;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Text;
-    using System.Threading;
-    using System.Reflection;
-    using System.IO;
-    using System.Globalization;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public enum PolicyLevelType
     {
         User = 0,

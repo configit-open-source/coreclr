@@ -1,11 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Security.Permissions;
+
 namespace System.Security
 {
-    using IEnumerator = System.Collections.IEnumerator;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-
     sealed internal class PermissionSetTriple
     {
         static private volatile PermissionToken s_zoneToken;

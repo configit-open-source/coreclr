@@ -1,11 +1,9 @@
-using System;
-using System.IO;
-using Microsoft.Win32;
-using Microsoft.Win32.SafeHandles;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
+
+using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
 
 namespace System.IO.IsolatedStorage
 {

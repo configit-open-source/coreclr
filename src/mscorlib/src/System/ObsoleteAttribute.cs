@@ -1,8 +1,5 @@
 namespace System
 {
-    using System;
-    using System.Runtime.Remoting;
-
     public sealed class ObsoleteAttribute : Attribute
     {
         private String _message;

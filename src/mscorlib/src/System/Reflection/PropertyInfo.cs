@@ -1,18 +1,12 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Text;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-    using System.Runtime;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Text;
-    using RuntimeTypeCache = System.RuntimeType.RuntimeTypeCache;
-
     public abstract class PropertyInfo : MemberInfo, _PropertyInfo
     {
         protected PropertyInfo()
@@ -149,7 +143,7 @@ namespace System.Reflection
         private string m_name;
         private void *m_utf8name;
         private PropertyAttributes m_flags;
-        private RuntimeTypeCache m_reflectedTypeCache;
+        private RuntimeType.RuntimeTypeCache m_reflectedTypeCache;
         private RuntimeMethodInfo m_getterMethod;
         private RuntimeMethodInfo m_setterMethod;
         private MethodInfo[] m_otherMethod;
@@ -157,7 +151,7 @@ namespace System.Reflection
         private BindingFlags m_bindingFlags;
         private Signature m_signature;
         private ParameterInfo[] m_parameters;
-        internal RuntimePropertyInfo(int tkProperty, RuntimeType declaredType, RuntimeTypeCache reflectedTypeCache, out bool isPrivate)
+        internal RuntimePropertyInfo(int tkProperty, RuntimeType declaredType, RuntimeType.RuntimeTypeCache reflectedTypeCache, out bool isPrivate)
         {
             Contract.Requires(declaredType != null);
             Contract.Requires(reflectedTypeCache != null);

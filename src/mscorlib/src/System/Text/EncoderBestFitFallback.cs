@@ -1,11 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Threading;
+
 namespace System.Text
 {
-    using System;
-    using System.Globalization;
-    using System.Text;
-    using System.Threading;
-    using System.Diagnostics.Contracts;
-
     internal class InternalEncoderBestFitFallback : EncoderFallback
     {
         internal Encoding encoding = null;

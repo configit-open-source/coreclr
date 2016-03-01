@@ -1,6 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
-
 namespace System.Security.Cryptography
 {
     public abstract class Aes : SymmetricAlgorithm

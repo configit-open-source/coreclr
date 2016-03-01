@@ -1,9 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-
     public struct ArrayWithOffset
     {
         public ArrayWithOffset(Object array, int offset)

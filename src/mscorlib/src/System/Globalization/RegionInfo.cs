@@ -1,9 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.Contracts;
-
     public class RegionInfo
     {
         internal String m_name;

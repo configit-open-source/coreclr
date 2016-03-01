@@ -1,10 +1,8 @@
+using System.Collections;
+using System.Security.Util;
+
 namespace System.Security
 {
-    using System;
-    using System.Collections;
-    using TokenBasedSetEnumerator = System.Security.Util.TokenBasedSetEnumerator;
-    using TokenBasedSet = System.Security.Util.TokenBasedSet;
-
     internal class PermissionSetEnumerator : IEnumerator
     {
         PermissionSetEnumeratorInternal enm;

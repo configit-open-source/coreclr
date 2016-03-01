@@ -1,10 +1,8 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+
 namespace System.Collections.ObjectModel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-
     public abstract class KeyedCollection<TKey, TItem> : Collection<TItem>
     {
         const int defaultThreshold = 0;

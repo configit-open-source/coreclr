@@ -1,13 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Security.Util;
+
 namespace System.Security.Permissions
 {
-    using System.Security;
-    using System;
-    using SecurityElement = System.Security.SecurityElement;
-    using System.Security.Util;
-    using System.IO;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     [Flags]
     public enum EnvironmentPermissionAccess
     {

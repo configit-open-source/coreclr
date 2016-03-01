@@ -1,9 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Reflection;
+
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Reflection;
-    using System.Diagnostics.Contracts;
-
     public sealed class UnmanagedFunctionPointerAttribute : Attribute
     {
         CallingConvention m_callingConvention;

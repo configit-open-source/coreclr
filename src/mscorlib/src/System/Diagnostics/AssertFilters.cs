@@ -1,7 +1,5 @@
 namespace System.Diagnostics
 {
-    using System;
-
     internal enum AssertFilters
     {
         FailDebug = 0,

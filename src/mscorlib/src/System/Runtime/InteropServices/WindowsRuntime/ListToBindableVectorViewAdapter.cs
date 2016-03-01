@@ -1,12 +1,5 @@
-using System;
-using System.Security;
-using System.Reflection;
 using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
-using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
 {

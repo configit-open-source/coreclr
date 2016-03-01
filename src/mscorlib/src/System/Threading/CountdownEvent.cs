@@ -1,8 +1,3 @@
-using System;
-using System.Diagnostics;
-using System.Security.Permissions;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Diagnostics.Contracts;
 
 namespace System.Threading

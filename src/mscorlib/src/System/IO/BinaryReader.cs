@@ -1,12 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Text;
+
 namespace System.IO
 {
-    using System;
-    using System.Runtime;
-    using System.Text;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-    using System.Security;
-
     public class BinaryReader : IDisposable
     {
         private const int MaxCharBytesSize = 128;

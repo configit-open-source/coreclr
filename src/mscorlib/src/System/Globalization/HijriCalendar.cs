@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public class HijriCalendar : Calendar
     {
         public static readonly int HijriEra = 1;

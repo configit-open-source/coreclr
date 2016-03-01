@@ -1,11 +1,7 @@
+using System.Reflection;
+
 namespace System.Diagnostics.SymbolStore
 {
-    using System;
-    using System.Text;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-
     public interface ISymbolWriter
     {
         void Initialize(IntPtr emitter, String filename, bool fFullBuild);

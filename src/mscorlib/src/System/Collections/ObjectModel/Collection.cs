@@ -1,11 +1,7 @@
+using System.Collections.Generic;
+
 namespace System.Collections.ObjectModel
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Runtime;
-
     public class Collection<T> : IList<T>, IList, IReadOnlyList<T>
     {
         IList<T> items;

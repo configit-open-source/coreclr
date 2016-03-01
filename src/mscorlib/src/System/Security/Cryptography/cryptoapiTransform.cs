@@ -1,11 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Cryptography
 {
-    using System.Security.AccessControl;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     [Flags]
     public enum CspProviderFlags
     {

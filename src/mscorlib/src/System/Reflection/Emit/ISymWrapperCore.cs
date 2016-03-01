@@ -1,11 +1,9 @@
+using System.Diagnostics.SymbolStore;
+using System.Runtime.InteropServices;
+using System.Security;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Security;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Diagnostics.SymbolStore;
-
     class SymWrapperCore
     {
         private SymWrapperCore()

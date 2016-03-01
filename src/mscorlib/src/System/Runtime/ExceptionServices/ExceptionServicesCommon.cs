@@ -1,7 +1,5 @@
 namespace System.Runtime.ExceptionServices
 {
-    using System;
-
     public sealed class ExceptionDispatchInfo
     {
         private Exception m_Exception;

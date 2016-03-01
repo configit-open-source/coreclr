@@ -1,14 +1,10 @@
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Security.Permissions;
-    using System.Text;
-    using System.Threading;
-
     [Flags]
     internal enum INVOCATION_FLAGS : uint
     {

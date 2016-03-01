@@ -1,16 +1,8 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Permissions
 {
-    using System;
-    using System.Security.Util;
-    using System.IO;
-    using String = System.String;
-    using Version = System.Version;
-    using System.Security.Policy;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     sealed internal class StrongName2
     {
         public StrongNamePublicKeyBlob m_publicKeyBlob;

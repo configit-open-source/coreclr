@@ -1,14 +1,7 @@
+using System.IO;
+
 namespace System.Security.Util
 {
-    using System.Text;
-    using System.Runtime.InteropServices;
-    using System;
-    using BinaryReader = System.IO.BinaryReader;
-    using ArrayList = System.Collections.ArrayList;
-    using Stream = System.IO.Stream;
-    using StreamReader = System.IO.StreamReader;
-    using Encoding = System.Text.Encoding;
-
     sealed internal class Parser
     {
         private SecurityDocument _doc;

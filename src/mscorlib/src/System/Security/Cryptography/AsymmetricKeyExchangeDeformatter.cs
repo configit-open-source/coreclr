@@ -1,7 +1,5 @@
 namespace System.Security.Cryptography
 {
-    using System;
-
     public abstract class AsymmetricKeyExchangeDeformatter
     {
         protected AsymmetricKeyExchangeDeformatter()

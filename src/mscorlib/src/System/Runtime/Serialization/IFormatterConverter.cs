@@ -1,7 +1,5 @@
 namespace System.Runtime.Serialization
 {
-    using System;
-
     public interface IFormatterConverter
     {
         Object Convert(Object value, Type type);

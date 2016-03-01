@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices.ComTypes
 {
-    using System;
-
     public interface IEnumVARIANT
     {
         int Next(int celt, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] object[] rgVar, IntPtr pceltFetched);

@@ -1,8 +1,5 @@
 namespace System
 {
-    using System.Configuration.Assemblies;
-    using System;
-
     internal static class ResId
     {
         internal const String Arg_ArrayLengthsDiffer = "Arg_ArrayLengthsDiffer";

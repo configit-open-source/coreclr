@@ -1,8 +1,5 @@
 namespace System.Security.Cryptography
 {
-    using System;
-    using System.IO;
-
     public interface ICryptoTransform : IDisposable
     {
         int InputBlockSize

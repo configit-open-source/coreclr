@@ -1,7 +1,5 @@
 namespace System.Runtime.Serialization
 {
-    using System;
-
     public abstract class SerializationBinder
     {
         public virtual void BindToName(Type serializedType, out String assemblyName, out String typeName)

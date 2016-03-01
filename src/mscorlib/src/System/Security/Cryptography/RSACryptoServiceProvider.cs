@@ -1,16 +1,12 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Permissions;
+
 namespace System.Security.Cryptography
 {
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Security;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     internal class RSACspObject
     {
         internal byte[] Exponent;

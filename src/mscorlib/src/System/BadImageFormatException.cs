@@ -1,12 +1,8 @@
+using System.IO;
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-    using FileLoadException = System.IO.FileLoadException;
-    using System.Security.Permissions;
-    using SecurityException = System.Security.SecurityException;
-    using System.Globalization;
-
     public class BadImageFormatException : SystemException
     {
         private String _fileName;

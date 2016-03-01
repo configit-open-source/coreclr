@@ -1,7 +1,5 @@
 namespace System.Reflection
 {
-    using System;
-
     internal static class MdConstant
     {
         public static unsafe Object GetValue(MetadataImport scope, int token, RuntimeTypeHandle fieldTypeHandle, bool raw)

@@ -1,16 +1,14 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
+
+using Microsoft.Win32;
+
 namespace System.StubHelpers
 {
-    using System.Text;
-    using Microsoft.Win32;
-    using System.Security;
-    using System.Collections.Generic;
-    using System.Runtime;
-    using System.Runtime.InteropServices;
-    using System.Runtime.InteropServices.WindowsRuntime;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Diagnostics.Contracts;
-
     internal static class AnsiCharMarshaler
     {
         unsafe static internal byte[] DoAnsiConversion(string str, bool fBestFit, bool fThrowOnUnmappableChar, out int cbLength)

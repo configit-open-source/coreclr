@@ -1,5 +1,3 @@
-using System;
-
 namespace System
 {
     public interface IObserver<in T>

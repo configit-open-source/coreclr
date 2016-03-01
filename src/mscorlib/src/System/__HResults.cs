@@ -1,7 +1,5 @@
 namespace System
 {
-    using System;
-
     internal static class __HResults
     {
         internal const int RO_E_CLOSED = unchecked ((int)0x80000013);

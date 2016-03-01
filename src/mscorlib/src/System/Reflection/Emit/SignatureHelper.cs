@@ -1,14 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
+using System.Text;
+
 namespace System.Reflection.Emit
 {
-    using System.Text;
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Security.Permissions;
-
     public sealed class SignatureHelper : _SignatureHelper
     {
         private const int NO_SIZE_IN_SIG = -1;

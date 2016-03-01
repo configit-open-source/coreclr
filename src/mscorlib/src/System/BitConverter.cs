@@ -1,10 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Diagnostics.Contracts;
-    using System.Security;
-
     public static class BitConverter
     {
         public static readonly bool IsLittleEndian = true;

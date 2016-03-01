@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Text;
-    using System.Diagnostics.Contracts;
-
     public class HebrewCalendar : Calendar
     {
         public static readonly int HebrewEra = 1;

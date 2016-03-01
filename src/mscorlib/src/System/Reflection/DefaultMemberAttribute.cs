@@ -1,7 +1,5 @@
 namespace System.Reflection
 {
-    using System;
-
     public sealed class DefaultMemberAttribute : Attribute
     {
         private String m_memberName;

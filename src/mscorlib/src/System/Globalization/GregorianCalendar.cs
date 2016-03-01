@@ -1,11 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Globalization
 {
-    using System.Threading;
-    using System;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.Contracts;
-
     public class GregorianCalendar : Calendar
     {
         public const int ADEra = 1;

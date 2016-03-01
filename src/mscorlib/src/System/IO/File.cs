@@ -1,15 +1,13 @@
-using System;
-using System.Security.Permissions;
-using PermissionSet = System.Security.PermissionSet;
-using Win32Native = Microsoft.Win32.Win32Native;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Security.Permissions;
 using System.Text;
+
+using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Runtime.Versioning;
-using System.Diagnostics.Contracts;
 
 namespace System.IO
 {

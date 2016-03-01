@@ -1,9 +1,8 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+
 namespace System.Runtime.Serialization
 {
-    using System;
-    using System.Collections;
-    using System.Diagnostics.Contracts;
-
     public struct SerializationEntry
     {
         private Type m_type;

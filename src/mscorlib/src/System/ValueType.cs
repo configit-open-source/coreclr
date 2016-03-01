@@ -1,10 +1,7 @@
+using System.Reflection;
+
 namespace System
 {
-    using System;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-
     public abstract class ValueType
     {
         public override bool Equals(Object obj)

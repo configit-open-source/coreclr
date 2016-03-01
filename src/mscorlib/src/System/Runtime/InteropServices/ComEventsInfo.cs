@@ -1,8 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using ComTypes = System.Runtime.InteropServices.ComTypes;
-
     internal class ComEventsInfo
     {
         private ComEventsSink _sinks;

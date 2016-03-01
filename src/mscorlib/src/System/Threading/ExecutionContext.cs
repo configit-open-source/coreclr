@@ -1,21 +1,9 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Security;
+
 namespace System.Threading
 {
-    using System;
-    using System.Security;
-    using System.Runtime.Remoting;
-    using System.Security.Principal;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Runtime.ExceptionServices;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.CodeAnalysis;
-
     public delegate void ContextCallback(Object state);
     internal struct ExecutionContextSwitcher
     {

@@ -1,11 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Reflection
 {
-    using System;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.Runtime.Serialization;
-    using System.Security;
-    using System.Diagnostics.Contracts;
-
     public sealed class Pointer : ISerializable
     {
         unsafe private void *_ptr;

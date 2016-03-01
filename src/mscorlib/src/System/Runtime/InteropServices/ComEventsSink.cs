@@ -1,8 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Diagnostics;
-
     internal class ComEventsSink : NativeMethods.IDispatch, ICustomQueryInterface
     {
         private Guid _iidSourceItf;

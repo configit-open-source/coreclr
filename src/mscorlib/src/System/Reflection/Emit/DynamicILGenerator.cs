@@ -1,19 +1,11 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Diagnostics.SymbolStore;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Globalization;
-    using TextWriter = System.IO.TextWriter;
-    using System.Diagnostics.SymbolStore;
-    using System.Runtime.InteropServices;
-    using System.Reflection;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Security.Permissions;
-    using System.Threading;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
-    using System.Security;
-
     internal class DynamicILGenerator : ILGenerator
     {
         internal DynamicScope m_scope;

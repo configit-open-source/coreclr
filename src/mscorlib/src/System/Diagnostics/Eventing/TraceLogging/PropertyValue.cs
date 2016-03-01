@@ -1,6 +1,5 @@
+using System.Diagnostics.Contracts;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using Contract = System.Diagnostics.Contracts.Contract;
 
 namespace System.Diagnostics.Tracing
 {

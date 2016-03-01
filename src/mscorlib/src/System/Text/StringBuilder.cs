@@ -1,16 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.Serialization;
+
 namespace System.Text
 {
-    using System.Text;
-    using System.Runtime;
-    using System.Runtime.Serialization;
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Security;
-    using System.Threading;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public sealed class StringBuilder : ISerializable
     {
         internal char[] m_ChunkChars;

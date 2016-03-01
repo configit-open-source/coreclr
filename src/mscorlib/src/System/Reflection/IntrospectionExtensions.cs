@@ -1,7 +1,5 @@
 namespace System.Reflection
 {
-    using System.Reflection;
-
     public static class IntrospectionExtensions
     {
         public static TypeInfo GetTypeInfo(this Type type)

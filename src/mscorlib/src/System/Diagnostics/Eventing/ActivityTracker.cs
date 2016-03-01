@@ -1,7 +1,5 @@
-using System;
-using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Threading;
-using Contract = System.Diagnostics.Contracts.Contract;
 using System.Threading.Tasks;
 
 namespace System.Diagnostics.Tracing

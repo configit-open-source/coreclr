@@ -1,12 +1,8 @@
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-    using System.Runtime;
-    using System.Runtime.InteropServices;
-    using System.Security.Permissions;
-
     public abstract class MemberInfo : ICustomAttributeProvider, _MemberInfo
     {
         protected MemberInfo()

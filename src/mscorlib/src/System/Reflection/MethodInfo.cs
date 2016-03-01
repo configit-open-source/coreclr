@@ -1,22 +1,14 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Security;
+using System.Text;
+using System.Threading;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-    using System.Runtime;
-    using System.Runtime.InteropServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Serialization;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Text;
-    using System.Threading;
-    using MemberListType = System.RuntimeType.MemberListType;
-    using RuntimeTypeCache = System.RuntimeType.RuntimeTypeCache;
-    using System.Runtime.CompilerServices;
-
     public abstract class MethodInfo : MethodBase, _MethodInfo
     {
         protected MethodInfo()
@@ -92,7 +84,7 @@ namespace System.Reflection
     internal sealed class RuntimeMethodInfo : MethodInfo, ISerializable, IRuntimeMethodInfo
     {
         private IntPtr m_handle;
-        private RuntimeTypeCache m_reflectedTypeCache;
+        private RuntimeType.RuntimeTypeCache m_reflectedTypeCache;
         private string m_name;
         private string m_toString;
         private ParameterInfo[] m_parameters;
@@ -183,7 +175,7 @@ namespace System.Reflection
             }
         }
 
-        internal RuntimeMethodInfo(RuntimeMethodHandleInternal handle, RuntimeType declaringType, RuntimeTypeCache reflectedTypeCache, MethodAttributes methodAttributes, BindingFlags bindingFlags, object keepalive)
+        internal RuntimeMethodInfo(RuntimeMethodHandleInternal handle, RuntimeType declaringType, RuntimeType.RuntimeTypeCache reflectedTypeCache, MethodAttributes methodAttributes, BindingFlags bindingFlags, object keepalive)
         {
             Contract.Ensures(!m_handle.IsNull());
             Contract.Assert(!handle.IsNullHandle());
@@ -483,7 +475,7 @@ namespace System.Reflection
         {
             get
             {
-                return m_reflectedTypeCache.GetMethodList(MemberListType.CaseSensitive, Name).Length > 1;
+                return m_reflectedTypeCache.GetMethodList(RuntimeType.MemberListType.CaseSensitive, Name).Length > 1;
             }
         }
 

@@ -1,7 +1,3 @@
-using System;
-using System.Security;
-using System.Security.Permissions;
-
 namespace System.Security
 {
     public abstract class SecurityState

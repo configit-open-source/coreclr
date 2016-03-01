@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Text
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public sealed class DecoderReplacementFallback : DecoderFallback
     {
         private String strDefault;

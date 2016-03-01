@@ -1,8 +1,7 @@
+using System.Reflection;
+
 namespace System
 {
-    using System;
-    using System.Reflection;
-
     public sealed class SerializableAttribute : Attribute
     {
         internal static Attribute GetCustomAttribute(RuntimeType type)

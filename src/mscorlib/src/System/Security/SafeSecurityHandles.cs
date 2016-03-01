@@ -1,12 +1,9 @@
+using System;
+using System.Runtime.InteropServices;
+using System.Security;
+
 namespace Microsoft.Win32.SafeHandles
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Security;
-
     public sealed class SafeAccessTokenHandle : SafeHandle
     {
         private SafeAccessTokenHandle(): base (IntPtr.Zero, true)

@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace System
 {
     public enum ConsoleSpecialKey

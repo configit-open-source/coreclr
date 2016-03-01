@@ -1,7 +1,5 @@
 namespace System.Collections
 {
-    using System;
-
     public struct DictionaryEntry
     {
         private Object _key;

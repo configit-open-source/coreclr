@@ -1,14 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Threading;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public struct DateTimeOffset : IComparable, IFormattable, ISerializable, IDeserializationCallback, IComparable<DateTimeOffset>, IEquatable<DateTimeOffset>
     {
         internal const Int64 MaxOffset = TimeSpan.TicksPerHour * 14;

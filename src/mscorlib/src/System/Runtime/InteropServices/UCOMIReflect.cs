@@ -1,9 +1,8 @@
+using System.Globalization;
+using System.Reflection;
+
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Reflection;
-    using CultureInfo = System.Globalization.CultureInfo;
-
     internal interface UCOMIReflect
     {
         MethodInfo GetMethod(String name, BindingFlags bindingAttr, Binder binder, Type[] types, ParameterModifier[] modifiers);

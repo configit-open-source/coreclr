@@ -1,19 +1,13 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Security;
+using System.Text;
+using System.Threading;
+
 namespace System.Diagnostics
 {
-    using System.Text;
-    using System.Threading;
-    using System;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.IO;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     internal class StackFrameHelper
     {
         private Thread targetThread;

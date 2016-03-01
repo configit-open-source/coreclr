@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-
     public class ExternalException : SystemException
     {
         public ExternalException(): base (Environment.GetResourceString("Arg_ExternalException"))

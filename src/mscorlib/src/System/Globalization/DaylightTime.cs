@@ -1,7 +1,5 @@
 namespace System.Globalization
 {
-    using System;
-
     public class DaylightTime
     {
         internal DateTime m_start;

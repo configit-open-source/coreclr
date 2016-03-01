@@ -1,18 +1,9 @@
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.Threading;
+
 namespace System.Security
 {
-    using System.IO;
-    using System.Threading;
-    using System.Security;
-    using System.Security.Util;
-    using System.Security.Permissions;
-    using System.Runtime.CompilerServices;
-    using System.Collections;
-    using System.Text;
-    using System;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-    using IUnrestrictedPermission = System.Security.Permissions.IUnrestrictedPermission;
-
     abstract public class CodeAccessPermission : IPermission, ISecurityEncodable, IStackWalk
     {
         public static void RevertAssert()

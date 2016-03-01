@@ -1,15 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Text
 {
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-    using System.Security;
-    using System.Collections;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-
     internal class Latin1Encoding : EncodingNLS, ISerializable
     {
         public Latin1Encoding(): base (Encoding.ISO_8859_1)

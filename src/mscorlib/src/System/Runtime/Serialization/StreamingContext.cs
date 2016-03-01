@@ -1,8 +1,5 @@
 namespace System.Runtime.Serialization
 {
-    using System.Runtime.Remoting;
-    using System;
-
     public struct StreamingContext
     {
         internal Object m_additionalContext;

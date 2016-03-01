@@ -1,8 +1,5 @@
 namespace System.Collections.Generic
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public interface IDictionary<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>
     {
         TValue this[TKey key]

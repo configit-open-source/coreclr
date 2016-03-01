@@ -1,7 +1,5 @@
 namespace System.IO
 {
-    using System;
-
     internal static class __HResults
     {
         public const int COR_E_ENDOFSTREAM = unchecked ((int)0x80070026);

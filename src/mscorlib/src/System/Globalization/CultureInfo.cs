@@ -1,20 +1,13 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+using System.Resources;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+using System.Threading;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Security;
-    using System.Threading;
-    using System.Collections;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization;
-    using System.Runtime.Versioning;
-    using System.Security.Permissions;
-    using System.Reflection;
-    using Microsoft.Win32;
-    using System.Diagnostics.Contracts;
-    using System.Resources;
-
     public class CultureInfo : ICloneable, IFormatProvider
     {
         internal bool m_isReadOnly;

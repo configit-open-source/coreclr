@@ -1,7 +1,5 @@
 namespace System.Threading
 {
-    using System.Threading;
-
     public enum ThreadPriority
     {
         Lowest = 0,

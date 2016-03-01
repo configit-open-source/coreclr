@@ -1,9 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+
 namespace System
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-
     public sealed class CharEnumerator : IEnumerator, ICloneable, IEnumerator<char>, IDisposable
     {
         private String str;

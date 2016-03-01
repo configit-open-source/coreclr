@@ -1,3 +1,11 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Security.AccessControl;
+
+using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
+
 namespace System.Security.AccessControl
 {
     public class EventWaitHandleSecurity
@@ -11,18 +19,6 @@ namespace System.Security.AccessControl
 
 namespace System.Threading
 {
-    using System;
-    using System.Threading;
-    using System.Runtime.CompilerServices;
-    using System.Security.Permissions;
-    using System.IO;
-    using Microsoft.Win32;
-    using Microsoft.Win32.SafeHandles;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Security.AccessControl;
-    using System.Diagnostics.Contracts;
-
     public class EventWaitHandle : WaitHandle
     {
         public EventWaitHandle(bool initialState, EventResetMode mode): this (initialState, mode, null)

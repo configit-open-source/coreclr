@@ -1,11 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Collections
 {
-    using System;
-    using System.Security.Permissions;
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
-
     public class Stack : ICollection, ICloneable
     {
         private Object[] _array;

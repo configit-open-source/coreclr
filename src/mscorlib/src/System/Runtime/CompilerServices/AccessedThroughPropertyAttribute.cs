@@ -1,7 +1,5 @@
 namespace System.Runtime.CompilerServices
 {
-    using System;
-
     public sealed class AccessedThroughPropertyAttribute : Attribute
     {
         private readonly string propertyName;

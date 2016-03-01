@@ -1,7 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System.Runtime.Serialization;
-
     public class TypeUnloadedException : SystemException
     {
         public TypeUnloadedException(): base (Environment.GetResourceString("Arg_TypeUnloadedException"))

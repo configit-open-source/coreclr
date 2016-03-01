@@ -1,15 +1,7 @@
+using System.Runtime.ConstrainedExecution;
+
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Reflection;
-    using System.Threading;
-    using System.Security.Permissions;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.IO;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-
     public abstract class SafeHandle : CriticalFinalizerObject, IDisposable
     {
         private String _stackTrace;

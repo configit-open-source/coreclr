@@ -1,23 +1,20 @@
+using System.Collections;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.IO;
+using System.Resources;
+using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
+using System.Security.Permissions;
+using System.Text;
+using System.Threading;
+
+using Microsoft.Win32;
+
 namespace System
 {
-    using System.IO;
-    using System.Security;
-    using System.Resources;
-    using System.Globalization;
-    using System.Collections;
-    using System.Security.Permissions;
-    using System.Text;
-    using System.Configuration.Assemblies;
-    using System.Runtime.InteropServices;
-    using System.Reflection;
-    using System.Diagnostics;
-    using Microsoft.Win32;
-    using System.Runtime.CompilerServices;
-    using System.Threading;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public enum EnvironmentVariableTarget
     {
         Process = 0,
@@ -176,7 +173,7 @@ namespace System
         public static extern int TickCount
         {
             [System.Security.SecuritySafeCritical]
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             get;
         }
 
@@ -189,10 +186,10 @@ namespace System
         public static extern int ExitCode
         {
             [System.Security.SecuritySafeCritical]
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             get;
             [System.Security.SecuritySafeCritical]
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             set;
         }
 
@@ -870,7 +867,7 @@ namespace System
         public static extern bool HasShutdownStarted
         {
             [System.Security.SecuritySafeCritical]
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             get;
         }
 

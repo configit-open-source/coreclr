@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Resources
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public sealed class SatelliteContractVersionAttribute : Attribute
     {
         private String _version;

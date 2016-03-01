@@ -1,8 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System.Runtime.InteropServices;
-    using System;
-
     internal enum PInvokeMap
     {
         NoMangle = 0x0001,

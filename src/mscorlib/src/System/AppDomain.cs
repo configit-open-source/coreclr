@@ -1,29 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration.Assemblies;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
+using System.Runtime.Remoting;
+using System.Runtime.Versioning;
+using System.Security;
+using System.Security.Permissions;
+using System.Security.Policy;
+using System.Text;
+using System.Threading;
+
 namespace System
 {
-    using System;
-    using System.Reflection;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Security.Principal;
-    using System.Security.Policy;
-    using System.Security.Util;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Remoting;
-    using System.Reflection.Emit;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.IO;
-    using AssemblyHashAlgorithm = System.Configuration.Assemblies.AssemblyHashAlgorithm;
-    using System.Text;
-    using Microsoft.Win32;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public class ResolveEventArgs : EventArgs
     {
         private String _Name;

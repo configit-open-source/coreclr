@@ -1,11 +1,11 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+using Microsoft.Win32;
+
 namespace System.Security.Cryptography.X509Certificates
 {
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Runtime.InteropServices;
-    using Microsoft.Win32;
-    using System.Diagnostics.Contracts;
-
     internal static class X509Constants
     {
         internal const uint CRYPT_EXPORTABLE = 0x00000001;

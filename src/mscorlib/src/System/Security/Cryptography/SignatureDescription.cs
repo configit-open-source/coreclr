@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Cryptography
 {
-    using System.Security.Util;
-    using System.Diagnostics.Contracts;
-
     public class SignatureDescription
     {
         private String _strKey;

@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Principal
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public class GenericPrincipal : IPrincipal
     {
         private IIdentity m_identity;

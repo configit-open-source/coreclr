@@ -1,9 +1,5 @@
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Reflection;
-    using System.Security.Permissions;
-
     public struct SignatureToken
     {
         public static readonly SignatureToken Empty = new SignatureToken();

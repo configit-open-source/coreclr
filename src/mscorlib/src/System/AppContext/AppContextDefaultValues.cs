@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace System
 {
     internal static partial class AppContextDefaultValues

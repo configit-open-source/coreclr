@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-
     public struct Int64 : IComparable, IFormattable, IConvertible, IComparable<Int64>, IEquatable<Int64>
     {
         internal long m_value;

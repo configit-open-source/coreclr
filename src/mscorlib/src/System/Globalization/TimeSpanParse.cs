@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Text;
+
 namespace System.Globalization
 {
-    using System.Text;
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-
     internal static class TimeSpanParse
     {
         internal static void ValidateStyles(TimeSpanStyles style, String parameterName)

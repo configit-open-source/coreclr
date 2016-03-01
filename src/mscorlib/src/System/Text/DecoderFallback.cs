@@ -1,8 +1,6 @@
-using System;
-using System.Security;
-using System.Threading;
-using System.Globalization;
 using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Threading;
 
 namespace System.Text
 {

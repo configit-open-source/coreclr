@@ -1,7 +1,5 @@
 namespace System
 {
-    using System.Reflection;
-
     public sealed class AttributeUsageAttribute : Attribute
     {
         internal AttributeTargets m_attributeTarget = AttributeTargets.All;

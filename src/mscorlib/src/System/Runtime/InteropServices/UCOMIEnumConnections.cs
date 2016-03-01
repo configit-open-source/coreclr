@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-
     public struct CONNECTDATA
     {
         public Object pUnk;

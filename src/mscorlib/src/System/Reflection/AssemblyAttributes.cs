@@ -1,9 +1,8 @@
+using System.Configuration.Assemblies;
+using System.Diagnostics.Contracts;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Configuration.Assemblies;
-    using System.Diagnostics.Contracts;
-
     public sealed class AssemblyCopyrightAttribute : Attribute
     {
         private String m_copyright;

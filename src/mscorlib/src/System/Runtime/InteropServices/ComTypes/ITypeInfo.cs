@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices.ComTypes
 {
-    using System;
-
     public enum TYPEKIND
     {
         TKIND_ENUM = 0,

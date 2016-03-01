@@ -1,10 +1,9 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System.Security.Util
 {
-    using System;
-    using System.Collections;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     internal class SiteString
     {
         protected String m_site;

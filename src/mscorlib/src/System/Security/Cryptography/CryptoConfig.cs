@@ -1,18 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Permissions;
+using System.Threading;
+
 namespace System.Security.Cryptography
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Reflection;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Security.Permissions;
-    using System.Threading;
-    using System.Globalization;
-    using System.Runtime.Versioning;
-    using Microsoft.Win32;
-    using System.Diagnostics.Contracts;
-
     public class CryptoConfig
     {
         private static volatile Dictionary<string, string> defaultOidHT = null;

@@ -1,12 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Collections.Generic
 {
-    using System;
-    using System.Collections;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-
     public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, IReadOnlyDictionary<TKey, TValue>, ISerializable, IDeserializationCallback
     {
         private struct Entry

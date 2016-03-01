@@ -1,14 +1,10 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+using System.Security.Util;
+using System.Text;
+
 namespace System.Security
 {
-    using System;
-    using System.Collections;
-    using System.Security.Util;
-    using System.Text;
-    using System.Globalization;
-    using System.IO;
-    using System.Diagnostics.Contracts;
-    using StringMaker = System.Security.Util.Tokenizer.StringMaker;
-
     sealed internal class SecurityDocumentElement : ISecurityElementFactory
     {
         private int m_position;
@@ -121,7 +117,7 @@ namespace System.Security
             }
 
             Contract.Assert(bFoundEnd, "Malformed string in parse data");
-            StringMaker m = System.SharedStatics.GetSharedStringMaker();
+            Tokenizer.StringMaker m = System.SharedStatics.GetSharedStringMaker();
             try
             {
                 if (bCreate)
@@ -131,7 +127,7 @@ namespace System.Security
                     for (int i = position; i < stringEnd; i += 2)
                     {
                         char c = (char)(m_data[i] << 8 | m_data[i + 1]);
-                        if (m._outIndex < StringMaker.outMaxSize)
+                        if (m._outIndex < Tokenizer.StringMaker.outMaxSize)
                         {
                             m._outChars[m._outIndex++] = c;
                         }
@@ -142,7 +138,7 @@ namespace System.Security
                                 m._outStringBuilder = new StringBuilder();
                             }
 
-                            m._outStringBuilder.Append(m._outChars, 0, StringMaker.outMaxSize);
+                            m._outStringBuilder.Append(m._outChars, 0, Tokenizer.StringMaker.outMaxSize);
                             m._outChars[0] = c;
                             m._outIndex = 1;
                         }

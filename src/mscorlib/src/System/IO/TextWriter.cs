@@ -1,13 +1,8 @@
-using System;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Reflection;
-using System.Security.Permissions;
-using System.Globalization;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 
 namespace System.IO
@@ -487,13 +482,13 @@ namespace System.IO
 
             public override String NewLine
             {
-                [MethodImplAttribute(MethodImplOptions.Synchronized)]
+                [MethodImpl(MethodImplOptions.Synchronized)]
                 get
                 {
                     return _out.NewLine;
                 }
 
-                [MethodImplAttribute(MethodImplOptions.Synchronized)]
+                [MethodImpl(MethodImplOptions.Synchronized)]
                 set
                 {
                     _out.NewLine = value;

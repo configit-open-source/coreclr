@@ -1,7 +1,5 @@
 namespace System.Runtime.CompilerServices
 {
-    using System;
-
     public sealed class InternalsVisibleToAttribute : Attribute
     {
         private string _assemblyName;

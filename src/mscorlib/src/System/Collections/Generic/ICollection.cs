@@ -1,9 +1,5 @@
 namespace System.Collections.Generic
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Diagnostics.Contracts;
-
     public interface ICollection<T> : IEnumerable<T>
     {
         int Count

@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Runtime.Serialization
 {
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.Reflection;
-
     public sealed class OptionalFieldAttribute : Attribute
     {
         int versionAdded = 1;

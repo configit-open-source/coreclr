@@ -1,21 +1,12 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Security;
+using System.Text;
+
 namespace System.Runtime.Serialization
 {
-    using System;
-    using System.Reflection;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Runtime.Serialization.Formatters;
-    using System.Runtime.Remoting;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using System.Threading;
-    using System.IO;
-    using System.Text;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public static class FormatterServices
     {
         public static Object GetUninitializedObject(Type type)

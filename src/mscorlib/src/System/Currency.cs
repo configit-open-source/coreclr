@@ -1,10 +1,5 @@
 namespace System
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-
     internal struct Currency
     {
         internal long m_value;

@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Security;
-using System.Security.Permissions;
+using System.Diagnostics.Tracing;
 using System.Runtime.CompilerServices;
 
 namespace System.Threading.Tasks
 {
-    using System.Diagnostics.Tracing;
-
     internal sealed class TplEtwProvider : EventSource
     {
         internal bool TasksSetActivityIds;

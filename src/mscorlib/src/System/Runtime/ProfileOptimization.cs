@@ -1,14 +1,5 @@
 namespace System.Runtime
 {
-    using System;
-    using System.Reflection;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Runtime;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Runtime.CompilerServices;
-
     public static class ProfileOptimization
     {
         internal static extern void InternalSetProfileRoot(string directoryPath);

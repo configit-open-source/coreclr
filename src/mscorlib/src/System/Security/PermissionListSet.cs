@@ -1,15 +1,8 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+
 namespace System.Security
 {
-    using System.Globalization;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Threading;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-
     sealed internal class PermissionListSet
     {
         private PermissionSetTriple m_firstPermSetTriple;

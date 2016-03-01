@@ -1,7 +1,5 @@
 namespace System.Runtime.CompilerServices
 {
-    using System;
-
     [Flags]
     public enum CompilationRelaxations : int
     {

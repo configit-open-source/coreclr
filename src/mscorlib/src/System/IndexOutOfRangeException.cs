@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public sealed class IndexOutOfRangeException : SystemException
     {
         public IndexOutOfRangeException(): base (Environment.GetResourceString("Arg_IndexOutOfRangeException"))

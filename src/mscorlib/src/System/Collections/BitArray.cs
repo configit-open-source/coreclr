@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Collections
 {
-    using System;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public sealed class BitArray : ICollection, ICloneable
     {
         private BitArray()

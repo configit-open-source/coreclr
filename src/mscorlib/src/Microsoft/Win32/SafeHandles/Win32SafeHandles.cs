@@ -1,11 +1,8 @@
+using System;
+using System.Runtime.InteropServices;
+
 namespace Microsoft.Win32.SafeHandles
 {
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Security.Permissions;
-    using System.Runtime.ConstrainedExecution;
-
     public abstract class SafeHandleZeroOrMinusOneIsInvalid : SafeHandle
     {
         protected SafeHandleZeroOrMinusOneIsInvalid(bool ownsHandle): base (IntPtr.Zero, ownsHandle)

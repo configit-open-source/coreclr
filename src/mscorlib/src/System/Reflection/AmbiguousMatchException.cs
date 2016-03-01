@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Reflection
 {
-    using System;
-    using SystemException = System.SystemException;
-    using System.Runtime.Serialization;
-
     public sealed class AmbiguousMatchException : SystemException
     {
         public AmbiguousMatchException(): base (Environment.GetResourceString("RFLCT.Ambiguous"))

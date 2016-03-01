@@ -1,11 +1,10 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Threading;
+
 namespace System
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Runtime.CompilerServices;
-    using System.Diagnostics.Contracts;
-
     public sealed class LocalDataStoreSlot
     {
         private LocalDataStoreMgr m_mgr;

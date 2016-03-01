@@ -1,7 +1,5 @@
 namespace System.Reflection.Emit
 {
-    using System;
-
     public enum FlowControl
     {
         Branch = 0,

@@ -1,7 +1,5 @@
-using System;
-using System.Security;
-using System.Threading;
 using System.Diagnostics.Contracts;
+using System.Threading;
 
 namespace System.Text
 {

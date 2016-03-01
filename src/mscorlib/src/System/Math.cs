@@ -1,12 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System
 {
-    using System;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public static class Math
     {
         private static double doubleRoundLimit = 1e16d;

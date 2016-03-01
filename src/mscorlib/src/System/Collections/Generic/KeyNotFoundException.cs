@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Collections.Generic
 {
-    using System;
-    using System.Runtime.Remoting;
-    using System.Runtime.Serialization;
-
     public class KeyNotFoundException : SystemException, ISerializable
     {
         public KeyNotFoundException(): base (Environment.GetResourceString("Arg_KeyNotFound"))

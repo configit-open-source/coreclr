@@ -1,23 +1,12 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Security;
+using System.Security.Policy;
+using System.Text;
+
 namespace System
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Runtime;
-    using System.Text;
-    using System.Threading;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization;
-    using System.Reflection;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Security.Policy;
-    using System.Globalization;
-    using Path = System.IO.Path;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-    using System.Collections;
-    using System.Collections.Generic;
-
     public sealed class AppDomainSetup : IAppDomainSetup
     {
         internal enum LoaderInformation

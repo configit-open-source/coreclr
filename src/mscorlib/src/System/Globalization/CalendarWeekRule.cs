@@ -1,7 +1,5 @@
 namespace System.Globalization
 {
-    using System;
-
     public enum CalendarWeekRule
     {
         FirstDay = 0,

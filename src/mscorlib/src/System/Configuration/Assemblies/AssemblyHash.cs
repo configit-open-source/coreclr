@@ -1,7 +1,5 @@
 namespace System.Configuration.Assemblies
 {
-    using System;
-
     public struct AssemblyHash : ICloneable
     {
         private AssemblyHashAlgorithm _Algorithm;

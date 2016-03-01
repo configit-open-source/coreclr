@@ -1,13 +1,11 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
+using Microsoft.Win32;
+
 namespace System
 {
-    using System;
-    using System.Globalization;
-    using System.Text;
-    using Microsoft.Win32;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Diagnostics.Contracts;
-
     public struct Guid : IFormattable, IComparable, IComparable<Guid>, IEquatable<Guid>
     {
         public static readonly Guid Empty = new Guid();

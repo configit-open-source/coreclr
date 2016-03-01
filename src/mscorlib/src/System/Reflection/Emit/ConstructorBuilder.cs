@@ -1,15 +1,9 @@
+using System.Collections.Generic;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Reflection;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.Collections.Generic;
-    using System.Diagnostics.SymbolStore;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-
     public sealed class ConstructorBuilder : ConstructorInfo, _ConstructorBuilder
     {
         private readonly MethodBuilder m_methodBuilder;

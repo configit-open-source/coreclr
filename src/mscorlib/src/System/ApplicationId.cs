@@ -1,12 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Security.Util;
+using System.Text;
+
 namespace System
 {
-    using System.Reflection;
-    using System.Security;
-    using System.Security.Policy;
-    using System.Security.Util;
-    using System.Text;
-    using System.Diagnostics.Contracts;
-
     public sealed class ApplicationId
     {
         private string m_name;

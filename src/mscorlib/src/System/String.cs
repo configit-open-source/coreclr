@@ -1,19 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+
+using Microsoft.Win32;
+
 namespace System
 {
-    using System.Text;
-    using System;
-    using System.Runtime;
-    using System.Runtime.ConstrainedExecution;
-    using System.Globalization;
-    using System.Threading;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using Microsoft.Win32;
-    using System.Diagnostics.Contracts;
-
     public sealed class String : IComparable, ICloneable, IConvertible, IEnumerable, IComparable<String>, IEnumerable<char>, IEquatable<String>
     {
         private int m_stringLength;
@@ -725,7 +722,7 @@ namespace System
         public extern int Length
         {
             [System.Security.SecuritySafeCritical]
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             get;
         }
 

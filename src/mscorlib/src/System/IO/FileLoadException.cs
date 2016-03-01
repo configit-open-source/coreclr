@@ -1,12 +1,6 @@
-using System;
 using System.Globalization;
-using System.Runtime.Serialization;
-using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
-using System.Security;
-using System.Security.Permissions;
-using System.Runtime.Versioning;
-using SecurityException = System.Security.SecurityException;
+using System.Runtime.Serialization;
 
 namespace System.IO
 {

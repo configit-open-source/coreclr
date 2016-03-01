@@ -1,4 +1,3 @@
-using System.Security.Permissions;
 using System.Diagnostics.Contracts;
 
 namespace System.Threading

@@ -1,7 +1,5 @@
 namespace System.Reflection
 {
-    using System;
-
     [Flags]
     public enum ResourceAttributes
     {

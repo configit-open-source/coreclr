@@ -1,6 +1,3 @@
-using System.Runtime;
-using System.Runtime.CompilerServices;
-
 namespace System
 {
     internal static class CompatibilitySwitches

@@ -1,9 +1,7 @@
+using System.Reflection;
+
 namespace System.Runtime.Serialization
 {
-    using System.Runtime.Remoting;
-    using System;
-    using System.Reflection;
-
     internal class MemberHolder
     {
         internal MemberInfo[] members = null;

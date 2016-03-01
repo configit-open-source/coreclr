@@ -1,7 +1,7 @@
+using System.Reflection;
+
 namespace System
 {
-    using System.Reflection;
-
     public sealed class NonSerializedAttribute : Attribute
     {
         internal static Attribute GetCustomAttribute(RuntimeFieldInfo field)

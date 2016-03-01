@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-    using CultureInfo = System.Globalization.CultureInfo;
-
     public class TypeDelegator : TypeInfo
     {
         public override bool IsAssignableFrom(System.Reflection.TypeInfo typeInfo)

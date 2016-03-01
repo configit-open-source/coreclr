@@ -1,17 +1,13 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Text;
+
 namespace System.Security.Util
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Runtime.Serialization;
-    using System.Globalization;
-    using System.Text;
-    using System.IO;
-    using System.Diagnostics.Contracts;
-
     internal sealed class URLString : SiteString
     {
         private String m_protocol;

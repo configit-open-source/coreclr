@@ -1,12 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Diagnostics
 {
-    using System;
-    using System.IO;
-    using System.Collections;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.CodeAnalysis;
-
     internal class LogSwitch
     {
         internal String strName;

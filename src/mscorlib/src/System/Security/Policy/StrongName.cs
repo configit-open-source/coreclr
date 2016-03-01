@@ -1,12 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Reflection;
+using System.Security.Permissions;
+
 namespace System.Security.Policy
 {
-    using System.IO;
-    using System.Reflection;
-    using System.Security.Util;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-    using CultureInfo = System.Globalization.CultureInfo;
-
     public sealed class StrongName : EvidenceBase, IIdentityPermissionFactory, IDelayEvaluatedEvidence
     {
         private StrongNamePublicKeyBlob m_publicKeyBlob;

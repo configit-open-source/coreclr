@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Threading
 {
-    using System.Threading;
-    using System;
-    using System.Runtime.Serialization;
-
     public class ThreadInterruptedException : SystemException
     {
         public ThreadInterruptedException(): base (GetMessageFromNativeResources(ExceptionMessageKind.ThreadInterrupted))

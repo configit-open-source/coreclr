@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Reflection
 {
-    using System;
-    using ApplicationException = System.ApplicationException;
-    using System.Runtime.Serialization;
-
     public class CustomAttributeFormatException : FormatException
     {
         public CustomAttributeFormatException(): base (Environment.GetResourceString("Arg_CustomAttributeFormatException"))

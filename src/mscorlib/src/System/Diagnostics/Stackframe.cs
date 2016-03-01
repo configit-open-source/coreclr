@@ -1,12 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Reflection;
+using System.Security.Permissions;
+using System.Text;
+
 namespace System.Diagnostics
 {
-    using System.Text;
-    using System;
-    using System.IO;
-    using System.Reflection;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public class StackFrame
     {
         private MethodBase method;

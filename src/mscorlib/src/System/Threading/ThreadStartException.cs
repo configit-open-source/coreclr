@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Threading
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Runtime.InteropServices;
-
     public sealed class ThreadStartException : SystemException
     {
         private ThreadStartException(): base (Environment.GetResourceString("Arg_ThreadStartException"))

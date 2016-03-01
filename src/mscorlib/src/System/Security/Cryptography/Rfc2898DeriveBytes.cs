@@ -1,14 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+
 namespace System.Security.Cryptography
 {
-    using System.Globalization;
-    using System.IO;
-    using System.Text;
-    using System.Diagnostics.Contracts;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Security.Cryptography.X509Certificates;
-
     public class Rfc2898DeriveBytes : DeriveBytes
     {
         private byte[] m_buffer;

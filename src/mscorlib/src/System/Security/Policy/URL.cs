@@ -1,11 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Security.Permissions;
+using System.Security.Util;
+
 namespace System.Security.Policy
 {
-    using System.IO;
-    using System.Security.Util;
-    using UrlIdentityPermission = System.Security.Permissions.UrlIdentityPermission;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.Contracts;
-
     public sealed class Url : EvidenceBase, IIdentityPermissionFactory
     {
         private URLString m_url;

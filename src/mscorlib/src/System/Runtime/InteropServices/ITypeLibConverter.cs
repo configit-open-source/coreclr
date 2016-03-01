@@ -1,9 +1,8 @@
+using System.Reflection;
+using System.Reflection.Emit;
+
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Reflection;
-    using System.Reflection.Emit;
-
     public enum TypeLibImporterFlags
     {
         None = 0x00000000,

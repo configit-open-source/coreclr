@@ -1,6 +1,5 @@
-using System.Diagnostics;
 using System.Collections.Generic;
-using System.Security.Permissions;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 
 namespace System.Threading

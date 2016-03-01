@@ -1,12 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System
 {
-    using System.Globalization;
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Diagnostics.Contracts;
-
     public struct Single : IComparable, IFormattable, IConvertible, IComparable<Single>, IEquatable<Single>
     {
         internal float m_value;

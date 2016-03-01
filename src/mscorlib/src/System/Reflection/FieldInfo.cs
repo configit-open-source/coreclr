@@ -1,19 +1,12 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Threading;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Threading;
-    using RuntimeTypeCache = System.RuntimeType.RuntimeTypeCache;
-
     public abstract class FieldInfo : MemberInfo, _FieldInfo
     {
         public static FieldInfo GetFieldFromHandle(RuntimeFieldHandle handle)
@@ -227,13 +220,13 @@ namespace System.Reflection
     internal abstract class RuntimeFieldInfo : FieldInfo, ISerializable
     {
         private BindingFlags m_bindingFlags;
-        protected RuntimeTypeCache m_reflectedTypeCache;
+        protected RuntimeType.RuntimeTypeCache m_reflectedTypeCache;
         protected RuntimeType m_declaringType;
         protected RuntimeFieldInfo()
         {
         }
 
-        protected RuntimeFieldInfo(RuntimeTypeCache reflectedTypeCache, RuntimeType declaringType, BindingFlags bindingFlags)
+        protected RuntimeFieldInfo(RuntimeType.RuntimeTypeCache reflectedTypeCache, RuntimeType declaringType, BindingFlags bindingFlags)
         {
             m_bindingFlags = bindingFlags;
             m_declaringType = declaringType;
@@ -416,7 +409,7 @@ namespace System.Reflection
             return m_declaringType.GetRuntimeAssembly();
         }
 
-        internal RtFieldInfo(RuntimeFieldHandleInternal handle, RuntimeType declaringType, RuntimeTypeCache reflectedTypeCache, BindingFlags bindingFlags): base (reflectedTypeCache, declaringType, bindingFlags)
+        internal RtFieldInfo(RuntimeFieldHandleInternal handle, RuntimeType declaringType, RuntimeType.RuntimeTypeCache reflectedTypeCache, BindingFlags bindingFlags): base (reflectedTypeCache, declaringType, bindingFlags)
         {
             m_fieldHandle = handle.Value;
             m_fieldAttributes = RuntimeFieldHandle.GetAttributes(handle);
@@ -685,7 +678,7 @@ namespace System.Reflection
         private string m_name;
         private RuntimeType m_fieldType;
         private FieldAttributes m_fieldAttributes;
-        internal MdFieldInfo(int tkField, FieldAttributes fieldAttributes, RuntimeTypeHandle declaringTypeHandle, RuntimeTypeCache reflectedTypeCache, BindingFlags bindingFlags): base (reflectedTypeCache, declaringTypeHandle.GetRuntimeType(), bindingFlags)
+        internal MdFieldInfo(int tkField, FieldAttributes fieldAttributes, RuntimeTypeHandle declaringTypeHandle, RuntimeType.RuntimeTypeCache reflectedTypeCache, BindingFlags bindingFlags): base (reflectedTypeCache, declaringTypeHandle.GetRuntimeType(), bindingFlags)
         {
             m_tkField = tkField;
             m_name = null;

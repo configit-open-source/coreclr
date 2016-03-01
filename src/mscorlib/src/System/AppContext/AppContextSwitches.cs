@@ -1,8 +1,7 @@
+using System.Runtime.CompilerServices;
+
 namespace System
 {
-    using System;
-    using System.Runtime.CompilerServices;
-
     internal static class AppContextSwitches
     {
         private static int _noAsyncCurrentCulture;

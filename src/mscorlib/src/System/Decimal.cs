@@ -1,14 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.Contracts;
-
     public struct Decimal : IFormattable, IComparable, IConvertible, IDeserializationCallback, IComparable<Decimal>, IEquatable<Decimal>
     {
         private const int SignMask = unchecked ((int)0x80000000);

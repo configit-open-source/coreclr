@@ -1,7 +1,5 @@
 namespace System.Reflection
 {
-    using System;
-
     public enum FieldAttributes
     {
         FieldAccessMask = 0x0007,

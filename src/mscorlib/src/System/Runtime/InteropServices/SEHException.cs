@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Runtime.InteropServices
 {
-    using System.Runtime.InteropServices;
-    using System;
-    using System.Runtime.Serialization;
-
     public class SEHException : ExternalException
     {
         public SEHException(): base ()

@@ -1,10 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Text
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public class ASCIIEncoding : Encoding
     {
         public ASCIIEncoding(): base (Encoding.CodePageASCII)

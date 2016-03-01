@@ -1,16 +1,10 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+
 namespace System
 {
-    using System;
-    using System.Runtime;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using FieldInfo = System.Reflection.FieldInfo;
-    using BindingFlags = System.Reflection.BindingFlags;
-
     public class Object
     {
         public Object()

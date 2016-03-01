@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class NotImplementedException : SystemException
     {
         public NotImplementedException(): base (Environment.GetResourceString("Arg_NotImplementedException"))

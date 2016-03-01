@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices.ComTypes
 {
-    using System;
-
     public interface ITypeLib2 : ITypeLib
     {
         new int GetTypeInfoCount();

@@ -1,9 +1,5 @@
 namespace System.Collections.Generic
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.CompilerServices;
-
     internal class MangoArraySortHelper<T>
     {
         static MangoArraySortHelper<T> defaultArraySortHelper;

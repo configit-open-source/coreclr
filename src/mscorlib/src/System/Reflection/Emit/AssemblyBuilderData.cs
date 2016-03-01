@@ -1,18 +1,11 @@
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Resources;
+using System.Security;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using IList = System.Collections.IList;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Security;
-    using System.Diagnostics;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using IResourceWriter = System.Resources.IResourceWriter;
-    using System.IO;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.SymbolStore;
-    using System.Diagnostics.Contracts;
-
     internal class AssemblyBuilderData
     {
         internal AssemblyBuilderData(InternalAssemblyBuilder assembly, String strAssemblyName, AssemblyBuilderAccess access, String dir)

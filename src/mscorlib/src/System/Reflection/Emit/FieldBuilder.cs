@@ -1,12 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
 namespace System.Reflection.Emit
 {
-    using System.Runtime.InteropServices;
-    using System;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.Reflection;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public sealed class FieldBuilder : FieldInfo, _FieldBuilder
     {
         private int m_fieldTok;

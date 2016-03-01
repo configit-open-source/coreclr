@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class AccessViolationException : SystemException
     {
         public AccessViolationException(): base (Environment.GetResourceString("Arg_AccessViolationException"))

@@ -1,7 +1,5 @@
 namespace System.Collections
 {
-    using System;
-
     public interface IDictionaryEnumerator : IEnumerator
     {
         Object Key

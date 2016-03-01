@@ -1,7 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System.Runtime.Serialization;
-
     public class TimeoutException : SystemException
     {
         public TimeoutException(): base (Environment.GetResourceString("Arg_TimeoutException"))

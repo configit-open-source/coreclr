@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public sealed class ExecutionEngineException : SystemException
     {
         public ExecutionEngineException(): base (Environment.GetResourceString("Arg_ExecutionEngineException"))

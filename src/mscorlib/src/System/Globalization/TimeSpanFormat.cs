@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Text;
+
 namespace System.Globalization
 {
-    using System.Text;
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-
     internal static class TimeSpanFormat
     {
         private static String IntToString(int n, int digits)

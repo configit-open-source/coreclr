@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class InvalidOleVariantTypeException : SystemException
     {
         public InvalidOleVariantTypeException(): base (Environment.GetResourceString("Arg_InvalidOleVariantTypeException"))

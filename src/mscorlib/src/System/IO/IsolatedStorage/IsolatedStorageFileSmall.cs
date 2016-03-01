@@ -1,28 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Security.Permissions;
+using System.Security.Util;
+using System.Text;
+
+using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
+
 namespace System.IO.IsolatedStorage
 {
-    using System;
-    using System.Text;
-    using System.IO;
-    using Microsoft.Win32;
-    using Microsoft.Win32.SafeHandles;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Security;
-    using System.Threading;
-    using System.Security.Policy;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ExceptionServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Globalization;
-    using System.Collections.ObjectModel;
-    using System.Diagnostics.Contracts;
-    using System.Security.AccessControl;
-    using System.Security.Principal;
-    using System.Security.Util;
-
     public sealed class IsolatedStorageFile : IDisposable
     {
         private const int s_BlockSize = 1024;

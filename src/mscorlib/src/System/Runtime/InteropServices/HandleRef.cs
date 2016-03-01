@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-
     public struct HandleRef
     {
         internal Object m_wrapper;

@@ -1,17 +1,13 @@
+using System.Diagnostics.Contracts;
+using System.Diagnostics.Tracing;
+using System.Runtime.InteropServices;
+using System.Security;
+
+using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
+
 namespace System.Threading
 {
-    using System;
-    using System.Security;
-    using System.Security.Permissions;
-    using Microsoft.Win32;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.Tracing;
-    using Microsoft.Win32.SafeHandles;
-
     public delegate void TimerCallback(Object state);
     class TimerQueue
     {

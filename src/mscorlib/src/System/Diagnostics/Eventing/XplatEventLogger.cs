@@ -1,12 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Runtime.InteropServices;
-
-using Contract = System.Diagnostics.Contracts.Contract;
 
 #if FEATURE_EVENTSOURCE_XPLAT
 

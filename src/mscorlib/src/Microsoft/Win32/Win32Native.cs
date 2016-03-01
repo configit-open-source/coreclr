@@ -1,17 +1,14 @@
+using System;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Security.Principal;
+using System.Text;
+using System.Threading;
+
+using Microsoft.Win32.SafeHandles;
+
 namespace Microsoft.Win32
 {
-    using System;
-    using System.Security;
-    using System.Security.Principal;
-    using System.Text;
-    using System.Configuration.Assemblies;
-    using System.Runtime.Remoting;
-    using System.Runtime.InteropServices;
-    using System.Threading;
-    using Microsoft.Win32.SafeHandles;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
     using BOOL = System.Int32;
     using DWORD = System.UInt32;
     using ULONG = System.UInt32;
@@ -101,13 +98,13 @@ namespace Microsoft.Win32
 
         internal struct TimeZoneInformation
         {
-            public Int32 Bias;
+            public BOOL Bias;
             public string StandardName;
             public SystemTime StandardDate;
-            public Int32 StandardBias;
+            public BOOL StandardBias;
             public string DaylightName;
             public SystemTime DaylightDate;
-            public Int32 DaylightBias;
+            public BOOL DaylightBias;
             public TimeZoneInformation(Win32Native.DynamicTimeZoneInformation dtzi)
             {
                 Bias = dtzi.Bias;
@@ -122,22 +119,22 @@ namespace Microsoft.Win32
 
         internal struct DynamicTimeZoneInformation
         {
-            public Int32 Bias;
+            public BOOL Bias;
             public string StandardName;
             public SystemTime StandardDate;
-            public Int32 StandardBias;
+            public BOOL StandardBias;
             public string DaylightName;
             public SystemTime DaylightDate;
-            public Int32 DaylightBias;
+            public BOOL DaylightBias;
             public string TimeZoneKeyName;
             public bool DynamicDaylightTimeDisabled;
         }
 
         internal struct RegistryTimeZoneInformation
         {
-            public Int32 Bias;
-            public Int32 StandardBias;
-            public Int32 DaylightBias;
+            public BOOL Bias;
+            public BOOL StandardBias;
+            public BOOL DaylightBias;
             public SystemTime StandardDate;
             public SystemTime DaylightDate;
             public RegistryTimeZoneInformation(Win32Native.TimeZoneInformation tzi)

@@ -1,15 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Threading
 {
-    using System;
-    using System.Security.Permissions;
-    using System.Runtime;
-    using System.Runtime.Remoting;
-    using System.Threading;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public static class Monitor
     {
         public static extern void Enter(Object obj);

@@ -1,11 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Globalization
 {
-    using System.Security.Permissions;
-    using System.Runtime.Serialization;
-    using System.Text;
-    using System;
-    using System.Diagnostics.Contracts;
-
     sealed public class NumberFormatInfo : ICloneable, IFormatProvider
     {
         private static volatile NumberFormatInfo invariantInfo;

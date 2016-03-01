@@ -1,20 +1,13 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+using System.Security.Util;
+using System.Threading;
+
 namespace System.Security
 {
-    using System;
-    using System.Threading;
-    using System.Security.Util;
-    using System.Collections;
-    using System.IO;
-    using System.Security.Permissions;
-    using System.Runtime.CompilerServices;
-    using System.Security.Policy;
-    using BindingFlags = System.Reflection.BindingFlags;
-    using System.Runtime.Serialization;
-    using System.Text;
-    using System.Globalization;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     internal enum SpecialPermissionSetFlag
     {
         Regular = 0,

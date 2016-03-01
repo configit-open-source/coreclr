@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Cryptography
 {
-    using System;
-    using System.Security;
-    using System.Diagnostics.Contracts;
-
     public class SHA256Managed : SHA256
     {
         private byte[] _buffer;

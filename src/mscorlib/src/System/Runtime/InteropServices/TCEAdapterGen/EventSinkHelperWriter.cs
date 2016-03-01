@@ -1,12 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Reflection;
+using System.Reflection.Emit;
+
 namespace System.Runtime.InteropServices.TCEAdapterGen
 {
-    using System.Runtime.InteropServices;
-    using System;
-    using System.Reflection;
-    using System.Reflection.Emit;
-    using System.Collections;
-    using System.Diagnostics.Contracts;
-
     internal class EventSinkHelperWriter
     {
         public static readonly String GeneratedTypeNamePostfix = "_SinkHelper";

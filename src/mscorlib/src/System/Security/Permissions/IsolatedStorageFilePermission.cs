@@ -1,7 +1,5 @@
 namespace System.Security.Permissions
 {
-    using System.Globalization;
-
     sealed public class IsolatedStorageFilePermission : IsolatedStoragePermission, IBuiltInPermission
     {
         public IsolatedStorageFilePermission(PermissionState state): base (state)

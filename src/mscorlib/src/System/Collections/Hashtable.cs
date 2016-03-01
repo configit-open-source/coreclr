@@ -1,16 +1,11 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Security.Cryptography;
+using System.Threading;
+
 namespace System.Collections
 {
-    using System;
-    using System.Runtime;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Diagnostics.Contracts;
-    using System.Security.Cryptography;
-
     public class Hashtable : IDictionary, ISerializable, IDeserializationCallback, ICloneable
     {
         internal const Int32 HashPrime = 101;

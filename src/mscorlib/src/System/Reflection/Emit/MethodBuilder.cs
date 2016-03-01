@@ -1,17 +1,12 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Diagnostics.SymbolStore;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Text;
+
 namespace System.Reflection.Emit
 {
-    using System.Text;
-    using System;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.Diagnostics.SymbolStore;
-    using System.Reflection;
-    using System.Security;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Security.Permissions;
-    using System.Runtime.InteropServices;
-    using System.Diagnostics.Contracts;
-
     public sealed class MethodBuilder : MethodInfo, _MethodBuilder
     {
         internal String m_strName;

@@ -1,10 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Text;
+
 namespace System
 {
-    using System.Diagnostics.Contracts;
-    using System.Text;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using NumberStyles = System.Globalization.NumberStyles;
-
     public sealed class Version : ICloneable, IComparable, IComparable<Version>, IEquatable<Version>
     {
         private int _Major;

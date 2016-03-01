@@ -1,10 +1,7 @@
+using System.Collections.Generic;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-
     public abstract class TypeInfo : Type, IReflectableType
     {
         internal TypeInfo()

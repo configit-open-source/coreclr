@@ -1,8 +1,5 @@
 namespace System.Reflection
 {
-    using System.Runtime.InteropServices;
-    using System;
-
     [Flags]
     public enum TypeAttributes
     {

@@ -1,8 +1,7 @@
+using System.Reflection;
+
 namespace System.Runtime.CompilerServices
 {
-    using System;
-    using System.Reflection;
-
     [Flags]
     public enum MethodImplOptions
     {

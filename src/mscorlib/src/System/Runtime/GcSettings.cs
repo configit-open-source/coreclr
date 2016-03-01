@@ -1,11 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.ConstrainedExecution;
+using System.Security.Permissions;
+
 namespace System.Runtime
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public enum GCLargeObjectHeapCompactionMode
     {
         Default = 1,

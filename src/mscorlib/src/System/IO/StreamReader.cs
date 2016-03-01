@@ -1,10 +1,6 @@
-using System;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
-using System.Security.Permissions;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace System.IO

@@ -1,11 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.Serialization;
+
 namespace System.Collections
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public sealed class Comparer : IComparer, ISerializable
     {
         private CompareInfo m_compareInfo;

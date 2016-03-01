@@ -1,10 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Threading;
-    using System.Diagnostics.Contracts;
-
     internal class EraInfo
     {
         internal int era;

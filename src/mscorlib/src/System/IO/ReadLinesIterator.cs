@@ -1,6 +1,4 @@
-using System;
 using System.Diagnostics.Contracts;
-using System.Runtime.Versioning;
 using System.Text;
 
 namespace System.IO

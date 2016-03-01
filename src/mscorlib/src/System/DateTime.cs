@@ -1,19 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Threading;
-    using System.Globalization;
-    using System.Runtime;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Serialization;
-    using System.Runtime.Versioning;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using Calendar = System.Globalization.Calendar;
-
     public struct DateTime : IComparable, IFormattable, IConvertible, ISerializable, IComparable<DateTime>, IEquatable<DateTime>
     {
         private const long TicksPerMillisecond = 10000;

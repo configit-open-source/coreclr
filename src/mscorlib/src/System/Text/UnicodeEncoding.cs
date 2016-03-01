@@ -1,11 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.Serialization;
+
 namespace System.Text
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public class UnicodeEncoding : Encoding
     {
         internal bool isThrowException = false;

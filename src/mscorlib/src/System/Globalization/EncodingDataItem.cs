@@ -1,10 +1,5 @@
 namespace System.Globalization
 {
-    using System.Text;
-    using System.Runtime.Remoting;
-    using System;
-    using System.Security;
-
     internal class CodePageDataItem
     {
         internal int m_dataIndex;

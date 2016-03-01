@@ -1,12 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-    using System.IO;
-    using System.Reflection;
-    using System.Runtime.Versioning;
-
     internal class ModuleBuilderData
     {
         internal ModuleBuilderData(ModuleBuilder module, String strModuleName, String strFileName, int tkFile)

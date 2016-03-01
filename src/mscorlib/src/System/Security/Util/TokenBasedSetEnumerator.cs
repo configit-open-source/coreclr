@@ -1,8 +1,5 @@
 namespace System.Security.Util
 {
-    using System;
-    using System.Collections;
-
     internal struct TokenBasedSetEnumerator
     {
         public Object Current;

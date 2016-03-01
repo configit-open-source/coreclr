@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public sealed class TargetInvocationException : Exception
     {
         private TargetInvocationException(): base (Environment.GetResourceString("Arg_TargetInvocationException"))

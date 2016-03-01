@@ -1,10 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Text;
+
 namespace System.Security.Cryptography
 {
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Diagnostics.Contracts;
-
     public enum FromBase64TransformMode
     {
         IgnoreWhiteSpaces = 0,

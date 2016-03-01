@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
 using System.Diagnostics.Contracts;
-using System.Reflection;
-using System.Security;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
 {

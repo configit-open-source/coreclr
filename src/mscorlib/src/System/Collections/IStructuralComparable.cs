@@ -1,5 +1,3 @@
-using System;
-
 namespace System.Collections
 {
     public interface IStructuralComparable

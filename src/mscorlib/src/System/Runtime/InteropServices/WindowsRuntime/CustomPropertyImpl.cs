@@ -1,12 +1,6 @@
-using System;
-using System.Security;
-using System.Reflection;
 using System.Diagnostics.Contracts;
-using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.StubHelpers;
 using System.Globalization;
+using System.Reflection;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
 {

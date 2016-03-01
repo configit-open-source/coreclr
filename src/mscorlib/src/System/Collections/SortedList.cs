@@ -1,12 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System.Collections
 {
-    using System;
-    using System.Security.Permissions;
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-
     public class SortedList : IDictionary, ICloneable
     {
         private Object[] keys;

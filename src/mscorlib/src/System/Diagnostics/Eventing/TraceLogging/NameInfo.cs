@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using Interlocked = System.Threading.Interlocked;
+using System.Threading;
 
 namespace System.Diagnostics.Tracing
 {

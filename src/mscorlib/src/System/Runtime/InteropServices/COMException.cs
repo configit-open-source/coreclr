@@ -1,11 +1,10 @@
+using System.Globalization;
+using System.Runtime.Serialization;
+
+using Microsoft.Win32;
+
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Globalization;
-    using System.Security;
-    using Microsoft.Win32;
-
     public class COMException : ExternalException
     {
         public COMException(): base (Environment.GetResourceString("Arg_COMException"))

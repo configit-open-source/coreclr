@@ -1,8 +1,6 @@
-using System;
-using System.Runtime.InteropServices;
-using System.Security.Permissions;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 

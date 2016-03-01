@@ -1,27 +1,19 @@
+using System.Collections.Generic;
+using System.Configuration.Assemblies;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Security;
+using System.Security.Permissions;
+using System.Security.Policy;
+using System.Text;
+using System.Threading;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using System.Security;
-    using System.Security.Policy;
-    using System.Security.Permissions;
-    using System.IO;
-    using StringBuilder = System.Text.StringBuilder;
-    using System.Configuration.Assemblies;
-    using StackCrawlMark = System.Threading.StackCrawlMark;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using SecurityZone = System.Security.SecurityZone;
-    using IEvidenceFactory = System.Security.IEvidenceFactory;
-    using System.Runtime.Serialization;
-    using Microsoft.Win32;
-    using System.Threading;
-    using __HResults = System.__HResults;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public delegate Module ModuleResolveEventHandler(Object sender, ResolveEventArgs e);
     public abstract class Assembly : _Assembly, IEvidenceFactory, ICustomAttributeProvider, ISerializable
     {

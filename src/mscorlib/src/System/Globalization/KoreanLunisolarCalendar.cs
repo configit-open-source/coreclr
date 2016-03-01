@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public class KoreanLunisolarCalendar : EastAsianLunisolarCalendar
     {
         public const int GregorianEra = 1;

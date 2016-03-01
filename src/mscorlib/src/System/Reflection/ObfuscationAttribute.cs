@@ -1,6 +1,3 @@
-using System;
-using System.Reflection;
-
 namespace System.Reflection
 {
     public sealed class ObfuscationAttribute : Attribute

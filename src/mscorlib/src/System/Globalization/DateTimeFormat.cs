@@ -1,15 +1,10 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Text;
+
 namespace System
 {
-    using System.Text;
-    using System.Threading;
-    using System.Globalization;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Security;
-    using System.Diagnostics.Contracts;
-
     internal static class DateTimeFormat
     {
         internal const int MaxSecondsFractionDigits = 7;

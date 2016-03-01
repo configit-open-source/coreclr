@@ -1,22 +1,17 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
+using System.Security.Permissions;
+using System.Text;
+using System.Threading;
+
+using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
+
 namespace System
 {
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Globalization;
-    using System.Security;
-    using System.Security.Permissions;
-    using Microsoft.Win32;
-    using System.Runtime.CompilerServices;
-    using System.Threading;
-    using System.Runtime.InteropServices;
-    using Microsoft.Win32.SafeHandles;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Collections.Generic;
-
     public static class Console
     {
         private const int DefaultConsoleBufferSize = 256;

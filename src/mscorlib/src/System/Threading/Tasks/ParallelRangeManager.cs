@@ -1,5 +1,3 @@
-using System;
-using System.Threading;
 using System.Diagnostics.Contracts;
 
 namespace System.Threading.Tasks

@@ -1,11 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Globalization
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Globalization;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public abstract class Calendar : ICloneable
     {
         internal const long TicksPerMillisecond = 10000;

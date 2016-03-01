@@ -1,9 +1,8 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-
     internal static class Associates
     {
         [Flags]

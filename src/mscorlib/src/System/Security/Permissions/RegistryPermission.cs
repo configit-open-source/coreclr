@@ -1,13 +1,8 @@
+using System.Security.AccessControl;
+using System.Security.Util;
+
 namespace System.Security.Permissions
 {
-    using System;
-    using SecurityElement = System.Security.SecurityElement;
-    using System.Security.AccessControl;
-    using System.Security.Util;
-    using System.IO;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-
     [Flags]
     public enum RegistryPermissionAccess
     {

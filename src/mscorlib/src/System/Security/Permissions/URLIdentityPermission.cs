@@ -1,15 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Security.Util;
+
 namespace System.Security.Permissions
 {
-    using System;
-    using System.Security.Util;
-    using System.IO;
-    using System.Text;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Runtime.Serialization;
-    using System.Diagnostics.Contracts;
-
     sealed public class UrlIdentityPermission : CodeAccessPermission, IBuiltInPermission
     {
         private bool m_unrestricted;

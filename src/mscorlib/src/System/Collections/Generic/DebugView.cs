@@ -1,11 +1,8 @@
+using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
+
 namespace System.Collections.Generic
 {
-    using System;
-    using System.Collections.ObjectModel;
-    using System.Security.Permissions;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-
     internal sealed class Mscorlib_CollectionDebugView<T>
     {
         private ICollection<T> collection;

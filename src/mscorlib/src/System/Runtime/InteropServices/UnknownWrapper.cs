@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-
     public sealed class UnknownWrapper
     {
         public UnknownWrapper(Object obj)

@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices.TCEAdapterGen
 {
-    using System;
-
     internal static class NameSpaceExtractor
     {
         private static char NameSpaceSeperator = '.';

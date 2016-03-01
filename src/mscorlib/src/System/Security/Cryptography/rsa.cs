@@ -1,12 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.Security.Util;
+using System.Text;
+
 namespace System.Security.Cryptography
 {
-    using System.IO;
-    using System.Text;
-    using System.Runtime.Serialization;
-    using System.Security.Util;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public struct RSAParameters
     {
         public byte[] Exponent;

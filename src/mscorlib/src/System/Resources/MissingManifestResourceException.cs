@@ -1,6 +1,3 @@
-using System;
-using System.Runtime.Serialization;
-
 namespace System.Resources
 {
     public class MissingManifestResourceException : SystemException

@@ -1,9 +1,5 @@
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Reflection;
-    using System.Security.Permissions;
-
     public struct ParameterToken
     {
         public static readonly ParameterToken Empty = new ParameterToken();

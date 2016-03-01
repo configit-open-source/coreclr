@@ -1,8 +1,5 @@
 namespace System.Security.Permissions
 {
-    using System;
-    using System.Globalization;
-
     sealed public class GacIdentityPermissionAttribute : CodeAccessSecurityAttribute
     {
         public GacIdentityPermissionAttribute(SecurityAction action): base (action)

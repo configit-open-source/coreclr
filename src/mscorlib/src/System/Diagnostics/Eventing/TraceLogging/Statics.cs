@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Encoding = System.Text.Encoding;
+using System.Text;
+
 using Microsoft.Reflection;
 
 namespace System.Diagnostics.Tracing

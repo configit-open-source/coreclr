@@ -1,13 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Text
 {
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.Collections;
-    using System.Runtime.Remoting;
-    using System.Globalization;
-    using System.Threading;
-    using Win32Native = Microsoft.Win32.Win32Native;
-
     internal abstract class EncodingNLS : Encoding
     {
         protected EncodingNLS(int codePage): base (codePage)

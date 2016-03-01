@@ -1,7 +1,5 @@
 namespace System.Reflection
 {
-    using System;
-
     public enum AssemblyNameFlags
     {
         None = 0x0000,

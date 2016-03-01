@@ -1,13 +1,8 @@
+using System.Reflection;
+using System.Security.Policy;
+
 namespace System.Security
 {
-    using System.Collections;
-    using System.Reflection;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Security.Policy;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     [Flags]
     public enum HostSecurityManagerOptions
     {

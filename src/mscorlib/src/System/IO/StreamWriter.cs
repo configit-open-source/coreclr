@@ -1,13 +1,7 @@
-using System;
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Runtime.Versioning;
-using System.Security.Permissions;
-using System.Runtime.Serialization;
-using System.Diagnostics.Contracts;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace System.IO

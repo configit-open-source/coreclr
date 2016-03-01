@@ -1,8 +1,7 @@
+using System.Threading;
+
 namespace System
 {
-    using System;
-    using System.Threading;
-
     public interface IAsyncResult
     {
         bool IsCompleted

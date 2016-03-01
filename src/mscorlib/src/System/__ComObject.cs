@@ -1,14 +1,10 @@
+using System.Collections;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
+
 namespace System
 {
-    using System;
-    using System.Collections;
-    using System.Threading;
-    using System.Runtime.InteropServices;
-    using System.Runtime.InteropServices.WindowsRuntime;
-    using System.Runtime.CompilerServices;
-    using System.Reflection;
-    using System.Security.Permissions;
-
     internal class __ComObject : MarshalByRefObject
     {
         private Hashtable m_ObjectToDataMap;

@@ -1,14 +1,9 @@
+using System.Runtime.CompilerServices;
+using System.Security;
+using System.Security.Permissions;
+
 namespace System.Diagnostics
 {
-    using System;
-    using System.IO;
-    using System.Collections;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Runtime.Versioning;
-
     public sealed class Debugger
     {
         public Debugger()
@@ -84,7 +79,7 @@ namespace System.Diagnostics
         public static extern bool IsAttached
         {
             [System.Security.SecuritySafeCritical]
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             get;
         }
 

@@ -1,10 +1,7 @@
+using System.Threading;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Threading;
-    using System.Security.Permissions;
-    using System.Diagnostics.Contracts;
-
     public struct OpCode
     {
         internal const int OperandTypeMask = 0x1F;

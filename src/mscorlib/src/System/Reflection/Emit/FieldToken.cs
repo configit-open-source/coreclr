@@ -1,9 +1,5 @@
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Reflection;
-    using System.Security.Permissions;
-
     public struct FieldToken
     {
         public static readonly FieldToken Empty = new FieldToken();

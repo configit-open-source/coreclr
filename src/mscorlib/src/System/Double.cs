@@ -1,12 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System
 {
-    using System;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Diagnostics.Contracts;
-
     public struct Double : IComparable, IFormattable, IConvertible, IComparable<Double>, IEquatable<Double>
     {
         internal double m_value;

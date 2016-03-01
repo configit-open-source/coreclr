@@ -1,7 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System.Runtime.Serialization;
-
     public class ApplicationException : Exception
     {
         public ApplicationException(): base (Environment.GetResourceString("Arg_ApplicationException"))

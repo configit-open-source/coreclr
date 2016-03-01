@@ -1,9 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Security;
-    using System.Security.Permissions;
-
     public sealed class DispatchWrapper
     {
         public DispatchWrapper(Object obj)

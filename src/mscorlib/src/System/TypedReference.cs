@@ -1,14 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Reflection;
+
 namespace System
 {
-    using System;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using CultureInfo = System.Globalization.CultureInfo;
-    using FieldInfo = System.Reflection.FieldInfo;
-    using System.Security.Permissions;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-
     public struct TypedReference
     {
         private IntPtr Value;

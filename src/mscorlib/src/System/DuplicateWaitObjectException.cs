@@ -1,9 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Remoting;
-    using System.Runtime.Serialization;
-
     public class DuplicateWaitObjectException : ArgumentException
     {
         private static volatile String _duplicateWaitObjectMessage = null;

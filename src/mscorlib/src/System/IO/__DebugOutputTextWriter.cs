@@ -1,11 +1,6 @@
-using System;
-using System.IO;
-using System.Text;
-using System.Security;
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-using Microsoft.Win32;
 using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace System.IO
 {

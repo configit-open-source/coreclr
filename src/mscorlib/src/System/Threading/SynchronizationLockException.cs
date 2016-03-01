@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Threading
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class SynchronizationLockException : SystemException
     {
         public SynchronizationLockException(): base (Environment.GetResourceString("Arg_SynchronizationLockException"))

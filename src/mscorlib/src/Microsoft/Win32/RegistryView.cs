@@ -1,7 +1,5 @@
 namespace Microsoft.Win32
 {
-    using System;
-
     public enum RegistryView
     {
         Default = 0,

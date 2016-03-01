@@ -1,12 +1,7 @@
-using System;
-using System.Reflection;
-using System.Diagnostics.Contracts;
 using System.IO;
-using System.Runtime.Versioning;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Security;
-using System.Threading;
 
 namespace System.Runtime.Loader
 {

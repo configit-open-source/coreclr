@@ -1,16 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Permissions
 {
-    using System;
-    using System.Text;
-    using System.Security;
-    using System.Security.Util;
-    using System.IO;
-    using System.Runtime.Serialization;
-    using System.Reflection;
-    using System.Collections;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     [Flags]
     public enum FileDialogPermissionAccess
     {

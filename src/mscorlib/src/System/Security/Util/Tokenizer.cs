@@ -1,11 +1,9 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Text;
+
 namespace System.Security.Util
 {
-    using System.Text;
-    using System;
-    using System.IO;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     internal sealed class Tokenizer
     {
         internal const byte bra = 0;

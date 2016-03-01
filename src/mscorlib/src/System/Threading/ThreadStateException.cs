@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Threading
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class ThreadStateException : SystemException
     {
         public ThreadStateException(): base (Environment.GetResourceString("Arg_ThreadStateException"))

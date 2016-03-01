@@ -1,10 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
 {

@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices.ComTypes
 {
-    using System;
-
     public enum DESCKIND
     {
         DESCKIND_NONE = 0,

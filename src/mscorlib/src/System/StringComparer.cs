@@ -1,12 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-    using System.Runtime.Serialization;
-    using System.Runtime.CompilerServices;
-
     public abstract class StringComparer : IComparer, IEqualityComparer, IComparer<string>, IEqualityComparer<string>
     {
         private static readonly StringComparer _invariantCulture = new CultureAwareComparer(CultureInfo.InvariantCulture, false);

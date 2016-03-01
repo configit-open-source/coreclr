@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-
     public sealed class CurrencyWrapper
     {
         public CurrencyWrapper(Decimal obj)

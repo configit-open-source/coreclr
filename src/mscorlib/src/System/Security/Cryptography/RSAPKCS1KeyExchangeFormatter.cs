@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Cryptography
 {
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public class RSAPKCS1KeyExchangeFormatter : AsymmetricKeyExchangeFormatter
     {
         RandomNumberGenerator RngValue;

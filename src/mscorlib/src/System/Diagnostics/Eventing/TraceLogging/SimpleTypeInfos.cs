@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Reflection;
-using Contract = System.Diagnostics.Contracts.Contract;
 
 namespace System.Diagnostics.Tracing
 {

@@ -1,16 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Permissions
 {
-    using System;
-    using System.IO;
-    using System.Security.Util;
-    using System.Text;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Remoting;
-    using System.Security;
-    using System.Reflection;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     [Flags]
     public enum ReflectionPermissionFlag
     {

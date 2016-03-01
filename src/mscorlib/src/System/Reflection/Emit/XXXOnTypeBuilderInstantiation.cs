@@ -1,12 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Globalization;
+
 namespace System.Reflection.Emit
 {
-    using System;
-    using System.Reflection;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     internal sealed class MethodOnTypeBuilderInstantiation : MethodInfo
     {
         internal static MethodInfo GetMethod(MethodInfo method, TypeBuilderInstantiation type)

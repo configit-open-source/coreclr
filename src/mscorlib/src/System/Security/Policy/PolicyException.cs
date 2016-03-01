@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.Security.Policy
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class PolicyException : SystemException
     {
         public PolicyException(): base (Environment.GetResourceString("Policy_Default"))

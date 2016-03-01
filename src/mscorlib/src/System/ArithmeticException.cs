@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class ArithmeticException : SystemException
     {
         public ArithmeticException(): base (Environment.GetResourceString("Arg_ArithmeticException"))

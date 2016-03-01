@@ -1,10 +1,5 @@
 namespace System.Runtime.Serialization.Formatters
 {
-    using System.Threading;
-    using System.Runtime.Remoting;
-    using System.Runtime.Serialization;
-    using System;
-
     public enum FormatterTypeStyle
     {
         TypesWhenNeeded = 0,

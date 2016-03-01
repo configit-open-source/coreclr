@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
-using Interlocked = System.Threading.Interlocked;
-using Contract = System.Diagnostics.Contracts.Contract;
+using System.Diagnostics.Contracts;
 
 namespace System.Diagnostics.Tracing
 {

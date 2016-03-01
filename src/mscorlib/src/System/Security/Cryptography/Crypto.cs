@@ -1,9 +1,9 @@
+using System.Globalization;
+
+using Microsoft.Win32;
+
 namespace System.Security.Cryptography
 {
-    using Microsoft.Win32;
-    using System.Runtime.Serialization;
-    using System.Globalization;
-
     public enum CipherMode
     {
         CBC = 1,

@@ -1,21 +1,16 @@
-using System;
-using System.Runtime.CompilerServices;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
-using System.Security;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading;
-using Microsoft.Win32;
-using System.Threading.Tasks;
+
 using Microsoft.Reflection;
-using Contract = System.Diagnostics.Contracts.Contract;
+using Microsoft.Win32;
 
 namespace System.Diagnostics.Tracing
 {

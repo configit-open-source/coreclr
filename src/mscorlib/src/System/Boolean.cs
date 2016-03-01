@@ -1,9 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System
 {
-    using System;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-
     public struct Boolean : IComparable, IConvertible, IComparable<Boolean>, IEquatable<Boolean>
     {
         private bool m_value;

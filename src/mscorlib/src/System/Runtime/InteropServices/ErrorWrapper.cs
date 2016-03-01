@@ -1,8 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Security.Permissions;
-
     public sealed class ErrorWrapper
     {
         public ErrorWrapper(int errorCode)

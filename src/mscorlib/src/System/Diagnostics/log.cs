@@ -1,16 +1,8 @@
+using System.Collections;
+using System.Diagnostics.Contracts;
+
 namespace System.Diagnostics
 {
-    using System.Runtime.Remoting;
-    using System;
-    using System.Security.Permissions;
-    using System.IO;
-    using System.Collections;
-    using System.Runtime.CompilerServices;
-    using Encoding = System.Text.Encoding;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.CodeAnalysis;
-
     internal delegate void LogMessageEventHandler(LoggingLevels level, LogSwitch category, String message, StackTrace location);
     internal delegate void LogSwitchLevelHandler(LogSwitch ls, LoggingLevels newLevel);
     internal static class Log

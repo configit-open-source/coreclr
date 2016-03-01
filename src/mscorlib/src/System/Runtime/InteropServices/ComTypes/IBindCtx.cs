@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices.ComTypes
 {
-    using System;
-
     public struct BIND_OPTS
     {
         public int cbStruct;

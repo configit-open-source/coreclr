@@ -1,15 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security;
-using System.Security.Permissions;
-using Microsoft.Win32;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Globalization;
-using System.Runtime.Serialization;
-using System.Runtime.Versioning;
 using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+
+using Microsoft.Win32;
 
 namespace System.IO
 {

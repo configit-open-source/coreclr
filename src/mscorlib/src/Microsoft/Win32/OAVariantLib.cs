@@ -1,12 +1,10 @@
+using System;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Reflection;
+
 namespace Microsoft.Win32
 {
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Versioning;
-    using CultureInfo = System.Globalization.CultureInfo;
-
     internal static class OAVariantLib
     {
         public const int NoValueProp = 0x01;

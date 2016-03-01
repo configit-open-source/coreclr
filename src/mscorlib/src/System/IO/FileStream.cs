@@ -1,16 +1,14 @@
-using System;
-using Microsoft.Win32;
-using Microsoft.Win32.SafeHandles;
+using System.Diagnostics.Contracts;
+using System.Diagnostics.Tracing;
+using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
-using System.Globalization;
-using System.Runtime.Versioning;
-using System.Diagnostics.Contracts;
-using System.Diagnostics.Tracing;
+
+using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
 
 namespace System.IO
 {

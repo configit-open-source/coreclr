@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
+using System.Reflection;
+
+using Microsoft.Reflection;
 
 namespace System.Diagnostics.Tracing.Internal
 {
-    using Microsoft.Reflection;
-    using System.Reflection;
-
     internal static class Environment
     {
         public static readonly string NewLine = System.Environment.NewLine;
@@ -44,8 +43,6 @@ namespace System.Diagnostics.Tracing.Internal
 
 namespace Microsoft.Reflection
 {
-    using System.Reflection;
-
     static class ReflectionExtensions
     {
         public static bool IsEnum(this Type type)

@@ -1,7 +1,5 @@
-using System;
-using System.Runtime.InteropServices;
 using System.Diagnostics.Contracts;
-using System.Security.Permissions;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace System.IO

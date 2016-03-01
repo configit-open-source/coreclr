@@ -1,7 +1,5 @@
 namespace System.Globalization
 {
-    using System;
-
     public enum CalendarAlgorithmType
     {
         Unknown = 0,

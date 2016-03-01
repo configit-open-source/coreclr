@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices.ComTypes
 {
-    using System;
-
     public interface ITypeInfo2 : ITypeInfo
     {
         new void GetTypeAttr(out IntPtr ppTypeAttr);

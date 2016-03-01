@@ -1,7 +1,3 @@
-using System;
-using System.Runtime.InteropServices;
-using System.Security;
-
 namespace System.Runtime.InteropServices.WindowsRuntime
 {
     internal unsafe struct HSTRING_HEADER

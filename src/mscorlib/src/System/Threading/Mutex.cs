@@ -1,19 +1,13 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
+
 namespace System.Threading
 {
-    using System;
-    using System.Threading;
-    using System.Runtime.CompilerServices;
-    using System.Security.Permissions;
-    using System.IO;
-    using Microsoft.Win32;
-    using Microsoft.Win32.SafeHandles;
-    using System.Runtime.InteropServices;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.Versioning;
-    using System.Security.Principal;
-    using System.Security;
-    using System.Diagnostics.Contracts;
-
     public sealed class Mutex : WaitHandle
     {
         static bool dummyBool;

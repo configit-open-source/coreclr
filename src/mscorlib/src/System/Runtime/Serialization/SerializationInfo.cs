@@ -1,14 +1,10 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Reflection;
+using System.Security;
+
 namespace System.Runtime.Serialization
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Runtime.Remoting;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-    using System.Security;
-    using System.Runtime.CompilerServices;
-
     public sealed class SerializationInfo
     {
         private const int defaultSize = 4;

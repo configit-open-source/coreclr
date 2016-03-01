@@ -1,21 +1,12 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Threading;
+
 namespace System.Reflection
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-    using System.Runtime;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Threading;
-    using MemberListType = System.RuntimeType.MemberListType;
-    using RuntimeTypeCache = System.RuntimeType.RuntimeTypeCache;
-    using System.Runtime.CompilerServices;
-
     public abstract class ConstructorInfo : MethodBase, _ConstructorInfo
     {
         public readonly static String ConstructorName = ".ctor";
@@ -57,7 +48,7 @@ namespace System.Reflection
     internal sealed class RuntimeConstructorInfo : ConstructorInfo, ISerializable, IRuntimeMethodInfo
     {
         private volatile RuntimeType m_declaringType;
-        private RuntimeTypeCache m_reflectedTypeCache;
+        private RuntimeType.RuntimeTypeCache m_reflectedTypeCache;
         private string m_toString;
         private ParameterInfo[] m_parameters = null;
         private object _empty1;
@@ -131,7 +122,7 @@ namespace System.Reflection
             }
         }
 
-        internal RuntimeConstructorInfo(RuntimeMethodHandleInternal handle, RuntimeType declaringType, RuntimeTypeCache reflectedTypeCache, MethodAttributes methodAttributes, BindingFlags bindingFlags)
+        internal RuntimeConstructorInfo(RuntimeMethodHandleInternal handle, RuntimeType declaringType, RuntimeType.RuntimeTypeCache reflectedTypeCache, MethodAttributes methodAttributes, BindingFlags bindingFlags)
         {
             Contract.Ensures(methodAttributes == RuntimeMethodHandle.GetAttributes(handle));
             m_bindingFlags = bindingFlags;
@@ -205,7 +196,7 @@ namespace System.Reflection
         {
             get
             {
-                return m_reflectedTypeCache.GetConstructorList(MemberListType.CaseSensitive, Name).Length > 1;
+                return m_reflectedTypeCache.GetConstructorList(RuntimeType.MemberListType.CaseSensitive, Name).Length > 1;
             }
         }
 

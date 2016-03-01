@@ -1,11 +1,5 @@
 namespace System.Runtime.InteropServices.WindowsRuntime
 {
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Runtime.InteropServices.WindowsRuntime;
-    using System.Runtime.CompilerServices;
-    using System.Security;
-
     internal interface IStringable
     {
         string ToString();

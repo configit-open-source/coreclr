@@ -1,5 +1,3 @@
-using System;
-
 namespace System.Diagnostics.Tracing
 {
     public struct EventSourceOptions

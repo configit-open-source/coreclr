@@ -1,11 +1,7 @@
-using System;
-using System.Runtime.InteropServices;
-using System.Globalization;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Threading;
-using System.Collections.ObjectModel;
-using System.Security;
 using System.Threading.Tasks;
 
 namespace System.IO

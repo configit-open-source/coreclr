@@ -1,7 +1,5 @@
 namespace System.Threading
 {
-    using System;
-
     public struct LockCookie
     {
         private int _dwFlags;

@@ -1,5 +1,3 @@
-using System;
-
 namespace System.Runtime.InteropServices.WindowsRuntime
 {
     internal interface IReference<T> : IPropertyValue

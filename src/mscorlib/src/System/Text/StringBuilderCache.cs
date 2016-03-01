@@ -1,5 +1,3 @@
-using System.Threading;
-
 namespace System.Text
 {
     internal static class StringBuilderCache

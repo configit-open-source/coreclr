@@ -1,10 +1,7 @@
-using System;
 using System.Reflection;
 
 namespace System.Runtime.CompilerServices
 {
-    using System;
-
     public sealed class TypeForwardedToAttribute : Attribute
     {
         private Type _destination;

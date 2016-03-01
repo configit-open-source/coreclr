@@ -1,8 +1,5 @@
 namespace System.Diagnostics
 {
-    using System;
-    using System.Runtime.Versioning;
-
     abstract internal class AssertFilter
     {
         abstract public AssertFilters AssertFailure(String condition, String message, StackTrace location, StackTrace.TraceFormat stackTraceFormat, String windowTitle);

@@ -1,8 +1,7 @@
+using System.Text;
+
 namespace System.Collections.Generic
 {
-    using System;
-    using System.Text;
-
     public struct KeyValuePair<TKey, TValue>
     {
         private TKey key;

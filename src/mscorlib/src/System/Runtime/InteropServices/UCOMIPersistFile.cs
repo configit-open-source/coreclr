@@ -1,6 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
     using DWORD = System.UInt32;
 
     public interface UCOMIPersistFile

@@ -1,8 +1,7 @@
+using System.Diagnostics.Contracts;
+
 namespace System.Security.Cryptography
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     public abstract class DES : SymmetricAlgorithm
     {
         private static KeySizes[] s_legalBlockSizes = {new KeySizes(64, 64, 0)};

@@ -1,8 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.IO;
+
 namespace System.Security.Cryptography
 {
-    using System.IO;
-    using System.Diagnostics.Contracts;
-
     public class MACTripleDES : KeyedHashAlgorithm
     {
         private ICryptoTransform m_encryptor;

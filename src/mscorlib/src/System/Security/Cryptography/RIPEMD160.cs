@@ -1,7 +1,5 @@
 namespace System.Security.Cryptography
 {
-    using System;
-
     public abstract class RIPEMD160 : HashAlgorithm
     {
         protected RIPEMD160()

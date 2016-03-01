@@ -1,8 +1,7 @@
+using System.Runtime.Serialization;
+
 namespace System.IO.IsolatedStorage
 {
-    using System;
-    using System.Runtime.Serialization;
-
     public class IsolatedStorageException : Exception
     {
         internal Exception m_UnderlyingException;

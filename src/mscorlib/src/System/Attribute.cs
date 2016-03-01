@@ -1,14 +1,10 @@
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Reflection;
+using System.Runtime.InteropServices;
+
 namespace System
 {
-    using System;
-    using System.Reflection;
-    using System.Collections.Generic;
-    using System.Runtime.InteropServices;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-    using System.Security;
-    using System.Security.Permissions;
-
     public abstract class Attribute : _Attribute
     {
         private static Attribute[] InternalGetCustomAttributes(PropertyInfo element, Type type, bool inherit)

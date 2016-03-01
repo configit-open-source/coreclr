@@ -1,9 +1,8 @@
+using System.Diagnostics.Contracts;
+using System.Security.Util;
+
 namespace System.Security.Permissions
 {
-    using System;
-    using System.Security.Util;
-    using System.Diagnostics.Contracts;
-
     sealed public class StrongNamePublicKeyBlob
     {
         internal byte[] PublicKey;

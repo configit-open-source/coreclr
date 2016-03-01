@@ -1,5 +1,4 @@
-using System;
-using Encoding = System.Text.Encoding;
+using System.Text;
 
 namespace System.Diagnostics.Tracing
 {

@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-
     public interface UCOMIRunningObjectTable
     {
         void Register(int grfFlags, [MarshalAs(UnmanagedType.Interface)] Object punkObject, UCOMIMoniker pmkObjectName, out int pdwRegister);

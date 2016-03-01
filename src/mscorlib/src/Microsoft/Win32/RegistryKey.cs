@@ -1,21 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Security.Permissions;
+using System.Text;
+
+using Microsoft.Win32.SafeHandles;
+
 namespace Microsoft.Win32
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Security;
-    using System.Security.Permissions;
-    using System.Text;
-    using System.Threading;
-    using System.IO;
-    using System.Runtime.Remoting;
-    using System.Runtime.InteropServices;
-    using Microsoft.Win32.SafeHandles;
-    using System.Runtime.Versioning;
-    using System.Globalization;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.CodeAnalysis;
-
     public enum RegistryHive
     {
         ClassesRoot = unchecked ((int)0x80000000),

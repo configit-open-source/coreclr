@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace System.Diagnostics.Tracing
 {
     internal sealed class ArrayTypeInfo : TraceLoggingTypeInfo

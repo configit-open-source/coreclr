@@ -1,18 +1,13 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
+
+using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
+
 namespace System.Threading
 {
-    using System.Threading;
-    using System.Runtime.Remoting;
-    using System;
-    using System.Security.Permissions;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-    using Microsoft.Win32.SafeHandles;
-    using System.Runtime.Versioning;
-    using System.Runtime.ConstrainedExecution;
-    using System.Diagnostics.Contracts;
-    using System.Diagnostics.CodeAnalysis;
-    using Win32Native = Microsoft.Win32.Win32Native;
-
     public abstract class WaitHandle : IDisposable
     {
         public const int WaitTimeout = 0x102;

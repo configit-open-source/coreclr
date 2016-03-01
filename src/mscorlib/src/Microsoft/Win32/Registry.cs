@@ -1,9 +1,7 @@
+using System;
+
 namespace Microsoft.Win32
 {
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-
     public static class Registry
     {
         static Registry()

@@ -1,7 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-
     public interface UCOMIEnumVARIANT
     {
         int Next(int celt, int rgvar, int pceltFetched);

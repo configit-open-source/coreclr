@@ -1,7 +1,5 @@
 namespace System
 {
-    using System.Runtime.InteropServices;
-
     public interface IAppDomainSetup
     {
         String ApplicationBase

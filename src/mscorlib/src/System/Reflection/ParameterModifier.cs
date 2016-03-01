@@ -2,8 +2,6 @@ using System.Diagnostics.Contracts;
 
 namespace System.Reflection
 {
-    using System;
-
     public struct ParameterModifier
     {
         private bool[] _byRef;

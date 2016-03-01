@@ -1,8 +1,5 @@
 namespace System.Runtime.InteropServices
 {
-    using System;
-    using System.Runtime.Remoting;
-
     public static class ComEventsHelper
     {
         public static void Combine(object rcw, Guid iid, int dispid, System.Delegate d)
