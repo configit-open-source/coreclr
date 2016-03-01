@@ -1,23 +1,7 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
-
-/*=============================================================================
-**
-**
-**
-** Purpose: ITypeInfo2 interface definition.
-**
-**
-=============================================================================*/
-
 namespace System.Runtime.InteropServices.ComTypes
 {
     using System;
 
-    [Guid("00020412-0000-0000-C000-000000000046")]
-    [InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
-    [ComImport]
     public interface ITypeInfo2 : ITypeInfo
     {
         new void GetTypeAttr(out IntPtr ppTypeAttr);
@@ -36,11 +20,8 @@ namespace System.Runtime.InteropServices.ComTypes
         new void CreateInstance([MarshalAs(UnmanagedType.IUnknown)] Object pUnkOuter, [In] ref Guid riid, [MarshalAs(UnmanagedType.IUnknown), Out] out Object ppvObj);
         new void GetMops(int memid, out String pBstrMops);
         new void GetContainingTypeLib(out ITypeLib ppTLB, out int pIndex);
-        [PreserveSig]
         new void ReleaseTypeAttr(IntPtr pTypeAttr);
-        [PreserveSig]
         new void ReleaseFuncDesc(IntPtr pFuncDesc);
-        [PreserveSig]
         new void ReleaseVarDesc(IntPtr pVarDesc);
         void GetTypeKind(out TYPEKIND pTypeKind);
         void GetTypeFlags(out int pTypeFlags);
@@ -51,7 +32,6 @@ namespace System.Runtime.InteropServices.ComTypes
         void GetParamCustData(int indexFunc, int indexParam, ref Guid guid, out Object pVarVal);
         void GetVarCustData(int index, ref Guid guid, out Object pVarVal);
         void GetImplTypeCustData(int index, ref Guid guid, out Object pVarVal);
-        [LCIDConversionAttribute(1)]
         void GetDocumentation2(int memid, out String pbstrHelpString, out int pdwHelpStringContext, out String pbstrHelpStringDll);
         void GetAllCustData(IntPtr pCustData);
         void GetAllFuncCustData(int index, IntPtr pCustData);

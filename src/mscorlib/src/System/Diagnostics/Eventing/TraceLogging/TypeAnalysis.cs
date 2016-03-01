@@ -1,21 +1,9 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
-
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-
-#if ES_BUILD_STANDALONE
-namespace Microsoft.Diagnostics.Tracing
-#else
 namespace System.Diagnostics.Tracing
-#endif
 {
-    /// <summary>
-    /// TraceLogging: stores the per-type information obtained by reflecting over a type.
-    /// </summary>
     internal sealed class TypeAnalysis
     {
         internal readonly PropertyAnalysis[] properties;
@@ -24,24 +12,18 @@ namespace System.Diagnostics.Tracing
         internal readonly EventLevel level = (EventLevel)(-1);
         internal readonly EventOpcode opcode = (EventOpcode)(-1);
         internal readonly EventTags tags;
-
-        public TypeAnalysis(
-            Type dataType,
-            EventDataAttribute eventAttrib,
-            List<Type> recursionCheck)
+        public TypeAnalysis(Type dataType, EventDataAttribute eventAttrib, List<Type> recursionCheck)
         {
             var propertyInfos = Statics.GetProperties(dataType);
             var propertyList = new List<PropertyAnalysis>();
-
             foreach (var propertyInfo in propertyInfos)
             {
-                if (Statics.HasCustomAttribute(propertyInfo, typeof(EventIgnoreAttribute)))
+                if (Statics.HasCustomAttribute(propertyInfo, typeof (EventIgnoreAttribute)))
                 {
                     continue;
                 }
 
-                if (!propertyInfo.CanRead ||
-                    propertyInfo.GetIndexParameters().Length != 0)
+                if (!propertyInfo.CanRead || propertyInfo.GetIndexParameters().Length != 0)
                 {
                     continue;
                 }
@@ -60,22 +42,11 @@ namespace System.Diagnostics.Tracing
                 var propertyType = propertyInfo.PropertyType;
                 var propertyTypeInfo = TraceLoggingTypeInfo.GetInstance(propertyType, recursionCheck);
                 var fieldAttribute = Statics.GetCustomAttribute<EventFieldAttribute>(propertyInfo);
-
-                string propertyName =
-                    fieldAttribute != null && fieldAttribute.Name != null
-                    ? fieldAttribute.Name
-                    : Statics.ShouldOverrideFieldName(propertyInfo.Name)
-                    ? propertyTypeInfo.Name
-                    : propertyInfo.Name;
-                propertyList.Add(new PropertyAnalysis(
-                    propertyName,
-                    propertyInfo,
-                    propertyTypeInfo,
-                    fieldAttribute));
+                string propertyName = fieldAttribute != null && fieldAttribute.Name != null ? fieldAttribute.Name : Statics.ShouldOverrideFieldName(propertyInfo.Name) ? propertyTypeInfo.Name : propertyInfo.Name;
+                propertyList.Add(new PropertyAnalysis(propertyName, propertyInfo, propertyTypeInfo, fieldAttribute));
             }
 
             this.properties = propertyList.ToArray();
-
             foreach (var property in this.properties)
             {
                 var typeInfo = property.typeInfo;

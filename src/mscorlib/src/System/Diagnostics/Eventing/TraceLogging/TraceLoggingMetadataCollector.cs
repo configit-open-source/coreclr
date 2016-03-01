@@ -1,52 +1,24 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
-
 using System;
 using System.Collections.Generic;
 
-#if ES_BUILD_STANDALONE
-using Environment = Microsoft.Diagnostics.Tracing.Internal.Environment;
-namespace Microsoft.Diagnostics.Tracing
-#else
 namespace System.Diagnostics.Tracing
-#endif
 {
-    /// <summary>
-    /// TraceLogging: used when implementing a custom TraceLoggingTypeInfo.
-    /// An instance of this type is provided to the TypeInfo.WriteMetadata method.
-    /// </summary>
     internal class TraceLoggingMetadataCollector
     {
         private readonly Impl impl;
         private readonly FieldMetadata currentGroup;
         private int bufferedArrayFieldCount = int.MinValue;
-
-        /// <summary>
-        /// Creates a root-level collector.
-        /// </summary>
         internal TraceLoggingMetadataCollector()
         {
             this.impl = new Impl();
         }
 
-        /// <summary>
-        /// Creates a collector for a group.
-        /// </summary>
-        /// <param name="other">Parent collector</param>
-        /// <param name="group">The field that starts the group</param>
-        private TraceLoggingMetadataCollector(
-            TraceLoggingMetadataCollector other,
-            FieldMetadata group)
+        private TraceLoggingMetadataCollector(TraceLoggingMetadataCollector other, FieldMetadata group)
         {
             this.impl = other.impl;
             this.currentGroup = group;
         }
 
-        /// <summary>
-        /// The field tags to be used for the next field.
-        /// This will be reset to None each time a field is written.
-        /// </summary>
         internal EventFieldTags Tags
         {
             get;
@@ -55,56 +27,42 @@ namespace System.Diagnostics.Tracing
 
         internal int ScratchSize
         {
-            get { return this.impl.scratchSize; }
+            get
+            {
+                return this.impl.scratchSize;
+            }
         }
 
         internal int DataCount
         {
-            get { return this.impl.dataCount; }
+            get
+            {
+                return this.impl.dataCount;
+            }
         }
 
         internal int PinCount
         {
-            get { return this.impl.pinCount; }
+            get
+            {
+                return this.impl.pinCount;
+            }
         }
 
         private bool BeginningBufferedArray
         {
-            get { return this.bufferedArrayFieldCount == 0; }
+            get
+            {
+                return this.bufferedArrayFieldCount == 0;
+            }
         }
 
-        /// <summary>
-        /// Call this method to add a group to the event and to return
-        /// a new metadata collector that can be used to add fields to the
-        /// group. After all of the fields in the group have been written,
-        /// switch back to the original metadata collector to add fields
-        /// outside of the group.
-        /// Special-case: if name is null, no group is created, and AddGroup
-        /// returns the original metadata collector. This is useful when
-        /// adding the top-level group for an event.
-        /// Note: do not use the original metadata collector while the group's
-        /// metadata collector is in use, and do not use the group's metadata
-        /// collector after switching back to the original.
-        /// </summary>
-        /// <param name="name">
-        /// The name of the group. If name is null, the call to AddGroup is a
-        /// no-op (collector.AddGroup(null) returns collector).
-        /// </param>
-        /// <returns>
-        /// A new metadata collector that can be used to add fields to the group.
-        /// </returns>
         public TraceLoggingMetadataCollector AddGroup(string name)
         {
             TraceLoggingMetadataCollector result = this;
-
-            if (name != null || // Normal.
-                this.BeginningBufferedArray) // Error, FieldMetadata's constructor will throw the appropriate exception.
+            if (name != null || this.BeginningBufferedArray)
             {
-                var newGroup = new FieldMetadata(
-                    name,
-                    TraceLoggingDataType.Struct,
-                    0,
-                    this.BeginningBufferedArray);
+                var newGroup = new FieldMetadata(name, TraceLoggingDataType.Struct, 0, this.BeginningBufferedArray);
                 this.AddField(newGroup);
                 result = new TraceLoggingMetadataCollector(this, newGroup);
             }
@@ -112,16 +70,6 @@ namespace System.Diagnostics.Tracing
             return result;
         }
 
-        /// <summary>
-        /// Adds a scalar field to an event.
-        /// </summary>
-        /// <param name="name">
-        /// The name to use for the added field. This value must not be null.
-        /// </param>
-        /// <param name="type">
-        /// The type code for the added field. This must be a fixed-size type
-        /// (e.g. string types are not supported).
-        /// </param>
         public void AddScalar(string name, TraceLoggingDataType type)
         {
             int size;
@@ -163,17 +111,6 @@ namespace System.Diagnostics.Tracing
             this.AddField(new FieldMetadata(name, type, this.Tags, this.BeginningBufferedArray));
         }
 
-        /// <summary>
-        /// Adds a binary-format field to an event.
-        /// Compatible with core types: Binary, CountedUtf16String, CountedMbcsString.
-        /// Compatible with dataCollector methods: AddBinary(string), AddArray(Any8bitType[]).
-        /// </summary>
-        /// <param name="name">
-        /// The name to use for the added field. This value must not be null.
-        /// </param>
-        /// <param name="type">
-        /// The type code for the added field. This must be a Binary or CountedString type.
-        /// </param>
         public void AddBinary(string name, TraceLoggingDataType type)
         {
             switch ((TraceLoggingDataType)((int)type & Statics.InTypeMask))
@@ -191,17 +128,6 @@ namespace System.Diagnostics.Tracing
             this.AddField(new FieldMetadata(name, type, this.Tags, this.BeginningBufferedArray));
         }
 
-        /// <summary>
-        /// Adds an array field to an event.
-        /// </summary>
-        /// <param name="name">
-        /// The name to use for the added field. This value must not be null.
-        /// </param>
-        /// <param name="type">
-        /// The type code for the added field. This must be a fixed-size type
-        /// or a string type. In the case of a string type, this adds an array
-        /// of characters, not an array of strings.
-        /// </param>
         public void AddArray(string name, TraceLoggingDataType type)
         {
             switch ((TraceLoggingDataType)((int)type & Statics.InTypeMask))
@@ -262,14 +188,6 @@ namespace System.Diagnostics.Tracing
             this.impl.EndBuffered();
         }
 
-        /// <summary>
-        /// Adds a custom-serialized field to an event.
-        /// </summary>
-        /// <param name="name">
-        /// The name to use for the added field. This value must not be null.
-        /// </param>
-        /// <param name="type">The encoding type for the field.</param>
-        /// <param name="metadata">Additional information needed to decode the field, if any.</param>
         public void AddCustom(string name, TraceLoggingDataType type, byte[] metadata)
         {
             if (this.BeginningBufferedArray)
@@ -279,11 +197,7 @@ namespace System.Diagnostics.Tracing
 
             this.impl.AddScalar(2);
             this.impl.AddNonscalar();
-            this.AddField(new FieldMetadata(
-                name,
-                type,
-                this.Tags,
-                metadata));
+            this.AddField(new FieldMetadata(name, type, this.Tags, metadata));
         }
 
         internal byte[] GetMetadata()
@@ -299,7 +213,6 @@ namespace System.Diagnostics.Tracing
             this.Tags = EventFieldTags.None;
             this.bufferedArrayFieldCount++;
             this.impl.fields.Add(fieldMetadata);
-
             if (this.currentGroup != null)
             {
                 this.currentGroup.IncrementStructFieldCount();
@@ -314,18 +227,17 @@ namespace System.Diagnostics.Tracing
             internal sbyte pinCount;
             private int bufferNesting;
             private bool scalar;
-
             public void AddScalar(int size)
             {
                 if (this.bufferNesting == 0)
                 {
                     if (!this.scalar)
                     {
-                        this.dataCount = checked((sbyte)(this.dataCount + 1));
+                        this.dataCount = checked ((sbyte)(this.dataCount + 1));
                     }
 
                     this.scalar = true;
-                    this.scratchSize = checked((short)(this.scratchSize + size));
+                    this.scratchSize = checked ((short)(this.scratchSize + size));
                 }
             }
 
@@ -334,8 +246,8 @@ namespace System.Diagnostics.Tracing
                 if (this.bufferNesting == 0)
                 {
                     this.scalar = false;
-                    this.pinCount = checked((sbyte)(this.pinCount + 1));
-                    this.dataCount = checked((sbyte)(this.dataCount + 1));
+                    this.pinCount = checked ((sbyte)(this.pinCount + 1));
+                    this.dataCount = checked ((sbyte)(this.dataCount + 1));
                 }
             }
 
@@ -357,7 +269,6 @@ namespace System.Diagnostics.Tracing
             public int Encode(byte[] metadata)
             {
                 int size = 0;
-
                 foreach (var field in this.fields)
                 {
                     field.Encode(ref size, metadata);

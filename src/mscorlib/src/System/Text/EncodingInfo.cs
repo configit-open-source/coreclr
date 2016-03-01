@@ -1,27 +1,19 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
-
 namespace System.Text
 {
     using System;
     using System.Text;
 
-
-    [Serializable]
     public sealed class EncodingInfo
     {
-        int     iCodePage;          // Code Page #
-        String  strEncodingName;    // Short name (web name)
-        String  strDisplayName;     // Full localized name
-
+        int iCodePage;
+        String strEncodingName;
+        String strDisplayName;
         internal EncodingInfo(int codePage, string name, string displayName)
         {
             this.iCodePage = codePage;
             this.strEncodingName = name;
             this.strDisplayName = displayName;
         }
-
 
         public int CodePage
         {
@@ -31,7 +23,6 @@ namespace System.Text
             }
         }
 
-
         public String Name
         {
             get
@@ -40,7 +31,6 @@ namespace System.Text
             }
         }
 
-
         public String DisplayName
         {
             get
@@ -48,7 +38,6 @@ namespace System.Text
                 return strDisplayName;
             }
         }
-
 
         public Encoding GetEncoding()
         {
@@ -62,13 +51,13 @@ namespace System.Text
             {
                 return (this.CodePage == that.CodePage);
             }
+
             return (false);
         }
-        
+
         public override int GetHashCode()
         {
             return this.CodePage;
         }
-        
     }
 }

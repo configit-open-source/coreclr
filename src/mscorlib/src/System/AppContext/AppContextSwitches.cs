@@ -1,7 +1,3 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
-
 namespace System
 {
     using System;
@@ -39,11 +35,11 @@ namespace System
             }
         }
 
-        //
-        // Implementation details
-        //
-
-        private static bool DisableCaching { get; set; }
+        private static bool DisableCaching
+        {
+            get;
+            set;
+        }
 
         static AppContextSwitches()
         {
@@ -54,12 +50,12 @@ namespace System
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool GetCachedSwitchValue(string switchName, ref int switchValue)
         {
-            if (switchValue < 0) return false;
-            if (switchValue > 0) return true;
-
+            if (switchValue < 0)
+                return false;
+            if (switchValue > 0)
+                return true;
             return GetCachedSwitchValueInternal(switchName, ref switchValue);
         }
 
@@ -67,13 +63,12 @@ namespace System
         {
             bool isSwitchEnabled;
             AppContext.TryGetSwitch(switchName, out isSwitchEnabled);
-
             if (DisableCaching)
             {
                 return isSwitchEnabled;
             }
 
-            switchValue = isSwitchEnabled ? 1 /*true*/ : -1 /*false*/;
+            switchValue = isSwitchEnabled ? 1 : -1;
             return isSwitchEnabled;
         }
     }
