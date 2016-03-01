@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Security;
 
 namespace System.Threading
@@ -135,8 +134,7 @@ namespace System.Threading
             {
                 if (hadPreviousValue)
                 {
-                    Contract.Assert(Array.IndexOf(newChangeNotifications, local) >= 0);
-                }
+                                    }
                 else
                 {
                     int newNotificationIndex = newChangeNotifications.Length;

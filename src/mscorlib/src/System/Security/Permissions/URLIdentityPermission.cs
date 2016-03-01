@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Security.Util;
 
 namespace System.Security.Permissions
@@ -29,8 +28,7 @@ namespace System.Security.Permissions
         {
             if (site == null)
                 throw new ArgumentNullException("site");
-            Contract.EndContractBlock();
-            Url = site;
+                        Url = site;
         }
 
         internal UrlIdentityPermission(URLString site)

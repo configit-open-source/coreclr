@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -87,8 +87,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), MIN_LUNISOLAR_YEAR, MAX_LUNISOLAR_YEAR));
             }
 
-            Contract.EndContractBlock();
-            return yinfo[LunarYear - MIN_LUNISOLAR_YEAR, Index];
+                        return yinfo[LunarYear - MIN_LUNISOLAR_YEAR, Index];
         }
 
         internal override int GetYear(int year, DateTime time)
@@ -108,8 +107,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), MIN_LUNISOLAR_YEAR, MAX_LUNISOLAR_YEAR));
             }
 
-            Contract.EndContractBlock();
-            return year;
+                        return year;
         }
 
         public ChineseLunisolarCalendar()

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Reflection;
 
@@ -59,8 +58,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentNullException("assembly");
             if (assembly.ReflectionOnly)
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_AsmLoadedForReflectionOnly"));
-            Contract.EndContractBlock();
-            RuntimeAssembly rtAssembly = assembly as RuntimeAssembly;
+                        RuntimeAssembly rtAssembly = assembly as RuntimeAssembly;
             if (rtAssembly == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeAssembly"));
             String strAsmName = assembly.FullName;
@@ -105,8 +103,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentNullException("assembly");
             if (assembly.ReflectionOnly)
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_AsmLoadedForReflectionOnly"));
-            Contract.EndContractBlock();
-            RuntimeAssembly rtAssembly = assembly as RuntimeAssembly;
+                        RuntimeAssembly rtAssembly = assembly as RuntimeAssembly;
             if (rtAssembly == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeAssembly"));
             bool bAllVersionsGone = true;
@@ -151,8 +148,7 @@ namespace System.Runtime.InteropServices
         {
             if (assembly == null)
                 throw new ArgumentNullException("assembly");
-            Contract.EndContractBlock();
-            if (!(assembly is RuntimeAssembly))
+                        if (!(assembly is RuntimeAssembly))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeAssembly"), "assembly");
             Type[] aTypes = assembly.GetExportedTypes();
             int NumTypes = aTypes.Length;
@@ -196,8 +192,7 @@ namespace System.Runtime.InteropServices
             if (type.IsImport)
                 return true;
             Type baseComImportType = GetBaseComImportType(type);
-            Contract.Assert(baseComImportType != null, "baseComImportType != null");
-            if (Marshal.GenerateGuidForType(type) == Marshal.GenerateGuidForType(baseComImportType))
+                        if (Marshal.GenerateGuidForType(type) == Marshal.GenerateGuidForType(baseComImportType))
                 return true;
             return false;
         }

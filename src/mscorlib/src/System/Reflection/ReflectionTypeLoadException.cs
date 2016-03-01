@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Reflection
@@ -60,8 +60,7 @@ namespace System.Reflection
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            base.GetObjectData(info, context);
+                        base.GetObjectData(info, context);
             info.AddValue("Types", _classes, typeof (Type[]));
             info.AddValue("Exceptions", _exceptions, typeof (Exception[]));
         }

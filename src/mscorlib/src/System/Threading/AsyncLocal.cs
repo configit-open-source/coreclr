@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security;
 
 namespace System.Threading
@@ -33,8 +33,7 @@ namespace System.Threading
 
         void IAsyncLocal.OnValueChanged(object previousValueObj, object currentValueObj, bool contextChanged)
         {
-            Contract.Assert(m_valueChangedHandler != null);
-            T previousValue = previousValueObj == null ? default (T) : (T)previousValueObj;
+                        T previousValue = previousValueObj == null ? default (T) : (T)previousValueObj;
             T currentValue = currentValueObj == null ? default (T) : (T)currentValueObj;
             m_valueChangedHandler(new AsyncLocalValueChangedArgs<T>(previousValue, currentValue, contextChanged));
         }

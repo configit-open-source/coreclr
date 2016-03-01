@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System
 {
@@ -11,8 +10,7 @@ namespace System
         private char currentElement;
         internal CharEnumerator(String str)
         {
-            Contract.Requires(str != null);
-            this.str = str;
+                        this.str = str;
             this.index = -1;
         }
 

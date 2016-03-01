@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -102,8 +101,7 @@ namespace System.Resources
                 throw new ArgumentNullException("baseName");
             if (null == resourceDir)
                 throw new ArgumentNullException("resourceDir");
-            Contract.EndContractBlock();
-            BaseNameField = baseName;
+                        BaseNameField = baseName;
             moduleDir = resourceDir;
             _userResourceSet = usingResourceSet;
             ResourceSets = new Hashtable();
@@ -120,8 +118,7 @@ namespace System.Resources
                 throw new ArgumentNullException("baseName");
             if (null == assembly)
                 throw new ArgumentNullException("assembly");
-            Contract.EndContractBlock();
-            if (!(assembly is RuntimeAssembly))
+                        if (!(assembly is RuntimeAssembly))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeAssembly"));
             MainAssembly = assembly;
             BaseNameField = baseName;
@@ -140,8 +137,7 @@ namespace System.Resources
                 throw new ArgumentNullException("baseName");
             if (null == assembly)
                 throw new ArgumentNullException("assembly");
-            Contract.EndContractBlock();
-            if (!(assembly is RuntimeAssembly))
+                        if (!(assembly is RuntimeAssembly))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeAssembly"));
             MainAssembly = assembly;
             BaseNameField = baseName;
@@ -158,8 +154,7 @@ namespace System.Resources
         {
             if (null == resourceSource)
                 throw new ArgumentNullException("resourceSource");
-            Contract.EndContractBlock();
-            if (!(resourceSource is RuntimeType))
+                        if (!(resourceSource is RuntimeType))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeType"));
             _locationInfo = resourceSource;
             MainAssembly = _locationInfo.Assembly;
@@ -351,8 +346,7 @@ namespace System.Resources
         {
             if (null == culture)
                 throw new ArgumentNullException("culture");
-            Contract.EndContractBlock();
-            Dictionary<String, ResourceSet> localResourceSets = _resourceSets;
+                        Dictionary<String, ResourceSet> localResourceSets = _resourceSets;
             ResourceSet rs;
             if (localResourceSets != null)
             {
@@ -382,8 +376,7 @@ namespace System.Resources
 
         protected virtual ResourceSet InternalGetResourceSet(CultureInfo culture, bool createIfNotExists, bool tryParents)
         {
-            Contract.Assert(culture != null, "culture != null");
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalGetResourceSet(culture, createIfNotExists, tryParents, ref stackMark);
         }
 
@@ -464,8 +457,7 @@ namespace System.Resources
                 throw new ArgumentNullException("a", Environment.GetResourceString("ArgumentNull_Assembly"));
             }
 
-            Contract.EndContractBlock();
-            return null;
+                        return null;
         }
 
         protected static CultureInfo GetNeutralResourcesLanguage(Assembly a)
@@ -477,8 +469,7 @@ namespace System.Resources
 
         internal static bool CompareNames(String asmTypeName1, String typeName2, AssemblyName asmName2)
         {
-            Contract.Assert(asmTypeName1 != null, "asmTypeName1 was unexpectedly null");
-            int comma = asmTypeName1.IndexOf(',');
+                        int comma = asmTypeName1.IndexOf(',');
             if (((comma == -1) ? asmTypeName1.Length : comma) != typeName2.Length)
                 return false;
             if (String.Compare(asmTypeName1, 0, typeName2, 0, typeName2.Length, StringComparison.Ordinal) != 0)
@@ -512,11 +503,7 @@ namespace System.Resources
 
         private string GetStringFromPRI(String stringName, String startingCulture, String neutralResourcesCulture)
         {
-            Contract.Assert(_bUsingModernResourceManagement);
-            Contract.Assert(_WinRTResourceManager != null);
-            Contract.Assert(_PRIonAppXInitialized);
-            Contract.Assert(AppDomain.IsAppXModel());
-            if (stringName.Length == 0)
+                                                            if (stringName.Length == 0)
                 return null;
             string resourceString = null;
             resourceString = _WinRTResourceManager.GetString(stringName, String.IsNullOrEmpty(startingCulture) ? null : startingCulture, String.IsNullOrEmpty(neutralResourcesCulture) ? null : neutralResourcesCulture);
@@ -558,11 +545,7 @@ namespace System.Resources
 
         private void SetAppXConfiguration()
         {
-            Contract.Assert(_bUsingModernResourceManagement == false);
-            Contract.Assert(_WinRTResourceManager == null);
-            Contract.Assert(_PRIonAppXInitialized == false);
-            Contract.Assert(_PRIExceptionInfo == null);
-            bool bUsingSatelliteAssembliesUnderAppX = false;
+                                                            bool bUsingSatelliteAssembliesUnderAppX = false;
             RuntimeAssembly resourcesAssembly = (RuntimeAssembly)MainAssembly;
             if (resourcesAssembly == null)
                 resourcesAssembly = m_callingAssembly;
@@ -637,8 +620,7 @@ namespace System.Resources
         {
             if (null == name)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            if (s_IsAppXModel)
+                        if (s_IsAppXModel)
             {
                 if (Object.ReferenceEquals(culture, CultureInfo.CurrentUICulture))
                 {
@@ -717,8 +699,7 @@ namespace System.Resources
         {
             if (null == name)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            if (s_IsAppXModel)
+                        if (s_IsAppXModel)
             {
                 if (Object.ReferenceEquals(culture, CultureInfo.CurrentUICulture))
                 {

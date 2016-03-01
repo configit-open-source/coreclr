@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 
 using Microsoft.Win32;
@@ -16,8 +16,7 @@ namespace System.IO
         private bool _isPipe;
         internal __ConsoleStream(SafeFileHandle handle, FileAccess access, bool useFileAPIs)
         {
-            Contract.Assert(handle != null && !handle.IsInvalid, "__ConsoleStream expects a valid handle!");
-            _handle = handle;
+                        _handle = handle;
             _canRead = ((access & FileAccess.Read) == FileAccess.Read);
             _canWrite = ((access & FileAccess.Write) == FileAccess.Write);
             _useFileAPIs = useFileAPIs;
@@ -26,7 +25,7 @@ namespace System.IO
 
         public override bool CanRead
         {
-            [Pure]
+            
             get
             {
                 return _canRead;
@@ -35,7 +34,7 @@ namespace System.IO
 
         public override bool CanWrite
         {
-            [Pure]
+            
             get
             {
                 return _canWrite;
@@ -44,7 +43,7 @@ namespace System.IO
 
         public override bool CanSeek
         {
-            [Pure]
+            
             get
             {
                 return false;
@@ -107,8 +106,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException((offset < 0 ? "offset" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (!_canRead)
+                        if (!_canRead)
                 __Error.ReadNotSupported();
             int bytesRead;
             int errCode = ReadFileNative(_handle, buffer, offset, count, _useFileAPIs, _isPipe, out bytesRead);
@@ -131,8 +129,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException((offset < 0 ? "offset" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (!_canWrite)
+                        if (!_canWrite)
                 __Error.WriteNotSupported();
             int errCode = WriteFileNative(_handle, buffer, offset, count, _useFileAPIs);
             if (Win32Native.ERROR_SUCCESS != errCode)
@@ -142,13 +139,9 @@ namespace System.IO
 
         private unsafe static int ReadFileNative(SafeFileHandle hFile, byte[] bytes, int offset, int count, bool useFileAPIs, bool isPipe, out int bytesRead)
         {
-            Contract.Requires(offset >= 0, "offset >= 0");
-            Contract.Requires(count >= 0, "count >= 0");
-            Contract.Requires(bytes != null, "bytes != null");
-            if (bytes.Length - offset < count)
+                                                if (bytes.Length - offset < count)
                 throw new IndexOutOfRangeException(Environment.GetResourceString("IndexOutOfRange_IORaceCondition"));
-            Contract.EndContractBlock();
-            if (bytes.Length == 0)
+                        if (bytes.Length == 0)
             {
                 bytesRead = 0;
                 return Win32Native.ERROR_SUCCESS;
@@ -182,11 +175,7 @@ namespace System.IO
 
         private static unsafe int WriteFileNative(SafeFileHandle hFile, byte[] bytes, int offset, int count, bool useFileAPIs)
         {
-            Contract.Requires(offset >= 0, "offset >= 0");
-            Contract.Requires(count >= 0, "count >= 0");
-            Contract.Requires(bytes != null, "bytes != null");
-            Contract.Requires(bytes.Length >= offset + count, "bytes.Length >= offset + count");
-            if (bytes.Length == 0)
+                                                            if (bytes.Length == 0)
                 return Win32Native.ERROR_SUCCESS;
             bool writeSuccess;
             if (useFileAPIs)
@@ -195,8 +184,7 @@ namespace System.IO
                 {
                     int numBytesWritten;
                     writeSuccess = (0 != Win32Native.WriteFile(hFile, p + offset, count, out numBytesWritten, IntPtr.Zero));
-                    Contract.Assert(!writeSuccess || count == numBytesWritten);
-                }
+                                    }
             }
             else
             {
@@ -204,8 +192,7 @@ namespace System.IO
                 {
                     Int32 charsWritten;
                     writeSuccess = Win32Native.WriteConsoleW(hFile, p + offset, count / BytesPerWChar, out charsWritten, IntPtr.Zero);
-                    Contract.Assert(!writeSuccess || count / BytesPerWChar == charsWritten);
-                }
+                                    }
             }
 
             if (writeSuccess)

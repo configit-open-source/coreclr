@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -341,8 +341,7 @@ namespace System.Security.Cryptography
 
         internal static bool ReadLegacyFipsPolicy()
         {
-            Contract.Assert(Environment.OSVersion.Version.Major < 6, "CryptGetFIPSAlgorithmMode should be used on Vista+");
-            try
+                        try
             {
                 using (RegistryKey fipsAlgorithmPolicyKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Lsa", false))
                 {
@@ -384,8 +383,7 @@ namespace System.Security.Cryptography
         {
             if (hashAlg == null)
                 throw new ArgumentNullException("hashAlg");
-            Contract.EndContractBlock();
-            string oidValue = null;
+                        string oidValue = null;
             string hashAlgString = hashAlg as string;
             if (hashAlgString != null)
             {
@@ -411,8 +409,7 @@ namespace System.Security.Cryptography
         {
             if (hashAlg == null)
                 throw new ArgumentNullException("hashAlg");
-            Contract.EndContractBlock();
-            HashAlgorithm hash = null;
+                        HashAlgorithm hash = null;
             if (hashAlg is String)
             {
                 hash = (HashAlgorithm)CryptoConfig.CreateFromName((string)hashAlg);
@@ -482,8 +479,7 @@ namespace System.Security.Cryptography
             t1 = dwInput;
             while (t1 > 0)
             {
-                Contract.Assert(i < 8, "Got too big an int here!");
-                t2 = t1 % 256;
+                                t2 = t1 % 256;
                 temp[i] = (byte)t2;
                 t1 = (t1 - t2) / 256;
                 i++;
@@ -508,8 +504,7 @@ namespace System.Security.Cryptography
                 return;
             while (t1 > 0)
             {
-                Contract.Assert(i < 4, "Got too big an int here!");
-                t2 = t1 % 256;
+                                t2 = t1 % 256;
                 counter[3 - i] = (byte)t2;
                 t1 = (t1 - t2) / 256;
                 i++;

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -72,8 +72,7 @@ namespace System.IO
                 throw new ArgumentException(Environment.GetResourceString("Argument_StreamNotWritable"));
             if (bufferSize <= 0)
                 throw new ArgumentOutOfRangeException("bufferSize", Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
-            Contract.EndContractBlock();
-            Init(stream, encoding, bufferSize, leaveOpen);
+                        Init(stream, encoding, bufferSize, leaveOpen);
         }
 
         public StreamWriter(String path): this (path, false, UTF8NoBOM, DefaultBufferSize)
@@ -102,8 +101,7 @@ namespace System.IO
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyPath"));
             if (bufferSize <= 0)
                 throw new ArgumentOutOfRangeException("bufferSize", Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
-            Contract.EndContractBlock();
-            Stream stream = CreateFile(path, append, checkHost);
+                        Stream stream = CreateFile(path, append, checkHost);
             Init(stream, encoding, bufferSize, false);
         }
 
@@ -272,8 +270,7 @@ namespace System.IO
                 int n = charLen - charPos;
                 if (n > count)
                     n = count;
-                Contract.Assert(n > 0, "StreamWriter::Write(char[]) isn't making progress!  This is most likely a race condition in user code.");
-                Buffer.InternalBlockCopy(buffer, index * sizeof (char), charBuffer, charPos * sizeof (char), n * sizeof (char));
+                                Buffer.InternalBlockCopy(buffer, index * sizeof (char), charBuffer, charPos * sizeof (char), n * sizeof (char));
                 charPos += n;
                 index += n;
                 count -= n;
@@ -293,8 +290,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            CheckAsyncTaskInProgress();
+                        CheckAsyncTaskInProgress();
             while (count > 0)
             {
                 if (charPos == charLen)
@@ -302,8 +298,7 @@ namespace System.IO
                 int n = charLen - charPos;
                 if (n > count)
                     n = count;
-                Contract.Assert(n > 0, "StreamWriter::Write(char[], int, int) isn't making progress!  This is most likely a race condition in user code.");
-                Buffer.InternalBlockCopy(buffer, index * sizeof (char), charBuffer, charPos * sizeof (char), n * sizeof (char));
+                                Buffer.InternalBlockCopy(buffer, index * sizeof (char), charBuffer, charPos * sizeof (char), n * sizeof (char));
                 charPos += n;
                 index += n;
                 count -= n;
@@ -327,8 +322,7 @@ namespace System.IO
                     int n = charLen - charPos;
                     if (n > count)
                         n = count;
-                    Contract.Assert(n > 0, "StreamWriter::Write(String) isn't making progress!  This is most likely a race condition in user code.");
-                    value.CopyTo(index, charBuffer, charPos, n);
+                                        value.CopyTo(index, charBuffer, charPos, n);
                     charPos += n;
                     index += n;
                     count -= n;
@@ -356,8 +350,7 @@ namespace System.IO
             if (charPos == charLen)
             {
                 await _this.FlushAsyncInternal(false, false, charBuffer, charPos).ConfigureAwait(false);
-                Contract.Assert(_this.charPos == 0);
-                charPos = 0;
+                                charPos = 0;
             }
 
             charBuffer[charPos] = value;
@@ -369,8 +362,7 @@ namespace System.IO
                     if (charPos == charLen)
                     {
                         await _this.FlushAsyncInternal(false, false, charBuffer, charPos).ConfigureAwait(false);
-                        Contract.Assert(_this.charPos == 0);
-                        charPos = 0;
+                                                charPos = 0;
                     }
 
                     charBuffer[charPos] = coreNewLine[i];
@@ -381,8 +373,7 @@ namespace System.IO
             if (autoFlush)
             {
                 await _this.FlushAsyncInternal(true, false, charBuffer, charPos).ConfigureAwait(false);
-                Contract.Assert(_this.charPos == 0);
-                charPos = 0;
+                                charPos = 0;
             }
 
             _this.CharPos_Prop = charPos;
@@ -409,23 +400,20 @@ namespace System.IO
 
         private static async Task WriteAsyncInternal(StreamWriter _this, String value, Char[] charBuffer, Int32 charPos, Int32 charLen, Char[] coreNewLine, bool autoFlush, bool appendNewLine)
         {
-            Contract.Requires(value != null);
-            int count = value.Length;
+                        int count = value.Length;
             int index = 0;
             while (count > 0)
             {
                 if (charPos == charLen)
                 {
                     await _this.FlushAsyncInternal(false, false, charBuffer, charPos).ConfigureAwait(false);
-                    Contract.Assert(_this.charPos == 0);
-                    charPos = 0;
+                                        charPos = 0;
                 }
 
                 int n = charLen - charPos;
                 if (n > count)
                     n = count;
-                Contract.Assert(n > 0, "StreamWriter::Write(String) isn't making progress!  This is most likely a race condition in user code.");
-                value.CopyTo(index, charBuffer, charPos, n);
+                                value.CopyTo(index, charBuffer, charPos, n);
                 charPos += n;
                 index += n;
                 count -= n;
@@ -438,8 +426,7 @@ namespace System.IO
                     if (charPos == charLen)
                     {
                         await _this.FlushAsyncInternal(false, false, charBuffer, charPos).ConfigureAwait(false);
-                        Contract.Assert(_this.charPos == 0);
-                        charPos = 0;
+                                                charPos = 0;
                     }
 
                     charBuffer[charPos] = coreNewLine[i];
@@ -450,8 +437,7 @@ namespace System.IO
             if (autoFlush)
             {
                 await _this.FlushAsyncInternal(true, false, charBuffer, charPos).ConfigureAwait(false);
-                Contract.Assert(_this.charPos == 0);
-                charPos = 0;
+                                charPos = 0;
             }
 
             _this.CharPos_Prop = charPos;
@@ -467,8 +453,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (this.GetType() != typeof (StreamWriter))
+                        if (this.GetType() != typeof (StreamWriter))
                 return base.WriteAsync(buffer, index, count);
             if (stream == null)
                 __Error.WriterClosed();
@@ -480,24 +465,18 @@ namespace System.IO
 
         private static async Task WriteAsyncInternal(StreamWriter _this, Char[] buffer, Int32 index, Int32 count, Char[] charBuffer, Int32 charPos, Int32 charLen, Char[] coreNewLine, bool autoFlush, bool appendNewLine)
         {
-            Contract.Requires(count == 0 || (count > 0 && buffer != null));
-            Contract.Requires(index >= 0);
-            Contract.Requires(count >= 0);
-            Contract.Requires(buffer == null || (buffer != null && buffer.Length - index >= count));
-            while (count > 0)
+                                                            while (count > 0)
             {
                 if (charPos == charLen)
                 {
                     await _this.FlushAsyncInternal(false, false, charBuffer, charPos).ConfigureAwait(false);
-                    Contract.Assert(_this.charPos == 0);
-                    charPos = 0;
+                                        charPos = 0;
                 }
 
                 int n = charLen - charPos;
                 if (n > count)
                     n = count;
-                Contract.Assert(n > 0, "StreamWriter::Write(char[], int, int) isn't making progress!  This is most likely a race condition in user code.");
-                Buffer.InternalBlockCopy(buffer, index * sizeof (char), charBuffer, charPos * sizeof (char), n * sizeof (char));
+                                Buffer.InternalBlockCopy(buffer, index * sizeof (char), charBuffer, charPos * sizeof (char), n * sizeof (char));
                 charPos += n;
                 index += n;
                 count -= n;
@@ -510,8 +489,7 @@ namespace System.IO
                     if (charPos == charLen)
                     {
                         await _this.FlushAsyncInternal(false, false, charBuffer, charPos).ConfigureAwait(false);
-                        Contract.Assert(_this.charPos == 0);
-                        charPos = 0;
+                                                charPos = 0;
                     }
 
                     charBuffer[charPos] = coreNewLine[i];
@@ -522,8 +500,7 @@ namespace System.IO
             if (autoFlush)
             {
                 await _this.FlushAsyncInternal(true, false, charBuffer, charPos).ConfigureAwait(false);
-                Contract.Assert(_this.charPos == 0);
-                charPos = 0;
+                                charPos = 0;
             }
 
             _this.CharPos_Prop = charPos;
@@ -575,8 +552,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (this.GetType() != typeof (StreamWriter))
+                        if (this.GetType() != typeof (StreamWriter))
                 return base.WriteLineAsync(buffer, index, count);
             if (stream == null)
                 __Error.WriterClosed();

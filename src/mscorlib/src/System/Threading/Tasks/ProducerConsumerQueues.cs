@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Threading.Tasks
 {
@@ -64,11 +63,7 @@ namespace System.Threading.Tasks
         private volatile Segment m_tail;
         internal SingleProducerSingleConsumerQueue()
         {
-            Contract.Assert(INIT_SEGMENT_SIZE > 0, "Initial segment size must be > 0.");
-            Contract.Assert((INIT_SEGMENT_SIZE & (INIT_SEGMENT_SIZE - 1)) == 0, "Initial segment size must be a power of 2");
-            Contract.Assert(INIT_SEGMENT_SIZE <= MAX_SEGMENT_SIZE, "Initial segment size should be <= maximum.");
-            Contract.Assert(MAX_SEGMENT_SIZE < Int32.MaxValue / 2, "Max segment size * 2 must be < Int32.MaxValue, or else overflow could occur.");
-            m_head = m_tail = new Segment(INIT_SEGMENT_SIZE);
+                                                            m_head = m_tail = new Segment(INIT_SEGMENT_SIZE);
         }
 
         public void Enqueue(T item)
@@ -88,8 +83,7 @@ namespace System.Threading.Tasks
 
         private void EnqueueSlow(T item, ref Segment segment)
         {
-            Contract.Requires(segment != null, "Expected a non-null segment.");
-            if (segment.m_state.m_firstCopy != segment.m_state.m_first)
+                        if (segment.m_state.m_firstCopy != segment.m_state.m_first)
             {
                 segment.m_state.m_firstCopy = segment.m_state.m_first;
                 Enqueue(item);
@@ -97,8 +91,7 @@ namespace System.Threading.Tasks
             }
 
             int newSegmentSize = m_tail.m_array.Length << 1;
-            Contract.Assert(newSegmentSize > 0, "The max size should always be small enough that we don't overflow.");
-            if (newSegmentSize > MAX_SEGMENT_SIZE)
+                        if (newSegmentSize > MAX_SEGMENT_SIZE)
                 newSegmentSize = MAX_SEGMENT_SIZE;
             var newSegment = new Segment(newSegmentSize);
             newSegment.m_array[0] = item;
@@ -132,9 +125,7 @@ namespace System.Threading.Tasks
 
         private bool TryDequeueSlow(ref Segment segment, ref T[] array, out T result)
         {
-            Contract.Requires(segment != null, "Expected a non-null segment.");
-            Contract.Requires(array != null, "Expected a non-null item array.");
-            if (segment.m_state.m_last != segment.m_state.m_lastCopy)
+                                    if (segment.m_state.m_last != segment.m_state.m_lastCopy)
             {
                 segment.m_state.m_lastCopy = segment.m_state.m_last;
                 return TryDequeue(out result);
@@ -177,9 +168,7 @@ namespace System.Threading.Tasks
 
         private bool TryPeekSlow(ref Segment segment, ref T[] array, out T result)
         {
-            Contract.Requires(segment != null, "Expected a non-null segment.");
-            Contract.Requires(array != null, "Expected a non-null item array.");
-            if (segment.m_state.m_last != segment.m_state.m_lastCopy)
+                                    if (segment.m_state.m_last != segment.m_state.m_lastCopy)
             {
                 segment.m_state.m_lastCopy = segment.m_state.m_last;
                 return TryPeek(out result);
@@ -229,9 +218,7 @@ namespace System.Threading.Tasks
 
         private bool TryDequeueIfSlow(Predicate<T> predicate, ref Segment segment, ref T[] array, out T result)
         {
-            Contract.Requires(segment != null, "Expected a non-null segment.");
-            Contract.Requires(array != null, "Expected a non-null item array.");
-            if (segment.m_state.m_last != segment.m_state.m_lastCopy)
+                                    if (segment.m_state.m_last != segment.m_state.m_lastCopy)
             {
                 segment.m_state.m_lastCopy = segment.m_state.m_last;
                 return TryDequeueIf(predicate, out result);
@@ -328,8 +315,7 @@ namespace System.Threading.Tasks
 
         int IProducerConsumerQueue<T>.GetCountSafe(object syncObj)
         {
-            Contract.Assert(syncObj != null, "The syncObj parameter is null.");
-            lock (syncObj)
+                        lock (syncObj)
             {
                 return Count;
             }
@@ -342,8 +328,7 @@ namespace System.Threading.Tasks
             internal SegmentState m_state;
             internal Segment(int size)
             {
-                Contract.Requires((size & (size - 1)) == 0, "Size must be a power of 2");
-                m_array = new T[size];
+                                m_array = new T[size];
             }
         }
 
@@ -363,8 +348,7 @@ namespace System.Threading.Tasks
             private readonly SingleProducerSingleConsumerQueue<T> m_queue;
             public SingleProducerSingleConsumerQueue_DebugView(SingleProducerSingleConsumerQueue<T> queue)
             {
-                Contract.Requires(queue != null, "Expected a non-null queue.");
-                m_queue = queue;
+                                m_queue = queue;
             }
 
             public T[] Items

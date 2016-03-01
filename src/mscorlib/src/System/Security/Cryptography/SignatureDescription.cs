@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -16,8 +16,7 @@ namespace System.Security.Cryptography
         {
             if (el == null)
                 throw new ArgumentNullException("el");
-            Contract.EndContractBlock();
-            _strKey = el.SearchForTextOfTag("Key");
+                        _strKey = el.SearchForTextOfTag("Key");
             _strDigest = el.SearchForTextOfTag("Digest");
             _strFormatter = el.SearchForTextOfTag("Formatter");
             _strDeformatter = el.SearchForTextOfTag("Deformatter");

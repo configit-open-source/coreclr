@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Threading;
 
 namespace System.Text
@@ -80,8 +80,7 @@ namespace System.Text
 
         public override bool Fallback(byte[] bytesUnknown, int index)
         {
-            Contract.Assert(iCount < 1, "[DecoderReplacementFallbackBuffer.Fallback] Calling fallback without a previously empty buffer");
-            cBestFit = TryBestFit(bytesUnknown);
+                        cBestFit = TryBestFit(bytesUnknown);
             if (cBestFit == '\0')
                 cBestFit = oFallback.cReplacement;
             iCount = iSize = 1;
@@ -151,8 +150,7 @@ namespace System.Text
                 char cTest = oFallback.arrayBestFit[index];
                 if (cTest == cCheck)
                 {
-                    Contract.Assert(index + 1 < oFallback.arrayBestFit.Length, "[InternalDecoderBestFitFallbackBuffer.TryBestFit]Expected replacement character at end of array");
-                    return oFallback.arrayBestFit[index + 1];
+                                        return oFallback.arrayBestFit[index + 1];
                 }
                 else if (cTest < cCheck)
                 {
@@ -168,8 +166,7 @@ namespace System.Text
             {
                 if (oFallback.arrayBestFit[index] == cCheck)
                 {
-                    Contract.Assert(index + 1 < oFallback.arrayBestFit.Length, "[InternalDecoderBestFitFallbackBuffer.TryBestFit]Expected replacement character at end of array");
-                    return oFallback.arrayBestFit[index + 1];
+                                        return oFallback.arrayBestFit[index + 1];
                 }
             }
 

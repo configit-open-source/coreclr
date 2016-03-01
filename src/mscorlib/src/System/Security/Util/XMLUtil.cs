@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 using System.Security.Permissions;
 using System.Text;
@@ -24,8 +24,7 @@ namespace System.Security.Util
         {
             if (typename == null)
                 typename = type.FullName;
-            Contract.Assert(type.FullName.Equals(typename), "Incorrect class name passed! Was : " + typename + " Shoule be: " + type.FullName);
-            element.AddAttribute("class", typename + ", " + type.Module.Assembly.FullName.Replace('\"', '\''));
+                        element.AddAttribute("class", typename + ", " + type.Module.Assembly.FullName.Replace('\"', '\''));
         }
 
         internal static bool ParseElementForAssemblyIdentification(SecurityElement el, out String className, out String assemblyName, out String assemblyVersion)
@@ -111,8 +110,7 @@ namespace System.Security.Util
         {
             if (el == null || !(el.Tag.Equals("Permission") || el.Tag.Equals("IPermission")))
                 throw new ArgumentException(String.Format(null, Environment.GetResourceString("Argument_WrongElementType"), "<Permission>"));
-            Contract.EndContractBlock();
-            String className;
+                        String className;
             int classNameLength;
             int classNameStart;
             if (!ParseElementForObjectCreation(el, BuiltInPermission, out className, out classNameStart, out classNameLength))

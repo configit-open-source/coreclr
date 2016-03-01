@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Collections
 {
@@ -23,8 +23,7 @@ namespace System.Collections
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - index < this.Count)
                 throw new ArgumentException(Environment.GetResourceString("ArgumentOutOfRange_Index"), "index");
-            Contract.EndContractBlock();
-        }
+                    }
 
         public int Count
         {
@@ -59,8 +58,7 @@ namespace System.Collections
                     throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
                 }
 
-                Contract.EndContractBlock();
-                return null;
+                                return null;
             }
 
             set
@@ -74,8 +72,7 @@ namespace System.Collections
                     throw new ArgumentException(Environment.GetResourceString("Argument_NotSerializable"), "key");
                 if ((value != null) && (!value.GetType().IsSerializable))
                     throw new ArgumentException(Environment.GetResourceString("Argument_NotSerializable"), "value");
-                Contract.EndContractBlock();
-                throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_ReadOnly"));
+                                throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_ReadOnly"));
             }
         }
 
@@ -111,8 +108,7 @@ namespace System.Collections
                 throw new ArgumentException(Environment.GetResourceString("Argument_NotSerializable"), "key");
             if ((value != null) && (!value.GetType().IsSerializable))
                 throw new ArgumentException(Environment.GetResourceString("Argument_NotSerializable"), "value");
-            Contract.EndContractBlock();
-            throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_ReadOnly"));
+                        throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_ReadOnly"));
         }
 
         public void Clear()

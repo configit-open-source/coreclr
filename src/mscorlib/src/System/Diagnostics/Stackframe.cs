@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 using System.Security.Permissions;
 using System.Text;
@@ -115,8 +115,7 @@ namespace System.Diagnostics
 
         public virtual MethodBase GetMethod()
         {
-            Contract.Ensures(Contract.Result<MethodBase>() != null);
-            return method;
+                        return method;
         }
 
         public virtual int GetNativeOffset()

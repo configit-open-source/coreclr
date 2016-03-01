@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Text;
 
 namespace System.IO
@@ -10,11 +10,7 @@ namespace System.IO
         private StreamReader _reader;
         private ReadLinesIterator(string path, Encoding encoding, StreamReader reader)
         {
-            Contract.Requires(path != null);
-            Contract.Requires(path.Length > 0);
-            Contract.Requires(encoding != null);
-            Contract.Requires(reader != null);
-            _path = path;
+                                                            _path = path;
             _encoding = encoding;
             _reader = reader;
         }

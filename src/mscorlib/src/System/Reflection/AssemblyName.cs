@@ -1,5 +1,4 @@
 using System.Configuration.Assemblies;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -163,8 +162,7 @@ namespace System.Reflection
         {
             if (assemblyFile == null)
                 throw new ArgumentNullException("assemblyFile");
-            Contract.EndContractBlock();
-            String fullPath = Path.GetFullPathInternal(assemblyFile);
+                        String fullPath = Path.GetFullPathInternal(assemblyFile);
             new FileIOPermission(FileIOPermissionAccess.PathDiscovery, fullPath).Demand();
             return nGetFileInformation(fullPath);
         }
@@ -282,8 +280,7 @@ namespace System.Reflection
         {
             if (assemblyName == null)
                 throw new ArgumentNullException("assemblyName");
-            Contract.EndContractBlock();
-            if ((assemblyName.Length == 0) || (assemblyName[0] == '\0'))
+                        if ((assemblyName.Length == 0) || (assemblyName[0] == '\0'))
                 throw new ArgumentException(Environment.GetResourceString("Format_StringZeroLength"));
             _Name = assemblyName;
             nInit();

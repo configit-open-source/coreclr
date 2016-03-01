@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 
 using Microsoft.Win32;
@@ -44,8 +44,7 @@ namespace System.Globalization
                 throw new ArgumentNullException(name == null ? "name" : "assembly");
             }
 
-            Contract.EndContractBlock();
-            if (assembly != typeof (Object).Module.Assembly)
+                        if (assembly != typeof (Object).Module.Assembly)
             {
                 throw new ArgumentException(Environment.GetResourceString("Argument_OnlyMscorlib"));
             }
@@ -60,8 +59,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("name");
             }
 
-            Contract.EndContractBlock();
-            return CultureInfo.GetCultureInfo(name).CompareInfo;
+                        return CultureInfo.GetCultureInfo(name).CompareInfo;
         }
 
         public static bool IsSortable(char ch)
@@ -89,8 +87,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Assert(m_name != null, "CompareInfo.Name Expected m_name to be set");
-                if (m_name == "zh-CHT" || m_name == "zh-CHS")
+                                if (m_name == "zh-CHT" || m_name == "zh-CHS")
                 {
                     return m_name;
                 }
@@ -112,8 +109,7 @@ namespace System.Globalization
         private const int RESERVED_FIND_ASCII_STRING = 0x20000000;
         internal static int GetNativeCompareFlags(CompareOptions options)
         {
-            Contract.Assert(options != CompareOptions.OrdinalIgnoreCase, "[CompareInfo.GetNativeCompareFlags]CompareOptions.OrdinalIgnoreCase should be handled separately");
-            int nativeCompareFlags = NORM_LINGUISTIC_CASING;
+                        int nativeCompareFlags = NORM_LINGUISTIC_CASING;
             if ((options & CompareOptions.IgnoreCase) != 0)
             {
                 nativeCompareFlags |= NORM_IGNORECASE;
@@ -149,9 +145,7 @@ namespace System.Globalization
                 nativeCompareFlags = COMPARE_OPTIONS_ORDINAL;
             }
 
-            Contract.Assert(((options & ~(CompareOptions.IgnoreCase | CompareOptions.IgnoreKanaType | CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreSymbols | CompareOptions.IgnoreWidth | CompareOptions.StringSort)) == 0) || (options == CompareOptions.Ordinal), "[CompareInfo.GetNativeCompareFlags]Expected all flags to be handled");
-            Contract.Assert((nativeCompareFlags & RESERVED_FIND_ASCII_STRING) == 0, "[CompareInfo.GetNativeCompareFlags] RESERVED_FIND_ASCII_STRING shouldn't be set here");
-            return nativeCompareFlags;
+                                    return nativeCompareFlags;
         }
 
         public virtual int Compare(String string1, String string2)
@@ -297,8 +291,7 @@ namespace System.Globalization
                 throw new ArgumentNullException((source == null ? "source" : "prefix"), Environment.GetResourceString("ArgumentNull_String"));
             }
 
-            Contract.EndContractBlock();
-            int prefixLen = prefix.Length;
+                        int prefixLen = prefix.Length;
             if (prefixLen == 0)
             {
                 return (true);
@@ -334,8 +327,7 @@ namespace System.Globalization
                 throw new ArgumentNullException((source == null ? "source" : "suffix"), Environment.GetResourceString("ArgumentNull_String"));
             }
 
-            Contract.EndContractBlock();
-            int suffixLen = suffix.Length;
+                        int suffixLen = suffix.Length;
             if (suffixLen == 0)
             {
                 return (true);
@@ -368,64 +360,56 @@ namespace System.Globalization
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return IndexOf(source, value, 0, source.Length, CompareOptions.None);
+                        return IndexOf(source, value, 0, source.Length, CompareOptions.None);
         }
 
         public unsafe virtual int IndexOf(String source, String value)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return IndexOf(source, value, 0, source.Length, CompareOptions.None);
+                        return IndexOf(source, value, 0, source.Length, CompareOptions.None);
         }
 
         public unsafe virtual int IndexOf(String source, char value, CompareOptions options)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return IndexOf(source, value, 0, source.Length, options);
+                        return IndexOf(source, value, 0, source.Length, options);
         }
 
         public unsafe virtual int IndexOf(String source, String value, CompareOptions options)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return IndexOf(source, value, 0, source.Length, options);
+                        return IndexOf(source, value, 0, source.Length, options);
         }
 
         public unsafe virtual int IndexOf(String source, char value, int startIndex)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return IndexOf(source, value, startIndex, source.Length - startIndex, CompareOptions.None);
+                        return IndexOf(source, value, startIndex, source.Length - startIndex, CompareOptions.None);
         }
 
         public unsafe virtual int IndexOf(String source, String value, int startIndex)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return IndexOf(source, value, startIndex, source.Length - startIndex, CompareOptions.None);
+                        return IndexOf(source, value, startIndex, source.Length - startIndex, CompareOptions.None);
         }
 
         public unsafe virtual int IndexOf(String source, char value, int startIndex, CompareOptions options)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return IndexOf(source, value, startIndex, source.Length - startIndex, options);
+                        return IndexOf(source, value, startIndex, source.Length - startIndex, options);
         }
 
         public unsafe virtual int IndexOf(String source, String value, int startIndex, CompareOptions options)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return IndexOf(source, value, startIndex, source.Length - startIndex, options);
+                        return IndexOf(source, value, startIndex, source.Length - startIndex, options);
         }
 
         public unsafe virtual int IndexOf(String source, char value, int startIndex, int count)
@@ -446,8 +430,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("startIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
             if (count < 0 || startIndex > source.Length - count)
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_Count"));
-            Contract.EndContractBlock();
-            if (options == CompareOptions.OrdinalIgnoreCase)
+                        if (options == CompareOptions.OrdinalIgnoreCase)
             {
                 return source.IndexOf(value.ToString(), startIndex, count, StringComparison.OrdinalIgnoreCase);
             }
@@ -468,8 +451,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("startIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
             }
 
-            Contract.EndContractBlock();
-            if (source.Length == 0)
+                        if (source.Length == 0)
             {
                 if (value.Length == 0)
                 {
@@ -500,32 +482,28 @@ namespace System.Globalization
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return LastIndexOf(source, value, source.Length - 1, source.Length, CompareOptions.None);
+                        return LastIndexOf(source, value, source.Length - 1, source.Length, CompareOptions.None);
         }
 
         public virtual int LastIndexOf(String source, String value)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return LastIndexOf(source, value, source.Length - 1, source.Length, CompareOptions.None);
+                        return LastIndexOf(source, value, source.Length - 1, source.Length, CompareOptions.None);
         }
 
         public virtual int LastIndexOf(String source, char value, CompareOptions options)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return LastIndexOf(source, value, source.Length - 1, source.Length, options);
+                        return LastIndexOf(source, value, source.Length - 1, source.Length, options);
         }
 
         public unsafe virtual int LastIndexOf(String source, String value, CompareOptions options)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            return LastIndexOf(source, value, source.Length - 1, source.Length, options);
+                        return LastIndexOf(source, value, source.Length - 1, source.Length, options);
         }
 
         public unsafe virtual int LastIndexOf(String source, char value, int startIndex)
@@ -562,8 +540,7 @@ namespace System.Globalization
         {
             if (source == null)
                 throw new ArgumentNullException("source");
-            Contract.EndContractBlock();
-            if ((options & ValidIndexMaskOffFlags) != 0 && (options != CompareOptions.Ordinal) && (options != CompareOptions.OrdinalIgnoreCase))
+                        if ((options & ValidIndexMaskOffFlags) != 0 && (options != CompareOptions.Ordinal) && (options != CompareOptions.OrdinalIgnoreCase))
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidFlag"), "options");
             if (source.Length == 0 && (startIndex == -1 || startIndex == 0))
                 return -1;
@@ -592,8 +569,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("source");
             if (value == null)
                 throw new ArgumentNullException("value");
-            Contract.EndContractBlock();
-            if ((options & ValidIndexMaskOffFlags) != 0 && (options != CompareOptions.Ordinal) && (options != CompareOptions.OrdinalIgnoreCase))
+                        if ((options & ValidIndexMaskOffFlags) != 0 && (options != CompareOptions.Ordinal) && (options != CompareOptions.OrdinalIgnoreCase))
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidFlag"), "options");
             if (source.Length == 0 && (startIndex == -1 || startIndex == 0))
                 return (value.Length == 0) ? 0 : -1;
@@ -635,8 +611,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("source");
             }
 
-            Contract.EndContractBlock();
-            const CompareOptions ValidSortkeyCtorMaskOffFlags = ~(CompareOptions.IgnoreCase | CompareOptions.IgnoreSymbols | CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreWidth | CompareOptions.IgnoreKanaType | CompareOptions.StringSort);
+                        const CompareOptions ValidSortkeyCtorMaskOffFlags = ~(CompareOptions.IgnoreCase | CompareOptions.IgnoreSymbols | CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreWidth | CompareOptions.IgnoreKanaType | CompareOptions.StringSort);
             if ((options & ValidSortkeyCtorMaskOffFlags) != 0)
             {
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidFlag"), "options");
@@ -722,8 +697,7 @@ namespace System.Globalization
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidFlag"), "options");
             }
 
-            Contract.EndContractBlock();
-            if (0 == source.Length)
+                        if (0 == source.Length)
             {
                 return (0);
             }

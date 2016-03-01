@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Threading;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -53,8 +52,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
         private EventRegistrationToken AddEventHandlerNoLock(T handler)
         {
-            Contract.Requires(handler != null);
-            EventRegistrationToken token = GetPreferredToken(handler);
+                        EventRegistrationToken token = GetPreferredToken(handler);
             while (m_tokens.ContainsKey(token))
             {
                 token = new EventRegistrationToken(token.Value + 1);
@@ -83,8 +81,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
         private static EventRegistrationToken GetPreferredToken(T handler)
         {
-            Contract.Requires(handler != null);
-            uint handlerHashCode = 0;
+                        uint handlerHashCode = 0;
             Delegate[] invocationList = ((Delegate)(object)handler).GetInvocationList();
             if (invocationList.Length == 1)
             {

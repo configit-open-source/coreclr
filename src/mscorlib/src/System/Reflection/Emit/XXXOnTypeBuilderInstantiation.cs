@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System.Reflection.Emit
@@ -14,8 +14,7 @@ namespace System.Reflection.Emit
         private TypeBuilderInstantiation m_type;
         internal MethodOnTypeBuilderInstantiation(MethodInfo method, TypeBuilderInstantiation type)
         {
-            Contract.Assert(method is MethodBuilder || method is RuntimeMethodInfo);
-            m_method = method;
+                        m_method = method;
             m_type = type;
         }
 
@@ -80,8 +79,7 @@ namespace System.Reflection.Emit
                     return mb.MetadataTokenInternal;
                 else
                 {
-                    Contract.Assert(m_method is RuntimeMethodInfo);
-                    return m_method.MetadataToken;
+                                        return m_method.MetadataToken;
                 }
             }
         }
@@ -168,8 +166,7 @@ namespace System.Reflection.Emit
         {
             if (!IsGenericMethodDefinition)
                 throw new InvalidOperationException(Environment.GetResourceString("Arg_NotGenericMethodDefinition"));
-            Contract.EndContractBlock();
-            return MethodBuilderInstantiation.MakeGenericMethod(this, typeArgs);
+                        return MethodBuilderInstantiation.MakeGenericMethod(this, typeArgs);
         }
 
         public override bool IsGenericMethod
@@ -221,8 +218,7 @@ namespace System.Reflection.Emit
         private TypeBuilderInstantiation m_type;
         internal ConstructorOnTypeBuilderInstantiation(ConstructorInfo constructor, TypeBuilderInstantiation type)
         {
-            Contract.Assert(constructor is ConstructorBuilder || constructor is RuntimeConstructorInfo);
-            m_ctor = constructor;
+                        m_ctor = constructor;
             m_type = type;
         }
 
@@ -292,8 +288,7 @@ namespace System.Reflection.Emit
                     return cb.MetadataTokenInternal;
                 else
                 {
-                    Contract.Assert(m_ctor is RuntimeConstructorInfo);
-                    return m_ctor.MetadataToken;
+                                        return m_ctor.MetadataToken;
                 }
             }
         }
@@ -407,8 +402,7 @@ namespace System.Reflection.Emit
         private TypeBuilderInstantiation m_type;
         internal FieldOnTypeBuilderInstantiation(FieldInfo field, TypeBuilderInstantiation type)
         {
-            Contract.Assert(field is FieldBuilder || field is RuntimeFieldInfo);
-            m_field = field;
+                        m_field = field;
             m_type = type;
         }
 
@@ -476,8 +470,7 @@ namespace System.Reflection.Emit
                     return fb.MetadataTokenInternal;
                 else
                 {
-                    Contract.Assert(m_field is RuntimeFieldInfo);
-                    return m_field.MetadataToken;
+                                        return m_field.MetadataToken;
                 }
             }
         }

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security.Util;
 
 namespace System.Security.Permissions
@@ -128,8 +128,7 @@ namespace System.Security.Permissions
         {
             if ((flag & ~EnvironmentPermissionAccess.AllAccess) != 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_EnumIllegalVal", (int)flag));
-            Contract.EndContractBlock();
-        }
+                    }
 
         private void ExclusiveFlag(EnvironmentPermissionAccess flag)
         {
@@ -143,8 +142,7 @@ namespace System.Security.Permissions
                 throw new ArgumentException(Environment.GetResourceString("Arg_EnumNotSingleFlag"));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         private bool FlagIsSet(EnvironmentPermissionAccess flag, EnvironmentPermissionAccess question)
         {

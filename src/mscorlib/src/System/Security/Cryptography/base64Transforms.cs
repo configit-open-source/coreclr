@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Text;
 
 namespace System.Security.Cryptography
@@ -53,8 +53,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
             if ((inputBuffer.Length - inputCount) < inputOffset)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            char[] temp = new char[4];
+                        char[] temp = new char[4];
             Convert.ToBase64CharArray(inputBuffer, inputOffset, 3, temp, 0);
             byte[] tempBytes = Encoding.ASCII.GetBytes(temp);
             if (tempBytes.Length != 4)
@@ -73,8 +72,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
             if ((inputBuffer.Length - inputCount) < inputOffset)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (inputCount == 0)
+                        if (inputCount == 0)
             {
                 return (EmptyArray<Byte>.Value);
             }
@@ -165,8 +163,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
             if ((inputBuffer.Length - inputCount) < inputOffset)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (_inputBuffer == null)
+                        if (_inputBuffer == null)
                 throw new ObjectDisposedException(null, Environment.GetResourceString("ObjectDisposed_Generic"));
             byte[] temp = new byte[inputCount];
             char[] tempChar;
@@ -211,8 +208,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
             if ((inputBuffer.Length - inputCount) < inputOffset)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (_inputBuffer == null)
+                        if (_inputBuffer == null)
                 throw new ObjectDisposedException(null, Environment.GetResourceString("ObjectDisposed_Generic"));
             byte[] temp = new byte[inputCount];
             char[] tempChar;

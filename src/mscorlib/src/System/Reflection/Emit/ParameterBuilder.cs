@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 
 namespace System.Reflection.Emit
@@ -12,8 +12,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("unmanagedMarshal");
             }
 
-            Contract.EndContractBlock();
-            byte[] ubMarshal = unmanagedMarshal.InternalGetBytes();
+                        byte[] ubMarshal = unmanagedMarshal.InternalGetBytes();
             TypeBuilder.SetFieldMarshal(m_methodBuilder.GetModuleBuilder().GetNativeHandle(), m_pdToken.Token, ubMarshal, ubMarshal.Length);
         }
 
@@ -28,8 +27,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("con");
             if (binaryAttribute == null)
                 throw new ArgumentNullException("binaryAttribute");
-            Contract.EndContractBlock();
-            TypeBuilder.DefineCustomAttribute(m_methodBuilder.GetModuleBuilder(), m_pdToken.Token, ((ModuleBuilder)m_methodBuilder.GetModule()).GetConstructorToken(con).Token, binaryAttribute, false, false);
+                        TypeBuilder.DefineCustomAttribute(m_methodBuilder.GetModuleBuilder(), m_pdToken.Token, ((ModuleBuilder)m_methodBuilder.GetModule()).GetConstructorToken(con).Token, binaryAttribute, false, false);
         }
 
         public void SetCustomAttribute(CustomAttributeBuilder customBuilder)
@@ -39,8 +37,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("customBuilder");
             }
 
-            Contract.EndContractBlock();
-            customBuilder.CreateCustomAttribute((ModuleBuilder)(m_methodBuilder.GetModule()), m_pdToken.Token);
+                        customBuilder.CreateCustomAttribute((ModuleBuilder)(m_methodBuilder.GetModule()), m_pdToken.Token);
         }
 
         private ParameterBuilder()

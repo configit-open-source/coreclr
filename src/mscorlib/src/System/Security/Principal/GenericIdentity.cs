@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Principal
 {
@@ -10,8 +10,7 @@ namespace System.Security.Principal
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            m_name = name;
+                        m_name = name;
             m_type = "";
         }
 
@@ -21,8 +20,7 @@ namespace System.Security.Principal
                 throw new ArgumentNullException("name");
             if (type == null)
                 throw new ArgumentNullException("type");
-            Contract.EndContractBlock();
-            m_name = name;
+                        m_name = name;
             m_type = type;
         }
 

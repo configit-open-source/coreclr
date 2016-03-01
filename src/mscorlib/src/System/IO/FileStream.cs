@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Diagnostics.Tracing;
 using System.Globalization;
 using System.Runtime.InteropServices;
@@ -107,8 +107,7 @@ namespace System.IO
                 _overlapped = overlapped.UnsafePack(null, bytes);
             }
 
-            Contract.Assert(_overlapped != null, "Did Overlapped.Pack or Overlapped.UnsafePack just return a null?");
-        }
+                    }
 
         internal static FileStreamAsyncResult CreateBufferedReadResult(int numBufferedBytes, AsyncCallback userCallback, Object userStateObject, bool isWrite)
         {
@@ -215,8 +214,7 @@ namespace System.IO
                 try
                 {
                     _waitHandle.WaitOne();
-                    Contract.Assert(_isComplete == true, "FileStreamAsyncResult::Wait - AsyncFSCallback  didn't set _isComplete to true!");
-                }
+                                    }
                 finally
                 {
                     _waitHandle.Close();
@@ -241,10 +239,8 @@ namespace System.IO
             ManualResetEvent wh = asyncResult._waitHandle;
             if (wh != null)
             {
-                Contract.Assert(!wh.SafeWaitHandle.IsClosed, "ManualResetEvent already closed!");
-                bool r = wh.Set();
-                Contract.Assert(r, "ManualResetEvent::Set failed!");
-                if (!r)
+                                bool r = wh.Set();
+                                if (!r)
                     __Error.WinIOError();
             }
 
@@ -255,9 +251,7 @@ namespace System.IO
 
         internal void Cancel()
         {
-            Contract.Assert(_handle != null, "_handle should not be null.");
-            Contract.Assert(_overlapped != null, "Cancel should only be called on true asynchronous FileStreamAsyncResult, i.e. _overlapped is not null");
-            if (IsCompleted)
+                                    if (IsCompleted)
                 return;
             if (_handle.IsInvalid)
                 return;
@@ -376,8 +370,7 @@ namespace System.IO
                 throw new ArgumentNullException("path", Environment.GetResourceString("ArgumentNull_Path"));
             if (path.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyPath"));
-            Contract.EndContractBlock();
-            _fileName = msgPath;
+                        _fileName = msgPath;
             _exposedHandle = false;
             FileShare tempshare = share & ~FileShare.Inheritable;
             String badArg = null;
@@ -433,8 +426,7 @@ namespace System.IO
                 FileIOPermissionAccess secAccess = FileIOPermissionAccess.NoAccess;
                 if (read)
                 {
-                    Contract.Assert(mode != FileMode.Append);
-                    secAccess = secAccess | FileIOPermissionAccess.Read;
+                                        secAccess = secAccess | FileIOPermissionAccess.Read;
                 }
 
                 if (!useRights && (access & FileAccess.Write) != 0)
@@ -517,8 +509,7 @@ namespace System.IO
                     CodeAccessPermission.RevertAssert();
                     if (!b)
                     {
-                        Contract.Assert(!_exposedHandle, "Are we closing handle that we exposed/not own, how?");
-                        _handle.Close();
+                                                _handle.Close();
                     }
                 }
 
@@ -577,16 +568,14 @@ namespace System.IO
         {
             if (handle.IsInvalid)
                 throw new ArgumentException(Environment.GetResourceString("Arg_InvalidHandle"), "handle");
-            Contract.EndContractBlock();
-            _handle = handle;
+                        _handle = handle;
             _exposedHandle = true;
             if (access < FileAccess.Read || access > FileAccess.ReadWrite)
                 throw new ArgumentOutOfRangeException("access", Environment.GetResourceString("ArgumentOutOfRange_Enum"));
             if (bufferSize <= 0)
                 throw new ArgumentOutOfRangeException("bufferSize", Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
             int handleType = Win32Native.GetFileType(_handle);
-            Contract.Assert(handleType == Win32Native.FILE_TYPE_DISK || handleType == Win32Native.FILE_TYPE_PIPE || handleType == Win32Native.FILE_TYPE_CHAR, "FileStream was passed an unknown file type!");
-            _isAsync = isAsync && _canUseAsync;
+                        _isAsync = isAsync && _canUseAsync;
             _canRead = 0 != (access & FileAccess.Read);
             _canWrite = 0 != (access & FileAccess.Write);
             _canSeek = handleType == Win32Native.FILE_TYPE_DISK;
@@ -639,7 +628,7 @@ namespace System.IO
 
         public override bool CanRead
         {
-            [Pure]
+            
             get
             {
                 return _canRead;
@@ -648,7 +637,7 @@ namespace System.IO
 
         public override bool CanWrite
         {
-            [Pure]
+            
             get
             {
                 return _canWrite;
@@ -657,7 +646,7 @@ namespace System.IO
 
         public override bool CanSeek
         {
-            [Pure]
+            
             get
             {
                 return _canSeek;
@@ -729,8 +718,7 @@ namespace System.IO
                     __Error.FileNotOpen();
                 if (!CanSeek)
                     __Error.SeekNotSupported();
-                Contract.Assert((_readPos == 0 && _readLen == 0 && _writePos >= 0) || (_writePos == 0 && _readPos <= _readLen), "We're either reading or writing, but not both.");
-                if (_exposedHandle)
+                                if (_exposedHandle)
                     VerifyOSHandlePosition();
                 return _pos + (_readPos - _readLen + _writePos);
             }
@@ -739,8 +727,7 @@ namespace System.IO
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-                Contract.EndContractBlock();
-                if (_writePos > 0)
+                                if (_writePos > 0)
                     FlushWrite(false);
                 _readPos = 0;
                 _readLen = 0;
@@ -818,11 +805,9 @@ namespace System.IO
 
         private void FlushRead()
         {
-            Contract.Assert(_writePos == 0, "FileStream: Write buffer must be empty in FlushRead!");
-            if (_readPos - _readLen != 0)
+                        if (_readPos - _readLen != 0)
             {
-                Contract.Assert(CanSeek, "FileStream will lose buffered read data now.");
-                SeekCore(_readPos - _readLen, SeekOrigin.Current);
+                                SeekCore(_readPos - _readLen, SeekOrigin.Current);
             }
 
             _readPos = 0;
@@ -831,8 +816,7 @@ namespace System.IO
 
         private void FlushWrite(bool calledFromFinalizer)
         {
-            Contract.Assert(_readPos == 0 && _readLen == 0, "FileStream: Read buffer must be empty in FlushWrite!");
-            if (_isAsync)
+                        if (_isAsync)
             {
                 IAsyncResult asyncResult = BeginWriteCore(_buffer, 0, _writePos, null, null);
                 if (!calledFromFinalizer)
@@ -875,8 +859,7 @@ namespace System.IO
         {
             if (value < 0)
                 throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            if (_handle.IsClosed)
+                        if (_handle.IsClosed)
                 __Error.FileNotOpen();
             if (!CanSeek)
                 __Error.SeekNotSupported();
@@ -900,8 +883,7 @@ namespace System.IO
 
         private void SetLengthCore(long value)
         {
-            Contract.Assert(value >= 0, "value >= 0");
-            long origPos = _pos;
+                        long origPos = _pos;
             if (_exposedHandle)
                 VerifyOSHandlePosition();
             if (_pos != value)
@@ -933,11 +915,9 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (_handle.IsClosed)
+                        if (_handle.IsClosed)
                 __Error.FileNotOpen();
-            Contract.Assert((_readPos == 0 && _readLen == 0 && _writePos >= 0) || (_writePos == 0 && _readPos <= _readLen), "We're either reading or writing, but not both.");
-            bool isBlocked = false;
+                        bool isBlocked = false;
             int n = _readLen - _readPos;
             if (n == 0)
             {
@@ -971,8 +951,7 @@ namespace System.IO
             {
                 if (n < count && !isBlocked)
                 {
-                    Contract.Assert(_readPos == _readLen, "Read buffer should be empty!");
-                    int moreBytesRead = ReadCore(array, offset + n, count - n);
+                                        int moreBytesRead = ReadCore(array, offset + n, count - n);
                     n += moreBytesRead;
                     _readPos = 0;
                     _readLen = 0;
@@ -984,13 +963,7 @@ namespace System.IO
 
         private unsafe int ReadCore(byte[] buffer, int offset, int count)
         {
-            Contract.Assert(!_handle.IsClosed, "!_handle.IsClosed");
-            Contract.Assert(CanRead, "CanRead");
-            Contract.Assert(buffer != null, "buffer != null");
-            Contract.Assert(_writePos == 0, "_writePos == 0");
-            Contract.Assert(offset >= 0, "offset is negative");
-            Contract.Assert(count >= 0, "count is negative");
-            if (_isAsync)
+                                                                                    if (_isAsync)
             {
                 IAsyncResult result = BeginReadCore(buffer, offset, count, null, null, 0);
                 return EndRead(result);
@@ -1014,8 +987,7 @@ namespace System.IO
                 }
             }
 
-            Contract.Assert(r >= 0, "FileStream's ReadCore is likely broken.");
-            _pos += r;
+                        _pos += r;
             return r;
         }
 
@@ -1023,13 +995,11 @@ namespace System.IO
         {
             if (origin < SeekOrigin.Begin || origin > SeekOrigin.End)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidSeekOrigin"));
-            Contract.EndContractBlock();
-            if (_handle.IsClosed)
+                        if (_handle.IsClosed)
                 __Error.FileNotOpen();
             if (!CanSeek)
                 __Error.SeekNotSupported();
-            Contract.Assert((_readPos == 0 && _readLen == 0 && _writePos >= 0) || (_writePos == 0 && _readPos <= _readLen), "We're either reading or writing, but not both.");
-            if (_writePos > 0)
+                        if (_writePos > 0)
             {
                 FlushWrite(false);
             }
@@ -1077,18 +1047,14 @@ namespace System.IO
                     _readLen = 0;
                 }
 
-                Contract.Assert(_readLen >= 0 && _readPos <= _readLen, "_readLen should be nonnegative, and _readPos should be less than or equal _readLen");
-                Contract.Assert(pos == Position, "Seek optimization: pos != Position!  Buffer math was mangled.");
-            }
+                                            }
 
             return pos;
         }
 
         private long SeekCore(long offset, SeekOrigin origin)
         {
-            Contract.Assert(!_handle.IsClosed && CanSeek, "!_handle.IsClosed && CanSeek");
-            Contract.Assert(origin >= SeekOrigin.Begin && origin <= SeekOrigin.End, "origin>=SeekOrigin.Begin && origin<=SeekOrigin.End");
-            int hr = 0;
+                                    int hr = 0;
             long ret = 0;
             ret = Win32Native.SetFilePointer(_handle, offset, origin, out hr);
             if (ret == -1)
@@ -1130,8 +1096,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (_handle.IsClosed)
+                        if (_handle.IsClosed)
                 __Error.FileNotOpen();
             if (_writePos == 0)
             {
@@ -1173,8 +1138,7 @@ namespace System.IO
 
             if (count >= _bufferSize)
             {
-                Contract.Assert(_writePos == 0, "FileStream cannot have buffered data to write here!  Your stream will be corrupted.");
-                WriteCore(array, offset, count);
+                                WriteCore(array, offset, count);
                 return;
             }
             else if (count == 0)
@@ -1188,13 +1152,7 @@ namespace System.IO
 
         private unsafe void WriteCore(byte[] buffer, int offset, int count)
         {
-            Contract.Assert(!_handle.IsClosed, "!_handle.IsClosed");
-            Contract.Assert(CanWrite, "CanWrite");
-            Contract.Assert(buffer != null, "buffer != null");
-            Contract.Assert(_readPos == _readLen, "_readPos == _readLen");
-            Contract.Assert(offset >= 0, "offset is negative");
-            Contract.Assert(count >= 0, "count is negative");
-            if (_isAsync)
+                                                                                    if (_isAsync)
             {
                 IAsyncResult result = BeginWriteCore(buffer, offset, count, null, null);
                 EndWrite(result);
@@ -1219,8 +1177,7 @@ namespace System.IO
                 }
             }
 
-            Contract.Assert(r >= 0, "FileStream's WriteCore is likely broken.");
-            _pos += r;
+                        _pos += r;
             return;
         }
 
@@ -1234,8 +1191,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("numBytes", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - offset < numBytes)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (_handle.IsClosed)
+                        if (_handle.IsClosed)
                 __Error.FileNotOpen();
             if (!_isAsync)
                 return base.BeginRead(array, offset, numBytes, userCallback, stateObject);
@@ -1245,11 +1201,9 @@ namespace System.IO
 
         private FileStreamAsyncResult BeginReadAsync(byte[] array, int offset, int numBytes, AsyncCallback userCallback, Object stateObject)
         {
-            Contract.Assert(_isAsync);
-            if (!CanRead)
+                        if (!CanRead)
                 __Error.ReadNotSupported();
-            Contract.Assert((_readPos == 0 && _readLen == 0 && _writePos >= 0) || (_writePos == 0 && _readPos <= _readLen), "We're either reading or writing, but not both.");
-            if (_isPipe)
+                        if (_isPipe)
             {
                 if (_readPos < _readLen)
                 {
@@ -1262,13 +1216,11 @@ namespace System.IO
                 }
                 else
                 {
-                    Contract.Assert(_writePos == 0, "FileStream must not have buffered write data here!  Pipes should be unidirectional.");
-                    return BeginReadCore(array, offset, numBytes, userCallback, stateObject, 0);
+                                        return BeginReadCore(array, offset, numBytes, userCallback, stateObject, 0);
                 }
             }
 
-            Contract.Assert(!_isPipe, "Should not be a pipe.");
-            if (_writePos > 0)
+                        if (_writePos > 0)
                 FlushWrite(false);
             if (_readPos == _readLen)
             {
@@ -1314,14 +1266,7 @@ namespace System.IO
 
         unsafe private FileStreamAsyncResult BeginReadCore(byte[] bytes, int offset, int numBytes, AsyncCallback userCallback, Object stateObject, int numBufferedBytesRead)
         {
-            Contract.Assert(!_handle.IsClosed, "!_handle.IsClosed");
-            Contract.Assert(CanRead, "CanRead");
-            Contract.Assert(bytes != null, "bytes != null");
-            Contract.Assert(_writePos == 0, "_writePos == 0");
-            Contract.Assert(_isAsync, "BeginReadCore doesn't work on synchronous file streams!");
-            Contract.Assert(offset >= 0, "offset is negative");
-            Contract.Assert(numBytes >= 0, "numBytes is negative");
-            FileStreamAsyncResult asyncResult = new FileStreamAsyncResult(numBufferedBytesRead, bytes, _handle, userCallback, stateObject, false);
+                                                                                                FileStreamAsyncResult asyncResult = new FileStreamAsyncResult(numBufferedBytesRead, bytes, _handle, userCallback, stateObject, false);
             NativeOverlapped*intOverlapped = asyncResult.OverLapped;
             if (CanSeek)
             {
@@ -1373,8 +1318,7 @@ namespace System.IO
         {
             if (asyncResult == null)
                 throw new ArgumentNullException("asyncResult");
-            Contract.EndContractBlock();
-            if (!_isAsync)
+                        if (!_isAsync)
                 return base.EndRead(asyncResult);
             FileStreamAsyncResult afsar = asyncResult as FileStreamAsyncResult;
             if (afsar == null || afsar.IsWrite)
@@ -1394,13 +1338,11 @@ namespace System.IO
                 __Error.FileNotOpen();
             if (_readLen == 0 && !CanRead)
                 __Error.ReadNotSupported();
-            Contract.Assert((_readPos == 0 && _readLen == 0 && _writePos >= 0) || (_writePos == 0 && _readPos <= _readLen), "We're either reading or writing, but not both.");
-            if (_readPos == _readLen)
+                        if (_readPos == _readLen)
             {
                 if (_writePos > 0)
                     FlushWrite(false);
-                Contract.Assert(_bufferSize > 0, "_bufferSize > 0");
-                if (_buffer == null)
+                                if (_buffer == null)
                     _buffer = new byte[_bufferSize];
                 _readLen = ReadCore(_buffer, 0, _bufferSize);
                 _readPos = 0;
@@ -1423,8 +1365,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("numBytes", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - offset < numBytes)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (_handle.IsClosed)
+                        if (_handle.IsClosed)
                 __Error.FileNotOpen();
             if (!_isAsync)
                 return base.BeginWrite(array, offset, numBytes, userCallback, stateObject);
@@ -1434,14 +1375,11 @@ namespace System.IO
 
         private FileStreamAsyncResult BeginWriteAsync(byte[] array, int offset, int numBytes, AsyncCallback userCallback, Object stateObject)
         {
-            Contract.Assert(_isAsync);
-            if (!CanWrite)
+                        if (!CanWrite)
                 __Error.WriteNotSupported();
-            Contract.Assert((_readPos == 0 && _readLen == 0 && _writePos >= 0) || (_writePos == 0 && _readPos <= _readLen), "We're either reading or writing, but not both.");
-            if (_isPipe)
+                        if (_isPipe)
             {
-                Contract.Assert(_readPos == 0 && _readLen == 0, "FileStream must not have buffered data here!  Pipes should be unidirectional.");
-                if (_writePos > 0)
+                                if (_writePos > 0)
                     FlushWrite(false);
                 return BeginWriteCore(array, offset, numBytes, userCallback, stateObject);
             }
@@ -1471,14 +1409,7 @@ namespace System.IO
 
         unsafe private FileStreamAsyncResult BeginWriteCore(byte[] bytes, int offset, int numBytes, AsyncCallback userCallback, Object stateObject)
         {
-            Contract.Assert(!_handle.IsClosed, "!_handle.IsClosed");
-            Contract.Assert(CanWrite, "CanWrite");
-            Contract.Assert(bytes != null, "bytes != null");
-            Contract.Assert(_readPos == _readLen, "_readPos == _readLen");
-            Contract.Assert(_isAsync, "BeginWriteCore doesn't work on synchronous file streams!");
-            Contract.Assert(offset >= 0, "offset is negative");
-            Contract.Assert(numBytes >= 0, "numBytes is negative");
-            FileStreamAsyncResult asyncResult = new FileStreamAsyncResult(0, bytes, _handle, userCallback, stateObject, true);
+                                                                                                FileStreamAsyncResult asyncResult = new FileStreamAsyncResult(0, bytes, _handle, userCallback, stateObject, true);
             NativeOverlapped*intOverlapped = asyncResult.OverLapped;
             if (CanSeek)
             {
@@ -1526,8 +1457,7 @@ namespace System.IO
         {
             if (asyncResult == null)
                 throw new ArgumentNullException("asyncResult");
-            Contract.EndContractBlock();
-            if (!_isAsync)
+                        if (!_isAsync)
             {
                 base.EndWrite(asyncResult);
                 return;
@@ -1557,8 +1487,7 @@ namespace System.IO
                     FlushRead();
                 _readPos = 0;
                 _readLen = 0;
-                Contract.Assert(_bufferSize > 0, "_bufferSize > 0");
-                if (_buffer == null)
+                                if (_buffer == null)
                     _buffer = new byte[_bufferSize];
             }
 
@@ -1572,8 +1501,7 @@ namespace System.IO
         {
             if (position < 0 || length < 0)
                 throw new ArgumentOutOfRangeException((position < 0 ? "position" : "length"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            if (_handle.IsClosed)
+                        if (_handle.IsClosed)
                 __Error.FileNotOpen();
             int positionLow = unchecked ((int)(position));
             int positionHigh = unchecked ((int)(position >> 32));
@@ -1587,8 +1515,7 @@ namespace System.IO
         {
             if (position < 0 || length < 0)
                 throw new ArgumentOutOfRangeException((position < 0 ? "position" : "length"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            if (_handle.IsClosed)
+                        if (_handle.IsClosed)
                 __Error.FileNotOpen();
             int positionLow = unchecked ((int)(position));
             int positionHigh = unchecked ((int)(position >> 32));
@@ -1613,15 +1540,9 @@ namespace System.IO
         private const int ERROR_IO_PENDING = 997;
         private unsafe int ReadFileNative(SafeFileHandle handle, byte[] bytes, int offset, int count, NativeOverlapped*overlapped, out int hr)
         {
-            Contract.Requires(handle != null, "handle != null");
-            Contract.Requires(offset >= 0, "offset >= 0");
-            Contract.Requires(count >= 0, "count >= 0");
-            Contract.Requires(bytes != null, "bytes != null");
-            if (bytes.Length - offset < count)
+                                                            if (bytes.Length - offset < count)
                 throw new IndexOutOfRangeException(Environment.GetResourceString("IndexOutOfRange_IORaceCondition"));
-            Contract.EndContractBlock();
-            Contract.Assert((_isAsync && overlapped != null) || (!_isAsync && overlapped == null), "Async IO parameter mismatch in call to ReadFileNative.");
-            if (bytes.Length == 0)
+                                    if (bytes.Length == 0)
             {
                 hr = 0;
                 return 0;
@@ -1656,15 +1577,9 @@ namespace System.IO
 
         private unsafe int WriteFileNative(SafeFileHandle handle, byte[] bytes, int offset, int count, NativeOverlapped*overlapped, out int hr)
         {
-            Contract.Requires(handle != null, "handle != null");
-            Contract.Requires(offset >= 0, "offset >= 0");
-            Contract.Requires(count >= 0, "count >= 0");
-            Contract.Requires(bytes != null, "bytes != null");
-            if (bytes.Length - offset < count)
+                                                            if (bytes.Length - offset < count)
                 throw new IndexOutOfRangeException(Environment.GetResourceString("IndexOutOfRange_IORaceCondition"));
-            Contract.EndContractBlock();
-            Contract.Assert((_isAsync && overlapped != null) || (!_isAsync && overlapped == null), "Async IO parameter missmatch in call to WriteFileNative.");
-            if (bytes.Length == 0)
+                                    if (bytes.Length == 0)
             {
                 hr = 0;
                 return 0;
@@ -1707,8 +1622,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (this.GetType() != typeof (FileStream))
+                        if (this.GetType() != typeof (FileStream))
                 return base.ReadAsync(buffer, offset, count, cancellationToken);
             if (cancellationToken.IsCancellationRequested)
                 return Task.FromCancellation<int>(cancellationToken);
@@ -1744,8 +1658,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (this.GetType() != typeof (FileStream))
+                        if (this.GetType() != typeof (FileStream))
                 return base.WriteAsync(buffer, offset, count, cancellationToken);
             if (cancellationToken.IsCancellationRequested)
                 return Task.FromCancellation(cancellationToken);
@@ -1785,12 +1698,8 @@ namespace System.IO
         private static void CancelTask<T>(object state)
         {
             var task = state as FileStreamReadWriteTask<T>;
-            Contract.Assert(task != null);
-            FileStreamAsyncResult asyncResult = task._asyncResult;
-            Contract.Assert((!asyncResult.IsWrite && typeof (T) == typeof (int)) || (asyncResult.IsWrite && typeof (T) == typeof (VoidTaskResult)));
-            Contract.Assert(asyncResult != null);
-            Contract.Assert(asyncResult.IsAsync);
-            try
+                        FileStreamAsyncResult asyncResult = task._asyncResult;
+                                                try
             {
                 if (!asyncResult.IsCompleted)
                     asyncResult.Cancel();
@@ -1804,11 +1713,8 @@ namespace System.IO
         private static void EndReadTask(IAsyncResult iar)
         {
             FileStreamAsyncResult asyncResult = iar as FileStreamAsyncResult;
-            Contract.Assert(asyncResult != null);
-            Contract.Assert(asyncResult.IsCompleted, "How can we end up in the completion callback if the IAsyncResult is not completed?");
-            var readTask = asyncResult.AsyncState as FileStreamReadWriteTask<int>;
-            Contract.Assert(readTask != null);
-            try
+                                    var readTask = asyncResult.AsyncState as FileStreamReadWriteTask<int>;
+                        try
             {
                 if (asyncResult.IsAsync)
                 {
@@ -1819,8 +1725,7 @@ namespace System.IO
                 if (asyncResult.ErrorCode == Win32Native.ERROR_OPERATION_ABORTED)
                 {
                     var cancellationToken = readTask._cancellationToken;
-                    Contract.Assert(cancellationToken.IsCancellationRequested, "How can the IO operation be aborted if cancellation was not requested?");
-                    readTask.TrySetCanceled(cancellationToken);
+                                        readTask.TrySetCanceled(cancellationToken);
                 }
                 else
                     readTask.TrySetResult(asyncResult.NumBytesRead);
@@ -1834,11 +1739,8 @@ namespace System.IO
         private static void EndWriteTask(IAsyncResult iar)
         {
             var asyncResult = iar as FileStreamAsyncResult;
-            Contract.Assert(asyncResult != null);
-            Contract.Assert(asyncResult.IsCompleted, "How can we end up in the completion callback if the IAsyncResult is not completed?");
-            var writeTask = iar.AsyncState as FileStreamReadWriteTask<VoidTaskResult>;
-            Contract.Assert(writeTask != null);
-            try
+                                    var writeTask = iar.AsyncState as FileStreamReadWriteTask<VoidTaskResult>;
+                        try
             {
                 if (asyncResult.IsAsync)
                 {
@@ -1849,8 +1751,7 @@ namespace System.IO
                 if (asyncResult.ErrorCode == Win32Native.ERROR_OPERATION_ABORTED)
                 {
                     var cancellationToken = writeTask._cancellationToken;
-                    Contract.Assert(cancellationToken.IsCancellationRequested, "How can the IO operation be aborted if cancellation was not requested?");
-                    writeTask.TrySetCanceled(cancellationToken);
+                                        writeTask.TrySetCanceled(cancellationToken);
                 }
                 else
                     writeTask.TrySetResult(default (VoidTaskResult));

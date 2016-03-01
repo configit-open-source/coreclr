@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 
 namespace System.Threading
@@ -76,8 +76,7 @@ namespace System.Threading
 
         private static SynchronizationContext GetWinRTContext()
         {
-            Contract.Assert(Environment.IsWinRTSupported);
-            if (!AppDomain.IsAppXModel())
+                        if (!AppDomain.IsAppXModel())
                 return null;
             object dispatcher = GetWinRTDispatcherForCurrentThread();
             if (dispatcher != null)

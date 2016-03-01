@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -9,10 +8,7 @@ namespace System
     {
         private static Attribute[] InternalGetCustomAttributes(PropertyInfo element, Type type, bool inherit)
         {
-            Contract.Requires(element != null);
-            Contract.Requires(type != null);
-            Contract.Requires(type.IsSubclassOf(typeof (Attribute)) || type == typeof (Attribute));
-            Attribute[] attributes = (Attribute[])element.GetCustomAttributes(type, inherit);
+                                                Attribute[] attributes = (Attribute[])element.GetCustomAttributes(type, inherit);
             if (!inherit)
                 return attributes;
             Dictionary<Type, AttributeUsageAttribute> types = new Dictionary<Type, AttributeUsageAttribute>(11);
@@ -56,8 +52,7 @@ namespace System
 
         private static PropertyInfo GetParentDefinition(PropertyInfo property, Type[] propertyParameters)
         {
-            Contract.Requires(property != null);
-            MethodInfo propAccessor = property.GetGetMethod(true);
+                        MethodInfo propAccessor = property.GetGetMethod(true);
             if (propAccessor == null)
                 propAccessor = property.GetSetMethod(true);
             RuntimeMethodInfo rtPropAccessor = propAccessor as RuntimeMethodInfo;
@@ -77,10 +72,7 @@ namespace System
 
         private static Attribute[] InternalGetCustomAttributes(EventInfo element, Type type, bool inherit)
         {
-            Contract.Requires(element != null);
-            Contract.Requires(type != null);
-            Contract.Requires(type.IsSubclassOf(typeof (Attribute)) || type == typeof (Attribute));
-            Attribute[] attributes = (Attribute[])element.GetCustomAttributes(type, inherit);
+                                                Attribute[] attributes = (Attribute[])element.GetCustomAttributes(type, inherit);
             if (inherit)
             {
                 Dictionary<Type, AttributeUsageAttribute> types = new Dictionary<Type, AttributeUsageAttribute>(11);
@@ -104,8 +96,7 @@ namespace System
 
         private static EventInfo GetParentDefinition(EventInfo ev)
         {
-            Contract.Requires(ev != null);
-            MethodInfo add = ev.GetAddMethod(true);
+                        MethodInfo add = ev.GetAddMethod(true);
             RuntimeMethodInfo rtAdd = add as RuntimeMethodInfo;
             if (rtAdd != null)
             {
@@ -119,8 +110,7 @@ namespace System
 
         private static bool InternalIsDefined(EventInfo element, Type attributeType, bool inherit)
         {
-            Contract.Requires(element != null);
-            if (element.IsDefined(attributeType, inherit))
+                        if (element.IsDefined(attributeType, inherit))
                 return true;
             if (inherit)
             {
@@ -141,8 +131,7 @@ namespace System
 
         private static ParameterInfo GetParentDefinition(ParameterInfo param)
         {
-            Contract.Requires(param != null);
-            RuntimeMethodInfo rtMethod = param.Member as RuntimeMethodInfo;
+                        RuntimeMethodInfo rtMethod = param.Member as RuntimeMethodInfo;
             if (rtMethod != null)
             {
                 rtMethod = rtMethod.GetParentDefinition();
@@ -158,8 +147,7 @@ namespace System
 
         private static Attribute[] InternalParamGetCustomAttributes(ParameterInfo param, Type type, bool inherit)
         {
-            Contract.Requires(param != null);
-            List<Type> disAllowMultiple = new List<Type>();
+                        List<Type> disAllowMultiple = new List<Type>();
             Object[] objAttr;
             if (type == null)
                 type = typeof (Attribute);
@@ -225,9 +213,7 @@ namespace System
 
         private static bool InternalParamIsDefined(ParameterInfo param, Type type, bool inherit)
         {
-            Contract.Requires(param != null);
-            Contract.Requires(type != null);
-            if (param.IsDefined(type, false))
+                                    if (param.IsDefined(type, false))
                 return true;
             if (param.Member.DeclaringType == null || !inherit)
                 return false;
@@ -326,8 +312,7 @@ namespace System
                 throw new ArgumentNullException("type");
             if (!type.IsSubclassOf(typeof (Attribute)) && type != typeof (Attribute))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustHaveAttributeBaseClass"));
-            Contract.EndContractBlock();
-            switch (element.MemberType)
+                        switch (element.MemberType)
             {
                 case MemberTypes.Property:
                     return InternalGetCustomAttributes((PropertyInfo)element, type, inherit);
@@ -347,8 +332,7 @@ namespace System
         {
             if (element == null)
                 throw new ArgumentNullException("element");
-            Contract.EndContractBlock();
-            switch (element.MemberType)
+                        switch (element.MemberType)
             {
                 case MemberTypes.Property:
                     return InternalGetCustomAttributes((PropertyInfo)element, typeof (Attribute), inherit);
@@ -372,8 +356,7 @@ namespace System
                 throw new ArgumentNullException("attributeType");
             if (!attributeType.IsSubclassOf(typeof (Attribute)) && attributeType != typeof (Attribute))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustHaveAttributeBaseClass"));
-            Contract.EndContractBlock();
-            switch (element.MemberType)
+                        switch (element.MemberType)
             {
                 case MemberTypes.Property:
                     return InternalIsDefined((PropertyInfo)element, attributeType, inherit);
@@ -419,8 +402,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustHaveAttributeBaseClass"));
             if (element.Member == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidParameterInfo"), "element");
-            Contract.EndContractBlock();
-            MemberInfo member = element.Member;
+                        MemberInfo member = element.Member;
             if (member.MemberType == MemberTypes.Method && inherit)
                 return InternalParamGetCustomAttributes(element, attributeType, inherit) as Attribute[];
             return element.GetCustomAttributes(attributeType, inherit) as Attribute[];
@@ -432,8 +414,7 @@ namespace System
                 throw new ArgumentNullException("element");
             if (element.Member == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidParameterInfo"), "element");
-            Contract.EndContractBlock();
-            MemberInfo member = element.Member;
+                        MemberInfo member = element.Member;
             if (member.MemberType == MemberTypes.Method && inherit)
                 return InternalParamGetCustomAttributes(element, null, inherit) as Attribute[];
             return element.GetCustomAttributes(typeof (Attribute), inherit) as Attribute[];
@@ -452,8 +433,7 @@ namespace System
                 throw new ArgumentNullException("attributeType");
             if (!attributeType.IsSubclassOf(typeof (Attribute)) && attributeType != typeof (Attribute))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustHaveAttributeBaseClass"));
-            Contract.EndContractBlock();
-            MemberInfo member = element.Member;
+                        MemberInfo member = element.Member;
             switch (member.MemberType)
             {
                 case MemberTypes.Method:
@@ -463,8 +443,7 @@ namespace System
                 case MemberTypes.Property:
                     return element.IsDefined(attributeType, false);
                 default:
-                    Contract.Assert(false, "Invalid type for ParameterInfo member in Attribute class");
-                    throw new ArgumentException(Environment.GetResourceString("Argument_InvalidParamInfo"));
+                                        throw new ArgumentException(Environment.GetResourceString("Argument_InvalidParamInfo"));
             }
         }
 
@@ -499,8 +478,7 @@ namespace System
         {
             if (element == null)
                 throw new ArgumentNullException("element");
-            Contract.EndContractBlock();
-            return (Attribute[])element.GetCustomAttributes(typeof (Attribute), inherit);
+                        return (Attribute[])element.GetCustomAttributes(typeof (Attribute), inherit);
         }
 
         public static Attribute[] GetCustomAttributes(Module element, Type attributeType, bool inherit)
@@ -511,8 +489,7 @@ namespace System
                 throw new ArgumentNullException("attributeType");
             if (!attributeType.IsSubclassOf(typeof (Attribute)) && attributeType != typeof (Attribute))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustHaveAttributeBaseClass"));
-            Contract.EndContractBlock();
-            return (Attribute[])element.GetCustomAttributes(attributeType, inherit);
+                        return (Attribute[])element.GetCustomAttributes(attributeType, inherit);
         }
 
         public static bool IsDefined(Module element, Type attributeType)
@@ -528,8 +505,7 @@ namespace System
                 throw new ArgumentNullException("attributeType");
             if (!attributeType.IsSubclassOf(typeof (Attribute)) && attributeType != typeof (Attribute))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustHaveAttributeBaseClass"));
-            Contract.EndContractBlock();
-            return element.IsDefined(attributeType, false);
+                        return element.IsDefined(attributeType, false);
         }
 
         public static Attribute GetCustomAttribute(Module element, Type attributeType)
@@ -560,8 +536,7 @@ namespace System
                 throw new ArgumentNullException("attributeType");
             if (!attributeType.IsSubclassOf(typeof (Attribute)) && attributeType != typeof (Attribute))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustHaveAttributeBaseClass"));
-            Contract.EndContractBlock();
-            return (Attribute[])element.GetCustomAttributes(attributeType, inherit);
+                        return (Attribute[])element.GetCustomAttributes(attributeType, inherit);
         }
 
         public static Attribute[] GetCustomAttributes(Assembly element)
@@ -573,8 +548,7 @@ namespace System
         {
             if (element == null)
                 throw new ArgumentNullException("element");
-            Contract.EndContractBlock();
-            return (Attribute[])element.GetCustomAttributes(typeof (Attribute), inherit);
+                        return (Attribute[])element.GetCustomAttributes(typeof (Attribute), inherit);
         }
 
         public static bool IsDefined(Assembly element, Type attributeType)
@@ -590,8 +564,7 @@ namespace System
                 throw new ArgumentNullException("attributeType");
             if (!attributeType.IsSubclassOf(typeof (Attribute)) && attributeType != typeof (Attribute))
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustHaveAttributeBaseClass"));
-            Contract.EndContractBlock();
-            return element.IsDefined(attributeType, false);
+                        return element.IsDefined(attributeType, false);
         }
 
         public static Attribute GetCustomAttribute(Assembly element, Type attributeType)
@@ -657,8 +630,7 @@ namespace System
                     return false;
                 }
 
-                Contract.Assert(thisValueArray.Rank == 1 && thatValueArray.Rank == 1);
-                for (int j = 0; j < thisValueArray.Length; j++)
+                                for (int j = 0; j < thisValueArray.Length; j++)
                 {
                     if (!AreFieldValuesEqual(thisValueArray.GetValue(j), thatValueArray.GetValue(j)))
                     {
@@ -668,8 +640,7 @@ namespace System
             }
             else
             {
-                Contract.Assert(!(thisValue is Attribute));
-                if (!thisValue.Equals(thatValue))
+                                if (!thisValue.Equals(thatValue))
                     return false;
             }
 

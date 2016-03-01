@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Threading;
 
 namespace System
@@ -11,8 +11,7 @@ namespace System
         public Progress()
         {
             m_synchronizationContext = SynchronizationContext.CurrentNoFlow ?? ProgressStatics.DefaultContext;
-            Contract.Assert(m_synchronizationContext != null);
-            m_invokeHandlers = new SendOrPostCallback(InvokeHandlers);
+                        m_invokeHandlers = new SendOrPostCallback(InvokeHandlers);
         }
 
         public Progress(Action<T> handler): this ()

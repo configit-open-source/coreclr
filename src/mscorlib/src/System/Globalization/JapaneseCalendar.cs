@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security;
 using System.Security.Permissions;
 
@@ -267,8 +267,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
             }
 
-            Contract.EndContractBlock();
-            if (year > helper.MaxYear)
+                        if (year > helper.MaxYear)
             {
                 throw new ArgumentOutOfRangeException("year", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), 1, helper.MaxYear));
             }

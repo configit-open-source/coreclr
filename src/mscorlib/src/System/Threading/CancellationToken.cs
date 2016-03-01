@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Threading
 {
@@ -57,8 +57,7 @@ namespace System.Threading
         private static void ActionToActionObjShunt(object obj)
         {
             Action action = obj as Action;
-            Contract.Assert(action != null, "Expected an Action here");
-            action();
+                        action();
         }
 
         public CancellationTokenRegistration Register(Action callback)

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Collections.ObjectModel
 {
@@ -16,8 +15,7 @@ namespace System.Collections.ObjectModel
                 throw new ArgumentNullException("dictionary");
             }
 
-            Contract.EndContractBlock();
-            m_dictionary = dictionary;
+                        m_dictionary = dictionary;
         }
 
         protected IDictionary<TKey, TValue> Dictionary
@@ -32,8 +30,7 @@ namespace System.Collections.ObjectModel
         {
             get
             {
-                Contract.Ensures(Contract.Result<KeyCollection>() != null);
-                if (m_keys == null)
+                                if (m_keys == null)
                 {
                     m_keys = new KeyCollection(m_dictionary.Keys);
                 }
@@ -46,8 +43,7 @@ namespace System.Collections.ObjectModel
         {
             get
             {
-                Contract.Ensures(Contract.Result<ValueCollection>() != null);
-                if (m_values == null)
+                                if (m_values == null)
                 {
                     m_values = new ValueCollection(m_dictionary.Values);
                 }

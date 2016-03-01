@@ -220,8 +220,6 @@
     <Compile Include="src\System\Diagnostics\AssertFilters.cs" />
     <Compile Include="src\System\Diagnostics\CodeAnalysis\SuppressMessageAttribute.cs" />
     <Compile Include="src\System\Diagnostics\ConditionalAttribute.cs" />
-    <Compile Include="src\System\Diagnostics\Contracts\Contracts.cs" />
-    <Compile Include="src\System\Diagnostics\Contracts\ContractsBCL.cs" />
     <Compile Include="src\System\Diagnostics\Debugger.cs" />
     <Compile Include="src\System\Diagnostics\DebuggerAttributes.cs" />
     <Compile Include="src\System\Diagnostics\EditAndContinueHelper.cs" />

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Reflection;
 
@@ -8,9 +8,7 @@ namespace System.Globalization
     {
         internal unsafe static byte *GetGlobalizationResourceBytePtr(Assembly assembly, String tableName)
         {
-            Contract.Assert(assembly != null, "assembly can not be null.  This should be generally the mscorlib.dll assembly.");
-            Contract.Assert(tableName != null, "table name can not be null");
-            Stream stream = assembly.GetManifestResourceStream(tableName);
+                                    Stream stream = assembly.GetManifestResourceStream(tableName);
             UnmanagedMemoryStream bytesStream = stream as UnmanagedMemoryStream;
             if (bytesStream != null)
             {
@@ -21,8 +19,7 @@ namespace System.Globalization
                 }
             }
 
-            Contract.Assert(false, String.Format(CultureInfo.CurrentCulture, "Didn't get the resource table {0} for System.Globalization from {1}", tableName, assembly));
-            throw new InvalidOperationException();
+                        throw new InvalidOperationException();
         }
     }
 }

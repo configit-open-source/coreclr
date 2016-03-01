@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -9,8 +8,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private ListToVectorAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal T GetAt<T>(uint index)
         {
@@ -35,8 +33,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         internal IReadOnlyList<T> GetView<T>()
         {
             IList<T> _this = JitHelpers.UnsafeCast<IList<T>>(this);
-            Contract.Assert(_this != null);
-            IReadOnlyList<T> roList = _this as IReadOnlyList<T>;
+                        IReadOnlyList<T> roList = _this as IReadOnlyList<T>;
             if (roList == null)
             {
                 roList = new ReadOnlyCollection<T>(_this);

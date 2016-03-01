@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Permissions
 {
@@ -155,8 +155,7 @@ namespace System.Security.Permissions
         {
             if ((type & ~ReflectionPermission.AllFlagsAndMore) != 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_EnumIllegalVal", (int)type));
-            Contract.EndContractBlock();
-        }
+                    }
 
         int IBuiltInPermission.GetTokenIndex()
         {

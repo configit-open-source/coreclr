@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
@@ -35,8 +35,7 @@ namespace System.Threading
                 }
             }
 
-            Contract.EndContractBlock();
-            SafeWaitHandle _handle = null;
+                        SafeWaitHandle _handle = null;
             switch (mode)
             {
                 case EventResetMode.ManualReset:
@@ -76,8 +75,7 @@ namespace System.Threading
                 }
             }
 
-            Contract.EndContractBlock();
-            Win32Native.SECURITY_ATTRIBUTES secAttrs = null;
+                        Win32Native.SECURITY_ATTRIBUTES secAttrs = null;
             SafeWaitHandle _handle = null;
             Boolean isManualReset;
             switch (mode)
@@ -161,8 +159,7 @@ namespace System.Threading
                 throw new ArgumentException(Environment.GetResourceString("Argument_WaitHandleNameTooLong", name));
             }
 
-            Contract.EndContractBlock();
-            result = null;
+                        result = null;
             SafeWaitHandle myHandle = Win32Native.OpenEvent(Win32Native.EVENT_MODIFY_STATE | Win32Native.SYNCHRONIZE, false, name);
             if (myHandle.IsInvalid)
             {

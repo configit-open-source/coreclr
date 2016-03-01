@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security.Util;
 using System.Text;
 
@@ -62,8 +62,7 @@ namespace System.Security.Cryptography
         {
             if (xmlString == null)
                 throw new ArgumentNullException("xmlString");
-            Contract.EndContractBlock();
-            RSAParameters rsaParams = new RSAParameters();
+                        RSAParameters rsaParams = new RSAParameters();
             Parser p = new Parser(xmlString);
             SecurityElement topElement = p.GetTopElement();
             String modulusString = topElement.SearchForTextOfLocalName("Modulus");

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System
 {
@@ -11,8 +11,7 @@ namespace System
         {
             if (((int)key) < 0 || ((int)key) > 255)
                 throw new ArgumentOutOfRangeException("key", Environment.GetResourceString("ArgumentOutOfRange_ConsoleKey"));
-            Contract.EndContractBlock();
-            _keyChar = keyChar;
+                        _keyChar = keyChar;
             _key = key;
             _mods = 0;
             if (shift)

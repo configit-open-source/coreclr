@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -8,8 +8,7 @@ namespace System.Security.Cryptography
         {
             if (CryptoConfig.AllowOnlyFipsAlgorithms)
                 throw new InvalidOperationException(Environment.GetResourceString("Cryptography_NonCompliantFIPSAlgorithm"));
-            Contract.EndContractBlock();
-        }
+                    }
 
         public override ICryptoTransform CreateEncryptor(byte[] rgbKey, byte[] rgbIV)
         {

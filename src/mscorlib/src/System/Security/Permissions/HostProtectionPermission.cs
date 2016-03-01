@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Permissions
 {
@@ -29,8 +29,7 @@ namespace System.Security.Permissions
         {
             if (action != SecurityAction.LinkDemand)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidFlag"));
-            Contract.EndContractBlock();
-        }
+                    }
 
         public HostProtectionResource Resources
         {
@@ -205,8 +204,7 @@ namespace System.Security.Permissions
             {
                 if (value < HostProtectionResource.None || value > HostProtectionResource.All)
                     throw new ArgumentException(Environment.GetResourceString("Arg_EnumIllegalVal", (int)value));
-                Contract.EndContractBlock();
-                m_resources = value;
+                                m_resources = value;
             }
 
             get

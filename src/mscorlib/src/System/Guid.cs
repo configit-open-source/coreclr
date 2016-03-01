@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.InteropServices;
 
@@ -26,8 +26,7 @@ namespace System
                 throw new ArgumentNullException("b");
             if (b.Length != 16)
                 throw new ArgumentException(Environment.GetResourceString("Arg_GuidArrayCtor", "16"));
-            Contract.EndContractBlock();
-            _a = ((int)b[3] << 24) | ((int)b[2] << 16) | ((int)b[1] << 8) | b[0];
+                        _a = ((int)b[3] << 24) | ((int)b[2] << 16) | ((int)b[1] << 8) | b[0];
             _b = (short)(((int)b[5] << 8) | b[4]);
             _c = (short)(((int)b[7] << 8) | b[6]);
             _d = b[8];
@@ -61,8 +60,7 @@ namespace System
                 throw new ArgumentNullException("d");
             if (d.Length != 8)
                 throw new ArgumentException(Environment.GetResourceString("Arg_GuidArrayCtor", "8"));
-            Contract.EndContractBlock();
-            _a = a;
+                        _a = a;
             _b = b;
             _c = c;
             _d = d[0];
@@ -160,8 +158,7 @@ namespace System
 
             internal void SetFailure(ParseFailureKind failure, string failureMessageID, object failureMessageFormatArgument, string failureArgumentName, Exception innerException)
             {
-                Contract.Assert(failure != ParseFailureKind.NativeException, "ParseFailureKind.NativeException should not be used with this overload");
-                m_failure = failure;
+                                m_failure = failure;
                 m_failureMessageID = failureMessageID;
                 m_failureMessageFormatArgument = failureMessageFormatArgument;
                 m_failureArgumentName = failureArgumentName;
@@ -187,8 +184,7 @@ namespace System
                     case ParseFailureKind.NativeException:
                         return m_innerException;
                     default:
-                        Contract.Assert(false, "Unknown GuidParseFailure: " + m_failure);
-                        return new FormatException(Environment.GetResourceString("Format_GuidUnrecognized"));
+                                                return new FormatException(Environment.GetResourceString("Format_GuidUnrecognized"));
                 }
             }
         }
@@ -200,8 +196,7 @@ namespace System
                 throw new ArgumentNullException("g");
             }
 
-            Contract.EndContractBlock();
-            this = Guid.Empty;
+                        this = Guid.Empty;
             GuidResult result = new GuidResult();
             result.Init(GuidParseThrowStyle.All);
             if (TryParseGuid(g, GuidStyles.Any, ref result))
@@ -221,8 +216,7 @@ namespace System
                 throw new ArgumentNullException("input");
             }
 
-            Contract.EndContractBlock();
-            GuidResult result = new GuidResult();
+                        GuidResult result = new GuidResult();
             result.Init(GuidParseThrowStyle.AllButOverflow);
             if (TryParseGuid(input, GuidStyles.Any, ref result))
             {
@@ -1140,8 +1134,7 @@ namespace System
 
         public static Guid NewGuid()
         {
-            Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
-            Guid guid;
+                        Guid guid;
             Marshal.ThrowExceptionForHR(Win32Native.CoCreateGuid(out guid), new IntPtr(-1));
             return guid;
         }

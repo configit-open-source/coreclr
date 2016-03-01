@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security.Util;
 using System.Text;
 
@@ -38,8 +38,7 @@ namespace System.Security.Cryptography
         {
             if (xmlString == null)
                 throw new ArgumentNullException("xmlString");
-            Contract.EndContractBlock();
-            DSAParameters dsaParams = new DSAParameters();
+                        DSAParameters dsaParams = new DSAParameters();
             Parser p = new Parser(xmlString);
             SecurityElement topElement = p.GetTopElement();
             String pString = topElement.SearchForTextOfLocalName("P");

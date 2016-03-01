@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Threading
 {
@@ -58,8 +58,7 @@ namespace System.Threading
         public static void SpinUntil(Func<bool> condition)
         {
             bool result = SpinUntil(condition, Timeout.Infinite);
-            Contract.Assert(result);
-        }
+                    }
 
         public static bool SpinUntil(Func<bool> condition, TimeSpan timeout)
         {
@@ -129,8 +128,7 @@ namespace System.Threading
                     s_lastProcessorCountRefreshTicks = now;
                 }
 
-                Contract.Assert(procCount > 0 && procCount <= 64, "Processor count not within the expected range (1 - 64).");
-                return procCount;
+                                return procCount;
             }
         }
 
@@ -152,8 +150,7 @@ namespace System.Threading
 
         public static int UpdateTimeOut(uint startTime, int originalWaitMillisecondsTimeout)
         {
-            Contract.Assert(originalWaitMillisecondsTimeout != Timeout.Infinite);
-            uint elapsedMilliseconds = (GetTime() - startTime);
+                        uint elapsedMilliseconds = (GetTime() - startTime);
             if (elapsedMilliseconds > int.MaxValue)
             {
                 return 0;

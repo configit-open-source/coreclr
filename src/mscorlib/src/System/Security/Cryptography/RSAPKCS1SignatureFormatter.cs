@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security.Cryptography.X509Certificates;
 
 namespace System.Security.Cryptography
@@ -15,16 +15,14 @@ namespace System.Security.Cryptography
         {
             if (key == null)
                 throw new ArgumentNullException("key");
-            Contract.EndContractBlock();
-            _rsaKey = (RSA)key;
+                        _rsaKey = (RSA)key;
         }
 
         public override void SetKey(AsymmetricAlgorithm key)
         {
             if (key == null)
                 throw new ArgumentNullException("key");
-            Contract.EndContractBlock();
-            _rsaKey = (RSA)key;
+                        _rsaKey = (RSA)key;
         }
 
         public override void SetHashAlgorithm(String strName)
@@ -36,8 +34,7 @@ namespace System.Security.Cryptography
         {
             if (rgbHash == null)
                 throw new ArgumentNullException("rgbHash");
-            Contract.EndContractBlock();
-            if (_strOID == null)
+                        if (_strOID == null)
                 throw new CryptographicUnexpectedOperationException(Environment.GetResourceString("Cryptography_MissingOID"));
             if (_rsaKey == null)
                 throw new CryptographicUnexpectedOperationException(Environment.GetResourceString("Cryptography_MissingKey"));

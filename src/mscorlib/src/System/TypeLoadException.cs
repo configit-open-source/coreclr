@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -75,8 +75,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            ClassName = info.GetString("TypeLoadClassName");
+                        ClassName = info.GetString("TypeLoadClassName");
             AssemblyName = info.GetString("TypeLoadAssemblyName");
             MessageArg = info.GetString("TypeLoadMessageArg");
             ResourceId = info.GetInt32("TypeLoadResourceID");
@@ -87,8 +86,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            base.GetObjectData(info, context);
+                        base.GetObjectData(info, context);
             info.AddValue("TypeLoadClassName", ClassName, typeof (String));
             info.AddValue("TypeLoadAssemblyName", AssemblyName, typeof (String));
             info.AddValue("TypeLoadMessageArg", MessageArg, typeof (String));

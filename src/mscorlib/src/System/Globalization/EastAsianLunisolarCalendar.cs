@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -37,8 +37,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("sexagenaryYear", Environment.GetResourceString("ArgumentOutOfRange_Range", 1, 60));
             }
 
-            Contract.EndContractBlock();
-            return ((sexagenaryYear - 1) % 10) + 1;
+                        return ((sexagenaryYear - 1) % 10) + 1;
         }
 
         public int GetTerrestrialBranch(int sexagenaryYear)
@@ -48,8 +47,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("sexagenaryYear", Environment.GetResourceString("ArgumentOutOfRange_Range", 1, 60));
             }
 
-            Contract.EndContractBlock();
-            return ((sexagenaryYear - 1) % 12) + 1;
+                        return ((sexagenaryYear - 1) % 12) + 1;
         }
 
         internal abstract int GetYearInfo(int LunarYear, int Index);
@@ -151,8 +149,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("time", String.Format(CultureInfo.InvariantCulture, Environment.GetResourceString("ArgumentOutOfRange_CalendarRange"), MinSupportedDateTime, MaxSupportedDateTime));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         internal void CheckEraRange(int era)
         {
@@ -361,8 +358,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("months", Environment.GetResourceString("ArgumentOutOfRange_Range", -120000, 120000));
             }
 
-            Contract.EndContractBlock();
-            CheckTicksRange(time.Ticks);
+                        CheckTicksRange(time.Ticks);
             int y = 0;
             int m = 0;
             int d = 0;
@@ -571,8 +567,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            year = base.ToFourDigitYear(year);
+                        year = base.ToFourDigitYear(year);
             CheckYearRange(year, CurrentEra);
             return (year);
         }

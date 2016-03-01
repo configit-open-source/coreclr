@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
@@ -36,8 +36,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<Object>() != null);
-                if (s_InternalSyncObject == null)
+                                if (s_InternalSyncObject == null)
                 {
                     Object o = new Object();
                     Interlocked.CompareExchange<Object>(ref s_InternalSyncObject, o, null);
@@ -52,8 +51,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<Object>() != null);
-                if (s_ReadKeySyncObject == null)
+                                if (s_ReadKeySyncObject == null)
                 {
                     Object o = new Object();
                     Interlocked.CompareExchange<Object>(ref s_ReadKeySyncObject, o, null);
@@ -99,8 +97,7 @@ namespace System
             [HostProtection(UI = true)]
             get
             {
-                Contract.Ensures(Contract.Result<TextReader>() != null);
-                if (_in == null)
+                                if (_in == null)
                 {
                     lock (InternalSyncObject)
                     {
@@ -131,8 +128,7 @@ namespace System
             [HostProtection(UI = true)]
             get
             {
-                Contract.Ensures(Contract.Result<TextWriter>() != null);
-                if (_out == null)
+                                if (_out == null)
                     InitializeStdOutError(true);
                 return _out;
             }
@@ -143,8 +139,7 @@ namespace System
             [HostProtection(UI = true)]
             get
             {
-                Contract.Ensures(Contract.Result<TextWriter>() != null);
-                if (_error == null)
+                                if (_error == null)
                     InitializeStdOutError(false);
                 return _error;
             }
@@ -184,8 +179,7 @@ namespace System
                     _out = writer;
                 else
                     _error = writer;
-                Contract.Assert((stdout && _out != null) || (!stdout && _error != null), "Didn't set Console::_out or _error appropriately!");
-            }
+                            }
         }
 
         private static bool CheckOutputDebug()
@@ -247,8 +241,7 @@ namespace System
             [System.Security.SecuritySafeCritical]
             get
             {
-                Contract.Ensures(Contract.Result<Encoding>() != null);
-                if (null != _inputEncoding)
+                                if (null != _inputEncoding)
                     return _inputEncoding;
                 lock (InternalSyncObject)
                 {
@@ -266,8 +259,7 @@ namespace System
             [System.Security.SecuritySafeCritical]
             get
             {
-                Contract.Ensures(Contract.Result<Encoding>() != null);
-                if (null != _outputEncoding)
+                                if (null != _outputEncoding)
                     return _outputEncoding;
                 lock (InternalSyncObject)
                 {
@@ -291,8 +283,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("frequency", frequency, Environment.GetResourceString("ArgumentOutOfRange_BeepFrequency", MinBeepFrequency, MaxBeepFrequency));
             if (duration <= 0)
                 throw new ArgumentOutOfRangeException("duration", duration, Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
-            Contract.EndContractBlock();
-            Win32Native.Beep(frequency, duration);
+                        Win32Native.Beep(frequency, duration);
         }
 
         public static void Clear()
@@ -323,8 +314,7 @@ namespace System
         {
             if ((((int)color) & ~0xf) != 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_InvalidConsoleColor"));
-            Contract.EndContractBlock();
-            Win32Native.Color c = (Win32Native.Color)color;
+                        Win32Native.Color c = (Win32Native.Color)color;
             if (isBackground)
                 c = (Win32Native.Color)((int)c << 4);
             return c;
@@ -359,8 +349,7 @@ namespace System
                 Win32Native.CONSOLE_SCREEN_BUFFER_INFO csbi = GetBufferInfo(false, out succeeded);
                 if (!succeeded)
                     return;
-                Contract.Assert(_haveReadDefaultColors, "Setting the foreground color before we've read the default foreground color!");
-                short attrs = csbi.wAttributes;
+                                short attrs = csbi.wAttributes;
                 attrs &= ~((short)Win32Native.Color.BackgroundMask);
                 attrs = (short)(((uint)(ushort)attrs) | ((uint)(ushort)c));
                 Win32Native.SetConsoleTextAttribute(ConsoleOutputHandle, attrs);
@@ -389,8 +378,7 @@ namespace System
                 Win32Native.CONSOLE_SCREEN_BUFFER_INFO csbi = GetBufferInfo(false, out succeeded);
                 if (!succeeded)
                     return;
-                Contract.Assert(_haveReadDefaultColors, "Setting the foreground color before we've read the default foreground color!");
-                short attrs = csbi.wAttributes;
+                                short attrs = csbi.wAttributes;
                 attrs &= ~((short)Win32Native.Color.ForegroundMask);
                 attrs = (short)(((uint)(ushort)attrs) | ((uint)(ushort)c));
                 Win32Native.SetConsoleTextAttribute(ConsoleOutputHandle, attrs);
@@ -404,8 +392,7 @@ namespace System
             Win32Native.CONSOLE_SCREEN_BUFFER_INFO csbi = GetBufferInfo(false, out succeeded);
             if (!succeeded)
                 return;
-            Contract.Assert(_haveReadDefaultColors, "Setting the foreground color before we've read the default foreground color!");
-            short defaultAttrs = (short)(ushort)_defaultColors;
+                        short defaultAttrs = (short)(ushort)_defaultColors;
             Win32Native.SetConsoleTextAttribute(ConsoleOutputHandle, defaultAttrs);
         }
 
@@ -420,8 +407,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Arg_InvalidConsoleColor"), "sourceForeColor");
             if (sourceBackColor < ConsoleColor.Black || sourceBackColor > ConsoleColor.White)
                 throw new ArgumentException(Environment.GetResourceString("Arg_InvalidConsoleColor"), "sourceBackColor");
-            Contract.EndContractBlock();
-            Win32Native.CONSOLE_SCREEN_BUFFER_INFO csbi = GetBufferInfo();
+                        Win32Native.CONSOLE_SCREEN_BUFFER_INFO csbi = GetBufferInfo();
             Win32Native.COORD bufferSize = csbi.dwSize;
             if (sourceLeft < 0 || sourceLeft > bufferSize.X)
                 throw new ArgumentOutOfRangeException("sourceLeft", sourceLeft, Environment.GetResourceString("ArgumentOutOfRange_ConsoleBufferBoundaries"));
@@ -462,8 +448,7 @@ namespace System
             {
                 writeCoord.Y = (short)i;
                 r = Win32Native.FillConsoleOutputCharacter(ConsoleOutputHandle, sourceChar, sourceWidth, writeCoord, out numWritten);
-                Contract.Assert(numWritten == sourceWidth, "FillConsoleOutputCharacter wrote the wrong number of chars!");
-                if (!r)
+                                if (!r)
                     __Error.WinIOError();
                 r = Win32Native.FillConsoleOutputAttribute(ConsoleOutputHandle, attr, sourceWidth, writeCoord, out numWritten);
                 if (!r)
@@ -516,8 +501,7 @@ namespace System
 
             if (!_haveReadDefaultColors)
             {
-                Contract.Assert((int)Win32Native.Color.ColorMask == 0xff, "Make sure one byte is large enough to store a Console color value!");
-                _defaultColors = (byte)(csbi.wAttributes & (short)Win32Native.Color.ColorMask);
+                                _defaultColors = (byte)(csbi.wAttributes & (short)Win32Native.Color.ColorMask);
                 _haveReadDefaultColors = true;
             }
 
@@ -608,8 +592,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("width", width, Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
             if (height <= 0)
                 throw new ArgumentOutOfRangeException("height", height, Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
-            Contract.EndContractBlock();
-            new UIPermission(UIPermissionWindow.SafeTopLevelWindows).Demand();
+                        new UIPermission(UIPermissionWindow.SafeTopLevelWindows).Demand();
             Win32Native.CONSOLE_SCREEN_BUFFER_INFO csbi = GetBufferInfo();
             bool r;
             bool resizeBuffer = false;
@@ -766,8 +749,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("left", left, Environment.GetResourceString("ArgumentOutOfRange_ConsoleBufferBoundaries"));
             if (top < 0 || top >= Int16.MaxValue)
                 throw new ArgumentOutOfRangeException("top", top, Environment.GetResourceString("ArgumentOutOfRange_ConsoleBufferBoundaries"));
-            Contract.EndContractBlock();
-            new UIPermission(UIPermissionWindow.SafeTopLevelWindows).Demand();
+                        new UIPermission(UIPermissionWindow.SafeTopLevelWindows).Demand();
             IntPtr hConsole = ConsoleOutputHandle;
             Win32Native.COORD coords = new Win32Native.COORD();
             coords.X = (short)left;
@@ -803,8 +785,7 @@ namespace System
             {
                 if (value < 1 || value > 100)
                     throw new ArgumentOutOfRangeException("value", value, Environment.GetResourceString("ArgumentOutOfRange_CursorSize"));
-                Contract.EndContractBlock();
-                new UIPermission(UIPermissionWindow.SafeTopLevelWindows).Demand();
+                                new UIPermission(UIPermissionWindow.SafeTopLevelWindows).Demand();
                 Win32Native.CONSOLE_CURSOR_INFO cci;
                 IntPtr hConsole = ConsoleOutputHandle;
                 bool r = Win32Native.GetConsoleCursorInfo(hConsole, out cci);
@@ -862,8 +843,7 @@ namespace System
 
                 if (titleLength > MaxConsoleTitleLength)
                     throw new InvalidOperationException(Environment.GetResourceString("ArgumentOutOfRange_ConsoleTitleTooLong"));
-                Contract.Assert(title.Length == titleLength);
-                return title;
+                                return title;
             }
 
             [System.Security.SecuritySafeCritical]
@@ -873,8 +853,7 @@ namespace System
                     throw new ArgumentNullException("value");
                 if (value.Length > MaxConsoleTitleLength)
                     throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_ConsoleTitleTooLong"));
-                Contract.EndContractBlock();
-                new UIPermission(UIPermissionWindow.SafeTopLevelWindows).Demand();
+                                new UIPermission(UIPermissionWindow.SafeTopLevelWindows).Demand();
                 if (!Win32Native.SetConsoleTitle(value))
                     __Error.WinIOError();
             }
@@ -1141,16 +1120,14 @@ namespace System
                 WaitCallback controlCCallback = new WaitCallback(ControlCDelegate);
                 if (!ThreadPool.QueueUserWorkItem(controlCCallback, delegateData))
                 {
-                    Contract.Assert(false, "ThreadPool.QueueUserWorkItem returned false without throwing. Unable to execute ControlC handler");
-                    return false;
+                                        return false;
                 }
 
                 TimeSpan controlCWaitTime = new TimeSpan(0, 0, 30);
                 delegateData.CompletionEvent.WaitOne(controlCWaitTime, false);
                 if (!delegateData.DelegateStarted)
                 {
-                    Contract.Assert(false, "ThreadPool.QueueUserWorkItem did not execute the handler within 30 seconds.");
-                    return false;
+                                        return false;
                 }
 
                 delegateData.CompletionEvent.WaitOne();
@@ -1201,8 +1178,7 @@ namespace System
                 lock (InternalSyncObject)
                 {
                     _cancelCallbacks -= value;
-                    Contract.Assert(_cancelCallbacks == null || _cancelCallbacks.GetInvocationList().Length > 0, "Teach Console::CancelKeyPress to handle a non-null but empty list of callbacks");
-                    if (_hooker != null && _cancelCallbacks == null)
+                                        if (_hooker != null && _cancelCallbacks == null)
                         _hooker.Unhook();
                 }
             }
@@ -1217,8 +1193,7 @@ namespace System
         {
             if (bufferSize < 0)
                 throw new ArgumentOutOfRangeException("bufferSize", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetStandardFile(Win32Native.STD_ERROR_HANDLE, FileAccess.Write, bufferSize);
+                        return GetStandardFile(Win32Native.STD_ERROR_HANDLE, FileAccess.Write, bufferSize);
         }
 
         public static Stream OpenStandardInput()
@@ -1230,8 +1205,7 @@ namespace System
         {
             if (bufferSize < 0)
                 throw new ArgumentOutOfRangeException("bufferSize", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetStandardFile(Win32Native.STD_INPUT_HANDLE, FileAccess.Read, bufferSize);
+                        return GetStandardFile(Win32Native.STD_INPUT_HANDLE, FileAccess.Read, bufferSize);
         }
 
         public static Stream OpenStandardOutput()
@@ -1243,16 +1217,14 @@ namespace System
         {
             if (bufferSize < 0)
                 throw new ArgumentOutOfRangeException("bufferSize", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetStandardFile(Win32Native.STD_OUTPUT_HANDLE, FileAccess.Write, bufferSize);
+                        return GetStandardFile(Win32Native.STD_OUTPUT_HANDLE, FileAccess.Write, bufferSize);
         }
 
         public static void SetIn(TextReader newIn)
         {
             if (newIn == null)
                 throw new ArgumentNullException("newIn");
-            Contract.EndContractBlock();
-            new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Demand();
+                        new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Demand();
             newIn = TextReader.Synchronized(newIn);
             lock (InternalSyncObject)
             {
@@ -1264,8 +1236,7 @@ namespace System
         {
             if (newOut == null)
                 throw new ArgumentNullException("newOut");
-            Contract.EndContractBlock();
-            new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Demand();
+                        new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Demand();
             newOut = TextWriter.Synchronized(newOut);
             lock (InternalSyncObject)
             {
@@ -1277,8 +1248,7 @@ namespace System
         {
             if (newError == null)
                 throw new ArgumentNullException("newError");
-            Contract.EndContractBlock();
-            new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Demand();
+                        new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Demand();
             newError = TextWriter.Synchronized(newError);
             lock (InternalSyncObject)
             {

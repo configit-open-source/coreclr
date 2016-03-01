@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -11,8 +11,7 @@ namespace System
         {
             if (method == null)
                 throw new ArgumentNullException("method");
-            Contract.EndContractBlock();
-            if (!method.IsPublic || (method.DeclaringType != null && !method.DeclaringType.IsVisible))
+                        if (!method.IsPublic || (method.DeclaringType != null && !method.DeclaringType.IsVisible))
                 new ReflectionPermission(ReflectionPermissionFlag.MemberAccess).Demand();
             Type c = delegateType.BaseType;
             if (c == null || (c != typeof (Delegate) && c != typeof (MulticastDelegate)))
@@ -77,8 +76,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            bool bNewWire = true;
+                        bool bNewWire = true;
             try
             {
                 m_delegateEntry = (DelegateEntry)info.GetValue("Delegate", typeof (DelegateEntry));
@@ -130,8 +128,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            String delegateType = info.GetString("DelegateType");
+                        String delegateType = info.GetString("DelegateType");
             String delegateAssembly = info.GetString("DelegateAssembly");
             Object target = info.GetValue("Target", typeof (Object));
             String targetTypeAssembly = info.GetString("TargetTypeAssembly");

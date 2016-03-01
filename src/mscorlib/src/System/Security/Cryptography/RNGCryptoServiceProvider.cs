@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -35,8 +35,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentNullException("data");
             }
 
-            Contract.EndContractBlock();
-            if (data.Length > 0)
+                        if (data.Length > 0)
             {
                 CapiNative.GenerateRandomBytes(m_cspHandle, data);
             }

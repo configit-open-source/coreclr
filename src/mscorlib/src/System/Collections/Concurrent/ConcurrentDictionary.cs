@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Threading;
 
 namespace System.Collections.Concurrent
@@ -1135,8 +1134,7 @@ namespace System.Collections.Concurrent
 
         private void Assert(bool condition)
         {
-            Contract.Assert(condition);
-        }
+                    }
 
         private string GetResource(string key)
         {

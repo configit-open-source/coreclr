@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Collections.Generic
@@ -10,8 +10,7 @@ namespace System.Collections.Generic
         {
             get
             {
-                Contract.Ensures(Contract.Result<EqualityComparer<T>>() != null);
-                EqualityComparer<T> comparer = defaultComparer;
+                                EqualityComparer<T> comparer = defaultComparer;
                 if (comparer == null)
                 {
                     comparer = CreateComparer();
@@ -24,8 +23,7 @@ namespace System.Collections.Generic
 
         private static EqualityComparer<T> CreateComparer()
         {
-            Contract.Ensures(Contract.Result<EqualityComparer<T>>() != null);
-            RuntimeType t = (RuntimeType)typeof (T);
+                        RuntimeType t = (RuntimeType)typeof (T);
             if (t == typeof (byte))
             {
                 return (EqualityComparer<T>)(object)(new ByteEqualityComparer());
@@ -404,8 +402,7 @@ namespace System.Collections.Generic
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_Count"));
             if (count > array.Length - startIndex)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (count == 0)
+                        if (count == 0)
                 return -1;
             fixed (byte *pbytes = array)
             {

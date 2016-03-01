@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Diagnostics.Tracing
 {
@@ -19,8 +18,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("dataType");
             }
 
-            Contract.EndContractBlock();
-            this.name = dataType.Name;
+                        this.name = dataType.Name;
             this.dataType = dataType;
             this.propertyValueFactory = PropertyValue.GetFactory(dataType);
         }
@@ -37,8 +35,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("eventName");
             }
 
-            Contract.EndContractBlock();
-            Statics.CheckName(name);
+                        Statics.CheckName(name);
             this.name = name;
             this.keywords = keywords;
             this.level = level;

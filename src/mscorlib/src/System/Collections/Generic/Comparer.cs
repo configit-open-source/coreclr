@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Collections.Generic
 {
@@ -9,8 +9,7 @@ namespace System.Collections.Generic
         {
             get
             {
-                Contract.Ensures(Contract.Result<Comparer<T>>() != null);
-                Comparer<T> comparer = defaultComparer;
+                                Comparer<T> comparer = defaultComparer;
                 if (comparer == null)
                 {
                     comparer = CreateComparer();
@@ -23,8 +22,7 @@ namespace System.Collections.Generic
 
         public static Comparer<T> Create(Comparison<T> comparison)
         {
-            Contract.Ensures(Contract.Result<Comparer<T>>() != null);
-            if (comparison == null)
+                        if (comparison == null)
                 throw new ArgumentNullException("comparison");
             return new ComparisonComparer<T>(comparison);
         }

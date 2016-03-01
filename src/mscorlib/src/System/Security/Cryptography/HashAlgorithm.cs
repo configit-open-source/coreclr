@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 
 namespace System.Security.Cryptography
@@ -87,8 +87,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
             if ((buffer.Length - count) < offset)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (m_bDisposed)
+                        if (m_bDisposed)
                 throw new ObjectDisposedException(null);
             HashCore(buffer, offset, count);
             HashValue = HashFinal();
@@ -139,8 +138,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
             if ((inputBuffer.Length - inputCount) < inputOffset)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (m_bDisposed)
+                        if (m_bDisposed)
                 throw new ObjectDisposedException(null);
             State = 1;
             HashCore(inputBuffer, inputOffset, inputCount);
@@ -159,8 +157,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
             if ((inputBuffer.Length - inputCount) < inputOffset)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (m_bDisposed)
+                        if (m_bDisposed)
                 throw new ObjectDisposedException(null);
             HashCore(inputBuffer, inputOffset, inputCount);
             HashValue = HashFinal();

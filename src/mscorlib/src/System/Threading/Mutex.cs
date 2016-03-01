@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -29,8 +29,7 @@ namespace System.Threading
                 }
             }
 
-            Contract.EndContractBlock();
-            Win32Native.SECURITY_ATTRIBUTES secAttrs = null;
+                        Win32Native.SECURITY_ATTRIBUTES secAttrs = null;
             CreateMutexWithGuaranteedCleanup(initiallyOwned, name, out createdNew, secAttrs);
         }
 
@@ -44,8 +43,7 @@ namespace System.Threading
                 }
             }
 
-            Contract.EndContractBlock();
-            CreateMutexWithGuaranteedCleanup(initiallyOwned, name, out createdNew, secAttrs);
+                        CreateMutexWithGuaranteedCleanup(initiallyOwned, name, out createdNew, secAttrs);
         }
 
         static string WinCEObjectNameQuirk(string name)
@@ -226,8 +224,7 @@ namespace System.Threading
                 throw new ArgumentException(Environment.GetResourceString("Argument_WaitHandleNameTooLong", name));
             }
 
-            Contract.EndContractBlock();
-            result = null;
+                        result = null;
             if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
                 name = WinCEObjectNameQuirk(name);
             SafeWaitHandle myHandle = Win32Native.OpenMutex(Win32Native.MUTEX_MODIFY_STATE | Win32Native.SYNCHRONIZE, false, name);

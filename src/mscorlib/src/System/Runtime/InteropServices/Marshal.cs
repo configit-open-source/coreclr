@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
@@ -114,8 +113,7 @@ namespace System.Runtime.InteropServices
         {
             if (structure == null)
                 throw new ArgumentNullException("structure");
-            Contract.EndContractBlock();
-            return SizeOfHelper(structure.GetType(), true);
+                        return SizeOfHelper(structure.GetType(), true);
         }
 
         public static int SizeOf<T>(T structure)
@@ -131,8 +129,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeType"), "t");
             if (t.IsGenericType)
                 throw new ArgumentException(Environment.GetResourceString("Argument_NeedNonGenericType"), "t");
-            Contract.EndContractBlock();
-            return SizeOfHelper(t, true);
+                        return SizeOfHelper(t, true);
         }
 
         public static int SizeOf<T>()
@@ -163,8 +160,7 @@ namespace System.Runtime.InteropServices
         {
             if (t == null)
                 throw new ArgumentNullException("t");
-            Contract.EndContractBlock();
-            FieldInfo f = t.GetField(fieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                        FieldInfo f = t.GetField(fieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             if (f == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_OffsetOfFieldNotFound", t.FullName), "fieldName");
             RtFieldInfo rtField = f as RtFieldInfo;
@@ -555,8 +551,7 @@ namespace System.Runtime.InteropServices
         {
             if (m == null)
                 throw new ArgumentNullException("m");
-            Contract.EndContractBlock();
-            RuntimeMethodInfo rmi = m as RuntimeMethodInfo;
+                        RuntimeMethodInfo rmi = m as RuntimeMethodInfo;
             if (rmi == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeMethodInfo"));
             InternalPrelink(rmi);
@@ -567,8 +562,7 @@ namespace System.Runtime.InteropServices
         {
             if (c == null)
                 throw new ArgumentNullException("c");
-            Contract.EndContractBlock();
-            MethodInfo[] mi = c.GetMethods();
+                        MethodInfo[] mi = c.GetMethods();
             if (mi != null)
             {
                 for (int i = 0; i < mi.Length; i++)
@@ -582,8 +576,7 @@ namespace System.Runtime.InteropServices
         {
             if (m == null)
                 throw new ArgumentNullException("m");
-            Contract.EndContractBlock();
-            RuntimeMethodInfo rmi = m as RuntimeMethodInfo;
+                        RuntimeMethodInfo rmi = m as RuntimeMethodInfo;
             if (rmi == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeMethodInfo"));
             return InternalNumParamBytes(rmi);
@@ -641,8 +634,7 @@ namespace System.Runtime.InteropServices
         {
             if (m == null)
                 throw new ArgumentNullException("m");
-            Contract.EndContractBlock();
-            RuntimeModule rtModule = m as RuntimeModule;
+                        RuntimeModule rtModule = m as RuntimeModule;
             if (rtModule == null)
             {
                 ModuleBuilder mb = m as ModuleBuilder;
@@ -694,8 +686,7 @@ namespace System.Runtime.InteropServices
         {
             if (cookie == 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_ArgumentZero"), "cookie");
-            Contract.EndContractBlock();
-            return InternalGetThreadFromFiberCookie(cookie);
+                        return InternalGetThreadFromFiberCookie(cookie);
         }
 
         private static extern Thread InternalGetThreadFromFiberCookie(int cookie);
@@ -808,8 +799,7 @@ namespace System.Runtime.InteropServices
         {
             if (typelib == null)
                 throw new ArgumentNullException("typelib");
-            Contract.EndContractBlock();
-            String strTypeLibName = null;
+                        String strTypeLibName = null;
             String strDocString = null;
             int dwHelpContext = 0;
             String strHelpFile = null;
@@ -821,8 +811,7 @@ namespace System.Runtime.InteropServices
         {
             if (typelib == null)
                 throw new ArgumentNullException("typelib");
-            Contract.EndContractBlock();
-            ITypeLib2 typeLib2 = typelib as ITypeLib2;
+                        ITypeLib2 typeLib2 = typelib as ITypeLib2;
             if (typeLib2 != null)
             {
                 Guid guid = ManagedNameGuid;
@@ -883,8 +872,7 @@ namespace System.Runtime.InteropServices
         {
             if (asm == null)
                 throw new ArgumentNullException("asm");
-            Contract.EndContractBlock();
-            RuntimeAssembly rtAssembly = asm as RuntimeAssembly;
+                        RuntimeAssembly rtAssembly = asm as RuntimeAssembly;
             if (rtAssembly == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeAssembly"), "asm");
             Guid result = new Guid();
@@ -898,8 +886,7 @@ namespace System.Runtime.InteropServices
         {
             if (inputAssembly == null)
                 throw new ArgumentNullException("inputAssembly");
-            Contract.EndContractBlock();
-            RuntimeAssembly rtAssembly = inputAssembly as RuntimeAssembly;
+                        RuntimeAssembly rtAssembly = inputAssembly as RuntimeAssembly;
             if (rtAssembly == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeAssembly"), "inputAssembly");
             _GetTypeLibVersionForAssembly(rtAssembly, out majorVersion, out minorVersion);
@@ -914,8 +901,7 @@ namespace System.Runtime.InteropServices
         {
             if (typeInfo == null)
                 throw new ArgumentNullException("typeInfo");
-            Contract.EndContractBlock();
-            String strTypeLibName = null;
+                        String strTypeLibName = null;
             String strDocString = null;
             int dwHelpContext = 0;
             String strHelpFile = null;
@@ -927,8 +913,7 @@ namespace System.Runtime.InteropServices
         {
             if (typeInfo == null)
                 throw new ArgumentNullException("typeInfo");
-            Contract.EndContractBlock();
-            ITypeInfo2 typeInfo2 = typeInfo as ITypeInfo2;
+                        ITypeInfo2 typeInfo2 = typeInfo as ITypeInfo2;
             if (typeInfo2 != null)
             {
                 Guid guid = ManagedNameGuid;
@@ -1159,8 +1144,7 @@ namespace System.Runtime.InteropServices
         {
             if (o == null)
                 throw new ArgumentNullException("o");
-            Contract.EndContractBlock();
-            __ComObject co = null;
+                        __ComObject co = null;
             try
             {
                 co = (__ComObject)o;
@@ -1181,8 +1165,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentNullException("obj");
             if (key == null)
                 throw new ArgumentNullException("key");
-            Contract.EndContractBlock();
-            __ComObject comObj = null;
+                        __ComObject comObj = null;
             try
             {
                 comObj = (__ComObject)obj;
@@ -1206,8 +1189,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentNullException("obj");
             if (key == null)
                 throw new ArgumentNullException("key");
-            Contract.EndContractBlock();
-            __ComObject comObj = null;
+                        __ComObject comObj = null;
             try
             {
                 comObj = (__ComObject)obj;
@@ -1233,8 +1215,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentException(Environment.GetResourceString("Argument_TypeNotComObject"), "t");
             if (t.IsGenericType)
                 throw new ArgumentException(Environment.GetResourceString("Argument_NeedNonGenericType"), "t");
-            Contract.EndContractBlock();
-            if (t.IsWindowsRuntimeObject)
+                        if (t.IsWindowsRuntimeObject)
                 throw new ArgumentException(Environment.GetResourceString("Argument_TypeIsWinRTType"), "t");
             if (o == null)
                 return null;
@@ -1310,8 +1291,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeInterfaceMethod"), "m");
             if (m.DeclaringType.IsGenericType)
                 throw new ArgumentException(Environment.GetResourceString("Argument_NeedNonGenericType"), "m");
-            Contract.EndContractBlock();
-            return InternalGetComSlotForMethodInfo((IRuntimeMethodInfo)m);
+                        return InternalGetComSlotForMethodInfo((IRuntimeMethodInfo)m);
         }
 
         private static extern int InternalGetComSlotForMethodInfo(IRuntimeMethodInfo m);
@@ -1331,8 +1311,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentException(Environment.GetResourceString("Argument_TypeMustNotBeComImport"), "type");
             if (type.IsGenericType)
                 throw new ArgumentException(Environment.GetResourceString("Argument_NeedNonGenericType"), "type");
-            Contract.EndContractBlock();
-            if (!RegistrationServices.TypeRequiresRegistrationHelper(type))
+                        if (!RegistrationServices.TypeRequiresRegistrationHelper(type))
                 throw new ArgumentException(Environment.GetResourceString("Argument_TypeMustBeComCreatable"), "type");
             IList<CustomAttributeData> cas = CustomAttributeData.GetCustomAttributes(type);
             for (int i = 0; i < cas.Count; i++)
@@ -1340,10 +1319,8 @@ namespace System.Runtime.InteropServices
                 if (cas[i].Constructor.DeclaringType == typeof (ProgIdAttribute))
                 {
                     IList<CustomAttributeTypedArgument> caConstructorArgs = cas[i].ConstructorArguments;
-                    Contract.Assert(caConstructorArgs.Count == 1, "caConstructorArgs.Count == 1");
-                    CustomAttributeTypedArgument progIdConstructorArg = caConstructorArgs[0];
-                    Contract.Assert(progIdConstructorArg.ArgumentType == typeof (String), "progIdConstructorArg.ArgumentType == typeof(String)");
-                    String strProgId = (String)progIdConstructorArg.Value;
+                                        CustomAttributeTypedArgument progIdConstructorArg = caConstructorArgs[0];
+                                        String strProgId = (String)progIdConstructorArg.Value;
                     if (strProgId == null)
                         strProgId = String.Empty;
                     return strProgId;
@@ -1451,8 +1428,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentNullException("ptr");
             if (t == null)
                 throw new ArgumentNullException("t");
-            Contract.EndContractBlock();
-            if ((t as RuntimeType) == null)
+                        if ((t as RuntimeType) == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeType"), "t");
             if (t.IsGenericType)
                 throw new ArgumentException(Environment.GetResourceString("Argument_NeedNonGenericType"), "t");
@@ -1472,8 +1448,7 @@ namespace System.Runtime.InteropServices
         {
             if (d == null)
                 throw new ArgumentNullException("d");
-            Contract.EndContractBlock();
-            return GetFunctionPointerForDelegateInternal(d);
+                        return GetFunctionPointerForDelegateInternal(d);
         }
 
         public static IntPtr GetFunctionPointerForDelegate<TDelegate>(TDelegate d)
@@ -1489,8 +1464,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentNullException("s");
             }
 
-            Contract.EndContractBlock();
-            return s.ToBSTR();
+                        return s.ToBSTR();
         }
 
         public static IntPtr SecureStringToCoTaskMemAnsi(SecureString s)
@@ -1500,8 +1474,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentNullException("s");
             }
 
-            Contract.EndContractBlock();
-            return s.ToAnsiStr(false);
+                        return s.ToAnsiStr(false);
         }
 
         public static IntPtr SecureStringToCoTaskMemUnicode(SecureString s)
@@ -1511,8 +1484,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentNullException("s");
             }
 
-            Contract.EndContractBlock();
-            return s.ToUniStr(false);
+                        return s.ToUniStr(false);
         }
 
         public static void ZeroFreeBSTR(IntPtr s)
@@ -1540,8 +1512,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentNullException("s");
             }
 
-            Contract.EndContractBlock();
-            return s.ToAnsiStr(true);
+                        return s.ToAnsiStr(true);
         }
 
         public static IntPtr SecureStringToGlobalAllocUnicode(SecureString s)
@@ -1551,8 +1522,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentNullException("s");
             }
 
-            Contract.EndContractBlock();
-            return s.ToUniStr(true);
+                        return s.ToUniStr(true);
         }
 
         public static void ZeroFreeGlobalAllocAnsi(IntPtr s)

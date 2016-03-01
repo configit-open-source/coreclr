@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Threading
 {
@@ -58,9 +58,7 @@ namespace System.Threading
 
             private set
             {
-                Contract.Assert(value >= 0, "SpinCount is a restricted-width integer. The value supplied is outside the legal range.");
-                Contract.Assert(value <= SpinCountState_MaxValue, "SpinCount is a restricted-width integer. The value supplied is outside the legal range.");
-                m_combinedState = (m_combinedState & ~SpinCountState_BitMask) | (value << SpinCountState_ShiftCount);
+                                                m_combinedState = (m_combinedState & ~SpinCountState_BitMask) | (value << SpinCountState_ShiftCount);
             }
         }
 
@@ -73,8 +71,7 @@ namespace System.Threading
 
             set
             {
-                Contract.Assert(value >= 0, "NumWaiters should never be less than zero. This indicates an internal error.");
-                if (value >= NumWaitersState_MaxValue)
+                                if (value >= NumWaitersState_MaxValue)
                     throw new InvalidOperationException(String.Format(Environment.GetResourceString("ManualResetEventSlim_ctor_TooManyWaiters"), NumWaitersState_MaxValue));
                 UpdateStateAtomically(value << NumWaitersState_ShiftCount, NumWaitersState_BitMask);
             }
@@ -107,15 +104,12 @@ namespace System.Threading
         private void Initialize(bool initialState, int spinCount)
         {
             this.m_combinedState = initialState ? (1 << SignalledState_ShiftCount) : 0;
-            Contract.Assert(DEFAULT_SPIN_SP >= 0, "Internal error - DEFAULT_SPIN_SP is outside the legal range.");
-            Contract.Assert(DEFAULT_SPIN_SP <= SpinCountState_MaxValue, "Internal error - DEFAULT_SPIN_SP is outside the legal range.");
-            SpinCount = PlatformHelper.IsSingleProcessor ? DEFAULT_SPIN_SP : spinCount;
+                                    SpinCount = PlatformHelper.IsSingleProcessor ? DEFAULT_SPIN_SP : spinCount;
         }
 
         private void EnsureLockObjectCreated()
         {
-            Contract.Ensures(m_lock != null);
-            if (m_lock != null)
+                        if (m_lock != null)
                 return;
             object newObj = new object ();
             Interlocked.CompareExchange(ref m_lock, newObj, null);
@@ -135,8 +129,7 @@ namespace System.Threading
                 bool currentIsSet = IsSet;
                 if (currentIsSet != preInitializeIsSet)
                 {
-                    Contract.Assert(currentIsSet, "The only safe concurrent transition is from unset->set: detected set->unset.");
-                    lock (newEventObj)
+                                        lock (newEventObj)
                     {
                         if (m_eventObj == newEventObj)
                         {
@@ -159,8 +152,7 @@ namespace System.Threading
             IsSet = true;
             if (Waiters > 0)
             {
-                Contract.Assert(m_lock != null);
-                lock (m_lock)
+                                lock (m_lock)
                 {
                     Monitor.PulseAll(m_lock);
                 }
@@ -367,9 +359,7 @@ namespace System.Threading
         private static void CancellationTokenCallback(object obj)
         {
             ManualResetEventSlim mre = obj as ManualResetEventSlim;
-            Contract.Assert(mre != null, "Expected a ManualResetEventSlim");
-            Contract.Assert(mre.m_lock != null);
-            lock (mre.m_lock)
+                                    lock (mre.m_lock)
             {
                 Monitor.PulseAll(mre.m_lock);
             }
@@ -378,8 +368,7 @@ namespace System.Threading
         private void UpdateStateAtomically(int newBits, int updateBitsMask)
         {
             SpinWait sw = new SpinWait();
-            Contract.Assert((newBits | updateBitsMask) == updateBitsMask, "newBits do not fall within the updateBitsMask.");
-            do
+                        do
             {
                 int oldState = m_combinedState;
                 int newState = (oldState & ~updateBitsMask) | newBits;

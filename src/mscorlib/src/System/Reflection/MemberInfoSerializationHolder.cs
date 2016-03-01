@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Reflection
@@ -14,8 +14,7 @@ namespace System.Reflection
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            String assemblyName = reflectedClass.Module.Assembly.FullName;
+                        String assemblyName = reflectedClass.Module.Assembly.FullName;
             String typeName = reflectedClass.FullName;
             info.SetType(typeof (MemberInfoSerializationHolder));
             info.AddValue("Name", name, typeof (String));
@@ -37,8 +36,7 @@ namespace System.Reflection
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            String assemblyName = info.GetString("AssemblyName");
+                        String assemblyName = info.GetString("AssemblyName");
             String typeName = info.GetString("ClassName");
             if (assemblyName == null || typeName == null)
                 throw new SerializationException(Environment.GetResourceString("Serialization_InsufficientState"));

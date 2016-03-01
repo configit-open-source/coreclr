@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Reflection;
 
@@ -74,8 +74,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
             RuntimeMethodInfo rtMethod = accessor as RuntimeMethodInfo;
             if (rtMethod == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeMethodInfo"));
-            Contract.Assert(AppDomain.CurrentDomain.PermissionSet.IsUnrestricted());
-            return rtMethod.UnsafeInvoke(target, BindingFlags.Default, null, args, null);
+                        return rtMethod.UnsafeInvoke(target, BindingFlags.Default, null, args, null);
         }
 
         public Type Type

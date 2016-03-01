@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 
 namespace System.Reflection.Emit
@@ -15,13 +14,11 @@ namespace System.Reflection.Emit
 
         internal static Type MakeGenericType(Type type, Type[] typeArguments)
         {
-            Contract.Requires(type != null, "this is only called from RuntimeType.MakeGenericType and TypeBuilder.MakeGenericType so 'type' cannot be null");
-            if (!type.IsGenericTypeDefinition)
+                        if (!type.IsGenericTypeDefinition)
                 throw new InvalidOperationException();
             if (typeArguments == null)
                 throw new ArgumentNullException("typeArguments");
-            Contract.EndContractBlock();
-            foreach (Type t in typeArguments)
+                        foreach (Type t in typeArguments)
             {
                 if (t == null)
                     throw new ArgumentNullException("typeArguments");
@@ -97,8 +94,7 @@ namespace System.Reflection.Emit
         {
             if (rank <= 0)
                 throw new IndexOutOfRangeException();
-            Contract.EndContractBlock();
-            string comma = "";
+                        string comma = "";
             for (int i = 1; i < rank; i++)
                 comma += ",";
             string s = String.Format(CultureInfo.InvariantCulture, "[{0}]", comma);

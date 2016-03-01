@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -47,8 +46,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            _className = info.GetString("ClassName");
+                        _className = info.GetString("ClassName");
             _message = info.GetString("Message");
             _data = (IDictionary)(info.GetValueNoThrow("Data", typeof (IDictionary)));
             _innerException = (Exception)(info.GetValue("InnerException", typeof (Exception)));
@@ -371,8 +369,7 @@ namespace System
             }
             else
             {
-                Contract.Assert(methBase is MethodInfo, "[Exception.GetExceptionMethodString]methBase is MethodInfo");
-                RuntimeMethodInfo rmi = (RuntimeMethodInfo)methBase;
+                                RuntimeMethodInfo rmi = (RuntimeMethodInfo)methBase;
                 Type t = rmi.DeclaringType;
                 result.Append((int)MemberTypes.Method);
                 result.Append(separator);
@@ -394,8 +391,7 @@ namespace System
 
         private MethodBase GetExceptionMethodFromString()
         {
-            Contract.Assert(_exceptionMethodString != null, "Method string cannot be NULL!");
-            String[] args = _exceptionMethodString.Split(new char[]{'\0', '\n'});
+                        String[] args = _exceptionMethodString.Split(new char[]{'\0', '\n'});
             if (args.Length != 5)
             {
                 throw new SerializationException();
@@ -428,8 +424,7 @@ namespace System
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            String tempStackTraceString = _stackTraceString;
+                        String tempStackTraceString = _stackTraceString;
             if (_stackTrace != null)
             {
                 if (tempStackTraceString == null)

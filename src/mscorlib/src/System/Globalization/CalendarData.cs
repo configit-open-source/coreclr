@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 
 namespace System.Globalization
@@ -60,8 +60,7 @@ namespace System.Globalization
             this.bUseUserOverrides = bUseUserOverrides;
             if (!nativeGetCalendarData(this, localeName, calendarId))
             {
-                Contract.Assert(false, "[CalendarData] nativeGetCalendarData call isn't expected to fail for calendar " + calendarId + " locale " + localeName);
-                if (this.sNativeName == null)
+                                if (this.sNativeName == null)
                     this.sNativeName = String.Empty;
                 if (this.saShortDates == null)
                     this.saShortDates = Invariant.saShortDates;

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Text
 {
@@ -16,8 +16,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (chars.Length - index < count)
                 throw new ArgumentOutOfRangeException("chars", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
-            Contract.EndContractBlock();
-            if (chars.Length == 0)
+                        if (chars.Length == 0)
                 return 0;
             fixed (char *pChars = chars)
                 return GetByteCount(pChars + index, count, null);
@@ -27,8 +26,7 @@ namespace System.Text
         {
             if (s == null)
                 throw new ArgumentNullException("s");
-            Contract.EndContractBlock();
-            fixed (char *pChars = s)
+                        fixed (char *pChars = s)
                 return GetByteCount(pChars, s.Length, null);
         }
 
@@ -38,8 +36,7 @@ namespace System.Text
                 throw new ArgumentNullException("chars", Environment.GetResourceString("ArgumentNull_Array"));
             if (count < 0)
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetByteCount(chars, count, null);
+                        return GetByteCount(chars, count, null);
         }
 
         public override unsafe int GetBytes(String s, int charIndex, int charCount, byte[] bytes, int byteIndex)
@@ -52,8 +49,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("s", Environment.GetResourceString("ArgumentOutOfRange_IndexCount"));
             if (byteIndex < 0 || byteIndex > bytes.Length)
                 throw new ArgumentOutOfRangeException("byteIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            int byteCount = bytes.Length - byteIndex;
+                        int byteCount = bytes.Length - byteIndex;
             if (bytes.Length == 0)
                 bytes = new byte[1];
             fixed (char *pChars = s)
@@ -71,8 +67,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("chars", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
             if (byteIndex < 0 || byteIndex > bytes.Length)
                 throw new ArgumentOutOfRangeException("byteIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            if (chars.Length == 0)
+                        if (chars.Length == 0)
                 return 0;
             int byteCount = bytes.Length - byteIndex;
             if (bytes.Length == 0)
@@ -88,8 +83,7 @@ namespace System.Text
                 throw new ArgumentNullException(bytes == null ? "bytes" : "chars", Environment.GetResourceString("ArgumentNull_Array"));
             if (charCount < 0 || byteCount < 0)
                 throw new ArgumentOutOfRangeException((charCount < 0 ? "charCount" : "byteCount"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetBytes(chars, charCount, bytes, byteCount, null);
+                        return GetBytes(chars, charCount, bytes, byteCount, null);
         }
 
         public override unsafe int GetCharCount(byte[] bytes, int index, int count)
@@ -100,8 +94,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (bytes.Length - index < count)
                 throw new ArgumentOutOfRangeException("bytes", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
-            Contract.EndContractBlock();
-            if (bytes.Length == 0)
+                        if (bytes.Length == 0)
                 return 0;
             fixed (byte *pBytes = bytes)
                 return GetCharCount(pBytes + index, count, null);
@@ -113,8 +106,7 @@ namespace System.Text
                 throw new ArgumentNullException("bytes", Environment.GetResourceString("ArgumentNull_Array"));
             if (count < 0)
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetCharCount(bytes, count, null);
+                        return GetCharCount(bytes, count, null);
         }
 
         public override unsafe int GetChars(byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex)
@@ -127,8 +119,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("bytes", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
             if (charIndex < 0 || charIndex > chars.Length)
                 throw new ArgumentOutOfRangeException("charIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            if (bytes.Length == 0)
+                        if (bytes.Length == 0)
                 return 0;
             int charCount = chars.Length - charIndex;
             if (chars.Length == 0)
@@ -144,8 +135,7 @@ namespace System.Text
                 throw new ArgumentNullException(bytes == null ? "bytes" : "chars", Environment.GetResourceString("ArgumentNull_Array"));
             if (charCount < 0 || byteCount < 0)
                 throw new ArgumentOutOfRangeException((charCount < 0 ? "charCount" : "byteCount"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetChars(bytes, byteCount, chars, charCount, null);
+                        return GetChars(bytes, byteCount, chars, charCount, null);
         }
 
         public override unsafe String GetString(byte[] bytes, int index, int count)
@@ -156,8 +146,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (bytes.Length - index < count)
                 throw new ArgumentOutOfRangeException("bytes", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
-            Contract.EndContractBlock();
-            if (bytes.Length == 0)
+                        if (bytes.Length == 0)
                 return String.Empty;
             fixed (byte *pBytes = bytes)
                 return String.CreateStringFromEncoding(pBytes + index, count, this);

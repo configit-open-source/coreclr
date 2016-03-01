@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Threading
 {
@@ -278,8 +277,7 @@ namespace System.Threading
                 ThrowIfDisposed();
             }
 
-            Contract.Assert(CanBeCanceled, "Cannot register for uncancelable token src");
-            if (!IsCancellationRequested)
+                        if (!IsCancellationRequested)
             {
                 if (m_disposed && !AppContextSwitches.ThrowExceptionIfDisposedCancellationTokenSource)
                     return new CancellationTokenRegistration();
@@ -330,15 +328,12 @@ namespace System.Threading
                 if (m_kernelEvent != null)
                     m_kernelEvent.Set();
                 ExecuteCallbackHandlers(throwOnFirstException);
-                Contract.Assert(IsCancellationCompleted, "Expected cancellation to have finished");
-            }
+                            }
         }
 
         private void ExecuteCallbackHandlers(bool throwOnFirstException)
         {
-            Contract.Assert(IsCancellationRequested, "ExecuteCallbackHandlers should only be called after setting IsCancellationRequested->true");
-            Contract.Assert(ThreadIDExecutingCallbacks != -1, "ThreadIDExecutingCallbacks should have been set.");
-            List<Exception> exceptionList = null;
+                                    List<Exception> exceptionList = null;
             SparselyPopulatedArray<CancellationCallbackInfo>[] callbackLists = m_registeredCallbacksLists;
             if (callbackLists == null)
             {
@@ -367,8 +362,7 @@ namespace System.Threading
                                         var wsc = m_executingCallback as CancellationCallbackInfo.WithSyncContext;
                                         if (wsc != null)
                                         {
-                                            Contract.Assert(wsc.TargetSyncContext != null, "Should only have derived CCI if non-null SyncCtx");
-                                            wsc.TargetSyncContext.Send(CancellationCallbackCoreWork_OnSyncContext, args);
+                                                                                        wsc.TargetSyncContext.Send(CancellationCallbackCoreWork_OnSyncContext, args);
                                             ThreadIDExecutingCallbacks = Thread.CurrentThread.ManagedThreadId;
                                         }
                                         else
@@ -401,8 +395,7 @@ namespace System.Threading
 
             if (exceptionList != null)
             {
-                Contract.Assert(exceptionList.Count > 0, "Expected exception count > 0");
-                throw new AggregateException(exceptionList);
+                                throw new AggregateException(exceptionList);
             }
         }
 
@@ -436,8 +429,7 @@ namespace System.Threading
                 throw new ArgumentNullException("tokens");
             if (tokens.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("CancellationToken_CreateLinkedToken_TokensIsEmpty"));
-            Contract.EndContractBlock();
-            return new LinkedCancellationTokenSource(tokens);
+                        return new LinkedCancellationTokenSource(tokens);
         }
 
         internal void WaitForCallbackToComplete(CancellationCallbackInfo callbackInfo)
@@ -559,8 +551,7 @@ namespace System.Threading
         private static void ExecutionContextCallback(object obj)
         {
             CancellationCallbackInfo callbackInfo = obj as CancellationCallbackInfo;
-            Contract.Assert(callbackInfo != null);
-            callbackInfo.Callback(callbackInfo.StateForCallback);
+                        callbackInfo.Callback(callbackInfo.StateForCallback);
         }
     }
 
@@ -613,12 +604,10 @@ namespace System.Threading
                             curr.m_freeCount--;
                         }
 
-                        Contract.Assert(start >= 0 && start < c, "start is outside of bounds");
-                        for (int i = 0; i < c; i++)
+                                                for (int i = 0; i < c; i++)
                         {
                             int tryIndex = (start + i) % c;
-                            Contract.Assert(tryIndex >= 0 && tryIndex < curr.m_elements.Length, "tryIndex is outside of bounds");
-                            if (curr.m_elements[tryIndex] == null && Interlocked.CompareExchange(ref curr.m_elements[tryIndex], element, null) == null)
+                                                        if (curr.m_elements[tryIndex] == null && Interlocked.CompareExchange(ref curr.m_elements[tryIndex], element, null) == null)
                             {
                                 int newFreeCount = curr.m_freeCount - 1;
                                 curr.m_freeCount = newFreeCount > 0 ? newFreeCount : 0;
@@ -646,9 +635,7 @@ namespace System.Threading
         private int m_index;
         internal SparselyPopulatedArrayAddInfo(SparselyPopulatedArrayFragment<T> source, int index)
         {
-            Contract.Assert(source != null);
-            Contract.Assert(index >= 0 && index < source.Length);
-            m_source = source;
+                                    m_source = source;
             m_index = index;
         }
 

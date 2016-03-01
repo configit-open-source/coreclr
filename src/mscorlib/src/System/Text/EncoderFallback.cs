@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Threading;
 
 namespace System.Text
@@ -109,8 +109,7 @@ namespace System.Text
 
         internal unsafe virtual bool InternalFallback(char ch, ref char *chars)
         {
-            Contract.Assert(charStart != null, "[EncoderFallback.InternalFallbackBuffer]Fallback buffer is not initialized");
-            int index = (int)(chars - charStart) - 1;
+                        int index = (int)(chars - charStart) - 1;
             if (Char.IsHighSurrogate(ch))
             {
                 if (chars >= this.charEnd)

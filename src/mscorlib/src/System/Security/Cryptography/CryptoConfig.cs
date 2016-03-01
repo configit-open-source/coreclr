@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -283,8 +282,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Cryptography_AlgorithmTypesMustBeVisible"), "algorithm");
             if (names == null)
                 throw new ArgumentNullException("names");
-            Contract.EndContractBlock();
-            string[] algorithmNames = new string[names.Length];
+                        string[] algorithmNames = new string[names.Length];
             Array.Copy(names, algorithmNames, algorithmNames.Length);
             foreach (string name in algorithmNames)
             {
@@ -307,8 +305,7 @@ namespace System.Security.Cryptography
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            Type retvalType = null;
+                        Type retvalType = null;
             Object retval;
             InitializeConfigInfo();
             lock (InternalSyncObject)
@@ -397,8 +394,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentNullException("oid");
             if (names == null)
                 throw new ArgumentNullException("names");
-            Contract.EndContractBlock();
-            string[] oidNames = new string[names.Length];
+                        string[] oidNames = new string[names.Length];
             Array.Copy(names, oidNames, oidNames.Length);
             foreach (string name in oidNames)
             {
@@ -426,8 +422,7 @@ namespace System.Security.Cryptography
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            InitializeConfigInfo();
+                        InitializeConfigInfo();
             string oid = null;
             lock (InternalSyncObject)
             {
@@ -450,8 +445,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentNullException("str");
             }
 
-            Contract.EndContractBlock();
-            char[] sepArray = {'.'};
+                        char[] sepArray = {'.'};
             String[] oidString = str.Split(sepArray);
             uint[] oidNums = new uint[oidString.Length];
             for (int i = 0; i < oidString.Length; i++)
@@ -536,9 +530,7 @@ namespace System.Security.Cryptography
 
         private static Dictionary<string, string> InitializeNameMappings(ConfigNode nameMappingNode)
         {
-            Contract.Assert(nameMappingNode != null, "No name mappings");
-            Contract.Assert(String.Compare(nameMappingNode.Name, "cryptoNameMapping", StringComparison.Ordinal) == 0, "Invalid name mapping root");
-            Dictionary<string, string> nameMappings = new Dictionary<string, string>();
+                                    Dictionary<string, string> nameMappings = new Dictionary<string, string>();
             Dictionary<string, string> typeAliases = new Dictionary<string, string>();
             foreach (ConfigNode node in nameMappingNode.Children)
             {
@@ -582,9 +574,7 @@ namespace System.Security.Cryptography
 
         private static Dictionary<string, string> InitializeOidMappings(ConfigNode oidMappingNode)
         {
-            Contract.Assert(oidMappingNode != null, "No OID mappings");
-            Contract.Assert(String.Compare(oidMappingNode.Name, "oidMap", StringComparison.Ordinal) == 0, "Invalid OID mapping root");
-            Dictionary<string, string> oidMap = new Dictionary<string, string>();
+                                    Dictionary<string, string> oidMap = new Dictionary<string, string>();
             foreach (ConfigNode node in oidMappingNode.Children)
             {
                 if (String.Compare(node.Name, "oidEntry", StringComparison.Ordinal) == 0)

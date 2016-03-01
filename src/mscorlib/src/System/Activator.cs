@@ -1,5 +1,4 @@
 using System.Configuration.Assemblies;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -27,8 +26,7 @@ namespace System
         {
             if ((object)type == null)
                 throw new ArgumentNullException("type");
-            Contract.EndContractBlock();
-            if (type is System.Reflection.Emit.TypeBuilder)
+                        if (type is System.Reflection.Emit.TypeBuilder)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_CreateInstanceWithTypeBuilder"));
             if ((bindingAttr & (BindingFlags)LookupMask) == 0)
                 bindingAttr |= Activator.ConstructorDefault;
@@ -75,8 +73,7 @@ namespace System
         {
             if ((object)type == null)
                 throw new ArgumentNullException("type");
-            Contract.EndContractBlock();
-            RuntimeType rt = type.UnderlyingSystemType as RuntimeType;
+                        RuntimeType rt = type.UnderlyingSystemType as RuntimeType;
             if (rt == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "type");
             StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
@@ -191,48 +188,42 @@ namespace System
         {
             if (domain == null)
                 throw new ArgumentNullException("domain");
-            Contract.EndContractBlock();
-            return domain.InternalCreateInstanceWithNoSecurity(assemblyName, typeName);
+                        return domain.InternalCreateInstanceWithNoSecurity(assemblyName, typeName);
         }
 
         public static ObjectHandle CreateInstance(AppDomain domain, string assemblyName, string typeName, bool ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, Evidence securityAttributes)
         {
             if (domain == null)
                 throw new ArgumentNullException("domain");
-            Contract.EndContractBlock();
-            return domain.InternalCreateInstanceWithNoSecurity(assemblyName, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, securityAttributes);
+                        return domain.InternalCreateInstanceWithNoSecurity(assemblyName, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, securityAttributes);
         }
 
         public static ObjectHandle CreateInstance(AppDomain domain, string assemblyName, string typeName, bool ignoreCase, BindingFlags bindingAttr, Binder binder, object[] args, CultureInfo culture, object[] activationAttributes)
         {
             if (domain == null)
                 throw new ArgumentNullException("domain");
-            Contract.EndContractBlock();
-            return domain.InternalCreateInstanceWithNoSecurity(assemblyName, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, null);
+                        return domain.InternalCreateInstanceWithNoSecurity(assemblyName, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, null);
         }
 
         public static ObjectHandle CreateInstanceFrom(AppDomain domain, string assemblyFile, string typeName)
         {
             if (domain == null)
                 throw new ArgumentNullException("domain");
-            Contract.EndContractBlock();
-            return domain.InternalCreateInstanceFromWithNoSecurity(assemblyFile, typeName);
+                        return domain.InternalCreateInstanceFromWithNoSecurity(assemblyFile, typeName);
         }
 
         public static ObjectHandle CreateInstanceFrom(AppDomain domain, string assemblyFile, string typeName, bool ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, Evidence securityAttributes)
         {
             if (domain == null)
                 throw new ArgumentNullException("domain");
-            Contract.EndContractBlock();
-            return domain.InternalCreateInstanceFromWithNoSecurity(assemblyFile, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, securityAttributes);
+                        return domain.InternalCreateInstanceFromWithNoSecurity(assemblyFile, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, securityAttributes);
         }
 
         public static ObjectHandle CreateInstanceFrom(AppDomain domain, string assemblyFile, string typeName, bool ignoreCase, BindingFlags bindingAttr, Binder binder, object[] args, CultureInfo culture, object[] activationAttributes)
         {
             if (domain == null)
                 throw new ArgumentNullException("domain");
-            Contract.EndContractBlock();
-            return domain.InternalCreateInstanceFromWithNoSecurity(assemblyFile, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, null);
+                        return domain.InternalCreateInstanceFromWithNoSecurity(assemblyFile, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, null);
         }
 
         public static ObjectHandle CreateComInstanceFrom(String assemblyName, String typeName)

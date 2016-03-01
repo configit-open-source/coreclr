@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Security.Util;
 using System.Threading;
@@ -38,8 +38,7 @@ namespace System
                     }
                 }
 
-                Contract.Assert(_sharedStatics._Remoting_Identity_IDGuid != null, "_sharedStatics._Remoting_Identity_IDGuid != null");
-                return _sharedStatics._Remoting_Identity_IDGuid;
+                                return _sharedStatics._Remoting_Identity_IDGuid;
             }
         }
 
@@ -105,8 +104,7 @@ namespace System
         {
             get
             {
-                Contract.Assert(Volatile.Read(ref _sharedStatics._memFailPointReservedMemory) >= 0, "Process-wide MemoryFailPoint reserved memory was negative!");
-                return (ulong)Volatile.Read(ref _sharedStatics._memFailPointReservedMemory);
+                                return (ulong)Volatile.Read(ref _sharedStatics._memFailPointReservedMemory);
             }
         }
     }

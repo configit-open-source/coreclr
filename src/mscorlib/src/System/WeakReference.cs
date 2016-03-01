@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Security;
@@ -10,8 +10,7 @@ namespace System
         internal IntPtr m_handle;
         protected WeakReference()
         {
-            Contract.Assert(false, "WeakReference's protected default ctor should never be used!");
-            throw new NotImplementedException();
+                        throw new NotImplementedException();
         }
 
         public WeakReference(Object target): this (target, false)
@@ -30,8 +29,7 @@ namespace System
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            Object target = info.GetValue("TrackedObject", typeof (Object));
+                        Object target = info.GetValue("TrackedObject", typeof (Object));
             bool trackResurrection = info.GetBoolean("TrackResurrection");
             Create(target, trackResurrection);
         }
@@ -69,8 +67,7 @@ namespace System
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            info.AddValue("TrackedObject", Target, typeof (Object));
+                        info.AddValue("TrackedObject", Target, typeof (Object));
             info.AddValue("TrackResurrection", IsTrackResurrection());
         }
 

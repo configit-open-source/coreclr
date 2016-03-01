@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Runtime.InteropServices.WindowsRuntime
 {
@@ -6,13 +6,13 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         Type Type
         {
-            [Pure]
+            
             get;
         }
 
         string Name
         {
-            [Pure]
+            
             get;
         }
 
@@ -22,13 +22,13 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         void SetValue(object target, object value, object indexValue);
         bool CanWrite
         {
-            [Pure]
+            
             get;
         }
 
         bool CanRead
         {
-            [Pure]
+            
             get;
         }
     }

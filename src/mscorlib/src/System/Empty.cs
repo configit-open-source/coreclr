@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System
@@ -22,8 +22,7 @@ namespace System
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            UnitySerializationHolder.GetUnitySerializationInfo(info, UnitySerializationHolder.EmptyUnity, null, null);
+                        UnitySerializationHolder.GetUnitySerializationInfo(info, UnitySerializationHolder.EmptyUnity, null, null);
         }
     }
 }

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
@@ -208,8 +208,7 @@ namespace System.IO
         {
             if (path == null)
                 throw new ArgumentNullException("path");
-            Contract.EndContractBlock();
-            String newPath = NormalizePath(path, true);
+                        String newPath = NormalizePath(path, true);
             return newPath;
         }
 
@@ -230,8 +229,7 @@ namespace System.IO
 
         internal unsafe static String NormalizePath(String path, bool fullCheck, int maxPathLength, bool expandShortPaths)
         {
-            Contract.Requires(path != null, "path can't be null");
-            if (fullCheck)
+                        if (fullCheck)
             {
                 path = path.TrimEnd(TrimEndChars);
                 CheckInvalidPathChars(path);
@@ -493,8 +491,7 @@ namespace System.IO
                             if (newBuffer.Length >= maxPathLength)
                                 throw new PathTooLongException(Environment.GetResourceString("IO.PathTooLong"));
                             int lenSavedName = newBuffer.Length - lastSlash - 1;
-                            Contract.Assert(lastSlash < newBuffer.Length, "path unexpectedly ended in a '\'");
-                            newBuffer.Fixup(lenSavedName, lastSlash);
+                                                        newBuffer.Fixup(lenSavedName, lastSlash);
                         }
                     }
                 }
@@ -632,8 +629,7 @@ namespace System.IO
 
         internal static bool IsRelative(string path)
         {
-            Contract.Assert(path != null, "path can't be null");
-            if ((path.Length >= 3 && path[1] == VolumeSeparatorChar && path[2] == DirectorySeparatorChar && ((path[0] >= 'a' && path[0] <= 'z') || (path[0] >= 'A' && path[0] <= 'Z'))) || (path.Length >= 2 && path[0] == '\\' && path[1] == '\\'))
+                        if ((path.Length >= 3 && path[1] == VolumeSeparatorChar && path[2] == DirectorySeparatorChar && ((path[0] >= 'a' && path[0] <= 'z') || (path[0] >= 'A' && path[0] <= 'Z'))) || (path.Length >= 2 && path[0] == '\\' && path[1] == '\\'))
                 return false;
             else
                 return true;
@@ -728,8 +724,7 @@ namespace System.IO
         {
             if (path1 == null || path2 == null)
                 throw new ArgumentNullException((path1 == null) ? "path1" : "path2");
-            Contract.EndContractBlock();
-            CheckInvalidPathChars(path1);
+                        CheckInvalidPathChars(path1);
             CheckInvalidPathChars(path2);
             return CombineNoChecks(path1, path2);
         }
@@ -738,8 +733,7 @@ namespace System.IO
         {
             if (path1 == null || path2 == null || path3 == null)
                 throw new ArgumentNullException((path1 == null) ? "path1" : (path2 == null) ? "path2" : "path3");
-            Contract.EndContractBlock();
-            CheckInvalidPathChars(path1);
+                        CheckInvalidPathChars(path1);
             CheckInvalidPathChars(path2);
             CheckInvalidPathChars(path3);
             return CombineNoChecks(CombineNoChecks(path1, path2), path3);
@@ -749,8 +743,7 @@ namespace System.IO
         {
             if (path1 == null || path2 == null || path3 == null || path4 == null)
                 throw new ArgumentNullException((path1 == null) ? "path1" : (path2 == null) ? "path2" : (path3 == null) ? "path3" : "path4");
-            Contract.EndContractBlock();
-            CheckInvalidPathChars(path1);
+                        CheckInvalidPathChars(path1);
             CheckInvalidPathChars(path2);
             CheckInvalidPathChars(path3);
             CheckInvalidPathChars(path4);
@@ -764,8 +757,7 @@ namespace System.IO
                 throw new ArgumentNullException("paths");
             }
 
-            Contract.EndContractBlock();
-            int finalSize = 0;
+                        int finalSize = 0;
             int firstComponent = 0;
             for (int i = 0; i < paths.Length; i++)
             {
@@ -839,8 +831,7 @@ namespace System.IO
         private static readonly Char[] s_Base32Char = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5'};
         internal static String ToBase32StringSuitableForDirName(byte[] buff)
         {
-            Contract.Assert(((buff.Length % 5) == 0), "Unexpected hash length");
-            StringBuilder sb = StringBuilderCache.Acquire();
+                        StringBuilder sb = StringBuilderCache.Acquire();
             byte b0, b1, b2, b3, b4;
             int l, i;
             l = buff.Length;
@@ -860,8 +851,7 @@ namespace System.IO
                 sb.Append(s_Base32Char[(((b0 & 0xE0) >> 5) | ((b3 & 0x60) >> 2))]);
                 sb.Append(s_Base32Char[(((b1 & 0xE0) >> 5) | ((b4 & 0x60) >> 2))]);
                 b2 >>= 5;
-                Contract.Assert(((b2 & 0xF8) == 0), "Unexpected set bits");
-                if ((b3 & 0x80) != 0)
+                                if ((b3 & 0x80) != 0)
                     b2 |= 0x08;
                 if ((b4 & 0x80) != 0)
                     b2 |= 0x10;
@@ -886,8 +876,7 @@ namespace System.IO
 
         internal static bool HasIllegalCharacters(String path, bool checkAdditional)
         {
-            Contract.Requires(path != null);
-            if (checkAdditional)
+                        if (checkAdditional)
             {
                 return path.IndexOfAny(InvalidPathCharsWithAdditionalChecks) >= 0;
             }
@@ -907,8 +896,7 @@ namespace System.IO
         {
             if (path1 == null || path2 == null)
                 throw new ArgumentNullException((path1 == null) ? "path1" : "path2");
-            Contract.EndContractBlock();
-            CheckInvalidPathChars(path1);
+                        CheckInvalidPathChars(path1);
             CheckInvalidPathChars(path2);
             if (path2.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_PathEmpty"), "path2");

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 
 namespace System.Diagnostics
 {
@@ -77,8 +76,7 @@ namespace System.Diagnostics
                 throw new ArgumentNullException("LogSwitch");
             if (level < 0)
                 throw new ArgumentOutOfRangeException("level", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            if (logswitch.CheckLevel(level) == true)
+                        if (logswitch.CheckLevel(level) == true)
             {
                 Debugger.Log((int)level, logswitch.strName, message);
                 if (m_fConsoleDeviceEnabled)

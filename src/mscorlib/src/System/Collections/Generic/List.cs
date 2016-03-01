@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.Runtime.Versioning;
 
 namespace System.Collections.Generic
@@ -21,8 +20,7 @@ namespace System.Collections.Generic
         {
             if (capacity < 0)
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.capacity, ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
-            Contract.EndContractBlock();
-            if (capacity == 0)
+                        if (capacity == 0)
                 _items = _emptyArray;
             else
                 _items = new T[capacity];
@@ -32,8 +30,7 @@ namespace System.Collections.Generic
         {
             if (collection == null)
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.collection);
-            Contract.EndContractBlock();
-            ICollection<T> c = collection as ICollection<T>;
+                        ICollection<T> c = collection as ICollection<T>;
             if (c != null)
             {
                 int count = c.Count;
@@ -66,8 +63,7 @@ namespace System.Collections.Generic
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                return _items.Length;
+                                return _items.Length;
             }
 
             set
@@ -77,8 +73,7 @@ namespace System.Collections.Generic
                     ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.value, ExceptionResource.ArgumentOutOfRange_SmallCapacity);
                 }
 
-                Contract.EndContractBlock();
-                if (value != _items.Length)
+                                if (value != _items.Length)
                 {
                     if (value > 0)
                     {
@@ -102,8 +97,7 @@ namespace System.Collections.Generic
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                return _size;
+                                return _size;
             }
         }
 
@@ -161,8 +155,7 @@ namespace System.Collections.Generic
                     ThrowHelper.ThrowArgumentOutOfRangeException();
                 }
 
-                Contract.EndContractBlock();
-                return _items[index];
+                                return _items[index];
             }
 
             set
@@ -172,8 +165,7 @@ namespace System.Collections.Generic
                     ThrowHelper.ThrowArgumentOutOfRangeException();
                 }
 
-                Contract.EndContractBlock();
-                _items[index] = value;
+                                _items[index] = value;
                 _version++;
             }
         }
@@ -229,14 +221,12 @@ namespace System.Collections.Generic
 
         public void AddRange(IEnumerable<T> collection)
         {
-            Contract.Ensures(Count >= Contract.OldValue(Count));
-            InsertRange(_size, collection);
+                        InsertRange(_size, collection);
         }
 
         public ReadOnlyCollection<T> AsReadOnly()
         {
-            Contract.Ensures(Contract.Result<ReadOnlyCollection<T>>() != null);
-            return new ReadOnlyCollection<T>(this);
+                        return new ReadOnlyCollection<T>(this);
         }
 
         public int BinarySearch(int index, int count, T item, IComparer<T> comparer)
@@ -247,21 +237,17 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.count, ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
             if (_size - index < count)
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
-            Contract.Ensures(Contract.Result<int>() <= index + count);
-            Contract.EndContractBlock();
-            return Array.BinarySearch<T>(_items, index, count, item, comparer);
+                                    return Array.BinarySearch<T>(_items, index, count, item, comparer);
         }
 
         public int BinarySearch(T item)
         {
-            Contract.Ensures(Contract.Result<int>() <= Count);
-            return BinarySearch(0, Count, item, null);
+                        return BinarySearch(0, Count, item, null);
         }
 
         public int BinarySearch(T item, IComparer<T> comparer)
         {
-            Contract.Ensures(Contract.Result<int>() <= Count);
-            return BinarySearch(0, Count, item, comparer);
+                        return BinarySearch(0, Count, item, comparer);
         }
 
         public void Clear()
@@ -314,8 +300,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.converter);
             }
 
-            Contract.EndContractBlock();
-            List<TOutput> list = new List<TOutput>(_size);
+                        List<TOutput> list = new List<TOutput>(_size);
             for (int i = 0; i < _size; i++)
             {
                 list._items[i] = converter(_items[i]);
@@ -337,8 +322,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported);
             }
 
-            Contract.EndContractBlock();
-            try
+                        try
             {
                 Array.Copy(_items, 0, array, arrayIndex, _size);
             }
@@ -355,8 +339,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
-            Contract.EndContractBlock();
-            Array.Copy(_items, index, array, arrayIndex, count);
+                        Array.Copy(_items, index, array, arrayIndex, count);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -389,8 +372,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.match);
             }
 
-            Contract.EndContractBlock();
-            for (int i = 0; i < _size; i++)
+                        for (int i = 0; i < _size; i++)
             {
                 if (match(_items[i]))
                 {
@@ -408,8 +390,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.match);
             }
 
-            Contract.EndContractBlock();
-            List<T> list = new List<T>();
+                        List<T> list = new List<T>();
             for (int i = 0; i < _size; i++)
             {
                 if (match(_items[i]))
@@ -423,16 +404,12 @@ namespace System.Collections.Generic
 
         public int FindIndex(Predicate<T> match)
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() < Count);
-            return FindIndex(0, _size, match);
+                                    return FindIndex(0, _size, match);
         }
 
         public int FindIndex(int startIndex, Predicate<T> match)
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() < startIndex + Count);
-            return FindIndex(startIndex, _size - startIndex, match);
+                                    return FindIndex(startIndex, _size - startIndex, match);
         }
 
         public int FindIndex(int startIndex, int count, Predicate<T> match)
@@ -452,10 +429,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.match);
             }
 
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() < startIndex + count);
-            Contract.EndContractBlock();
-            int endIndex = startIndex + count;
+                                                int endIndex = startIndex + count;
             for (int i = startIndex; i < endIndex; i++)
             {
                 if (match(_items[i]))
@@ -472,8 +446,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.match);
             }
 
-            Contract.EndContractBlock();
-            for (int i = _size - 1; i >= 0; i--)
+                        for (int i = _size - 1; i >= 0; i--)
             {
                 if (match(_items[i]))
                 {
@@ -486,16 +459,12 @@ namespace System.Collections.Generic
 
         public int FindLastIndex(Predicate<T> match)
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() < Count);
-            return FindLastIndex(_size - 1, _size, match);
+                                    return FindLastIndex(_size - 1, _size, match);
         }
 
         public int FindLastIndex(int startIndex, Predicate<T> match)
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() <= startIndex);
-            return FindLastIndex(startIndex, startIndex + 1, match);
+                                    return FindLastIndex(startIndex, startIndex + 1, match);
         }
 
         public int FindLastIndex(int startIndex, int count, Predicate<T> match)
@@ -505,10 +474,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.match);
             }
 
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() <= startIndex);
-            Contract.EndContractBlock();
-            if (_size == 0)
+                                                if (_size == 0)
             {
                 if (startIndex != -1)
                 {
@@ -547,8 +513,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.action);
             }
 
-            Contract.EndContractBlock();
-            int version = _version;
+                        int version = _version;
             for (int i = 0; i < _size; i++)
             {
                 if (version != _version && BinaryCompatibility.TargetsAtLeast_Desktop_V4_5)
@@ -595,9 +560,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
-            Contract.Ensures(Contract.Result<List<T>>() != null);
-            Contract.EndContractBlock();
-            List<T> list = new List<T>(count);
+                                    List<T> list = new List<T>(count);
             Array.Copy(_items, index, list._items, 0, count);
             list._size = count;
             return list;
@@ -605,9 +568,7 @@ namespace System.Collections.Generic
 
         public int IndexOf(T item)
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() < Count);
-            return Array.IndexOf(_items, item, 0, _size);
+                                    return Array.IndexOf(_items, item, 0, _size);
         }
 
         int System.Collections.IList.IndexOf(Object item)
@@ -624,10 +585,7 @@ namespace System.Collections.Generic
         {
             if (index > _size)
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.index, ExceptionResource.ArgumentOutOfRange_Index);
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() < Count);
-            Contract.EndContractBlock();
-            return Array.IndexOf(_items, item, index, _size - index);
+                                                return Array.IndexOf(_items, item, index, _size - index);
         }
 
         public int IndexOf(T item, int index, int count)
@@ -636,10 +594,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.index, ExceptionResource.ArgumentOutOfRange_Index);
             if (count < 0 || index > _size - count)
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.count, ExceptionResource.ArgumentOutOfRange_Count);
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() < Count);
-            Contract.EndContractBlock();
-            return Array.IndexOf(_items, item, index, count);
+                                                return Array.IndexOf(_items, item, index, count);
         }
 
         public void Insert(int index, T item)
@@ -649,8 +604,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.index, ExceptionResource.ArgumentOutOfRange_ListInsert);
             }
 
-            Contract.EndContractBlock();
-            if (_size == _items.Length)
+                        if (_size == _items.Length)
                 EnsureCapacity(_size + 1);
             if (index < _size)
             {
@@ -687,8 +641,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.index, ExceptionResource.ArgumentOutOfRange_Index);
             }
 
-            Contract.EndContractBlock();
-            ICollection<T> c = collection as ICollection<T>;
+                        ICollection<T> c = collection as ICollection<T>;
             if (c != null)
             {
                 int count = c.Count;
@@ -731,9 +684,7 @@ namespace System.Collections.Generic
 
         public int LastIndexOf(T item)
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() < Count);
-            if (_size == 0)
+                                    if (_size == 0)
             {
                 return -1;
             }
@@ -747,10 +698,7 @@ namespace System.Collections.Generic
         {
             if (index >= _size)
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.index, ExceptionResource.ArgumentOutOfRange_Index);
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(((Count == 0) && (Contract.Result<int>() == -1)) || ((Count > 0) && (Contract.Result<int>() <= index)));
-            Contract.EndContractBlock();
-            return LastIndexOf(item, index, index + 1);
+                                                return LastIndexOf(item, index, index + 1);
         }
 
         public int LastIndexOf(T item, int index, int count)
@@ -765,10 +713,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.count, ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
             }
 
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(((Count == 0) && (Contract.Result<int>() == -1)) || ((Count > 0) && (Contract.Result<int>() <= index)));
-            Contract.EndContractBlock();
-            if (_size == 0)
+                                                if (_size == 0)
             {
                 return -1;
             }
@@ -813,10 +758,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.match);
             }
 
-            Contract.Ensures(Contract.Result<int>() >= 0);
-            Contract.Ensures(Contract.Result<int>() <= Contract.OldValue(Count));
-            Contract.EndContractBlock();
-            int freeIndex = 0;
+                                                int freeIndex = 0;
             while (freeIndex < _size && !match(_items[freeIndex]))
                 freeIndex++;
             if (freeIndex >= _size)
@@ -846,8 +788,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentOutOfRangeException();
             }
 
-            Contract.EndContractBlock();
-            _size--;
+                        _size--;
             if (index < _size)
             {
                 Array.Copy(_items, index + 1, _items, index, _size - index);
@@ -871,8 +812,7 @@ namespace System.Collections.Generic
 
             if (_size - index < count)
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
-            Contract.EndContractBlock();
-            if (count > 0)
+                        if (count > 0)
             {
                 int i = _size;
                 _size -= count;
@@ -905,8 +845,7 @@ namespace System.Collections.Generic
 
             if (_size - index < count)
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
-            Contract.EndContractBlock();
-            int i = index;
+                        int i = index;
             int j = index + count - 1;
             T[] array = _items;
             while (i < j)
@@ -945,8 +884,7 @@ namespace System.Collections.Generic
 
             if (_size - index < count)
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
-            Contract.EndContractBlock();
-            Array.Sort<T>(_items, index, count, comparer);
+                        Array.Sort<T>(_items, index, count, comparer);
             _version++;
         }
 
@@ -957,8 +895,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.comparison);
             }
 
-            Contract.EndContractBlock();
-            if (_size > 0)
+                        if (_size > 0)
             {
                 IComparer<T> comparer = Comparer<T>.Create(comparison);
                 Array.Sort(_items, 0, _size, comparer);
@@ -967,9 +904,7 @@ namespace System.Collections.Generic
 
         public T[] ToArray()
         {
-            Contract.Ensures(Contract.Result<T[]>() != null);
-            Contract.Ensures(Contract.Result<T[]>().Length == Count);
-            if (_size == 0)
+                                    if (_size == 0)
             {
                 return _emptyArray;
             }
@@ -995,8 +930,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.match);
             }
 
-            Contract.EndContractBlock();
-            for (int i = 0; i < _size; i++)
+                        for (int i = 0; i < _size; i++)
             {
                 if (!match(_items[i]))
                 {

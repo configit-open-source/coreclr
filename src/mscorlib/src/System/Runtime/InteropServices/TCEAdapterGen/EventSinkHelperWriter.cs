@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -40,8 +40,7 @@ namespace System.Runtime.InteropServices.TCEAdapterGen
                 {
                     MethodInfo AddMeth = m_EventItfType.GetMethod("add_" + aMethods[cMethods].Name);
                     ParameterInfo[] aParams = AddMeth.GetParameters();
-                    Contract.Assert(aParams.Length == 1, "All event interface methods must take a single delegate derived type and have a void return type");
-                    Type DelegateCls = aParams[0].ParameterType;
+                                        Type DelegateCls = aParams[0].ParameterType;
                     afbDelegates[cMethods] = OutputTypeBuilder.DefineField("m_" + aMethods[cMethods].Name + "Delegate", DelegateCls, FieldAttributes.Public);
                     DefineEventMethod(OutputTypeBuilder, aMethods[cMethods], DelegateCls, afbDelegates[cMethods]);
                 }
@@ -70,8 +69,7 @@ namespace System.Runtime.InteropServices.TCEAdapterGen
         private void DefineEventMethod(TypeBuilder OutputTypeBuilder, MethodInfo Method, Type DelegateCls, FieldBuilder fbDelegate)
         {
             MethodInfo DelegateInvokeMethod = DelegateCls.GetMethod("Invoke");
-            Contract.Assert(DelegateInvokeMethod != null, "Unable to find method Delegate.Invoke()");
-            Type ReturnType = Method.ReturnType;
+                        Type ReturnType = Method.ReturnType;
             ParameterInfo[] paramInfos = Method.GetParameters();
             Type[] parameterTypes;
             if (paramInfos != null)
@@ -108,13 +106,10 @@ namespace System.Runtime.InteropServices.TCEAdapterGen
 
         private void AddReturn(Type ReturnType, ILGenerator il, MethodBuilder Meth)
         {
-            if (ReturnType == typeof (void))
-            {
+            if ( ReturnType == typeof( void ) ) {
             }
-            else if (ReturnType.IsPrimitive)
-            {
-                switch (System.Type.GetTypeCode(ReturnType))
-                {
+            else if ( ReturnType.IsPrimitive ) {
+                switch ( System.Type.GetTypeCode( ReturnType ) ) {
                     case TypeCode.Boolean:
                     case TypeCode.Char:
                     case TypeCode.Byte:
@@ -123,45 +118,41 @@ namespace System.Runtime.InteropServices.TCEAdapterGen
                     case TypeCode.UInt16:
                     case TypeCode.Int32:
                     case TypeCode.UInt32:
-                        il.Emit(OpCodes.Ldc_I4_0);
+                        il.Emit( OpCodes.Ldc_I4_0 );
                         break;
                     case TypeCode.Int64:
                     case TypeCode.UInt64:
-                        il.Emit(OpCodes.Ldc_I4_0);
-                        il.Emit(OpCodes.Conv_I8);
+                        il.Emit( OpCodes.Ldc_I4_0 );
+                        il.Emit( OpCodes.Conv_I8 );
                         break;
                     case TypeCode.Single:
-                        il.Emit(OpCodes.Ldc_R4, 0);
+                        il.Emit( OpCodes.Ldc_R4, 0 );
                         break;
                     case TypeCode.Double:
-                        il.Emit(OpCodes.Ldc_R4, 0);
-                        il.Emit(OpCodes.Conv_R8);
+                        il.Emit( OpCodes.Ldc_R4, 0 );
+                        il.Emit( OpCodes.Conv_R8 );
                         break;
                     default:
-                        if (ReturnType == typeof (IntPtr))
-                            il.Emit(OpCodes.Ldc_I4_0);
-                        else
-                            Contract.Assert(false, "Unexpected type for Primitive type.");
+                        if ( ReturnType == typeof( IntPtr ) )
+                            il.Emit( OpCodes.Ldc_I4_0 );
+
                         break;
                 }
             }
-            else if (ReturnType.IsValueType)
-            {
+            else if ( ReturnType.IsValueType ) {
                 Meth.InitLocals = true;
-                LocalBuilder ltRetVal = il.DeclareLocal(ReturnType);
-                il.Emit(OpCodes.Ldloc_S, ltRetVal);
+                LocalBuilder ltRetVal = il.DeclareLocal( ReturnType );
+                il.Emit( OpCodes.Ldloc_S, ltRetVal );
             }
-            else
-            {
-                il.Emit(OpCodes.Ldnull);
+            else {
+                il.Emit( OpCodes.Ldnull );
             }
         }
 
         private void DefineConstructor(TypeBuilder OutputTypeBuilder, FieldBuilder fbCookie, FieldBuilder[] afbDelegates)
         {
             ConstructorInfo DefaultBaseClsCons = typeof (Object).GetConstructor(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public, null, Array.Empty<Type>(), null);
-            Contract.Assert(DefaultBaseClsCons != null, "Unable to find the constructor for class " + m_InputType.Name);
-            MethodBuilder Cons = OutputTypeBuilder.DefineMethod(".ctor", MethodAttributes.Assembly | MethodAttributes.SpecialName, CallingConventions.Standard, null, null);
+                        MethodBuilder Cons = OutputTypeBuilder.DefineMethod(".ctor", MethodAttributes.Assembly | MethodAttributes.SpecialName, CallingConventions.Standard, null, null);
             ILGenerator il = Cons.GetILGenerator();
             il.Emit(OpCodes.Ldarg, (short)0);
             il.Emit(OpCodes.Call, DefaultBaseClsCons);

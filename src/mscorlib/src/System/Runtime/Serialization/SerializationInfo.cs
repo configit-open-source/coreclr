@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Security;
 
@@ -38,8 +37,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("converter");
             }
 
-            Contract.EndContractBlock();
-            objectType = type;
+                        objectType = type;
             m_fullTypeName = type.FullName;
             m_assemName = type.Module.Assembly.FullName;
             m_members = new String[defaultSize];
@@ -64,8 +62,7 @@ namespace System.Runtime.Serialization
                     throw new ArgumentNullException("value");
                 }
 
-                Contract.EndContractBlock();
-                m_fullTypeName = value;
+                                m_fullTypeName = value;
                 isFullTypeNameSetExplicit = true;
             }
         }
@@ -85,8 +82,7 @@ namespace System.Runtime.Serialization
                     throw new ArgumentNullException("value");
                 }
 
-                Contract.EndContractBlock();
-                if (this.requireSameTokenInPartialTrust)
+                                if (this.requireSameTokenInPartialTrust)
                 {
                     DemandForUnsafeAssemblyNameAssignments(this.m_assemName, value);
                 }
@@ -103,8 +99,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("type");
             }
 
-            Contract.EndContractBlock();
-            if (this.requireSameTokenInPartialTrust)
+                        if (this.requireSameTokenInPartialTrust)
             {
                 DemandForUnsafeAssemblyNameAssignments(this.ObjectType.Assembly.FullName, type.Assembly.FullName);
             }
@@ -202,8 +197,7 @@ namespace System.Runtime.Serialization
         private void ExpandArrays()
         {
             int newSize;
-            Contract.Assert(m_members.Length == m_currMember, "[SerializationInfo.ExpandArrays]m_members.Length == m_currMember");
-            newSize = (m_currMember * 2);
+                        newSize = (m_currMember * 2);
             if (newSize < m_currMember)
             {
                 if (Int32.MaxValue > m_currMember)
@@ -235,8 +229,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("type");
             }
 
-            Contract.EndContractBlock();
-            AddValueInternal(name, value, type);
+                        AddValueInternal(name, value, type);
         }
 
         public void AddValue(String name, Object value)
@@ -343,10 +336,7 @@ namespace System.Runtime.Serialization
 
         internal void UpdateValue(String name, Object value, Type type)
         {
-            Contract.Assert(null != name, "[SerializationInfo.UpdateValue]name!=null");
-            Contract.Assert(null != value, "[SerializationInfo.UpdateValue]value!=null");
-            Contract.Assert(null != (object)type, "[SerializationInfo.UpdateValue]type!=null");
-            int index = FindElement(name);
+                                                int index = FindElement(name);
             if (index < 0)
             {
                 AddValueInternal(name, value, type);
@@ -365,8 +355,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("name");
             }
 
-            Contract.EndContractBlock();
-            BCLDebug.Trace("SER", "[SerializationInfo.FindElement]Looking for ", name, " CurrMember is: ", m_currMember);
+                        BCLDebug.Trace("SER", "[SerializationInfo.FindElement]Looking for ", name, " CurrMember is: ", m_currMember);
             int index;
             if (m_nameToIndex.TryGetValue(name, out index))
             {
@@ -384,11 +373,8 @@ namespace System.Runtime.Serialization
                 throw new SerializationException(Environment.GetResourceString("Serialization_NotFound", name));
             }
 
-            Contract.Assert(index < m_data.Length, "[SerializationInfo.GetElement]index<m_data.Length");
-            Contract.Assert(index < m_types.Length, "[SerializationInfo.GetElement]index<m_types.Length");
-            foundType = m_types[index];
-            Contract.Assert((object)foundType != null, "[SerializationInfo.GetElement]foundType!=null");
-            return m_data[index];
+                                    foundType = m_types[index];
+                        return m_data[index];
         }
 
         private Object GetElementNoThrow(String name, out Type foundType)
@@ -400,11 +386,8 @@ namespace System.Runtime.Serialization
                 return null;
             }
 
-            Contract.Assert(index < m_data.Length, "[SerializationInfo.GetElement]index<m_data.Length");
-            Contract.Assert(index < m_types.Length, "[SerializationInfo.GetElement]index<m_types.Length");
-            foundType = m_types[index];
-            Contract.Assert((object)foundType != null, "[SerializationInfo.GetElement]foundType!=null");
-            return m_data[index];
+                                    foundType = m_types[index];
+                        return m_data[index];
         }
 
         public Object GetValue(String name, Type type)
@@ -414,8 +397,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("type");
             }
 
-            Contract.EndContractBlock();
-            RuntimeType rt = type as RuntimeType;
+                        RuntimeType rt = type as RuntimeType;
             if (rt == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeType"));
             Type foundType;
@@ -426,17 +408,14 @@ namespace System.Runtime.Serialization
                 return value;
             }
 
-            Contract.Assert(m_converter != null, "[SerializationInfo.GetValue]m_converter!=null");
-            return m_converter.Convert(value, type);
+                        return m_converter.Convert(value, type);
         }
 
         internal Object GetValueNoThrow(String name, Type type)
         {
             Type foundType;
             Object value;
-            Contract.Assert((object)type != null, "[SerializationInfo.GetValue]type ==null");
-            Contract.Assert(type is RuntimeType, "[SerializationInfo.GetValue]type is not a runtime type");
-            value = GetElementNoThrow(name, out foundType);
+                                    value = GetElementNoThrow(name, out foundType);
             if (value == null)
                 return null;
             if (Object.ReferenceEquals(foundType, type) || type.IsAssignableFrom(foundType) || value == null)
@@ -444,8 +423,7 @@ namespace System.Runtime.Serialization
                 return value;
             }
 
-            Contract.Assert(m_converter != null, "[SerializationInfo.GetValue]m_converter!=null");
-            return m_converter.Convert(value, type);
+                        return m_converter.Convert(value, type);
         }
 
         public bool GetBoolean(String name)

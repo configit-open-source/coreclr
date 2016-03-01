@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
@@ -115,8 +114,7 @@ namespace System.Threading
                 throw new ArgumentNullException("start");
             }
 
-            Contract.EndContractBlock();
-            SetStartHelper((Delegate)start, 0);
+                        SetStartHelper((Delegate)start, 0);
         }
 
         public Thread(ThreadStart start, int maxStackSize)
@@ -128,8 +126,7 @@ namespace System.Threading
 
             if (0 > maxStackSize)
                 throw new ArgumentOutOfRangeException("maxStackSize", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            SetStartHelper((Delegate)start, maxStackSize);
+                        SetStartHelper((Delegate)start, maxStackSize);
         }
 
         public Thread(ParameterizedThreadStart start)
@@ -139,8 +136,7 @@ namespace System.Threading
                 throw new ArgumentNullException("start");
             }
 
-            Contract.EndContractBlock();
-            SetStartHelper((Delegate)start, 0);
+                        SetStartHelper((Delegate)start, 0);
         }
 
         public Thread(ParameterizedThreadStart start, int maxStackSize)
@@ -152,8 +148,7 @@ namespace System.Threading
 
             if (0 > maxStackSize)
                 throw new ArgumentOutOfRangeException("maxStackSize", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            SetStartHelper((Delegate)start, maxStackSize);
+                        SetStartHelper((Delegate)start, maxStackSize);
         }
 
         public override int GetHashCode()
@@ -313,16 +308,14 @@ namespace System.Threading
             [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
             get
             {
-                Contract.Ensures(Contract.Result<Thread>() != null);
-                return GetCurrentThreadNative();
+                                return GetCurrentThreadNative();
             }
         }
 
         private static extern Thread GetCurrentThreadNative();
         private void SetStartHelper(Delegate start, int maxStackSize)
         {
-            Contract.Assert(maxStackSize == 0);
-            ThreadHelper threadStartCallBack = new ThreadHelper(start);
+                        ThreadHelper threadStartCallBack = new ThreadHelper(start);
             if (start is ThreadStart)
             {
                 SetStart(new ThreadStart(threadStartCallBack.ThreadStart), maxStackSize);
@@ -464,8 +457,7 @@ namespace System.Threading
         {
             get
             {
-                Contract.Ensures(Contract.Result<CultureInfo>() != null);
-                if (AppDomain.IsAppXModel())
+                                if (AppDomain.IsAppXModel())
                 {
                     return CultureInfo.GetCultureInfoForUserPreferredLanguageInAppX() ?? GetCurrentUICultureNoAppX();
                 }
@@ -484,8 +476,7 @@ namespace System.Threading
                     throw new ArgumentNullException("value");
                 }
 
-                Contract.EndContractBlock();
-                CultureInfo.VerifyCultureName(value, true);
+                                CultureInfo.VerifyCultureName(value, true);
                 if (m_CurrentUICulture == null && m_CurrentCulture == null)
                     nativeInitCultureAccessors();
                 if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
@@ -512,8 +503,7 @@ namespace System.Threading
 
         internal CultureInfo GetCurrentUICultureNoAppX()
         {
-            Contract.Ensures(Contract.Result<CultureInfo>() != null);
-            if (m_CurrentUICulture == null)
+                        if (m_CurrentUICulture == null)
             {
                 CultureInfo appDomainDefaultUICulture = CultureInfo.DefaultThreadCurrentUICulture;
                 return (appDomainDefaultUICulture != null ? appDomainDefaultUICulture : CultureInfo.UserDefaultUICulture);
@@ -526,8 +516,7 @@ namespace System.Threading
         {
             get
             {
-                Contract.Ensures(Contract.Result<CultureInfo>() != null);
-                if (AppDomain.IsAppXModel())
+                                if (AppDomain.IsAppXModel())
                 {
                     return CultureInfo.GetCultureInfoForUserPreferredLanguageInAppX() ?? GetCurrentCultureNoAppX();
                 }
@@ -545,8 +534,7 @@ namespace System.Threading
                     throw new ArgumentNullException("value");
                 }
 
-                Contract.EndContractBlock();
-                if (m_CurrentCulture == null && m_CurrentUICulture == null)
+                                if (m_CurrentCulture == null && m_CurrentUICulture == null)
                     nativeInitCultureAccessors();
                 if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
                 {
@@ -572,8 +560,7 @@ namespace System.Threading
 
         private CultureInfo GetCurrentCultureNoAppX()
         {
-            Contract.Ensures(Contract.Result<CultureInfo>() != null);
-            if (m_CurrentCulture == null)
+                        if (m_CurrentCulture == null)
             {
                 CultureInfo appDomainDefaultCulture = CultureInfo.DefaultThreadCurrentCulture;
                 return (appDomainDefaultCulture != null ? appDomainDefaultCulture : CultureInfo.UserDefaultCulture);
@@ -587,8 +574,7 @@ namespace System.Threading
         private static extern AppDomain GetFastDomainInternal();
         public static AppDomain GetDomain()
         {
-            Contract.Ensures(Contract.Result<AppDomain>() != null);
-            AppDomain ad;
+                        AppDomain ad;
             ad = GetFastDomainInternal();
             if (ad == null)
                 ad = GetDomainInternal();

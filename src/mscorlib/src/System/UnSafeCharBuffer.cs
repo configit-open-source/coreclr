@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System
 {
@@ -9,9 +9,7 @@ namespace System
         int m_length;
         public UnSafeCharBuffer(char *buffer, int bufferSize)
         {
-            Contract.Assert(buffer != null, "buffer pointer can't be null.");
-            Contract.Assert(bufferSize >= 0, "buffer size can't be negative.");
-            m_buffer = buffer;
+                                    m_buffer = buffer;
             m_totalSize = bufferSize;
             m_length = 0;
         }
@@ -34,8 +32,7 @@ namespace System
             }
 
             m_length += stringToAppend.Length;
-            Contract.Assert(m_length <= m_totalSize, "Buffer has been overflowed!");
-        }
+                    }
 
         public int Length
         {

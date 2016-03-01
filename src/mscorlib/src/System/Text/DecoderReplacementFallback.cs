@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Text
 {
@@ -13,8 +13,7 @@ namespace System.Text
         {
             if (replacement == null)
                 throw new ArgumentNullException("replacement");
-            Contract.EndContractBlock();
-            bool bFoundHigh = false;
+                        bool bFoundHigh = false;
             for (int i = 0; i < replacement.Length; i++)
             {
                 if (Char.IsSurrogate(replacement, i))
@@ -119,8 +118,7 @@ namespace System.Text
                 return '\0';
             }
 
-            Contract.Assert(fallbackIndex < strDefault.Length && fallbackIndex >= 0, "Index exceeds buffer range");
-            return strDefault[fallbackIndex];
+                        return strDefault[fallbackIndex];
         }
 
         public override bool MovePrevious()

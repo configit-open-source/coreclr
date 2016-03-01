@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.Serialization;
 using System.Threading;
@@ -80,8 +79,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("codePage");
             }
 
-            Contract.EndContractBlock();
-            m_codePage = codePage;
+                        m_codePage = codePage;
             this.SetDefaultFallbacks();
         }
 
@@ -92,8 +90,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("codePage");
             }
 
-            Contract.EndContractBlock();
-            m_codePage = codePage;
+                        m_codePage = codePage;
             this.encoderFallback = encoderFallback ?? new InternalEncoderBestFitFallback(this);
             this.decoderFallback = decoderFallback ?? new InternalDecoderBestFitFallback(this);
         }
@@ -141,8 +138,7 @@ namespace System.Text
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            this.m_codePage = (int)info.GetValue("m_codePage", typeof (int));
+                        this.m_codePage = (int)info.GetValue("m_codePage", typeof (int));
             this.dataItem = null;
             try
             {
@@ -162,8 +158,7 @@ namespace System.Text
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            info.AddValue("m_isReadOnly", this.m_isReadOnly);
+                        info.AddValue("m_isReadOnly", this.m_isReadOnly);
             info.AddValue("encoderFallback", this.EncoderFallback);
             info.AddValue("decoderFallback", this.DecoderFallback);
             info.AddValue("m_codePage", this.m_codePage);
@@ -176,8 +171,7 @@ namespace System.Text
         {
             if (bytes == null)
                 throw new ArgumentNullException("bytes");
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            return Convert(srcEncoding, dstEncoding, bytes, 0, bytes.Length);
+                        return Convert(srcEncoding, dstEncoding, bytes, 0, bytes.Length);
         }
 
         public static byte[] Convert(Encoding srcEncoding, Encoding dstEncoding, byte[] bytes, int index, int count)
@@ -192,8 +186,7 @@ namespace System.Text
                 throw new ArgumentNullException("bytes", Environment.GetResourceString("ArgumentNull_Array"));
             }
 
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            return dstEncoding.GetBytes(srcEncoding.GetChars(bytes, index, count));
+                        return dstEncoding.GetBytes(srcEncoding.GetChars(bytes, index, count));
         }
 
         private static Object s_InternalSyncObject;
@@ -226,8 +219,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("codepage", Environment.GetResourceString("ArgumentOutOfRange_Range", 0, 65535));
             }
 
-            Contract.EndContractBlock();
-            if (encodings != null)
+                        if (encodings != null)
             {
                 result = (Encoding)encodings[codepage];
             }
@@ -479,8 +471,7 @@ namespace System.Text
                     throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_ReadOnly"));
                 if (value == null)
                     throw new ArgumentNullException("value");
-                Contract.EndContractBlock();
-                encoderFallback = value;
+                                encoderFallback = value;
             }
         }
 
@@ -497,8 +488,7 @@ namespace System.Text
                     throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_ReadOnly"));
                 if (value == null)
                     throw new ArgumentNullException("value");
-                Contract.EndContractBlock();
-                decoderFallback = value;
+                                decoderFallback = value;
             }
         }
 
@@ -544,16 +534,14 @@ namespace System.Text
                 throw new ArgumentNullException("chars", Environment.GetResourceString("ArgumentNull_Array"));
             }
 
-            Contract.EndContractBlock();
-            return GetByteCount(chars, 0, chars.Length);
+                        return GetByteCount(chars, 0, chars.Length);
         }
 
         public virtual int GetByteCount(String s)
         {
             if (s == null)
                 throw new ArgumentNullException("s");
-            Contract.EndContractBlock();
-            char[] chars = s.ToCharArray();
+                        char[] chars = s.ToCharArray();
             return GetByteCount(chars, 0, chars.Length);
         }
 
@@ -564,8 +552,7 @@ namespace System.Text
                 throw new ArgumentNullException("chars", Environment.GetResourceString("ArgumentNull_Array"));
             if (count < 0)
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            char[] arrChar = new char[count];
+                        char[] arrChar = new char[count];
             int index;
             for (index = 0; index < count; index++)
                 arrChar[index] = chars[index];
@@ -574,9 +561,7 @@ namespace System.Text
 
         internal virtual unsafe int GetByteCount(char *chars, int count, EncoderNLS encoder)
         {
-            Contract.Requires(chars != null);
-            Contract.Requires(count >= 0);
-            return GetByteCount(chars, count);
+                                    return GetByteCount(chars, count);
         }
 
         public virtual byte[] GetBytes(char[] chars)
@@ -586,8 +571,7 @@ namespace System.Text
                 throw new ArgumentNullException("chars", Environment.GetResourceString("ArgumentNull_Array"));
             }
 
-            Contract.EndContractBlock();
-            return GetBytes(chars, 0, chars.Length);
+                        return GetBytes(chars, 0, chars.Length);
         }
 
         public virtual byte[] GetBytes(char[] chars, int index, int count)
@@ -602,20 +586,17 @@ namespace System.Text
         {
             if (s == null)
                 throw new ArgumentNullException("s", Environment.GetResourceString("ArgumentNull_String"));
-            Contract.EndContractBlock();
-            int byteCount = GetByteCount(s);
+                        int byteCount = GetByteCount(s);
             byte[] bytes = new byte[byteCount];
             int bytesReceived = GetBytes(s, 0, s.Length, bytes, 0);
-            Contract.Assert(byteCount == bytesReceived);
-            return bytes;
+                        return bytes;
         }
 
         public virtual int GetBytes(String s, int charIndex, int charCount, byte[] bytes, int byteIndex)
         {
             if (s == null)
                 throw new ArgumentNullException("s");
-            Contract.EndContractBlock();
-            return GetBytes(s.ToCharArray(), charIndex, charCount, bytes, byteIndex);
+                        return GetBytes(s.ToCharArray(), charIndex, charCount, bytes, byteIndex);
         }
 
         internal virtual unsafe int GetBytes(char *chars, int charCount, byte *bytes, int byteCount, EncoderNLS encoder)
@@ -629,15 +610,13 @@ namespace System.Text
                 throw new ArgumentNullException(bytes == null ? "bytes" : "chars", Environment.GetResourceString("ArgumentNull_Array"));
             if (charCount < 0 || byteCount < 0)
                 throw new ArgumentOutOfRangeException((charCount < 0 ? "charCount" : "byteCount"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            char[] arrChar = new char[charCount];
+                        char[] arrChar = new char[charCount];
             int index;
             for (index = 0; index < charCount; index++)
                 arrChar[index] = chars[index];
             byte[] arrByte = new byte[byteCount];
             int result = GetBytes(arrChar, 0, charCount, arrByte, 0);
-            Contract.Assert(result <= byteCount, "[Encoding.GetBytes]Returned more bytes than we have space for");
-            if (result < byteCount)
+                        if (result < byteCount)
                 byteCount = result;
             for (index = 0; index < byteCount; index++)
                 bytes[index] = arrByte[index];
@@ -651,8 +630,7 @@ namespace System.Text
                 throw new ArgumentNullException("bytes", Environment.GetResourceString("ArgumentNull_Array"));
             }
 
-            Contract.EndContractBlock();
-            return GetCharCount(bytes, 0, bytes.Length);
+                        return GetCharCount(bytes, 0, bytes.Length);
         }
 
         public abstract int GetCharCount(byte[] bytes, int index, int count);
@@ -662,8 +640,7 @@ namespace System.Text
                 throw new ArgumentNullException("bytes", Environment.GetResourceString("ArgumentNull_Array"));
             if (count < 0)
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            byte[] arrbyte = new byte[count];
+                        byte[] arrbyte = new byte[count];
             int index;
             for (index = 0; index < count; index++)
                 arrbyte[index] = bytes[index];
@@ -682,8 +659,7 @@ namespace System.Text
                 throw new ArgumentNullException("bytes", Environment.GetResourceString("ArgumentNull_Array"));
             }
 
-            Contract.EndContractBlock();
-            return GetChars(bytes, 0, bytes.Length);
+                        return GetChars(bytes, 0, bytes.Length);
         }
 
         public virtual char[] GetChars(byte[] bytes, int index, int count)
@@ -700,15 +676,13 @@ namespace System.Text
                 throw new ArgumentNullException(chars == null ? "chars" : "bytes", Environment.GetResourceString("ArgumentNull_Array"));
             if (byteCount < 0 || charCount < 0)
                 throw new ArgumentOutOfRangeException((byteCount < 0 ? "byteCount" : "charCount"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            byte[] arrByte = new byte[byteCount];
+                        byte[] arrByte = new byte[byteCount];
             int index;
             for (index = 0; index < byteCount; index++)
                 arrByte[index] = bytes[index];
             char[] arrChar = new char[charCount];
             int result = GetChars(arrByte, 0, byteCount, arrChar, 0);
-            Contract.Assert(result <= charCount, "[Encoding.GetChars]Returned more chars than we have space for");
-            if (result < charCount)
+                        if (result < charCount)
                 charCount = result;
             for (index = 0; index < charCount; index++)
                 chars[index] = arrChar[index];
@@ -726,8 +700,7 @@ namespace System.Text
                 throw new ArgumentNullException("bytes", Environment.GetResourceString("ArgumentNull_Array"));
             if (byteCount < 0)
                 throw new ArgumentOutOfRangeException("byteCount", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return String.CreateStringFromEncoding(bytes, byteCount, this);
+                        return String.CreateStringFromEncoding(bytes, byteCount, this);
         }
 
         public virtual int CodePage
@@ -785,8 +758,7 @@ namespace System.Text
         {
             if (bytes == null)
                 throw new ArgumentNullException("bytes", Environment.GetResourceString("ArgumentNull_Array"));
-            Contract.EndContractBlock();
-            return GetString(bytes, 0, bytes.Length);
+                        return GetString(bytes, 0, bytes.Length);
         }
 
         public virtual String GetString(byte[] bytes, int index, int count)
@@ -916,8 +888,7 @@ namespace System.Text
             {
                 if (info == null)
                     throw new ArgumentNullException("info");
-                Contract.EndContractBlock();
-                this.m_encoding = (Encoding)info.GetValue("encoding", typeof (Encoding));
+                                this.m_encoding = (Encoding)info.GetValue("encoding", typeof (Encoding));
                 try
                 {
                     this.m_fallback = (EncoderFallback)info.GetValue("m_fallback", typeof (EncoderFallback));
@@ -983,8 +954,7 @@ namespace System.Text
             {
                 if (info == null)
                     throw new ArgumentNullException("info");
-                Contract.EndContractBlock();
-                this.m_encoding = (Encoding)info.GetValue("encoding", typeof (Encoding));
+                                this.m_encoding = (Encoding)info.GetValue("encoding", typeof (Encoding));
                 try
                 {
                     this.m_fallback = (DecoderFallback)info.GetValue("m_fallback", typeof (DecoderFallback));
@@ -1065,8 +1035,7 @@ namespace System.Text
                     this.fallbackBuffer = enc.DecoderFallback.CreateFallbackBuffer();
                 else
                     this.fallbackBuffer = this.decoder.FallbackBuffer;
-                Contract.Assert(fallbackBuffer.Remaining == 0, "[Encoding.EncodingCharBuffer.EncodingCharBuffer]Expected empty fallback buffer for getchars/charcount");
-                fallbackBuffer.InternalInitialize(bytes, charEnd);
+                                fallbackBuffer.InternalInitialize(bytes, charEnd);
             }
 
             internal unsafe bool AddChar(char ch, int numBytes)
@@ -1125,8 +1094,7 @@ namespace System.Text
 
             internal unsafe byte GetNextByte()
             {
-                Contract.Assert(bytes < byteEnd, "[EncodingCharBuffer.GetNextByte]Expected more date");
-                if (bytes >= byteEnd)
+                                if (bytes >= byteEnd)
                     return 0;
                 return *(bytes++);
             }
@@ -1226,8 +1194,7 @@ namespace System.Text
 
             internal unsafe bool AddByte(byte b, int moreBytesExpected)
             {
-                Contract.Assert(moreBytesExpected >= 0, "[EncodingByteBuffer.AddByte]expected non-negative moreBytesExpected");
-                if (bytes != null)
+                                if (bytes != null)
                 {
                     if (bytes >= byteEnd - moreBytesExpected)
                     {
@@ -1278,8 +1245,7 @@ namespace System.Text
                     fallbackBuffer.MovePrevious();
                 else
                 {
-                    Contract.Assert(chars > charStart || ((bThrow == true) && (bytes == byteStart)), "[EncodingByteBuffer.MovePrevious]expected previous data or throw");
-                    if (chars > charStart)
+                                        if (chars > charStart)
                         chars--;
                 }
 

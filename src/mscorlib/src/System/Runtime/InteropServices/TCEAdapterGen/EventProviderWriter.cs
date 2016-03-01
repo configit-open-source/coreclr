@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices.ComTypes;
@@ -49,23 +48,16 @@ namespace System.Runtime.InteropServices.TCEAdapterGen
         {
             Type[] aParamTypes;
             FieldInfo DelegateField = SinkHelperClass.GetField("m_" + SrcItfMethod.Name + "Delegate");
-            Contract.Assert(DelegateField != null, "Unable to find the field m_" + SrcItfMethod.Name + "Delegate on the sink helper");
-            FieldInfo CookieField = SinkHelperClass.GetField("m_dwCookie");
-            Contract.Assert(CookieField != null, "Unable to find the field m_dwCookie on the sink helper");
-            ConstructorInfo SinkHelperCons = SinkHelperClass.GetConstructor(EventProviderWriter.DefaultLookup | BindingFlags.NonPublic, null, Array.Empty<Type>(), null);
-            Contract.Assert(SinkHelperCons != null, "Unable to find the constructor for the sink helper");
-            MethodInfo CPAdviseMethod = typeof (IConnectionPoint).GetMethod("Advise");
-            Contract.Assert(CPAdviseMethod != null, "Unable to find the method ConnectionPoint.Advise");
-            aParamTypes = new Type[1];
+                        FieldInfo CookieField = SinkHelperClass.GetField("m_dwCookie");
+                        ConstructorInfo SinkHelperCons = SinkHelperClass.GetConstructor(EventProviderWriter.DefaultLookup | BindingFlags.NonPublic, null, Array.Empty<Type>(), null);
+                        MethodInfo CPAdviseMethod = typeof (IConnectionPoint).GetMethod("Advise");
+                        aParamTypes = new Type[1];
             aParamTypes[0] = typeof (Object);
             MethodInfo ArrayListAddMethod = typeof (ArrayList).GetMethod("Add", aParamTypes, null);
-            Contract.Assert(ArrayListAddMethod != null, "Unable to find the method ArrayList.Add");
-            MethodInfo MonitorEnterMethod = typeof (Monitor).GetMethod("Enter", MonitorEnterParamTypes, null);
-            Contract.Assert(MonitorEnterMethod != null, "Unable to find the method Monitor.Enter()");
-            aParamTypes[0] = typeof (Object);
+                        MethodInfo MonitorEnterMethod = typeof (Monitor).GetMethod("Enter", MonitorEnterParamTypes, null);
+                        aParamTypes[0] = typeof (Object);
             MethodInfo MonitorExitMethod = typeof (Monitor).GetMethod("Exit", aParamTypes, null);
-            Contract.Assert(MonitorExitMethod != null, "Unable to find the method Monitor.Exit()");
-            Type[] parameterTypes;
+                        Type[] parameterTypes;
             parameterTypes = new Type[1];
             parameterTypes[0] = DelegateField.FieldType;
             MethodBuilder Meth = OutputTypeBuilder.DefineMethod("add_" + SrcItfMethod.Name, MethodAttributes.Public | MethodAttributes.Virtual, null, parameterTypes);
@@ -122,34 +114,22 @@ namespace System.Runtime.InteropServices.TCEAdapterGen
         {
             Type[] aParamTypes;
             FieldInfo DelegateField = SinkHelperClass.GetField("m_" + SrcItfMethod.Name + "Delegate");
-            Contract.Assert(DelegateField != null, "Unable to find the field m_" + SrcItfMethod.Name + "Delegate on the sink helper");
-            FieldInfo CookieField = SinkHelperClass.GetField("m_dwCookie");
-            Contract.Assert(CookieField != null, "Unable to find the field m_dwCookie on the sink helper");
-            aParamTypes = new Type[1];
+                        FieldInfo CookieField = SinkHelperClass.GetField("m_dwCookie");
+                        aParamTypes = new Type[1];
             aParamTypes[0] = typeof (Int32);
             MethodInfo ArrayListRemoveMethod = typeof (ArrayList).GetMethod("RemoveAt", aParamTypes, null);
-            Contract.Assert(ArrayListRemoveMethod != null, "Unable to find the method ArrayList.RemoveAt()");
-            PropertyInfo ArrayListItemProperty = typeof (ArrayList).GetProperty("Item");
-            Contract.Assert(ArrayListItemProperty != null, "Unable to find the property ArrayList.Item");
-            MethodInfo ArrayListItemGetMethod = ArrayListItemProperty.GetGetMethod();
-            Contract.Assert(ArrayListItemGetMethod != null, "Unable to find the get method for property ArrayList.Item");
-            PropertyInfo ArrayListSizeProperty = typeof (ArrayList).GetProperty("Count");
-            Contract.Assert(ArrayListSizeProperty != null, "Unable to find the property ArrayList.Count");
-            MethodInfo ArrayListSizeGetMethod = ArrayListSizeProperty.GetGetMethod();
-            Contract.Assert(ArrayListSizeGetMethod != null, "Unable to find the get method for property ArrayList.Count");
-            aParamTypes[0] = typeof (Delegate);
+                        PropertyInfo ArrayListItemProperty = typeof (ArrayList).GetProperty("Item");
+                        MethodInfo ArrayListItemGetMethod = ArrayListItemProperty.GetGetMethod();
+                        PropertyInfo ArrayListSizeProperty = typeof (ArrayList).GetProperty("Count");
+                        MethodInfo ArrayListSizeGetMethod = ArrayListSizeProperty.GetGetMethod();
+                        aParamTypes[0] = typeof (Delegate);
             MethodInfo DelegateEqualsMethod = typeof (Delegate).GetMethod("Equals", aParamTypes, null);
-            Contract.Assert(DelegateEqualsMethod != null, "Unable to find the method Delegate.Equlals()");
-            MethodInfo MonitorEnterMethod = typeof (Monitor).GetMethod("Enter", MonitorEnterParamTypes, null);
-            Contract.Assert(MonitorEnterMethod != null, "Unable to find the method Monitor.Enter()");
-            aParamTypes[0] = typeof (Object);
+                        MethodInfo MonitorEnterMethod = typeof (Monitor).GetMethod("Enter", MonitorEnterParamTypes, null);
+                        aParamTypes[0] = typeof (Object);
             MethodInfo MonitorExitMethod = typeof (Monitor).GetMethod("Exit", aParamTypes, null);
-            Contract.Assert(MonitorExitMethod != null, "Unable to find the method Monitor.Exit()");
-            MethodInfo CPUnadviseMethod = typeof (IConnectionPoint).GetMethod("Unadvise");
-            Contract.Assert(CPUnadviseMethod != null, "Unable to find the method ConnectionPoint.Unadvise()");
-            MethodInfo ReleaseComObjectMethod = typeof (Marshal).GetMethod("ReleaseComObject");
-            Contract.Assert(ReleaseComObjectMethod != null, "Unable to find the method Marshal.ReleaseComObject()");
-            Type[] parameterTypes;
+                        MethodInfo CPUnadviseMethod = typeof (IConnectionPoint).GetMethod("Unadvise");
+                        MethodInfo ReleaseComObjectMethod = typeof (Marshal).GetMethod("ReleaseComObject");
+                        Type[] parameterTypes;
             parameterTypes = new Type[1];
             parameterTypes[0] = DelegateField.FieldType;
             MethodBuilder Meth = OutputTypeBuilder.DefineMethod("remove_" + SrcItfMethod.Name, MethodAttributes.Public | MethodAttributes.Virtual, null, parameterTypes);
@@ -245,15 +225,12 @@ namespace System.Runtime.InteropServices.TCEAdapterGen
         private MethodBuilder DefineInitSrcItfMethod(TypeBuilder OutputTypeBuilder, Type SourceInterface, FieldBuilder fbSinkHelperArray, FieldBuilder fbEventCP, FieldBuilder fbCPC)
         {
             ConstructorInfo DefaultArrayListCons = typeof (ArrayList).GetConstructor(EventProviderWriter.DefaultLookup, null, Array.Empty<Type>(), null);
-            Contract.Assert(DefaultArrayListCons != null, "Unable to find the constructor for class ArrayList");
-            ubyte[] rgByteGuid = new ubyte[16];
+                        ubyte[] rgByteGuid = new ubyte[16];
             Type[] aParamTypes = new Type[1];
             aParamTypes[0] = typeof (Byte[]);
             ConstructorInfo ByteArrayGUIDCons = typeof (Guid).GetConstructor(EventProviderWriter.DefaultLookup, null, aParamTypes, null);
-            Contract.Assert(ByteArrayGUIDCons != null, "Unable to find the constructor for GUID that accepts a string as argument");
-            MethodInfo CPCFindCPMethod = typeof (IConnectionPointContainer).GetMethod("FindConnectionPoint");
-            Contract.Assert(CPCFindCPMethod != null, "Unable to find the method ConnectionPointContainer.FindConnectionPoint()");
-            MethodBuilder Meth = OutputTypeBuilder.DefineMethod("Init", MethodAttributes.Private, null, null);
+                        MethodInfo CPCFindCPMethod = typeof (IConnectionPointContainer).GetMethod("FindConnectionPoint");
+                        MethodBuilder Meth = OutputTypeBuilder.DefineMethod("Init", MethodAttributes.Private, null, null);
             ILGenerator il = Meth.GetILGenerator();
             LocalBuilder ltCP = il.DeclareLocal(typeof (IConnectionPoint));
             LocalBuilder ltEvGuid = il.DeclareLocal(typeof (Guid));
@@ -294,8 +271,7 @@ namespace System.Runtime.InteropServices.TCEAdapterGen
         private void DefineConstructor(TypeBuilder OutputTypeBuilder, FieldBuilder fbCPC)
         {
             ConstructorInfo DefaultBaseClsCons = typeof (Object).GetConstructor(BindingFlags.Instance | BindingFlags.Public, null, Array.Empty<Type>(), null);
-            Contract.Assert(DefaultBaseClsCons != null, "Unable to find the object's public default constructor");
-            MethodAttributes ctorAttributes = MethodAttributes.SpecialName | (DefaultBaseClsCons.Attributes & MethodAttributes.MemberAccessMask);
+                        MethodAttributes ctorAttributes = MethodAttributes.SpecialName | (DefaultBaseClsCons.Attributes & MethodAttributes.MemberAccessMask);
             MethodBuilder Cons = OutputTypeBuilder.DefineMethod(".ctor", ctorAttributes, null, new Type[]{typeof (Object)});
             ILGenerator il = Cons.GetILGenerator();
             il.Emit(OpCodes.Ldarg, (short)0);
@@ -310,26 +286,17 @@ namespace System.Runtime.InteropServices.TCEAdapterGen
         private MethodBuilder DefineFinalizeMethod(TypeBuilder OutputTypeBuilder, Type SinkHelperClass, FieldBuilder fbSinkHelper, FieldBuilder fbEventCP)
         {
             FieldInfo CookieField = SinkHelperClass.GetField("m_dwCookie");
-            Contract.Assert(CookieField != null, "Unable to find the field m_dwCookie on the sink helper");
-            PropertyInfo ArrayListItemProperty = typeof (ArrayList).GetProperty("Item");
-            Contract.Assert(ArrayListItemProperty != null, "Unable to find the property ArrayList.Item");
-            MethodInfo ArrayListItemGetMethod = ArrayListItemProperty.GetGetMethod();
-            Contract.Assert(ArrayListItemGetMethod != null, "Unable to find the get method for property ArrayList.Item");
-            PropertyInfo ArrayListSizeProperty = typeof (ArrayList).GetProperty("Count");
-            Contract.Assert(ArrayListSizeProperty != null, "Unable to find the property ArrayList.Count");
-            MethodInfo ArrayListSizeGetMethod = ArrayListSizeProperty.GetGetMethod();
-            Contract.Assert(ArrayListSizeGetMethod != null, "Unable to find the get method for property ArrayList.Count");
-            MethodInfo CPUnadviseMethod = typeof (IConnectionPoint).GetMethod("Unadvise");
-            Contract.Assert(CPUnadviseMethod != null, "Unable to find the method ConnectionPoint.Unadvise()");
-            MethodInfo ReleaseComObjectMethod = typeof (Marshal).GetMethod("ReleaseComObject");
-            Contract.Assert(ReleaseComObjectMethod != null, "Unable to find the method Marshal.ReleaseComObject()");
-            MethodInfo MonitorEnterMethod = typeof (Monitor).GetMethod("Enter", MonitorEnterParamTypes, null);
-            Contract.Assert(MonitorEnterMethod != null, "Unable to find the method Monitor.Enter()");
-            Type[] aParamTypes = new Type[1];
+                        PropertyInfo ArrayListItemProperty = typeof (ArrayList).GetProperty("Item");
+                        MethodInfo ArrayListItemGetMethod = ArrayListItemProperty.GetGetMethod();
+                        PropertyInfo ArrayListSizeProperty = typeof (ArrayList).GetProperty("Count");
+                        MethodInfo ArrayListSizeGetMethod = ArrayListSizeProperty.GetGetMethod();
+                        MethodInfo CPUnadviseMethod = typeof (IConnectionPoint).GetMethod("Unadvise");
+                        MethodInfo ReleaseComObjectMethod = typeof (Marshal).GetMethod("ReleaseComObject");
+                        MethodInfo MonitorEnterMethod = typeof (Monitor).GetMethod("Enter", MonitorEnterParamTypes, null);
+                        Type[] aParamTypes = new Type[1];
             aParamTypes[0] = typeof (Object);
             MethodInfo MonitorExitMethod = typeof (Monitor).GetMethod("Exit", aParamTypes, null);
-            Contract.Assert(MonitorExitMethod != null, "Unable to find the method Monitor.Exit()");
-            MethodBuilder Meth = OutputTypeBuilder.DefineMethod("Finalize", MethodAttributes.Public | MethodAttributes.Virtual, null, null);
+                        MethodBuilder Meth = OutputTypeBuilder.DefineMethod("Finalize", MethodAttributes.Public | MethodAttributes.Virtual, null, null);
             ILGenerator il = Meth.GetILGenerator();
             LocalBuilder ltNumSinkHelpers = il.DeclareLocal(typeof (Int32));
             LocalBuilder ltSinkHelperCounter = il.DeclareLocal(typeof (Int32));
@@ -396,8 +363,7 @@ namespace System.Runtime.InteropServices.TCEAdapterGen
         private void DefineDisposeMethod(TypeBuilder OutputTypeBuilder, MethodBuilder FinalizeMethod)
         {
             MethodInfo SuppressFinalizeMethod = typeof (GC).GetMethod("SuppressFinalize");
-            Contract.Assert(SuppressFinalizeMethod != null, "Unable to find the GC.SuppressFinalize");
-            MethodBuilder Meth = OutputTypeBuilder.DefineMethod("Dispose", MethodAttributes.Public | MethodAttributes.Virtual, null, null);
+                        MethodBuilder Meth = OutputTypeBuilder.DefineMethod("Dispose", MethodAttributes.Public | MethodAttributes.Virtual, null, null);
             ILGenerator il = Meth.GetILGenerator();
             il.Emit(OpCodes.Ldarg, (short)0);
             il.Emit(OpCodes.Callvirt, FinalizeMethod);

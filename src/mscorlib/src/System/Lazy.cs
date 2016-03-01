@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.ExceptionServices;
 using System.Runtime.Serialization;
 using System.Threading;
@@ -33,8 +33,7 @@ namespace System
 
         static readonly Func<T> ALREADY_INVOKED_SENTINEL = delegate
         {
-            Contract.Assert(false, "ALREADY_INVOKED_SENTINEL should never be invoked.");
-            return default (T);
+                        return default (T);
         }
 
         ;
@@ -146,8 +145,7 @@ namespace System
                     }
 
                     LazyInternalExceptionHolder exc = m_boxed as LazyInternalExceptionHolder;
-                    Contract.Assert(exc != null);
-                    exc.m_edi.Throw();
+                                        exc.m_edi.Throw();
                 }
 
                 return LazyInitValue();
@@ -184,8 +182,7 @@ namespace System
                     if (threadSafeObj != (object)ALREADY_INVOKED_SENTINEL)
                         Monitor.Enter(threadSafeObj, ref lockTaken);
                     else
-                        Contract.Assert(m_boxed != null);
-                    if (m_boxed == null)
+                                            if (m_boxed == null)
                     {
                         boxed = CreateValue();
                         m_boxed = boxed;
@@ -197,8 +194,7 @@ namespace System
                         if (boxed == null)
                         {
                             LazyInternalExceptionHolder exHolder = m_boxed as LazyInternalExceptionHolder;
-                            Contract.Assert(exHolder != null);
-                            exHolder.m_edi.Throw();
+                                                        exHolder.m_edi.Throw();
                         }
                     }
                 }
@@ -209,8 +205,7 @@ namespace System
                 }
             }
 
-            Contract.Assert(boxed != null);
-            return boxed.m_value;
+                        return boxed.m_value;
         }
 
         private Boxed CreateValue()

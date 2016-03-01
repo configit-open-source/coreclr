@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Collections.Generic
@@ -110,8 +110,7 @@ namespace System.Collections.Generic
         {
             get
             {
-                Contract.Ensures(Contract.Result<KeyCollection>() != null);
-                if (keys == null)
+                                if (keys == null)
                     keys = new KeyCollection(this);
                 return keys;
             }
@@ -141,8 +140,7 @@ namespace System.Collections.Generic
         {
             get
             {
-                Contract.Ensures(Contract.Result<ValueCollection>() != null);
-                if (values == null)
+                                if (values == null)
                     values = new ValueCollection(this);
                 return values;
             }
@@ -458,8 +456,7 @@ namespace System.Collections.Generic
 
         private void Resize(int newSize, bool forceNewHashCodes)
         {
-            Contract.Assert(newSize >= entries.Length);
-            int[] newBuckets = new int[newSize];
+                        int[] newBuckets = new int[newSize];
             for (int i = 0; i < newBuckets.Length; i++)
                 newBuckets[i] = -1;
             Entry[] newEntries = new Entry[newSize];

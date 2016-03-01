@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Collections
 {
@@ -21,8 +21,7 @@ namespace System.Collections
                     throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
                 }
 
-                Contract.EndContractBlock();
-                DictionaryNode node = head;
+                                DictionaryNode node = head;
                 while (node != null)
                 {
                     if (node.key.Equals(key))
@@ -43,8 +42,7 @@ namespace System.Collections
                     throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
                 }
 
-                Contract.EndContractBlock();
-                version++;
+                                version++;
                 DictionaryNode last = null;
                 DictionaryNode node;
                 for (node = head; node != null; node = node.next)
@@ -147,8 +145,7 @@ namespace System.Collections
                 throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
             }
 
-            Contract.EndContractBlock();
-            version++;
+                        version++;
             DictionaryNode last = null;
             DictionaryNode node;
             for (node = head; node != null; node = node.next)
@@ -196,8 +193,7 @@ namespace System.Collections
                 throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
             }
 
-            Contract.EndContractBlock();
-            for (DictionaryNode node = head; node != null; node = node.next)
+                        for (DictionaryNode node = head; node != null; node = node.next)
             {
                 if (node.key.Equals(key))
                 {
@@ -218,8 +214,7 @@ namespace System.Collections
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - index < this.Count)
                 throw new ArgumentException(Environment.GetResourceString("ArgumentOutOfRange_Index"), "index");
-            Contract.EndContractBlock();
-            for (DictionaryNode node = head; node != null; node = node.next)
+                        for (DictionaryNode node = head; node != null; node = node.next)
             {
                 array.SetValue(new DictionaryEntry(node.key, node.value), index);
                 index++;
@@ -243,8 +238,7 @@ namespace System.Collections
                 throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
             }
 
-            Contract.EndContractBlock();
-            version++;
+                        version++;
             DictionaryNode last = null;
             DictionaryNode node;
             for (node = head; node != null; node = node.next)
@@ -388,8 +382,7 @@ namespace System.Collections
                     throw new ArgumentException(Environment.GetResourceString("Arg_RankMultiDimNotSupported"));
                 if (index < 0)
                     throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-                Contract.EndContractBlock();
-                if (array.Length - index < list.Count)
+                                if (array.Length - index < list.Count)
                     throw new ArgumentException(Environment.GetResourceString("ArgumentOutOfRange_Index"), "index");
                 for (DictionaryNode node = list.head; node != null; node = node.next)
                 {

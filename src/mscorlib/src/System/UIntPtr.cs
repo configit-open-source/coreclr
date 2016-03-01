@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.Serialization;
 
@@ -61,8 +61,7 @@ namespace System
 
         public unsafe override String ToString()
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return ((ulong)m_value).ToString(CultureInfo.InvariantCulture);
+                        return ((ulong)m_value).ToString(CultureInfo.InvariantCulture);
         }
 
         public static explicit operator UIntPtr(uint value)

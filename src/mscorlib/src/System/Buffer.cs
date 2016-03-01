@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System
 {
@@ -8,8 +8,7 @@ namespace System
         internal static extern void InternalBlockCopy(Array src, int srcOffsetBytes, Array dst, int dstOffsetBytes, int byteCount);
         internal unsafe static int IndexOfByte(byte *src, byte value, int index, int count)
         {
-            Contract.Assert(src != null, "src should not be null");
-            byte *pByte = src + index;
+                        byte *pByte = src + index;
             while (((int)pByte & 3) != 0)
             {
                 if (count == 0)
@@ -101,9 +100,7 @@ namespace System
 
         internal unsafe static void Memcpy(byte[] dest, int destIndex, byte *src, int srcIndex, int len)
         {
-            Contract.Assert((srcIndex >= 0) && (destIndex >= 0) && (len >= 0), "Index and length must be non-negative!");
-            Contract.Assert(dest.Length - destIndex >= len, "not enough bytes in dest");
-            if (len == 0)
+                                    if (len == 0)
                 return;
             fixed (byte *pDest = dest)
             {
@@ -113,9 +110,7 @@ namespace System
 
         internal unsafe static void Memcpy(byte *pDest, int destIndex, byte[] src, int srcIndex, int len)
         {
-            Contract.Assert((srcIndex >= 0) && (destIndex >= 0) && (len >= 0), "Index and length must be non-negative!");
-            Contract.Assert(src.Length - srcIndex >= len, "not enough bytes in src");
-            if (len == 0)
+                                    if (len == 0)
                 return;
             fixed (byte *pSrc = src)
             {
@@ -125,8 +120,7 @@ namespace System
 
         internal unsafe static void Memcpy(byte *dest, byte *src, int len)
         {
-            Contract.Assert(len >= 0, "Negative length in memcopy!");
-            Memmove(dest, src, (uint)len);
+                        Memmove(dest, src, (uint)len);
         }
 
         internal unsafe static void Memmove(byte *dest, byte *src, ulong len)

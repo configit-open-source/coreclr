@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Reflection
@@ -23,8 +23,7 @@ namespace System.Reflection
                 throw new ArgumentNullException("type");
             if (!type.IsPointer)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBePointer"), "ptr");
-            Contract.EndContractBlock();
-            RuntimeType rt = type as RuntimeType;
+                        RuntimeType rt = type as RuntimeType;
             if (rt == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBePointer"), "ptr");
             Pointer x = new Pointer();

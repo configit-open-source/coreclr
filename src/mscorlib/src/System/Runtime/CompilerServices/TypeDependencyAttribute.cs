@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Runtime.CompilerServices
 {
@@ -9,8 +9,7 @@ namespace System.Runtime.CompilerServices
         {
             if (typeName == null)
                 throw new ArgumentNullException("typeName");
-            Contract.EndContractBlock();
-            this.typeName = typeName;
+                        this.typeName = typeName;
         }
     }
 }

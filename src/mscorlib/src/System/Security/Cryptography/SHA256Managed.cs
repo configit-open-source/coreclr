@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -12,8 +12,7 @@ namespace System.Security.Cryptography
         {
             if (CryptoConfig.AllowOnlyFipsAlgorithms)
                 throw new InvalidOperationException(Environment.GetResourceString("Cryptography_NonCompliantFIPSAlgorithm"));
-            Contract.EndContractBlock();
-            _stateSHA256 = new UInt32[8];
+                        _stateSHA256 = new UInt32[8];
             _buffer = new byte[64];
             _W = new UInt32[64];
             InitializeState();

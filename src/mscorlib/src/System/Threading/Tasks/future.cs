@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 
@@ -170,8 +168,7 @@ namespace System.Threading.Tasks
         {
             if (IsCompleted)
                 return false;
-            Contract.Assert(m_action == null, "Task<T>.TrySetResult(): non-null m_action");
-            if (AtomicStateUpdate(TASK_STATE_COMPLETION_RESERVED, TASK_STATE_COMPLETION_RESERVED | TASK_STATE_RAN_TO_COMPLETION | TASK_STATE_FAULTED | TASK_STATE_CANCELED))
+                        if (AtomicStateUpdate(TASK_STATE_COMPLETION_RESERVED, TASK_STATE_COMPLETION_RESERVED | TASK_STATE_RAN_TO_COMPLETION | TASK_STATE_FAULTED | TASK_STATE_CANCELED))
             {
                 m_result = result;
                 Interlocked.Exchange(ref m_stateFlags, m_stateFlags | TASK_STATE_RAN_TO_COMPLETION);
@@ -187,12 +184,10 @@ namespace System.Threading.Tasks
 
         internal void DangerousSetResult(TResult result)
         {
-            Contract.Assert(!IsCompleted, "The promise must not yet be completed.");
-            if (m_parent != null)
+                        if (m_parent != null)
             {
                 bool success = TrySetResult(result);
-                Contract.Assert(success);
-            }
+                            }
             else
             {
                 m_result = result;
@@ -212,8 +207,7 @@ namespace System.Threading.Tasks
         {
             get
             {
-                Contract.Assert(!IsWaitNotificationEnabledOrNotRanToCompletion, "Should only be used when the task completed successfully and there's no wait notification enabled");
-                return m_result;
+                                return m_result;
             }
         }
 
@@ -225,16 +219,12 @@ namespace System.Threading.Tasks
                 NotifyDebuggerOfWaitCompletionIfNecessary();
             if (!IsRanToCompletion)
                 ThrowIfExceptional(includeTaskCanceledExceptions: true);
-            Contract.Assert(IsRanToCompletion, "Task<T>.Result getter: Expected result to have been set.");
-            return m_result;
+                        return m_result;
         }
 
         internal bool TrySetException(object exceptionObject)
         {
-            Contract.Assert(m_action == null, "Task<T>.TrySetException(): non-null m_action");
-            Contract.Assert(exceptionObject != null, "Expected non-null exceptionObject argument");
-            Contract.Assert((exceptionObject is Exception) || (exceptionObject is IEnumerable<Exception>) || (exceptionObject is ExceptionDispatchInfo) || (exceptionObject is IEnumerable<ExceptionDispatchInfo>), "Expected exceptionObject to be either Exception, ExceptionDispatchInfo, or IEnumerable<> of one of those");
-            bool returnValue = false;
+                                                bool returnValue = false;
             EnsureContingentPropertiesInitialized(needsProtection: true);
             if (AtomicStateUpdate(TASK_STATE_COMPLETION_RESERVED, TASK_STATE_COMPLETION_RESERVED | TASK_STATE_RAN_TO_COMPLETION | TASK_STATE_FAULTED | TASK_STATE_CANCELED))
             {
@@ -253,10 +243,8 @@ namespace System.Threading.Tasks
 
         internal bool TrySetCanceled(CancellationToken tokenToRecord, object cancellationException)
         {
-            Contract.Assert(m_action == null, "Task<T>.TrySetCanceled(): non-null m_action");
-            var ceAsEdi = cancellationException as ExceptionDispatchInfo;
-            Contract.Assert(cancellationException == null || cancellationException is OperationCanceledException || (ceAsEdi != null && ceAsEdi.SourceException is OperationCanceledException), "Expected null or an OperationCanceledException");
-            bool returnValue = false;
+                        var ceAsEdi = cancellationException as ExceptionDispatchInfo;
+                        bool returnValue = false;
             if (AtomicStateUpdate(Task<object>.TASK_STATE_COMPLETION_RESERVED, Task<object>.TASK_STATE_COMPLETION_RESERVED | Task<object>.TASK_STATE_CANCELED | Task<object>.TASK_STATE_FAULTED | Task<object>.TASK_STATE_RAN_TO_COMPLETION))
             {
                 RecordInternalCancellationRequest(tokenToRecord, cancellationException);
@@ -277,8 +265,7 @@ namespace System.Threading.Tasks
 
         internal override void InnerInvoke()
         {
-            Contract.Assert(m_action != null);
-            var func = m_action as Func<TResult>;
+                        var func = m_action as Func<TResult>;
             if (func != null)
             {
                 m_result = func();
@@ -292,8 +279,7 @@ namespace System.Threading.Tasks
                 return;
             }
 
-            Contract.Assert(false, "Invalid m_action in Task<TResult>");
-        }
+                    }
 
         public new TaskAwaiter<TResult> GetAwaiter()
         {

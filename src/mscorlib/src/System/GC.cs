@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System
@@ -55,8 +55,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("pressure", Environment.GetResourceString("ArgumentOutOfRange_MustBeNonNegInt32"));
             }
 
-            Contract.EndContractBlock();
-            _AddMemoryPressure((ulong)bytesAllocated);
+                        _AddMemoryPressure((ulong)bytesAllocated);
         }
 
         public static void RemoveMemoryPressure(long bytesAllocated)
@@ -71,8 +70,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("bytesAllocated", Environment.GetResourceString("ArgumentOutOfRange_MustBeNonNegInt32"));
             }
 
-            Contract.EndContractBlock();
-            _RemoveMemoryPressure((ulong)bytesAllocated);
+                        _RemoveMemoryPressure((ulong)bytesAllocated);
         }
 
         public static extern int GetGeneration(Object obj);
@@ -108,8 +106,7 @@ namespace System
                 throw new ArgumentOutOfRangeException(Environment.GetResourceString("ArgumentOutOfRange_Enum"));
             }
 
-            Contract.EndContractBlock();
-            int iInternalModes = 0;
+                        int iInternalModes = 0;
             if (mode == GCCollectionMode.Optimized)
             {
                 iInternalModes |= (int)InternalGCCollectionMode.Optimized;
@@ -136,8 +133,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("generation", Environment.GetResourceString("ArgumentOutOfRange_GenericPositive"));
             }
 
-            Contract.EndContractBlock();
-            return _CollectionCount(generation, 0);
+                        return _CollectionCount(generation, 0);
         }
 
         internal static int CollectionCount(int generation, bool getSpecialGCCount)
@@ -147,8 +143,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("generation", Environment.GetResourceString("ArgumentOutOfRange_GenericPositive"));
             }
 
-            Contract.EndContractBlock();
-            return _CollectionCount(generation, (getSpecialGCCount ? 1 : 0));
+                        return _CollectionCount(generation, (getSpecialGCCount ? 1 : 0));
         }
 
         public static void KeepAlive(Object obj)
@@ -182,8 +177,7 @@ namespace System
         {
             if (obj == null)
                 throw new ArgumentNullException("obj");
-            Contract.EndContractBlock();
-            _SuppressFinalize(obj);
+                        _SuppressFinalize(obj);
         }
 
         private static extern void _ReRegisterForFinalize(Object o);
@@ -191,8 +185,7 @@ namespace System
         {
             if (obj == null)
                 throw new ArgumentNullException("obj");
-            Contract.EndContractBlock();
-            _ReRegisterForFinalize(obj);
+                        _ReRegisterForFinalize(obj);
         }
 
         public static long GetTotalMemory(bool forceFullCollection)

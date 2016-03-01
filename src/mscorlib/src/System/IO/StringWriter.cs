@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,8 +26,7 @@ namespace System.IO
         {
             if (sb == null)
                 throw new ArgumentNullException("sb", Environment.GetResourceString("ArgumentNull_Buffer"));
-            Contract.EndContractBlock();
-            _sb = sb;
+                        _sb = sb;
             _isOpen = true;
         }
 
@@ -77,8 +76,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (!_isOpen)
+                        if (!_isOpen)
                 __Error.WriterClosed();
             _sb.Append(buffer, index, count);
         }

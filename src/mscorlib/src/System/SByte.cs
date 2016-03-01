@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System
@@ -50,32 +50,27 @@ namespace System
 
         public override String ToString()
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return Number.FormatInt32(m_value, null, NumberFormatInfo.CurrentInfo);
+                        return Number.FormatInt32(m_value, null, NumberFormatInfo.CurrentInfo);
         }
 
         public String ToString(IFormatProvider provider)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return Number.FormatInt32(m_value, null, NumberFormatInfo.GetInstance(provider));
+                        return Number.FormatInt32(m_value, null, NumberFormatInfo.GetInstance(provider));
         }
 
         public String ToString(String format)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return ToString(format, NumberFormatInfo.CurrentInfo);
+                        return ToString(format, NumberFormatInfo.CurrentInfo);
         }
 
         public String ToString(String format, IFormatProvider provider)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return ToString(format, NumberFormatInfo.GetInstance(provider));
+                        return ToString(format, NumberFormatInfo.GetInstance(provider));
         }
 
         private String ToString(String format, NumberFormatInfo info)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            if (m_value < 0 && format != null && format.Length > 0 && (format[0] == 'X' || format[0] == 'x'))
+                        if (m_value < 0 && format != null && format.Length > 0 && (format[0] == 'X' || format[0] == 'x'))
             {
                 uint temp = (uint)(m_value & 0x000000FF);
                 return Number.FormatUInt32(temp, format, info);

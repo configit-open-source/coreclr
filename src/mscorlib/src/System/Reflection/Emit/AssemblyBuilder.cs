@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Diagnostics.SymbolStore;
 using System.Globalization;
 using System.IO;
@@ -121,9 +120,7 @@ namespace System.Reflection.Emit
         private bool m_profileAPICheck;
         internal ModuleBuilder GetModuleBuilder(InternalModuleBuilder module)
         {
-            Contract.Requires(module != null);
-            Contract.Assert(this.InternalAssembly == module.Assembly);
-            lock (SyncRoot)
+                                    lock (SyncRoot)
             {
                 if (m_manifestModuleBuilder.InternalModule == module)
                     return m_manifestModuleBuilder;
@@ -232,15 +229,13 @@ namespace System.Reflection.Emit
 
         public static AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, null, null, null, null, null, ref stackMark, null, SecurityContextSource.CurrentAssembly);
         }
 
         public static AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, IEnumerable<CustomAttributeBuilder> assemblyAttributes)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, null, null, null, null, null, ref stackMark, assemblyAttributes, SecurityContextSource.CurrentAssembly);
         }
 
@@ -259,15 +254,13 @@ namespace System.Reflection.Emit
 
         public ModuleBuilder DefineDynamicModule(String name)
         {
-            Contract.Ensures(Contract.Result<ModuleBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return DefineDynamicModuleInternal(name, false, ref stackMark);
         }
 
         public ModuleBuilder DefineDynamicModule(String name, bool emitSymbolInfo)
         {
-            Contract.Ensures(Contract.Result<ModuleBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return DefineDynamicModuleInternal(name, emitSymbolInfo, ref stackMark);
         }
 
@@ -287,11 +280,8 @@ namespace System.Reflection.Emit
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyName"), "name");
             if (name[0] == '\0')
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidName"), "name");
-            Contract.Ensures(Contract.Result<ModuleBuilder>() != null);
-            Contract.EndContractBlock();
-            BCLDebug.Log("DYNIL", "## DYNIL LOGGING: AssemblyBuilder.DefineDynamicModule( " + name + " )");
-            Contract.Assert(m_assemblyData != null, "m_assemblyData is null in DefineDynamicModuleInternal");
-            ModuleBuilder dynModule;
+                                    BCLDebug.Log("DYNIL", "## DYNIL LOGGING: AssemblyBuilder.DefineDynamicModule( " + name + " )");
+                        ModuleBuilder dynModule;
             ISymbolWriter writer = null;
             IntPtr pInternalSymWriter = new IntPtr();
             if (m_fManifestModuleUsedAsDefinedModule == true)
@@ -378,8 +368,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyFileName"), fileName);
             if (!String.Equals(fileName, Path.GetFileName(fileName)))
                 throw new ArgumentException(Environment.GetResourceString("Argument_NotSimpleFileName"), "fileName");
-            Contract.EndContractBlock();
-            BCLDebug.Log("DYNIL", "## DYNIL LOGGING: AssemblyBuilder.AddResourceFile( " + name + ", " + fileName + ")");
+                        BCLDebug.Log("DYNIL", "## DYNIL LOGGING: AssemblyBuilder.AddResourceFile( " + name + ", " + fileName + ")");
             m_assemblyData.CheckResNameConflict(name);
             m_assemblyData.CheckFileNameConflict(fileName);
             String fullFileName;
@@ -630,8 +619,7 @@ namespace System.Reflection.Emit
         {
             if (resource == null)
                 throw new ArgumentNullException("resource");
-            Contract.EndContractBlock();
-            lock (SyncRoot)
+                        lock (SyncRoot)
             {
                 DefineUnmanagedResourceNoLock(resource);
             }
@@ -649,8 +637,7 @@ namespace System.Reflection.Emit
         {
             if (resourceFileName == null)
                 throw new ArgumentNullException("resourceFileName");
-            Contract.EndContractBlock();
-            lock (SyncRoot)
+                        lock (SyncRoot)
             {
                 DefineUnmanagedResourceNoLock(resourceFileName);
             }
@@ -691,8 +678,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("name");
             if (name.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyName"), "name");
-            Contract.EndContractBlock();
-            BCLDebug.Log("DYNIL", "## DYNIL LOGGING: AssemblyBuilder.GetDynamicModule( " + name + " )");
+                        BCLDebug.Log("DYNIL", "## DYNIL LOGGING: AssemblyBuilder.GetDynamicModule( " + name + " )");
             int size = m_assemblyData.m_moduleBuilderList.Count;
             for (int i = 0; i < size; i++)
             {
@@ -723,8 +709,7 @@ namespace System.Reflection.Emit
         {
             if (entryMethod == null)
                 throw new ArgumentNullException("entryMethod");
-            Contract.EndContractBlock();
-            BCLDebug.Log("DYNIL", "## DYNIL LOGGING: AssemblyBuilder.SetEntryPoint");
+                        BCLDebug.Log("DYNIL", "## DYNIL LOGGING: AssemblyBuilder.SetEntryPoint");
             Module tmpModule = entryMethod.Module;
             if (tmpModule == null || !InternalAssembly.Equals(tmpModule.Assembly))
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_EntryMethodNotDefinedInAssembly"));
@@ -738,8 +723,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("con");
             if (binaryAttribute == null)
                 throw new ArgumentNullException("binaryAttribute");
-            Contract.EndContractBlock();
-            lock (SyncRoot)
+                        lock (SyncRoot)
             {
                 SetCustomAttributeNoLock(con, binaryAttribute);
             }
@@ -761,8 +745,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("customBuilder");
             }
 
-            Contract.EndContractBlock();
-            lock (SyncRoot)
+                        lock (SyncRoot)
             {
                 SetCustomAttributeNoLock(customBuilder);
             }

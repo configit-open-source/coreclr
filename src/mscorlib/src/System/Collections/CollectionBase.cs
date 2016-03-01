@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Collections
 {
@@ -65,8 +65,7 @@ namespace System.Collections
         {
             if (index < 0 || index >= Count)
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            Object temp = InnerList[index];
+                        Object temp = InnerList[index];
             OnValidate(temp);
             OnRemove(index, temp);
             InnerList.RemoveAt(index);
@@ -124,16 +123,14 @@ namespace System.Collections
             {
                 if (index < 0 || index >= Count)
                     throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-                Contract.EndContractBlock();
-                return InnerList[index];
+                                return InnerList[index];
             }
 
             set
             {
                 if (index < 0 || index >= Count)
                     throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-                Contract.EndContractBlock();
-                OnValidate(value);
+                                OnValidate(value);
                 Object temp = InnerList[index];
                 OnSet(index, temp, value);
                 InnerList[index] = value;
@@ -200,8 +197,7 @@ namespace System.Collections
         {
             if (index < 0 || index > Count)
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            OnValidate(value);
+                        OnValidate(value);
             OnInsert(index, value);
             InnerList.Insert(index, value);
             try
@@ -240,8 +236,7 @@ namespace System.Collections
         {
             if (value == null)
                 throw new ArgumentNullException("value");
-            Contract.EndContractBlock();
-        }
+                    }
 
         protected virtual void OnSetComplete(int index, Object oldValue, Object newValue)
         {

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -93,8 +92,7 @@ namespace System.Reflection
         {
             get
             {
-                Contract.Ensures(Contract.Result<MemberInfo>() != null);
-                return MemberImpl;
+                                return MemberImpl;
             }
         }
 
@@ -173,16 +171,14 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            return EmptyArray<Object>.Value;
+                        return EmptyArray<Object>.Value;
         }
 
         public virtual bool IsDefined(Type attributeType, bool inherit)
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            return false;
+                        return false;
         }
 
         public virtual IList<CustomAttributeData> GetCustomAttributesData()
@@ -192,8 +188,7 @@ namespace System.Reflection
 
         public object GetRealObject(StreamingContext context)
         {
-            Contract.Ensures(Contract.Result<Object>() != null);
-            if (MemberImpl == null)
+                        if (MemberImpl == null)
                 throw new SerializationException(Environment.GetResourceString(ResId.Serialization_InsufficientState));
             ParameterInfo[] args = null;
             switch (MemberImpl.MemberType)
@@ -232,15 +227,13 @@ namespace System.Reflection
     {
         internal unsafe static ParameterInfo[] GetParameters(IRuntimeMethodInfo method, MemberInfo member, Signature sig)
         {
-            Contract.Assert(method is RuntimeMethodInfo || method is RuntimeConstructorInfo);
-            ParameterInfo dummy;
+                        ParameterInfo dummy;
             return GetParameters(method, member, sig, out dummy, false);
         }
 
         internal unsafe static ParameterInfo GetReturnParameter(IRuntimeMethodInfo method, MemberInfo member, Signature sig)
         {
-            Contract.Assert(method is RuntimeMethodInfo || method is RuntimeConstructorInfo);
-            ParameterInfo returnParameter;
+                        ParameterInfo returnParameter;
             GetParameters(method, member, sig, out returnParameter, true);
             return returnParameter;
         }
@@ -318,8 +311,7 @@ namespace System.Reflection
             get
             {
                 MethodBase result = m_originalMember != null ? m_originalMember : MemberImpl as MethodBase;
-                Contract.Assert(result != null);
-                return result;
+                                return result;
             }
         }
 
@@ -327,8 +319,7 @@ namespace System.Reflection
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            info.SetType(typeof (ParameterInfo));
+                        info.SetType(typeof (ParameterInfo));
             info.AddValue("AttrsImpl", Attributes);
             info.AddValue("ClassImpl", ParameterType);
             info.AddValue("DefaultValueImpl", DefaultValue);
@@ -347,8 +338,7 @@ namespace System.Reflection
         {
             MemberImpl = member;
             m_originalMember = accessor.MemberImpl as MethodBase;
-            Contract.Assert(m_originalMember != null);
-            NameImpl = accessor.Name;
+                        NameImpl = accessor.Name;
             m_nameIsCached = true;
             ClassImpl = accessor.ParameterType;
             PositionImpl = accessor.Position;
@@ -359,10 +349,7 @@ namespace System.Reflection
 
         private RuntimeParameterInfo(Signature signature, MetadataImport scope, int tkParamDef, int position, ParameterAttributes attributes, MemberInfo member)
         {
-            Contract.Requires(member != null);
-            Contract.Assert(MdToken.IsNullToken(tkParamDef) == scope.Equals(MetadataImport.EmptyImport));
-            Contract.Assert(MdToken.IsNullToken(tkParamDef) || MdToken.IsTokenOfType(tkParamDef, MetadataTokenType.ParamDef));
-            PositionImpl = position;
+                                                PositionImpl = position;
             MemberImpl = member;
             m_signature = signature;
             m_tkParamDef = MdToken.IsNullToken(tkParamDef) ? (int)MetadataTokenType.ParamDef : tkParamDef;
@@ -396,8 +383,7 @@ namespace System.Reflection
                         parameterType = m_signature.ReturnType;
                     else
                         parameterType = m_signature.Arguments[PositionImpl];
-                    Contract.Assert(parameterType != null);
-                    ClassImpl = parameterType;
+                                        ClassImpl = parameterType;
                 }
 
                 return ClassImpl;
@@ -472,8 +458,7 @@ namespace System.Reflection
 
         private Object GetDefaultValueInternal(bool raw)
         {
-            Contract.Assert(!m_noMetadata);
-            if (m_noDefaultValue)
+                        if (m_noDefaultValue)
                 return DBNull.Value;
             object defaultValue = null;
             if (ParameterType == typeof (DateTime))
@@ -585,8 +570,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            if (MdToken.IsNullToken(m_tkParamDef))
+                        if (MdToken.IsNullToken(m_tkParamDef))
                 return EmptyArray<Object>.Value;
             RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
@@ -598,8 +582,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            if (MdToken.IsNullToken(m_tkParamDef))
+                        if (MdToken.IsNullToken(m_tkParamDef))
                 return false;
             RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)

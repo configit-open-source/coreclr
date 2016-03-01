@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 
 namespace System.Security.Util
@@ -32,8 +31,7 @@ namespace System.Security.Util
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidSite"));
             }
 
-            Contract.EndContractBlock();
-            ArrayList list = new ArrayList();
+                        ArrayList list = new ArrayList();
             int braIndex = -1;
             int ketIndex = -1;
             braIndex = site.IndexOf('[');

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Reflection;
 
@@ -27,8 +26,7 @@ namespace Microsoft.Win32
 
         private static int GetCVTypeFromClass(Type ctype)
         {
-            Contract.Requires(ctype != null);
-            BCLDebug.Assert(ClassTypes[CV_OBJECT] == typeof (Object), "OAVariantLib::ClassTypes[CV_OBJECT] == Object.class");
+                        BCLDebug.Assert(ClassTypes[CV_OBJECT] == typeof (Object), "OAVariantLib::ClassTypes[CV_OBJECT] == Object.class");
             int cvtype = -1;
             for (int i = 0; i < ClassTypes.Length; i++)
             {

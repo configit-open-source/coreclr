@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System
 {
@@ -93,8 +93,7 @@ namespace System
         {
             if (value == null)
                 throw new ArgumentNullException("value");
-            Contract.EndContractBlock();
-            Boolean result = false;
+                        Boolean result = false;
             if (!TryParse(value, out result))
             {
                 throw new FormatException(Environment.GetResourceString("Format_BadBoolean"));

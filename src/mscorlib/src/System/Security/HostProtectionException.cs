@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
@@ -33,8 +33,7 @@ namespace System.Security
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            m_protected = (HostProtectionResource)info.GetValue(ProtectedResourcesName, typeof (HostProtectionResource));
+                        m_protected = (HostProtectionResource)info.GetValue(ProtectedResourcesName, typeof (HostProtectionResource));
             m_demanded = (HostProtectionResource)info.GetValue(DemandedResourcesName, typeof (HostProtectionResource));
         }
 
@@ -95,8 +94,7 @@ namespace System.Security
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            base.GetObjectData(info, context);
+                        base.GetObjectData(info, context);
             info.AddValue(ProtectedResourcesName, ProtectedResources, typeof (HostProtectionResource));
             info.AddValue(DemandedResourcesName, DemandedResources, typeof (HostProtectionResource));
         }

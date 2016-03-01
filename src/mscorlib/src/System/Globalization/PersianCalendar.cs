@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -120,8 +120,7 @@ namespace System.Globalization
 
         static int MonthFromOrdinalDay(int ordinalDay)
         {
-            Contract.Assert(ordinalDay <= 366);
-            int index = 0;
+                        int index = 0;
             while (ordinalDay > DaysToMonth[index])
                 index++;
             return index;
@@ -129,8 +128,7 @@ namespace System.Globalization
 
         static int DaysInPreviousMonths(int month)
         {
-            Contract.Assert(1 <= month && month <= 12);
-            --month;
+                        --month;
             return DaysToMonth[month];
         }
 
@@ -141,8 +139,7 @@ namespace System.Globalization
             NumDays = ticks / GregorianCalendar.TicksPerDay + 1;
             long yearStart = CalendricalCalculationsHelper.PersianNewYearOnOrBefore(NumDays);
             int y = (int)(Math.Floor(((yearStart - PersianEpoch) / CalendricalCalculationsHelper.MeanTropicalYearInDays) + 0.5)) + 1;
-            Contract.Assert(y >= 1);
-            if (part == DatePartYear)
+                        if (part == DatePartYear)
             {
                 return y;
             }
@@ -154,17 +151,13 @@ namespace System.Globalization
             }
 
             int m = MonthFromOrdinalDay(ordinalDay);
-            Contract.Assert(ordinalDay >= 1);
-            Contract.Assert(m >= 1 && m <= 12);
-            if (part == DatePartMonth)
+                                    if (part == DatePartMonth)
             {
                 return m;
             }
 
             int d = ordinalDay - DaysInPreviousMonths(m);
-            Contract.Assert(1 <= d);
-            Contract.Assert(d <= 31);
-            if (part == DatePartDay)
+                                    if (part == DatePartDay)
             {
                 return (d);
             }
@@ -179,8 +172,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("months", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), -120000, 120000));
             }
 
-            Contract.EndContractBlock();
-            int y = GetDatePart(time.Ticks, DatePartYear);
+                        int y = GetDatePart(time.Ticks, DatePartYear);
             int m = GetDatePart(time.Ticks, DatePartMonth);
             int d = GetDatePart(time.Ticks, DatePartDay);
             int i = m - 1 + months;
@@ -237,8 +229,7 @@ namespace System.Globalization
             int daysInMonth = DaysToMonth[month] - DaysToMonth[month - 1];
             if ((month == MonthsPerYear) && !IsLeapYear(year))
             {
-                Contract.Assert(daysInMonth == 30);
-                --daysInMonth;
+                                --daysInMonth;
             }
 
             return daysInMonth;
@@ -376,8 +367,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (year < 100)
+                        if (year < 100)
             {
                 return (base.ToFourDigitYear(year));
             }

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
@@ -124,8 +124,7 @@ namespace System.Threading
                 throw new ArgumentOutOfRangeException("millisecondsTimeout", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
             }
 
-            Contract.EndContractBlock();
-            return WaitOne((long)millisecondsTimeout, exitContext);
+                        return WaitOne((long)millisecondsTimeout, exitContext);
         }
 
         public virtual bool WaitOne(TimeSpan timeout, bool exitContext)
@@ -166,8 +165,7 @@ namespace System.Threading
                 throw new ObjectDisposedException(null, Environment.GetResourceString("ObjectDisposed_Generic"));
             }
 
-            Contract.EndContractBlock();
-            int ret = WaitOneNative(waitableSafeHandle, (uint)millisecondsTimeout, hasThreadAffinity, exitContext);
+                        int ret = WaitOneNative(waitableSafeHandle, (uint)millisecondsTimeout, hasThreadAffinity, exitContext);
             if (AppDomainPauseManager.IsPaused)
                 AppDomainPauseManager.ResumeEvent.WaitOneWithoutFAS();
             if (ret == WAIT_ABANDONED)
@@ -185,8 +183,7 @@ namespace System.Threading
                 throw new ObjectDisposedException(null, Environment.GetResourceString("ObjectDisposed_Generic"));
             }
 
-            Contract.EndContractBlock();
-            long timeout = -1;
+                        long timeout = -1;
             int ret = WaitOneNative(safeWaitHandle, (uint)timeout, hasThreadAffinity, false);
             if (ret == WAIT_ABANDONED)
             {
@@ -220,8 +217,7 @@ namespace System.Threading
                 throw new ArgumentOutOfRangeException("millisecondsTimeout", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
             }
 
-            Contract.EndContractBlock();
-            WaitHandle[] internalWaitHandles = new WaitHandle[waitHandles.Length];
+                        WaitHandle[] internalWaitHandles = new WaitHandle[waitHandles.Length];
             for (int i = 0; i < waitHandles.Length; i++)
             {
                 WaitHandle waitHandle = waitHandles[i];
@@ -293,8 +289,7 @@ namespace System.Threading
                 throw new ArgumentOutOfRangeException("millisecondsTimeout", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
             }
 
-            Contract.EndContractBlock();
-            WaitHandle[] internalWaitHandles = new WaitHandle[waitHandles.Length];
+                        WaitHandle[] internalWaitHandles = new WaitHandle[waitHandles.Length];
             for (int i = 0; i < waitHandles.Length; i++)
             {
                 WaitHandle waitHandle = waitHandles[i];
@@ -384,8 +379,7 @@ namespace System.Threading
                 throw new ArgumentOutOfRangeException("millisecondsTimeout", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
             }
 
-            Contract.EndContractBlock();
-            int ret = SignalAndWaitOne(toSignal.safeWaitHandle, toWaitOn.safeWaitHandle, millisecondsTimeout, toWaitOn.hasThreadAffinity, exitContext);
+                        int ret = SignalAndWaitOne(toSignal.safeWaitHandle, toWaitOn.safeWaitHandle, millisecondsTimeout, toWaitOn.hasThreadAffinity, exitContext);
             if (WAIT_ABANDONED == ret)
             {
                 ThrowAbandonedMutexException();

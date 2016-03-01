@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Security.Permissions;
 using System.Text;
@@ -1089,8 +1088,7 @@ namespace Microsoft.Win32
 
         private static void FixupPath(StringBuilder path)
         {
-            Contract.Requires(path != null);
-            int length = path.Length;
+                        int length = path.Length;
             bool fixup = false;
             char markerChar = (char)0xFFFF;
             int i = 1;
@@ -1541,8 +1539,7 @@ namespace Microsoft.Win32
 
         static private void ValidateKeyName(string name)
         {
-            Contract.Ensures(name != null);
-            if (name == null)
+                        if (name == null)
             {
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.name);
             }

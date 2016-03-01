@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.InteropServices;
 
@@ -18,8 +18,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyName"), "name");
             if (name[0] == '\0')
                 throw new ArgumentException(Environment.GetResourceString("Argument_IllegalName"), "name");
-            Contract.EndContractBlock();
-            m_name = name;
+                        m_name = name;
             m_moduleBuilder = mod;
             m_signature = sig;
             m_attributes = attr;

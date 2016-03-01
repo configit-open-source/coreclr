@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -169,8 +169,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            return (helper.ToFourDigitYear(year, this.TwoDigitYearMax));
+                        return (helper.ToFourDigitYear(year, this.TwoDigitYearMax));
         }
     }
 }

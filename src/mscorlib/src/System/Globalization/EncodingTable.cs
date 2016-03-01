@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Text;
 
 namespace System.Globalization
@@ -80,8 +79,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("name");
             }
 
-            Contract.EndContractBlock();
-            Object codePageObj;
+                        Object codePageObj;
             codePageObj = hashByName[name];
             if (codePageObj != null)
             {

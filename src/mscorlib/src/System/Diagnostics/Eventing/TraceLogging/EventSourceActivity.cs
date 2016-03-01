@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Diagnostics.Tracing
 {
@@ -8,8 +8,7 @@ namespace System.Diagnostics.Tracing
         {
             if (eventSource == null)
                 throw new ArgumentNullException("eventSource");
-            Contract.EndContractBlock();
-            this.eventSource = eventSource;
+                        this.eventSource = eventSource;
         }
 
         public static implicit operator EventSourceActivity(EventSource eventSource)

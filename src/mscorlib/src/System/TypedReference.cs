@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 
 namespace System
@@ -13,8 +13,7 @@ namespace System
                 throw new ArgumentNullException("target");
             if (flds == null)
                 throw new ArgumentNullException("flds");
-            Contract.EndContractBlock();
-            if (flds.Length == 0)
+                        if (flds.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_ArrayZeroError"));
             IntPtr[] fields = new IntPtr[flds.Length];
             RuntimeType targetType = (RuntimeType)target.GetType();

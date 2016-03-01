@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Runtime.Serialization;
 
@@ -135,8 +134,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            m_unityType = info.GetInt32("UnityType");
+                        m_unityType = info.GetInt32("UnityType");
             if (m_unityType == MissingUnity)
                 return;
             if (m_unityType == GenericParameterTypeUnity)

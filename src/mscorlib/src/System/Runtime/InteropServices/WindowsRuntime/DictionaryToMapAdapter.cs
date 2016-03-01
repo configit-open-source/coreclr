@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -9,8 +8,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private DictionaryToMapAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal V Lookup<K, V>(K key)
         {
@@ -42,8 +40,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         internal IReadOnlyDictionary<K, V> GetView<K, V>()
         {
             IDictionary<K, V> _this = JitHelpers.UnsafeCast<IDictionary<K, V>>(this);
-            Contract.Assert(_this != null);
-            IReadOnlyDictionary<K, V> roDictionary = _this as IReadOnlyDictionary<K, V>;
+                        IReadOnlyDictionary<K, V> roDictionary = _this as IReadOnlyDictionary<K, V>;
             if (roDictionary == null)
             {
                 roDictionary = new ReadOnlyDictionary<K, V>(_this);

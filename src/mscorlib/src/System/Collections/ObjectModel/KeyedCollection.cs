@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Collections.ObjectModel
 {
@@ -274,8 +273,7 @@ namespace System.Collections.ObjectModel
 
         private void RemoveKey(TKey key)
         {
-            Contract.Assert(key != null, "key shouldn't be null!");
-            if (dict != null)
+                        if (dict != null)
             {
                 dict.Remove(key);
             }

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System
@@ -26,8 +26,7 @@ namespace System
 
             if ((Object)version == null)
                 throw new ArgumentNullException("version");
-            Contract.EndContractBlock();
-            _platform = platform;
+                        _platform = platform;
             _version = (Version)version.Clone();
             _servicePack = servicePack;
         }
@@ -64,8 +63,7 @@ namespace System
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            info.AddValue("_version", _version);
+                        info.AddValue("_version", _version);
             info.AddValue("_platform", _platform);
             info.AddValue("_servicePack", _servicePack);
         }

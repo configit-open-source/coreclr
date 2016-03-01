@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Diagnostics.SymbolStore;
 using System.Globalization;
 using System.Runtime.InteropServices;
@@ -57,8 +56,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentException(Environment.GetResourceString("Argument_IllegalName"), "name");
             if (mod == null)
                 throw new ArgumentNullException("mod");
-            Contract.EndContractBlock();
-            if (parameterTypes != null)
+                        if (parameterTypes != null)
             {
                 foreach (Type t in parameterTypes)
                 {
@@ -134,8 +132,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("il");
             }
 
-            Contract.EndContractBlock();
-            __ExceptionInfo[] excp;
+                        __ExceptionInfo[] excp;
             int counter = 0;
             int[] filterAddrs;
             int[] catchAddrs;
@@ -259,8 +256,7 @@ namespace System.Reflection.Emit
             }
             else
             {
-                Contract.Assert(false, "We should never get here!");
-                return null;
+                                return null;
             }
         }
 
@@ -605,8 +601,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("names");
             if (names.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_EmptyArray"), "names");
-            Contract.EndContractBlock();
-            if (m_inst != null)
+                        if (m_inst != null)
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_GenericParametersAlreadySet"));
             for (int i = 0; i < names.Length; i++)
                 if (names[i] == null)
@@ -654,15 +649,12 @@ namespace System.Reflection.Emit
                 m_containingType.m_lastTokenizedMethod = i;
             }
 
-            Contract.Assert(currentMethod == this, "We should have found this method in m_containingType.m_listMethods");
-            Contract.Assert(currentToken.Token != 0, "The token should not be 0");
-            return currentToken;
+                                    return currentToken;
         }
 
         private MethodToken GetTokenNoLock()
         {
-            Contract.Assert(m_tkMethod.Token == 0, "m_tkMethod should not have been initialized");
-            int sigLength;
+                        int sigLength;
             byte[] sigBytes = GetMethodSignature().InternalGetSignature(out sigLength);
             int token = TypeBuilder.DefineMethod(m_module.GetNativeHandle(), m_containingType.MetadataTokenInternal, m_strName, sigBytes, sigLength, Attributes);
             m_tkMethod = new MethodToken(token);
@@ -716,8 +708,7 @@ namespace System.Reflection.Emit
         {
             if (position < 0)
                 throw new ArgumentOutOfRangeException(Environment.GetResourceString("ArgumentOutOfRange_ParamSequence"));
-            Contract.EndContractBlock();
-            ThrowIfGeneric();
+                        ThrowIfGeneric();
             m_containingType.ThrowIfCreated();
             if (position > 0 && (m_parameterTypes == null || position > m_parameterTypes.Length))
                 throw new ArgumentOutOfRangeException(Environment.GetResourceString("ArgumentOutOfRange_ParamSequence"));
@@ -777,8 +768,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentOutOfRangeException("maxStack", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (m_bIsBaked)
+                        if (m_bIsBaked)
             {
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_MethodBaked"));
             }
@@ -890,8 +880,7 @@ namespace System.Reflection.Emit
 
         public ILGenerator GetILGenerator()
         {
-            Contract.Ensures(Contract.Result<ILGenerator>() != null);
-            ThrowIfGeneric();
+                        ThrowIfGeneric();
             ThrowIfShouldNotHaveBody();
             if (m_ilGenerator == null)
                 m_ilGenerator = new ILGenerator(this);
@@ -900,8 +889,7 @@ namespace System.Reflection.Emit
 
         public ILGenerator GetILGenerator(int size)
         {
-            Contract.Ensures(Contract.Result<ILGenerator>() != null);
-            ThrowIfGeneric();
+                        ThrowIfGeneric();
             ThrowIfShouldNotHaveBody();
             if (m_ilGenerator == null)
                 m_ilGenerator = new ILGenerator(this, size);
@@ -951,8 +939,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("con");
             if (binaryAttribute == null)
                 throw new ArgumentNullException("binaryAttribute");
-            Contract.EndContractBlock();
-            ThrowIfGeneric();
+                        ThrowIfGeneric();
             TypeBuilder.DefineCustomAttribute(m_module, MetadataTokenInternal, ((ModuleBuilder)m_module).GetConstructorToken(con).Token, binaryAttribute, false, false);
             if (IsKnownCA(con))
                 ParseCA(con, binaryAttribute);
@@ -962,8 +949,7 @@ namespace System.Reflection.Emit
         {
             if (customBuilder == null)
                 throw new ArgumentNullException("customBuilder");
-            Contract.EndContractBlock();
-            ThrowIfGeneric();
+                        ThrowIfGeneric();
             customBuilder.CreateCustomAttribute((ModuleBuilder)m_module, MetadataTokenInternal);
             if (IsKnownCA(customBuilder.m_con))
                 ParseCA(customBuilder.m_con, customBuilder.m_blob);
@@ -1206,8 +1192,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidTypeToken", exceptionTypeToken), "exceptionTypeToken");
             }
 
-            Contract.EndContractBlock();
-            if (!IsValidKind(kind))
+                        if (!IsValidKind(kind))
             {
                 throw new ArgumentOutOfRangeException("kind", Environment.GetResourceString("ArgumentOutOfRange_Enum"));
             }
@@ -1223,14 +1208,7 @@ namespace System.Reflection.Emit
 
         internal ExceptionHandler(int tryStartOffset, int tryEndOffset, int filterOffset, int handlerStartOffset, int handlerEndOffset, int kind, int exceptionTypeToken)
         {
-            Contract.Assert(tryStartOffset >= 0);
-            Contract.Assert(tryEndOffset >= 0);
-            Contract.Assert(filterOffset >= 0);
-            Contract.Assert(handlerStartOffset >= 0);
-            Contract.Assert(handlerEndOffset >= 0);
-            Contract.Assert(IsValidKind((ExceptionHandlingClauseOptions)kind));
-            Contract.Assert(kind != (int)ExceptionHandlingClauseOptions.Clause || (exceptionTypeToken & 0x00FFFFFF) != 0);
-            m_tryStartOffset = tryStartOffset;
+                                                                                                m_tryStartOffset = tryStartOffset;
             m_tryEndOffset = tryEndOffset;
             m_filterOffset = filterOffset;
             m_handlerStartOffset = handlerStartOffset;

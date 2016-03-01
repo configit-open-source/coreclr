@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -35,8 +35,7 @@ namespace System.Security.Cryptography
             {
                 if (value == null)
                     throw new ArgumentNullException("value");
-                Contract.EndContractBlock();
-                if (!ValidKeySize(value.Length * 8))
+                                if (!ValidKeySize(value.Length * 8))
                 {
                     throw new CryptographicException(Environment.GetResourceString("Cryptography_InvalidKeySize"));
                 }
@@ -86,8 +85,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
             if ((start2 + count) > rgbKey.Length)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
-            Contract.EndContractBlock();
-            for (int i = 0; i < count; i++)
+                        for (int i = 0; i < count; i++)
             {
                 if (rgbKey[start1 + i] != rgbKey[start2 + i])
                     return (false);

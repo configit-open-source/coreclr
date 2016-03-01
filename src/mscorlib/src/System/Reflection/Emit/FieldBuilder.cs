@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.InteropServices;
 
@@ -24,8 +24,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("type");
             if (type == typeof (void))
                 throw new ArgumentException(Environment.GetResourceString("Argument_BadFieldType"));
-            Contract.EndContractBlock();
-            m_fieldName = fieldName;
+                        m_fieldName = fieldName;
             m_typeBuilder = typeBuilder;
             m_fieldType = type;
             m_Attributes = attributes & ~FieldAttributes.ReservedMask;
@@ -155,8 +154,7 @@ namespace System.Reflection.Emit
         {
             if (unmanagedMarshal == null)
                 throw new ArgumentNullException("unmanagedMarshal");
-            Contract.EndContractBlock();
-            m_typeBuilder.ThrowIfCreated();
+                        m_typeBuilder.ThrowIfCreated();
             byte[] ubMarshal = unmanagedMarshal.InternalGetBytes();
             TypeBuilder.SetFieldMarshal(m_typeBuilder.GetModuleBuilder().GetNativeHandle(), GetToken().Token, ubMarshal, ubMarshal.Length);
         }
@@ -173,8 +171,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("con");
             if (binaryAttribute == null)
                 throw new ArgumentNullException("binaryAttribute");
-            Contract.EndContractBlock();
-            ModuleBuilder module = m_typeBuilder.Module as ModuleBuilder;
+                        ModuleBuilder module = m_typeBuilder.Module as ModuleBuilder;
             m_typeBuilder.ThrowIfCreated();
             TypeBuilder.DefineCustomAttribute(module, m_tkField.Token, module.GetConstructorToken(con).Token, binaryAttribute, false, false);
         }
@@ -183,8 +180,7 @@ namespace System.Reflection.Emit
         {
             if (customBuilder == null)
                 throw new ArgumentNullException("customBuilder");
-            Contract.EndContractBlock();
-            m_typeBuilder.ThrowIfCreated();
+                        m_typeBuilder.ThrowIfCreated();
             ModuleBuilder module = m_typeBuilder.Module as ModuleBuilder;
             customBuilder.CreateCustomAttribute(module, m_tkField.Token);
         }

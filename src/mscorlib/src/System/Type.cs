@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -200,13 +199,13 @@ namespace System
 
         public abstract Assembly Assembly
         {
-            [Pure]
+            
             get;
         }
 
         public virtual RuntimeTypeHandle TypeHandle
         {
-            [Pure]
+            
             get
             {
                 throw new NotSupportedException();
@@ -229,31 +228,30 @@ namespace System
         public static extern Type GetTypeFromHandle(RuntimeTypeHandle handle);
         public abstract String FullName
         {
-            [Pure]
+            
             get;
         }
 
         public abstract String Namespace
         {
-            [Pure]
+            
             get;
         }
 
         public abstract String AssemblyQualifiedName
         {
-            [Pure]
+            
             get;
         }
 
         public virtual int GetArrayRank()
         {
-            Contract.Ensures(Contract.Result<int>() >= 0);
-            throw new NotSupportedException(Environment.GetResourceString("NotSupported_SubclassOverride"));
+                        throw new NotSupportedException(Environment.GetResourceString("NotSupported_SubclassOverride"));
         }
 
         public abstract Type BaseType
         {
-            [Pure]
+            
             get;
         }
 
@@ -261,8 +259,7 @@ namespace System
         {
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            for (int i = 0; i < types.Length; i++)
+                        for (int i = 0; i < types.Length; i++)
                 if (types[i] == null)
                     throw new ArgumentNullException("types");
             return GetConstructorImpl(bindingAttr, binder, callConvention, types, modifiers);
@@ -272,8 +269,7 @@ namespace System
         {
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            for (int i = 0; i < types.Length; i++)
+                        for (int i = 0; i < types.Length; i++)
                 if (types[i] == null)
                     throw new ArgumentNullException("types");
             return GetConstructorImpl(bindingAttr, binder, CallingConventions.Any, types, modifiers);
@@ -305,8 +301,7 @@ namespace System
                 throw new ArgumentNullException("name");
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            for (int i = 0; i < types.Length; i++)
+                        for (int i = 0; i < types.Length; i++)
                 if (types[i] == null)
                     throw new ArgumentNullException("types");
             return GetMethodImpl(name, bindingAttr, binder, callConvention, types, modifiers);
@@ -318,8 +313,7 @@ namespace System
                 throw new ArgumentNullException("name");
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            for (int i = 0; i < types.Length; i++)
+                        for (int i = 0; i < types.Length; i++)
                 if (types[i] == null)
                     throw new ArgumentNullException("types");
             return GetMethodImpl(name, bindingAttr, binder, CallingConventions.Any, types, modifiers);
@@ -331,8 +325,7 @@ namespace System
                 throw new ArgumentNullException("name");
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            for (int i = 0; i < types.Length; i++)
+                        for (int i = 0; i < types.Length; i++)
                 if (types[i] == null)
                     throw new ArgumentNullException("types");
             return GetMethodImpl(name, Type.DefaultLookup, null, CallingConventions.Any, types, modifiers);
@@ -344,8 +337,7 @@ namespace System
                 throw new ArgumentNullException("name");
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            for (int i = 0; i < types.Length; i++)
+                        for (int i = 0; i < types.Length; i++)
                 if (types[i] == null)
                     throw new ArgumentNullException("types");
             return GetMethodImpl(name, Type.DefaultLookup, null, CallingConventions.Any, types, null);
@@ -355,16 +347,14 @@ namespace System
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            return GetMethodImpl(name, bindingAttr, null, CallingConventions.Any, null, null);
+                        return GetMethodImpl(name, bindingAttr, null, CallingConventions.Any, null, null);
         }
 
         public MethodInfo GetMethod(String name)
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            return GetMethodImpl(name, Type.DefaultLookup, null, CallingConventions.Any, null, null);
+                        return GetMethodImpl(name, Type.DefaultLookup, null, CallingConventions.Any, null, null);
         }
 
         abstract protected MethodInfo GetMethodImpl(String name, BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers);
@@ -397,8 +387,7 @@ namespace System
         {
             if (filter == null)
                 throw new ArgumentNullException("filter");
-            Contract.EndContractBlock();
-            Type[] c = GetInterfaces();
+                        Type[] c = GetInterfaces();
             int cnt = 0;
             for (int i = 0; i < c.Length; i++)
             {
@@ -439,8 +428,7 @@ namespace System
                 throw new ArgumentNullException("name");
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            return GetPropertyImpl(name, bindingAttr, binder, returnType, types, modifiers);
+                        return GetPropertyImpl(name, bindingAttr, binder, returnType, types, modifiers);
         }
 
         public PropertyInfo GetProperty(String name, Type returnType, Type[] types, ParameterModifier[] modifiers)
@@ -449,16 +437,14 @@ namespace System
                 throw new ArgumentNullException("name");
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            return GetPropertyImpl(name, Type.DefaultLookup, null, returnType, types, modifiers);
+                        return GetPropertyImpl(name, Type.DefaultLookup, null, returnType, types, modifiers);
         }
 
         public PropertyInfo GetProperty(String name, BindingFlags bindingAttr)
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            return GetPropertyImpl(name, bindingAttr, null, null, null, null);
+                        return GetPropertyImpl(name, bindingAttr, null, null, null, null);
         }
 
         public PropertyInfo GetProperty(String name, Type returnType, Type[] types)
@@ -467,8 +453,7 @@ namespace System
                 throw new ArgumentNullException("name");
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            return GetPropertyImpl(name, Type.DefaultLookup, null, returnType, types, null);
+                        return GetPropertyImpl(name, Type.DefaultLookup, null, returnType, types, null);
         }
 
         public PropertyInfo GetProperty(String name, Type[] types)
@@ -477,8 +462,7 @@ namespace System
                 throw new ArgumentNullException("name");
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            return GetPropertyImpl(name, Type.DefaultLookup, null, null, types, null);
+                        return GetPropertyImpl(name, Type.DefaultLookup, null, null, types, null);
         }
 
         public PropertyInfo GetProperty(String name, Type returnType)
@@ -487,8 +471,7 @@ namespace System
                 throw new ArgumentNullException("name");
             if (returnType == null)
                 throw new ArgumentNullException("returnType");
-            Contract.EndContractBlock();
-            return GetPropertyImpl(name, Type.DefaultLookup, null, returnType, null, null);
+                        return GetPropertyImpl(name, Type.DefaultLookup, null, returnType, null, null);
         }
 
         internal PropertyInfo GetProperty(String name, BindingFlags bindingAttr, Type returnType)
@@ -497,16 +480,14 @@ namespace System
                 throw new ArgumentNullException("name");
             if (returnType == null)
                 throw new ArgumentNullException("returnType");
-            Contract.EndContractBlock();
-            return GetPropertyImpl(name, bindingAttr, null, returnType, null, null);
+                        return GetPropertyImpl(name, bindingAttr, null, returnType, null, null);
         }
 
         public PropertyInfo GetProperty(String name)
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            return GetPropertyImpl(name, Type.DefaultLookup, null, null, null, null);
+                        return GetPropertyImpl(name, Type.DefaultLookup, null, null, null, null);
         }
 
         protected abstract PropertyInfo GetPropertyImpl(String name, BindingFlags bindingAttr, Binder binder, Type returnType, Type[] types, ParameterModifier[] modifiers);
@@ -715,7 +696,7 @@ namespace System
 
         public bool IsNested
         {
-            [Pure]
+            
             get
             {
                 return DeclaringType != null;
@@ -724,7 +705,7 @@ namespace System
 
         public TypeAttributes Attributes
         {
-            [Pure]
+            
             get
             {
                 return GetAttributeFlagsImpl();
@@ -741,7 +722,7 @@ namespace System
 
         public bool IsVisible
         {
-            [Pure]
+            
             get
             {
                 RuntimeType rt = this as RuntimeType;
@@ -776,7 +757,7 @@ namespace System
 
         public bool IsNotPublic
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.VisibilityMask) == TypeAttributes.NotPublic);
@@ -785,7 +766,7 @@ namespace System
 
         public bool IsPublic
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.VisibilityMask) == TypeAttributes.Public);
@@ -794,7 +775,7 @@ namespace System
 
         public bool IsNestedPublic
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.VisibilityMask) == TypeAttributes.NestedPublic);
@@ -803,7 +784,7 @@ namespace System
 
         public bool IsNestedPrivate
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.VisibilityMask) == TypeAttributes.NestedPrivate);
@@ -812,7 +793,7 @@ namespace System
 
         public bool IsNestedFamily
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.VisibilityMask) == TypeAttributes.NestedFamily);
@@ -821,7 +802,7 @@ namespace System
 
         public bool IsNestedAssembly
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.VisibilityMask) == TypeAttributes.NestedAssembly);
@@ -830,7 +811,7 @@ namespace System
 
         public bool IsNestedFamANDAssem
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.VisibilityMask) == TypeAttributes.NestedFamANDAssem);
@@ -839,7 +820,7 @@ namespace System
 
         public bool IsNestedFamORAssem
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.VisibilityMask) == TypeAttributes.NestedFamORAssem);
@@ -848,7 +829,7 @@ namespace System
 
         public bool IsAutoLayout
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.LayoutMask) == TypeAttributes.AutoLayout);
@@ -857,7 +838,7 @@ namespace System
 
         public bool IsLayoutSequential
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.LayoutMask) == TypeAttributes.SequentialLayout);
@@ -866,7 +847,7 @@ namespace System
 
         public bool IsExplicitLayout
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.LayoutMask) == TypeAttributes.ExplicitLayout);
@@ -875,7 +856,7 @@ namespace System
 
         public bool IsClass
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.ClassSemanticsMask) == TypeAttributes.Class && !IsValueType);
@@ -884,7 +865,7 @@ namespace System
 
         public bool IsInterface
         {
-            [Pure]
+            
             [System.Security.SecuritySafeCritical]
             get
             {
@@ -897,7 +878,7 @@ namespace System
 
         public bool IsValueType
         {
-            [Pure]
+            
             get
             {
                 return IsValueTypeImpl();
@@ -906,7 +887,7 @@ namespace System
 
         public bool IsAbstract
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.Abstract) != 0);
@@ -915,7 +896,7 @@ namespace System
 
         public bool IsSealed
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.Sealed) != 0);
@@ -924,7 +905,7 @@ namespace System
 
         public bool IsEnum
         {
-            [Pure]
+            
             get
             {
                 return IsSubclassOf(RuntimeType.EnumType);
@@ -933,7 +914,7 @@ namespace System
 
         public bool IsSpecialName
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.SpecialName) != 0);
@@ -942,7 +923,7 @@ namespace System
 
         public bool IsImport
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.Import) != 0);
@@ -951,7 +932,7 @@ namespace System
 
         public virtual bool IsSerializable
         {
-            [Pure]
+            
             get
             {
                 if ((GetAttributeFlagsImpl() & TypeAttributes.Serializable) != 0)
@@ -965,7 +946,7 @@ namespace System
 
         public bool IsAnsiClass
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.StringFormatMask) == TypeAttributes.AnsiClass);
@@ -974,7 +955,7 @@ namespace System
 
         public bool IsUnicodeClass
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.StringFormatMask) == TypeAttributes.UnicodeClass);
@@ -983,7 +964,7 @@ namespace System
 
         public bool IsAutoClass
         {
-            [Pure]
+            
             get
             {
                 return ((GetAttributeFlagsImpl() & TypeAttributes.StringFormatMask) == TypeAttributes.AutoClass);
@@ -992,7 +973,7 @@ namespace System
 
         public bool IsArray
         {
-            [Pure]
+            
             get
             {
                 return IsArrayImpl();
@@ -1001,7 +982,7 @@ namespace System
 
         internal virtual bool IsSzArray
         {
-            [Pure]
+            
             get
             {
                 return false;
@@ -1010,7 +991,7 @@ namespace System
 
         public virtual bool IsGenericType
         {
-            [Pure]
+            
             get
             {
                 return false;
@@ -1019,7 +1000,7 @@ namespace System
 
         public virtual bool IsGenericTypeDefinition
         {
-            [Pure]
+            
             get
             {
                 return false;
@@ -1028,7 +1009,7 @@ namespace System
 
         public virtual bool IsConstructedGenericType
         {
-            [Pure]
+            
             get
             {
                 throw new NotImplementedException();
@@ -1037,7 +1018,7 @@ namespace System
 
         public virtual bool IsGenericParameter
         {
-            [Pure]
+            
             get
             {
                 return false;
@@ -1046,7 +1027,7 @@ namespace System
 
         public virtual int GenericParameterPosition
         {
-            [Pure]
+            
             get
             {
                 throw new InvalidOperationException(Environment.GetResourceString("Arg_NotGenericParameter"));
@@ -1055,7 +1036,7 @@ namespace System
 
         public virtual bool ContainsGenericParameters
         {
-            [Pure]
+            
             get
             {
                 if (HasElementType)
@@ -1079,13 +1060,12 @@ namespace System
         {
             if (!IsGenericParameter)
                 throw new InvalidOperationException(Environment.GetResourceString("Arg_NotGenericParameter"));
-            Contract.EndContractBlock();
-            throw new InvalidOperationException();
+                        throw new InvalidOperationException();
         }
 
         public bool IsByRef
         {
-            [Pure]
+            
             get
             {
                 return IsByRefImpl();
@@ -1094,7 +1074,7 @@ namespace System
 
         public bool IsPointer
         {
-            [Pure]
+            
             get
             {
                 return IsPointerImpl();
@@ -1103,7 +1083,7 @@ namespace System
 
         public bool IsPrimitive
         {
-            [Pure]
+            
             get
             {
                 return IsPrimitiveImpl();
@@ -1112,7 +1092,7 @@ namespace System
 
         public bool IsCOMObject
         {
-            [Pure]
+            
             get
             {
                 return IsCOMObjectImpl();
@@ -1121,7 +1101,7 @@ namespace System
 
         internal bool IsWindowsRuntimeObject
         {
-            [Pure]
+            
             get
             {
                 return IsWindowsRuntimeObjectImpl();
@@ -1130,7 +1110,7 @@ namespace System
 
         internal bool IsExportedToWindowsRuntime
         {
-            [Pure]
+            
             get
             {
                 return IsExportedToWindowsRuntimeImpl();
@@ -1139,7 +1119,7 @@ namespace System
 
         public bool HasElementType
         {
-            [Pure]
+            
             get
             {
                 return HasElementTypeImpl();
@@ -1148,7 +1128,7 @@ namespace System
 
         public bool IsContextful
         {
-            [Pure]
+            
             get
             {
                 return IsContextfulImpl();
@@ -1157,7 +1137,7 @@ namespace System
 
         public bool IsMarshalByRef
         {
-            [Pure]
+            
             get
             {
                 return IsMarshalByRefImpl();
@@ -1166,7 +1146,7 @@ namespace System
 
         internal bool HasProxyAttribute
         {
-            [Pure]
+            
             get
             {
                 return HasProxyAttributeImpl();
@@ -1196,8 +1176,7 @@ namespace System
 
         public virtual Type MakeGenericType(params Type[] typeArguments)
         {
-            Contract.Ensures(Contract.Result<Type>() != null);
-            throw new NotSupportedException(Environment.GetResourceString("NotSupported_SubclassOverride"));
+                        throw new NotSupportedException(Environment.GetResourceString("NotSupported_SubclassOverride"));
         }
 
         protected virtual bool IsContextfulImpl()
@@ -1238,8 +1217,7 @@ namespace System
 
         public virtual Type GetGenericTypeDefinition()
         {
-            Contract.Ensures(Contract.Result<Type>() != null);
-            throw new NotSupportedException(Environment.GetResourceString("NotSupported_SubclassOverride"));
+                        throw new NotSupportedException(Environment.GetResourceString("NotSupported_SubclassOverride"));
         }
 
         abstract protected bool HasElementTypeImpl();
@@ -1255,8 +1233,7 @@ namespace System
         {
             if (!IsEnum)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeEnum"), "enumType");
-            Contract.Ensures(Contract.Result<String[]>() != null);
-            string[] names;
+                        string[] names;
             Array values;
             GetEnumData(out names, out values);
             return names;
@@ -1266,8 +1243,7 @@ namespace System
         {
             if (!IsEnum)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeEnum"), "enumType");
-            Contract.Ensures(Contract.Result<Array>() != null);
-            throw new NotImplementedException();
+                        throw new NotImplementedException();
         }
 
         private Array GetEnumRawConstantValues()
@@ -1280,9 +1256,7 @@ namespace System
 
         private void GetEnumData(out string[] enumNames, out Array enumValues)
         {
-            Contract.Ensures(Contract.ValueAtReturn<String[]>(out enumNames) != null);
-            Contract.Ensures(Contract.ValueAtReturn<Array>(out enumValues) != null);
-            FieldInfo[] flds = GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                                    FieldInfo[] flds = GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
             object[] values = new object[flds.Length];
             string[] names = new string[flds.Length];
             for (int i = 0; i < flds.Length; i++)
@@ -1323,8 +1297,7 @@ namespace System
         {
             if (!IsEnum)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeEnum"), "enumType");
-            Contract.Ensures(Contract.Result<Type>() != null);
-            FieldInfo[] fields = GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                        FieldInfo[] fields = GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             if (fields == null || fields.Length != 1)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidEnum"), "enumType");
             return fields[0].FieldType;
@@ -1336,8 +1309,7 @@ namespace System
                 throw new ArgumentNullException("value");
             if (!IsEnum)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeEnum"), "enumType");
-            Contract.EndContractBlock();
-            Type valueType = value.GetType();
+                        Type valueType = value.GetType();
             if (valueType.IsEnum)
             {
                 if (!valueType.IsEquivalentTo(this))
@@ -1378,8 +1350,7 @@ namespace System
                 throw new ArgumentNullException("value");
             if (!IsEnum)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeEnum"), "enumType");
-            Contract.EndContractBlock();
-            Type valueType = value.GetType();
+                        Type valueType = value.GetType();
             if (!(valueType.IsEnum || Type.IsIntegerType(valueType)))
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeEnumBaseTypeOrEnum"), "value");
             Array values = GetEnumRawConstantValues();
@@ -1409,7 +1380,7 @@ namespace System
 
         public virtual bool IsSecurityCritical
         {
-            [Pure]
+            
             get
             {
                 throw new NotImplementedException();
@@ -1418,7 +1389,7 @@ namespace System
 
         public virtual bool IsSecuritySafeCritical
         {
-            [Pure]
+            
             get
             {
                 throw new NotImplementedException();
@@ -1427,7 +1398,7 @@ namespace System
 
         public virtual bool IsSecurityTransparent
         {
-            [Pure]
+            
             get
             {
                 throw new NotImplementedException();
@@ -1526,9 +1497,7 @@ namespace System
 
         internal bool ImplementInterface(Type ifaceType)
         {
-            Contract.Requires(ifaceType != null);
-            Contract.Requires(ifaceType.IsInterface, "ifaceType must be an interface type");
-            Type t = this;
+                                    Type t = this;
             while (t != null)
             {
                 Type[] interfaces = t.GetInterfaces();
@@ -1566,8 +1535,7 @@ namespace System
         {
             if (args == null)
                 throw new ArgumentNullException("args");
-            Contract.EndContractBlock();
-            Type[] cls = new Type[args.Length];
+                        Type[] cls = new Type[args.Length];
             for (int i = 0; i < cls.Length; i++)
             {
                 if (args[i] == null)

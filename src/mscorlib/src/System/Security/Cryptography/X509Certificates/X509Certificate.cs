@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -121,16 +121,14 @@ namespace System.Security.Cryptography.X509Certificates
         {
             if (handle == IntPtr.Zero)
                 throw new ArgumentException(Environment.GetResourceString("Arg_InvalidHandle"), "handle");
-            Contract.EndContractBlock();
-            X509Utils._DuplicateCertContext(handle, ref m_safeCertContext);
+                        X509Utils._DuplicateCertContext(handle, ref m_safeCertContext);
         }
 
         public X509Certificate(X509Certificate cert): this ()
         {
             if (cert == null)
                 throw new ArgumentNullException("cert");
-            Contract.EndContractBlock();
-            if (cert.m_safeCertContext.pCertContext != IntPtr.Zero)
+                        if (cert.m_safeCertContext.pCertContext != IntPtr.Zero)
             {
                 m_safeCertContext = cert.GetCertContextForCloning();
                 m_certContextCloned = true;
@@ -559,8 +557,7 @@ namespace System.Security.Cryptography.X509Certificates
         {
             if (rawData == null || rawData.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_EmptyOrNullArray"), "rawData");
-            Contract.EndContractBlock();
-            X509ContentType contentType = X509Utils.MapContentType(X509Utils._QueryCertBlobType(rawData));
+                        X509ContentType contentType = X509Utils.MapContentType(X509Utils._QueryCertBlobType(rawData));
             uint dwFlags = X509Utils.MapKeyStorageFlags(keyStorageFlags);
             IntPtr szPassword = IntPtr.Zero;
             RuntimeHelpers.PrepareConstrainedRegions();
@@ -580,8 +577,7 @@ namespace System.Security.Cryptography.X509Certificates
         {
             if (fileName == null)
                 throw new ArgumentNullException("fileName");
-            Contract.EndContractBlock();
-            string fullPath = Path.GetFullPathInternal(fileName);
+                        string fullPath = Path.GetFullPathInternal(fileName);
             new FileIOPermission(FileIOPermissionAccess.Read, fullPath).Demand();
             X509ContentType contentType = X509Utils.MapContentType(X509Utils._QueryCertFileType(fileName));
             uint dwFlags = X509Utils.MapKeyStorageFlags(keyStorageFlags);

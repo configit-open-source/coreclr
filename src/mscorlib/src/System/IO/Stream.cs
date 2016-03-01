@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -19,19 +19,19 @@ namespace System.IO
 
         public abstract bool CanRead
         {
-            [Pure]
+            
             get;
         }
 
         public abstract bool CanSeek
         {
-            [Pure]
+            
             get;
         }
 
         public virtual bool CanTimeout
         {
-            [Pure]
+            
             get
             {
                 return false;
@@ -40,7 +40,7 @@ namespace System.IO
 
         public abstract bool CanWrite
         {
-            [Pure]
+            
             get;
         }
 
@@ -59,8 +59,7 @@ namespace System.IO
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_TimeoutsNotSupported"));
+                                throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_TimeoutsNotSupported"));
             }
 
             set
@@ -73,8 +72,7 @@ namespace System.IO
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_TimeoutsNotSupported"));
+                                throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_TimeoutsNotSupported"));
             }
 
             set
@@ -107,17 +105,12 @@ namespace System.IO
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_UnreadableStream"));
             if (!destination.CanWrite)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_UnwritableStream"));
-            Contract.EndContractBlock();
-            return CopyToAsyncInternal(destination, bufferSize, cancellationToken);
+                        return CopyToAsyncInternal(destination, bufferSize, cancellationToken);
         }
 
         private async Task CopyToAsyncInternal(Stream destination, Int32 bufferSize, CancellationToken cancellationToken)
         {
-            Contract.Requires(destination != null);
-            Contract.Requires(bufferSize > 0);
-            Contract.Requires(CanRead);
-            Contract.Requires(destination.CanWrite);
-            byte[] buffer = new byte[bufferSize];
+                                                            byte[] buffer = new byte[bufferSize];
             int bytesRead;
             while ((bytesRead = await ReadAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false)) != 0)
             {
@@ -137,8 +130,7 @@ namespace System.IO
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_UnreadableStream"));
             if (!destination.CanWrite)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_UnwritableStream"));
-            Contract.EndContractBlock();
-            InternalCopyTo(destination, _DefaultCopyBufferSize);
+                        InternalCopyTo(destination, _DefaultCopyBufferSize);
         }
 
         public void CopyTo(Stream destination, int bufferSize)
@@ -155,17 +147,12 @@ namespace System.IO
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_UnreadableStream"));
             if (!destination.CanWrite)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_UnwritableStream"));
-            Contract.EndContractBlock();
-            InternalCopyTo(destination, bufferSize);
+                        InternalCopyTo(destination, bufferSize);
         }
 
         private void InternalCopyTo(Stream destination, int bufferSize)
         {
-            Contract.Requires(destination != null);
-            Contract.Requires(CanRead);
-            Contract.Requires(destination.CanWrite);
-            Contract.Requires(bufferSize > 0);
-            byte[] buffer = new byte[bufferSize];
+                                                            byte[] buffer = new byte[bufferSize];
             int read;
             while ((read = Read(buffer, 0, buffer.Length)) != 0)
                 destination.Write(buffer, 0, read);
@@ -199,20 +186,17 @@ namespace System.IO
 
         protected virtual WaitHandle CreateWaitHandle()
         {
-            Contract.Ensures(Contract.Result<WaitHandle>() != null);
-            return new ManualResetEvent(false);
+                        return new ManualResetEvent(false);
         }
 
         public virtual IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
         {
-            Contract.Ensures(Contract.Result<IAsyncResult>() != null);
-            return BeginReadInternal(buffer, offset, count, callback, state, serializeAsynchronously: false, apm: true);
+                        return BeginReadInternal(buffer, offset, count, callback, state, serializeAsynchronously: false, apm: true);
         }
 
         internal IAsyncResult BeginReadInternal(byte[] buffer, int offset, int count, AsyncCallback callback, Object state, bool serializeAsynchronously, bool apm)
         {
-            Contract.Ensures(Contract.Result<IAsyncResult>() != null);
-            if (!CanRead)
+                        if (!CanRead)
                 __Error.ReadNotSupported();
             if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
             {
@@ -233,8 +217,7 @@ namespace System.IO
             var asyncResult = new ReadWriteTask(true, apm, delegate
             {
                 var thisTask = Task.InternalCurrent as ReadWriteTask;
-                Contract.Assert(thisTask != null, "Inside ReadWriteTask, InternalCurrent should be the ReadWriteTask");
-                try
+                                try
                 {
                     return thisTask._stream.Read(thisTask._buffer, thisTask._offset, thisTask._count);
                 }
@@ -261,9 +244,7 @@ namespace System.IO
         {
             if (asyncResult == null)
                 throw new ArgumentNullException("asyncResult");
-            Contract.Ensures(Contract.Result<int>() >= 0);
-            Contract.EndContractBlock();
-            if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
+                                    if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
             {
                 return BlockingEndRead(asyncResult);
             }
@@ -322,14 +303,12 @@ namespace System.IO
 
         public virtual IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
         {
-            Contract.Ensures(Contract.Result<IAsyncResult>() != null);
-            return BeginWriteInternal(buffer, offset, count, callback, state, serializeAsynchronously: false, apm: true);
+                        return BeginWriteInternal(buffer, offset, count, callback, state, serializeAsynchronously: false, apm: true);
         }
 
         internal IAsyncResult BeginWriteInternal(byte[] buffer, int offset, int count, AsyncCallback callback, Object state, bool serializeAsynchronously, bool apm)
         {
-            Contract.Ensures(Contract.Result<IAsyncResult>() != null);
-            if (!CanWrite)
+                        if (!CanWrite)
                 __Error.WriteNotSupported();
             if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
             {
@@ -350,8 +329,7 @@ namespace System.IO
             var asyncResult = new ReadWriteTask(false, apm, delegate
             {
                 var thisTask = Task.InternalCurrent as ReadWriteTask;
-                Contract.Assert(thisTask != null, "Inside ReadWriteTask, InternalCurrent should be the ReadWriteTask");
-                try
+                                try
                 {
                     thisTask._stream.Write(thisTask._buffer, thisTask._offset, thisTask._count);
                     return 0;
@@ -377,19 +355,15 @@ namespace System.IO
 
         private void RunReadWriteTaskWhenReady(Task asyncWaiter, ReadWriteTask readWriteTask)
         {
-            Contract.Assert(readWriteTask != null);
-            Contract.Assert(asyncWaiter != null);
-            if (asyncWaiter.IsCompleted)
+                                    if (asyncWaiter.IsCompleted)
             {
-                Contract.Assert(asyncWaiter.IsRanToCompletion, "The semaphore wait should always complete successfully.");
-                RunReadWriteTask(readWriteTask);
+                                RunReadWriteTask(readWriteTask);
             }
             else
             {
                 asyncWaiter.ContinueWith((t, state) =>
                 {
-                    Contract.Assert(t.IsRanToCompletion, "The semaphore wait should always complete successfully.");
-                    var rwt = (ReadWriteTask)state;
+                                        var rwt = (ReadWriteTask)state;
                     rwt._stream.RunReadWriteTask(rwt);
                 }
 
@@ -399,9 +373,7 @@ namespace System.IO
 
         private void RunReadWriteTask(ReadWriteTask readWriteTask)
         {
-            Contract.Requires(readWriteTask != null);
-            Contract.Assert(_activeReadWriteTask == null, "Expected no other readers or writers");
-            _activeReadWriteTask = readWriteTask;
+                                    _activeReadWriteTask = readWriteTask;
             readWriteTask.m_taskScheduler = TaskScheduler.Default;
             readWriteTask.ScheduleAndStart(needsProtection: false);
         }
@@ -409,16 +381,14 @@ namespace System.IO
         private void FinishTrackingAsyncOperation()
         {
             _activeReadWriteTask = null;
-            Contract.Assert(_asyncActiveSemaphore != null, "Must have been initialized in order to get here.");
-            _asyncActiveSemaphore.Release();
+                        _asyncActiveSemaphore.Release();
         }
 
         public virtual void EndWrite(IAsyncResult asyncResult)
         {
             if (asyncResult == null)
                 throw new ArgumentNullException("asyncResult");
-            Contract.EndContractBlock();
-            if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
+                        if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
             {
                 BlockingEndWrite(asyncResult);
                 return;
@@ -441,8 +411,7 @@ namespace System.IO
             try
             {
                 writeTask.GetAwaiter().GetResult();
-                Contract.Assert(writeTask.Status == TaskStatus.RanToCompletion);
-            }
+                            }
             finally
             {
                 FinishTrackingAsyncOperation();
@@ -467,11 +436,7 @@ namespace System.IO
 
             public ReadWriteTask(bool isRead, bool apm, Func<object, int> function, object state, Stream stream, byte[] buffer, int offset, int count, AsyncCallback callback): base (function, state, CancellationToken.None, TaskCreationOptions.DenyChildAttach)
             {
-                Contract.Requires(function != null);
-                Contract.Requires(stream != null);
-                Contract.Requires(buffer != null);
-                Contract.EndContractBlock();
-                StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                                                                                StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
                 _isRead = isRead;
                 _apm = apm;
                 _stream = stream;
@@ -556,9 +521,7 @@ namespace System.IO
         public abstract int Read([In, Out] byte[] buffer, int offset, int count);
         public virtual int ReadByte()
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            Contract.Ensures(Contract.Result<int>() < 256);
-            byte[] oneByteArray = new byte[1];
+                                    byte[] oneByteArray = new byte[1];
             int r = Read(oneByteArray, 0, 1);
             if (r == 0)
                 return -1;
@@ -577,9 +540,7 @@ namespace System.IO
         {
             if (stream == null)
                 throw new ArgumentNullException("stream");
-            Contract.Ensures(Contract.Result<Stream>() != null);
-            Contract.EndContractBlock();
-            if (stream is SyncStream)
+                                    if (stream is SyncStream)
                 return stream;
             return new SyncStream(stream);
         }
@@ -590,8 +551,7 @@ namespace System.IO
 
         internal IAsyncResult BlockingBeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
         {
-            Contract.Ensures(Contract.Result<IAsyncResult>() != null);
-            SynchronousAsyncResult asyncResult;
+                        SynchronousAsyncResult asyncResult;
             try
             {
                 int numRead = Read(buffer, offset, count);
@@ -612,14 +572,12 @@ namespace System.IO
 
         internal static int BlockingEndRead(IAsyncResult asyncResult)
         {
-            Contract.Ensures(Contract.Result<int>() >= 0);
-            return SynchronousAsyncResult.EndRead(asyncResult);
+                        return SynchronousAsyncResult.EndRead(asyncResult);
         }
 
         internal IAsyncResult BlockingBeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
         {
-            Contract.Ensures(Contract.Result<IAsyncResult>() != null);
-            SynchronousAsyncResult asyncResult;
+                        SynchronousAsyncResult asyncResult;
             try
             {
                 Write(buffer, offset, count);
@@ -651,7 +609,7 @@ namespace System.IO
 
             public override bool CanRead
             {
-                [Pure]
+                
                 get
                 {
                     return true;
@@ -660,7 +618,7 @@ namespace System.IO
 
             public override bool CanWrite
             {
-                [Pure]
+                
                 get
                 {
                     return true;
@@ -669,7 +627,7 @@ namespace System.IO
 
             public override bool CanSeek
             {
-                [Pure]
+                
                 get
                 {
                     return true;
@@ -720,8 +678,7 @@ namespace System.IO
             {
                 if (asyncResult == null)
                     throw new ArgumentNullException("asyncResult");
-                Contract.EndContractBlock();
-                return BlockingEndRead(asyncResult);
+                                return BlockingEndRead(asyncResult);
             }
 
             public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
@@ -735,8 +692,7 @@ namespace System.IO
             {
                 if (asyncResult == null)
                     throw new ArgumentNullException("asyncResult");
-                Contract.EndContractBlock();
-                BlockingEndWrite(asyncResult);
+                                BlockingEndWrite(asyncResult);
             }
 
             public override int Read([In, Out] byte[] buffer, int offset, int count)
@@ -877,13 +833,12 @@ namespace System.IO
             {
                 if (stream == null)
                     throw new ArgumentNullException("stream");
-                Contract.EndContractBlock();
-                _stream = stream;
+                                _stream = stream;
             }
 
             public override bool CanRead
             {
-                [Pure]
+                
                 get
                 {
                     return _stream.CanRead;
@@ -892,7 +847,7 @@ namespace System.IO
 
             public override bool CanWrite
             {
-                [Pure]
+                
                 get
                 {
                     return _stream.CanWrite;
@@ -901,7 +856,7 @@ namespace System.IO
 
             public override bool CanSeek
             {
-                [Pure]
+                
                 get
                 {
                     return _stream.CanSeek;
@@ -910,7 +865,7 @@ namespace System.IO
 
             public override bool CanTimeout
             {
-                [Pure]
+                
                 get
                 {
                     return _stream.CanTimeout;
@@ -1035,9 +990,7 @@ namespace System.IO
             {
                 if (asyncResult == null)
                     throw new ArgumentNullException("asyncResult");
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                Contract.EndContractBlock();
-                lock (_stream)
+                                                lock (_stream)
                     return _stream.EndRead(asyncResult);
             }
 
@@ -1078,8 +1031,7 @@ namespace System.IO
             {
                 if (asyncResult == null)
                     throw new ArgumentNullException("asyncResult");
-                Contract.EndContractBlock();
-                lock (_stream)
+                                lock (_stream)
                     _stream.EndWrite(asyncResult);
             }
         }

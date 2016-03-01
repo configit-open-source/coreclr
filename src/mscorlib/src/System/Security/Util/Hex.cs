@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Util
 {
@@ -68,8 +68,7 @@ namespace System.Security.Util
         {
             if (hexString == null)
                 throw new ArgumentNullException("hexString");
-            Contract.EndContractBlock();
-            bool spaceSkippingMode = false;
+                        bool spaceSkippingMode = false;
             int i = 0;
             int length = hexString.Length;
             if ((length >= 2) && (hexString[0] == '0') && ((hexString[1] == 'x') || (hexString[1] == 'X')))

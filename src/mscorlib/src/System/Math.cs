@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System
 {
@@ -67,8 +67,7 @@ namespace System
         {
             if ((digits < 0) || (digits > maxRoundingDigits))
                 throw new ArgumentOutOfRangeException("digits", Environment.GetResourceString("ArgumentOutOfRange_RoundingDigits"));
-            Contract.EndContractBlock();
-            return InternalRound(value, digits, MidpointRounding.ToEven);
+                        return InternalRound(value, digits, MidpointRounding.ToEven);
         }
 
         public static double Round(double value, MidpointRounding mode)
@@ -85,8 +84,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidEnumValue", mode, "MidpointRounding"), "mode");
             }
 
-            Contract.EndContractBlock();
-            return InternalRound(value, digits, mode);
+                        return InternalRound(value, digits, mode);
         }
 
         public static Decimal Round(Decimal d)
@@ -187,11 +185,9 @@ namespace System
 
         private static sbyte AbsHelper(sbyte value)
         {
-            Contract.Requires(value < 0, "AbsHelper should only be called for negative values! (workaround for JIT inlining)");
-            if (value == SByte.MinValue)
+                        if (value == SByte.MinValue)
                 throw new OverflowException(Environment.GetResourceString("Overflow_NegateTwosCompNum"));
-            Contract.EndContractBlock();
-            return ((sbyte)(-value));
+                        return ((sbyte)(-value));
         }
 
         public static short Abs(short value)
@@ -204,11 +200,9 @@ namespace System
 
         private static short AbsHelper(short value)
         {
-            Contract.Requires(value < 0, "AbsHelper should only be called for negative values! (workaround for JIT inlining)");
-            if (value == Int16.MinValue)
+                        if (value == Int16.MinValue)
                 throw new OverflowException(Environment.GetResourceString("Overflow_NegateTwosCompNum"));
-            Contract.EndContractBlock();
-            return (short)-value;
+                        return (short)-value;
         }
 
         public static int Abs(int value)
@@ -221,11 +215,9 @@ namespace System
 
         private static int AbsHelper(int value)
         {
-            Contract.Requires(value < 0, "AbsHelper should only be called for negative values! (workaround for JIT inlining)");
-            if (value == Int32.MinValue)
+                        if (value == Int32.MinValue)
                 throw new OverflowException(Environment.GetResourceString("Overflow_NegateTwosCompNum"));
-            Contract.EndContractBlock();
-            return -value;
+                        return -value;
         }
 
         public static long Abs(long value)
@@ -238,11 +230,9 @@ namespace System
 
         private static long AbsHelper(long value)
         {
-            Contract.Requires(value < 0, "AbsHelper should only be called for negative values! (workaround for JIT inlining)");
-            if (value == Int64.MinValue)
+                        if (value == Int64.MinValue)
                 throw new OverflowException(Environment.GetResourceString("Overflow_NegateTwosCompNum"));
-            Contract.EndContractBlock();
-            return -value;
+                        return -value;
         }
 
         extern public static float Abs(float value);

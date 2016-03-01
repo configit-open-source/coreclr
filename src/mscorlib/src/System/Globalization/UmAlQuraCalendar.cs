@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -90,10 +90,7 @@ namespace System.Globalization
 
         static void ConvertHijriToGregorian(int HijriYear, int HijriMonth, int HijriDay, ref int yg, ref int mg, ref int dg)
         {
-            Contract.Assert((HijriYear >= MinCalendarYear) && (HijriYear <= MaxCalendarYear), "Hijri year is out of range.");
-            Contract.Assert(HijriMonth >= 1, "Hijri month is out of range.");
-            Contract.Assert(HijriDay >= 1, "Hijri day is out of range.");
-            int index, b, nDays = HijriDay - 1;
+                                                int index, b, nDays = HijriDay - 1;
             DateTime dt;
             index = HijriYear - MinCalendarYear;
             dt = HijriYearInfo[index].GregorianDate;
@@ -157,8 +154,7 @@ namespace System.Globalization
             double nDays;
             TimeSpan ts;
             int yh1 = 0, mh1 = 0, dh1 = 0;
-            Contract.Assert((time.Ticks >= minDate.Ticks) && (time.Ticks <= maxDate.Ticks), "Gregorian date is out of range.");
-            index = (int)((time.Ticks - minDate.Ticks) / Calendar.TicksPerDay) / 355;
+                        index = (int)((time.Ticks - minDate.Ticks) / Calendar.TicksPerDay) / 355;
             do
             {
             }
@@ -215,8 +211,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("months", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), -120000, 120000));
             }
 
-            Contract.EndContractBlock();
-            int y = GetDatePart(time, DatePartYear);
+                        int y = GetDatePart(time, DatePartYear);
             int m = GetDatePart(time, DatePartMonth);
             int d = GetDatePart(time, DatePartDay);
             int i = m - 1 + months;
@@ -278,16 +273,14 @@ namespace System.Globalization
         static internal int RealGetDaysInYear(int year)
         {
             int days = 0, b;
-            Contract.Assert((year >= MinCalendarYear) && (year <= MaxCalendarYear), "Hijri year is out of range.");
-            b = HijriYearInfo[year - MinCalendarYear].HijriMonthsLengthFlags;
+                        b = HijriYearInfo[year - MinCalendarYear].HijriMonthsLengthFlags;
             for (int m = 1; m <= 12; m++)
             {
                 days += 29 + (b & 0x1);
                 b = b >> 1;
             }
 
-            Contract.Assert((days == 354) || (days == 355), "Hijri year has to be 354 or 355 days.");
-            return days;
+                        return days;
         }
 
         public override int GetDaysInYear(int year, int era)
@@ -411,8 +404,7 @@ namespace System.Globalization
                     throw new ArgumentOutOfRangeException("value", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), MinCalendarYear, MaxCalendarYear));
                 }
 
-                Contract.EndContractBlock();
-                VerifyWritable();
+                                VerifyWritable();
                 twoDigitYearMax = value;
             }
         }
@@ -424,8 +416,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (year < 100)
+                        if (year < 100)
             {
                 return (base.ToFourDigitYear(year));
             }

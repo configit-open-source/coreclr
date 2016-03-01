@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Threading;
 
 namespace System.Runtime.InteropServices
@@ -18,8 +18,7 @@ namespace System.Runtime.InteropServices
         {
             if ((uint)type > (uint)MaxHandleType)
                 throw new ArgumentOutOfRangeException("type", Environment.GetResourceString("ArgumentOutOfRange_Enum"));
-            Contract.EndContractBlock();
-            m_handle = InternalAlloc(value, type);
+                        m_handle = InternalAlloc(value, type);
             if (type == GCHandleType.Pinned)
                 SetIsPinned();
         }
@@ -101,8 +100,7 @@ namespace System.Runtime.InteropServices
         {
             if (value == IntPtr.Zero)
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_HandleIsNotInitialized"));
-            Contract.EndContractBlock();
-            IntPtr handle = value;
+                        IntPtr handle = value;
             return new GCHandle(handle);
         }
 

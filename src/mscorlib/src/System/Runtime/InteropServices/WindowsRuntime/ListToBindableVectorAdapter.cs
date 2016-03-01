@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -8,8 +7,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private ListToBindableVectorAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal object GetAt(uint index)
         {

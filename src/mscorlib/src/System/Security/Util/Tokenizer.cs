@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Text;
 
@@ -94,19 +94,11 @@ namespace System.Security.Util
             _inTokenSource = TokenSource.NestedStrings;
             _searchStrings = searchStrings;
             _replaceStrings = replaceStrings;
-            Contract.Assert(searchStrings.Length == replaceStrings.Length, "different number of search/replace strings");
-            Contract.Assert(searchStrings.Length != 0, "no search replace strings, shouldn't be using this ctor");
-            for (int istr = 0; istr < searchStrings.Length; istr++)
+                                    for (int istr = 0; istr < searchStrings.Length; istr++)
             {
                 String str = searchStrings[istr];
-                Contract.Assert(str != null, "XML Slug null");
-                Contract.Assert(str.Length >= 3, "XML Slug too small");
-                Contract.Assert(str[0] == '{', "XML Slug doesn't start with '{'");
-                Contract.Assert(str[str.Length - 1] == '}', "XML Slug doesn't end with '}'");
-                str = replaceStrings[istr];
-                Contract.Assert(str != null, "XML Replacement null");
-                Contract.Assert(str.Length >= 1, "XML Replacement empty");
-            }
+                                                                                str = replaceStrings[istr];
+                                            }
         }
 
         internal Tokenizer(byte[] array, ByteTokenEncoding encoding, int startIndex)
@@ -152,8 +144,7 @@ namespace System.Security.Util
                 return;
             }
 
-            Contract.Assert(_inSavedCharacter == -1, "There was a lookahead character at the stream change point, that means the parser is changing encodings too late");
-            switch (_inTokenSource)
+                        switch (_inTokenSource)
             {
                 case TokenSource.UnicodeByteArray:
                 case TokenSource.UTF8ByteArray:
@@ -194,25 +185,21 @@ namespace System.Security.Util
                 case TokenSource.CharArray:
                 case TokenSource.String:
                 case TokenSource.NestedStrings:
-                    Contract.Assert(false, "attempting to change encoding on a non-changable source, should have been prevented earlier");
-                    return;
+                                        return;
                 default:
                     StreamTokenReader reader = _inTokenReader as StreamTokenReader;
                     if (reader == null)
                     {
-                        Contract.Assert(false, "A new input source type has been added to the Tokenizer but it doesn't support encoding changes");
-                        return;
+                                                return;
                     }
 
                     stream = reader._in.BaseStream;
-                    Contract.Assert(reader._in.CurrentEncoding != null, "Tokenizer's StreamReader does not have an encoding");
-                    String fakeReadString = new String(' ', reader.NumCharEncountered);
+                                        String fakeReadString = new String(' ', reader.NumCharEncountered);
                     stream.Position = reader._in.CurrentEncoding.GetByteCount(fakeReadString);
                     break;
             }
 
-            Contract.Assert(stream != null, "The XML stream with new encoding was not properly initialized for kind of input we had");
-            _inTokenReader = new StreamTokenReader(new StreamReader(stream, encoding));
+                        _inTokenReader = new StreamTokenReader(new StreamReader(stream, encoding));
             _inTokenSource = TokenSource.Other;
         }
 
@@ -727,8 +714,7 @@ namespace System.Security.Util
         internal short GetNextToken()
         {
             short retval = (short)(GetNextFullToken() & 0x00FF);
-            Contract.Assert(!m_bLastWasCStr, "CStr token not followed by GetNextString()");
-            m_bLastWasCStr = (retval == Tokenizer.cstr);
+                        m_bLastWasCStr = (retval == Tokenizer.cstr);
             return retval;
         }
 

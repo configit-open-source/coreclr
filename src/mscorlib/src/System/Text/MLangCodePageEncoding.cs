@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Text
@@ -15,8 +15,7 @@ namespace System.Text
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            this.m_codePage = (int)info.GetValue("m_codePage", typeof (int));
+                        this.m_codePage = (int)info.GetValue("m_codePage", typeof (int));
             try
             {
                 this.m_isReadOnly = (bool)info.GetValue("m_isReadOnly", typeof (bool));
@@ -50,8 +49,7 @@ namespace System.Text
             {
                 if (info == null)
                     throw new ArgumentNullException("info");
-                Contract.EndContractBlock();
-                this.realEncoding = (Encoding)info.GetValue("m_encoding", typeof (Encoding));
+                                this.realEncoding = (Encoding)info.GetValue("m_encoding", typeof (Encoding));
             }
 
             public Object GetRealObject(StreamingContext context)
@@ -67,8 +65,7 @@ namespace System.Text
             {
                 if (info == null)
                     throw new ArgumentNullException("info");
-                Contract.EndContractBlock();
-                this.realEncoding = (Encoding)info.GetValue("m_encoding", typeof (Encoding));
+                                this.realEncoding = (Encoding)info.GetValue("m_encoding", typeof (Encoding));
             }
 
             public Object GetRealObject(StreamingContext context)

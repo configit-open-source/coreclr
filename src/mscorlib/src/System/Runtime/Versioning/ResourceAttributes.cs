@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Text;
 
@@ -204,8 +204,7 @@ namespace System.Runtime.Versioning
 
             if (consumeAsScope == calleeScope)
             {
-                Contract.Assert(requires == SxSRequirements.None, "Computed a strange set of required resource scoping.  It's probably wrong.");
-            }
+                            }
 
             return requires;
         }

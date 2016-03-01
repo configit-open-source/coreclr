@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System.Reflection.Emit
@@ -166,8 +166,7 @@ namespace System.Reflection.Emit
         {
             if (baseType == null)
                 throw new ArgumentNullException("baseType");
-            Contract.EndContractBlock();
-            m_baseType = baseType;
+                        m_baseType = baseType;
         }
 
         private void SetBounds(int lower, int upper)
@@ -224,8 +223,7 @@ namespace System.Reflection.Emit
         {
             if (rank <= 0)
                 throw new IndexOutOfRangeException();
-            Contract.EndContractBlock();
-            string szrank = "";
+                        string szrank = "";
             if (rank == 1)
             {
                 szrank = "*";
@@ -245,8 +243,7 @@ namespace System.Reflection.Emit
         {
             if (!IsArray)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_SubclassOverride"));
-            Contract.EndContractBlock();
-            return m_cRank;
+                        return m_cRank;
         }
 
         public override Guid GUID

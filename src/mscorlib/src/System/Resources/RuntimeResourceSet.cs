@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 
 namespace System.Resources
@@ -103,8 +102,7 @@ namespace System.Resources
                 throw new ArgumentNullException("key");
             if (Reader == null || _resCache == null)
                 throw new ObjectDisposedException(null, Environment.GetResourceString("ObjectDisposed_ResourceSet"));
-            Contract.EndContractBlock();
-            Object value = null;
+                        Object value = null;
             ResourceLocator resLocation;
             lock (Reader)
             {
@@ -127,8 +125,7 @@ namespace System.Resources
 
                     if (dataPos != -1 && value == null)
                     {
-                        Contract.Assert(dataPos >= 0, "data section offset cannot be negative!");
-                        ResourceTypeCode typeCode;
+                                                ResourceTypeCode typeCode;
                         if (isString)
                         {
                             value = _defaultReader.LoadString(dataPos);
@@ -178,8 +175,7 @@ namespace System.Resources
                     }
                     else
                     {
-                        Contract.Assert(ignoreCase, "This should only happen for case-insensitive lookups");
-                        ResourceReader.ResourceEnumerator en = _defaultReader.GetEnumeratorInternal();
+                                                ResourceReader.ResourceEnumerator en = _defaultReader.GetEnumeratorInternal();
                         while (en.MoveNext())
                         {
                             String currentKey = (String)en.Key;

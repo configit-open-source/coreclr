@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -35,8 +35,7 @@ namespace System.Security.Cryptography
             {
                 if (value == null)
                     throw new ArgumentNullException("value");
-                Contract.EndContractBlock();
-                if (!ValidKeySize(value.Length * 8))
+                                if (!ValidKeySize(value.Length * 8))
                 {
                     throw new ArgumentException(Environment.GetResourceString("Cryptography_InvalidKeySize"));
                 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -16,8 +15,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         {
             if (namespaceName == null)
                 throw new ArgumentNullException("namespaceName");
-            Contract.EndContractBlock();
-            string[] packageGraphFilePathsArray = null;
+                        string[] packageGraphFilePathsArray = null;
             if (packageGraphFilePaths != null)
             {
                 List<string> packageGraphFilePathsList = new List<string>(packageGraphFilePaths);

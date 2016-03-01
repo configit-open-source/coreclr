@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -12,8 +12,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private IDisposableToIClosableAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         public void Close()
         {
@@ -26,8 +25,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private IClosableToIDisposableAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         private void Dispose()
         {

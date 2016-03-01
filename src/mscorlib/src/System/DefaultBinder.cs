@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Reflection;
 
@@ -10,8 +10,7 @@ namespace System
         {
             if (match == null || match.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_EmptyArray"), "match");
-            Contract.EndContractBlock();
-            MethodBase[] candidates = (MethodBase[])match.Clone();
+                        MethodBase[] candidates = (MethodBase[])match.Clone();
             int i;
             int j;
             state = null;
@@ -461,12 +460,6 @@ namespace System
 
         public override PropertyInfo SelectProperty(BindingFlags bindingAttr, PropertyInfo[] match, Type returnType, Type[] indexes, ParameterModifier[] modifiers)
         {
-            if (indexes != null && !Contract.ForAll(indexes, delegate (Type t)
-            {
-                return t != null;
-            }
-
-            ))
             {
                 Exception e;
                 if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
@@ -478,8 +471,7 @@ namespace System
 
             if (match == null || match.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_EmptyArray"), "match");
-            Contract.EndContractBlock();
-            PropertyInfo[] candidates = (PropertyInfo[])match.Clone();
+                        PropertyInfo[] candidates = (PropertyInfo[])match.Clone();
             int i, j = 0;
             int CurIdx = 0;
             int indexesLength = (indexes != null) ? indexes.Length : 0;
@@ -604,8 +596,7 @@ namespace System
         {
             if (match == null)
                 throw new ArgumentNullException("match");
-            Contract.EndContractBlock();
-            MethodBase[] aExactMatches = new MethodBase[match.Length];
+                        MethodBase[] aExactMatches = new MethodBase[match.Length];
             int cExactMatches = 0;
             for (int i = 0; i < match.Length; i++)
             {
@@ -640,8 +631,7 @@ namespace System
         {
             if (match == null)
                 throw new ArgumentNullException("match");
-            Contract.EndContractBlock();
-            PropertyInfo bestMatch = null;
+                        PropertyInfo bestMatch = null;
             int typesLength = (types != null) ? types.Length : 0;
             for (int i = 0; i < match.Length; i++)
             {
@@ -812,8 +802,7 @@ namespace System
                 int hierarchyDepth2 = GetHierarchyDepth(cur2.DeclaringType);
                 if (hierarchyDepth1 == hierarchyDepth2)
                 {
-                    Contract.Assert(cur1.IsStatic != cur2.IsStatic, "hierarchyDepth1 == hierarchyDepth2");
-                    return 0;
+                                        return 0;
                 }
                 else if (hierarchyDepth1 < hierarchyDepth2)
                     return 2;

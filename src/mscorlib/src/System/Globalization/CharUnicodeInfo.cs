@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -49,9 +49,7 @@ namespace System.Globalization
 
         internal static int InternalConvertToUtf32(String s, int index)
         {
-            Contract.Assert(s != null, "s != null");
-            Contract.Assert(index >= 0 && index < s.Length, "index < s.Length");
-            if (index < s.Length - 1)
+                                    if (index < s.Length - 1)
             {
                 int temp1 = (int)s[index] - HIGH_SURROGATE_START;
                 if (temp1 >= 0 && temp1 <= 0x3ff)
@@ -69,10 +67,7 @@ namespace System.Globalization
 
         internal static int InternalConvertToUtf32(String s, int index, out int charLength)
         {
-            Contract.Assert(s != null, "s != null");
-            Contract.Assert(s.Length > 0, "s.Length > 0");
-            Contract.Assert(index >= 0 && index < s.Length, "index >= 0 && index < s.Length");
-            charLength = 1;
+                                                charLength = 1;
             if (index < s.Length - 1)
             {
                 int temp1 = (int)s[index] - HIGH_SURROGATE_START;
@@ -92,9 +87,7 @@ namespace System.Globalization
 
         internal static bool IsWhiteSpace(String s, int index)
         {
-            Contract.Assert(s != null, "s!=null");
-            Contract.Assert(index >= 0 && index < s.Length, "index >= 0 && index < s.Length");
-            UnicodeCategory uc = GetUnicodeCategory(s, index);
+                                    UnicodeCategory uc = GetUnicodeCategory(s, index);
             switch (uc)
             {
                 case (UnicodeCategory.SpaceSeparator):
@@ -122,8 +115,7 @@ namespace System.Globalization
 
         internal unsafe static double InternalGetNumericValue(int ch)
         {
-            Contract.Assert(ch >= 0 && ch <= 0x10ffff, "ch is not in valid Unicode range.");
-            ushort index = s_pNumericLevel1Index[ch >> 8];
+                        ushort index = s_pNumericLevel1Index[ch >> 8];
             index = s_pNumericLevel1Index[index + ((ch >> 4) & 0x000f)];
             byte *pBytePtr = (byte *)&(s_pNumericLevel1Index[index]);
             byte *pSourcePtr = &(s_pNumericValues[pBytePtr[(ch & 0x000f)] * sizeof (double)]);
@@ -140,8 +132,7 @@ namespace System.Globalization
 
         internal unsafe static DigitValues*InternalGetDigitValues(int ch)
         {
-            Contract.Assert(ch >= 0 && ch <= 0x10ffff, "ch is not in valid Unicode range.");
-            ushort index = s_pNumericLevel1Index[ch >> 8];
+                        ushort index = s_pNumericLevel1Index[ch >> 8];
             index = s_pNumericLevel1Index[index + ((ch >> 4) & 0x000f)];
             byte *pBytePtr = (byte *)&(s_pNumericLevel1Index[index]);
             return &(s_pDigitValues[pBytePtr[(ch & 0x000f)]]);
@@ -174,8 +165,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
             }
 
-            Contract.EndContractBlock();
-            return (InternalGetNumericValue(InternalConvertToUtf32(s, index)));
+                        return (InternalGetNumericValue(InternalConvertToUtf32(s, index)));
         }
 
         public static int GetDecimalDigitValue(char ch)
@@ -195,8 +185,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
             }
 
-            Contract.EndContractBlock();
-            return (InternalGetDecimalDigitValue(InternalConvertToUtf32(s, index)));
+                        return (InternalGetDecimalDigitValue(InternalConvertToUtf32(s, index)));
         }
 
         public static int GetDigitValue(char ch)
@@ -216,8 +205,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
             }
 
-            Contract.EndContractBlock();
-            return (InternalGetDigitValue(InternalConvertToUtf32(s, index)));
+                        return (InternalGetDigitValue(InternalConvertToUtf32(s, index)));
         }
 
         public static UnicodeCategory GetUnicodeCategory(char ch)
@@ -234,8 +222,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("index");
             }
 
-            Contract.EndContractBlock();
-            return InternalGetUnicodeCategory(s, index);
+                        return InternalGetUnicodeCategory(s, index);
         }
 
         internal unsafe static UnicodeCategory InternalGetUnicodeCategory(int ch)
@@ -245,8 +232,7 @@ namespace System.Globalization
 
         internal unsafe static byte InternalGetCategoryValue(int ch, int offset)
         {
-            Contract.Assert(ch >= 0 && ch <= 0x10ffff, "ch is not in valid Unicode range.");
-            ushort index = s_pCategoryLevel1Index[ch >> 8];
+                        ushort index = s_pCategoryLevel1Index[ch >> 8];
             index = s_pCategoryLevel1Index[index + ((ch >> 4) & 0x000f)];
             byte *pBytePtr = (byte *)&(s_pCategoryLevel1Index[index]);
             byte valueIndex = pBytePtr[(ch & 0x000f)];
@@ -263,30 +249,23 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("index");
             }
 
-            Contract.EndContractBlock();
-            return ((BidiCategory)InternalGetCategoryValue(InternalConvertToUtf32(s, index), BIDI_CATEGORY_OFFSET));
+                        return ((BidiCategory)InternalGetCategoryValue(InternalConvertToUtf32(s, index), BIDI_CATEGORY_OFFSET));
         }
 
         internal static UnicodeCategory InternalGetUnicodeCategory(String value, int index)
         {
-            Contract.Assert(value != null, "value can not be null");
-            Contract.Assert(index < value.Length, "index < value.Length");
-            return (InternalGetUnicodeCategory(InternalConvertToUtf32(value, index)));
+                                    return (InternalGetUnicodeCategory(InternalConvertToUtf32(value, index)));
         }
 
         internal static UnicodeCategory InternalGetUnicodeCategory(String str, int index, out int charLength)
         {
-            Contract.Assert(str != null, "str can not be null");
-            Contract.Assert(str.Length > 0, "str.Length > 0");
-            ;
-            Contract.Assert(index >= 0 && index < str.Length, "index >= 0 && index < str.Length");
-            return (InternalGetUnicodeCategory(InternalConvertToUtf32(str, index, out charLength)));
+                                    ;
+                        return (InternalGetUnicodeCategory(InternalConvertToUtf32(str, index, out charLength)));
         }
 
         internal static bool IsCombiningCategory(UnicodeCategory uc)
         {
-            Contract.Assert(uc >= 0, "uc >= 0");
-            return (uc == UnicodeCategory.NonSpacingMark || uc == UnicodeCategory.SpacingCombiningMark || uc == UnicodeCategory.EnclosingMark);
+                        return (uc == UnicodeCategory.NonSpacingMark || uc == UnicodeCategory.SpacingCombiningMark || uc == UnicodeCategory.EnclosingMark);
         }
     }
 }

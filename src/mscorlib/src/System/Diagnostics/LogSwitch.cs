@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Diagnostics
 {
@@ -17,8 +17,7 @@ namespace System.Diagnostics
         {
             if (name != null && name.Length == 0)
                 throw new ArgumentOutOfRangeException("Name", Environment.GetResourceString("Argument_StringZeroLength"));
-            Contract.EndContractBlock();
-            if ((name != null) && (parent != null))
+                        if ((name != null) && (parent != null))
             {
                 strName = name;
                 strDescription = description;

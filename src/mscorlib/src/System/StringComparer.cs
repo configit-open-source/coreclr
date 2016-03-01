@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 
 namespace System
@@ -15,8 +14,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<StringComparer>() != null);
-                return _invariantCulture;
+                                return _invariantCulture;
             }
         }
 
@@ -24,8 +22,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<StringComparer>() != null);
-                return _invariantCultureIgnoreCase;
+                                return _invariantCultureIgnoreCase;
             }
         }
 
@@ -33,8 +30,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<StringComparer>() != null);
-                return new CultureAwareComparer(CultureInfo.CurrentCulture, false);
+                                return new CultureAwareComparer(CultureInfo.CurrentCulture, false);
             }
         }
 
@@ -42,8 +38,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<StringComparer>() != null);
-                return new CultureAwareComparer(CultureInfo.CurrentCulture, true);
+                                return new CultureAwareComparer(CultureInfo.CurrentCulture, true);
             }
         }
 
@@ -51,8 +46,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<StringComparer>() != null);
-                return _ordinal;
+                                return _ordinal;
             }
         }
 
@@ -60,8 +54,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<StringComparer>() != null);
-                return _ordinalIgnoreCase;
+                                return _ordinalIgnoreCase;
             }
         }
 
@@ -72,9 +65,7 @@ namespace System
                 throw new ArgumentNullException("culture");
             }
 
-            Contract.Ensures(Contract.Result<StringComparer>() != null);
-            Contract.EndContractBlock();
-            return new CultureAwareComparer(culture, ignoreCase);
+                                    return new CultureAwareComparer(culture, ignoreCase);
         }
 
         public int Compare(object x, object y)
@@ -130,8 +121,7 @@ namespace System
                 throw new ArgumentNullException("obj");
             }
 
-            Contract.EndContractBlock();
-            string s = obj as string;
+                        string s = obj as string;
             if (s != null)
             {
                 return GetHashCode(s);
@@ -188,8 +178,7 @@ namespace System
                 throw new ArgumentNullException("obj");
             }
 
-            Contract.EndContractBlock();
-            CompareOptions options = CompareOptions.None;
+                        CompareOptions options = CompareOptions.None;
             if (_ignoreCase)
             {
                 options |= CompareOptions.IgnoreCase;
@@ -265,8 +254,7 @@ namespace System
                 throw new ArgumentNullException("obj");
             }
 
-            Contract.EndContractBlock();
-            CompareOptions options = CompareOptions.None;
+                        CompareOptions options = CompareOptions.None;
             if (_ignoreCase)
             {
                 options |= CompareOptions.IgnoreCase;
@@ -353,8 +341,7 @@ namespace System
                 throw new ArgumentNullException("obj");
             }
 
-            Contract.EndContractBlock();
-            if (_ignoreCase)
+                        if (_ignoreCase)
             {
                 return TextInfo.GetHashCodeOrdinalIgnoreCase(obj);
             }
@@ -443,8 +430,7 @@ namespace System
                 throw new ArgumentNullException("obj");
             }
 
-            Contract.EndContractBlock();
-            if (_ignoreCase)
+                        if (_ignoreCase)
             {
                 return TextInfo.GetHashCodeOrdinalIgnoreCase(obj, true, _entropy);
             }

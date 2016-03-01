@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using System.Security;
 
@@ -68,8 +67,7 @@ namespace System.Threading.Tasks
 
         internal void InternalQueueTask(Task task)
         {
-            Contract.Requires(task != null);
-            task.FireTaskScheduledIfNeeded(this);
+                        task.FireTaskScheduledIfNeeded(this);
             this.QueueTask(task);
         }
 
@@ -228,8 +226,7 @@ namespace System.Threading.Tasks
             schedulers.CopyTo(arr, 0);
             foreach (var scheduler in arr)
             {
-                Contract.Assert(scheduler != null, "Table returned an incorrect Count or CopyTo failed");
-                int tmp = scheduler.Id;
+                                int tmp = scheduler.Id;
             }
 
             return arr;

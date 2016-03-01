@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System
 {
@@ -113,8 +112,7 @@ namespace System
                 throw new ArgumentNullException("nullableType");
             }
 
-            Contract.EndContractBlock();
-            Type result = null;
+                        Type result = null;
             if (nullableType.IsGenericType && !nullableType.IsGenericTypeDefinition)
             {
                 Type genericType = nullableType.GetGenericTypeDefinition();

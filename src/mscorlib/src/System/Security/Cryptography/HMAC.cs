@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -156,9 +156,7 @@ namespace System.Security.Cryptography
 
         internal static HashAlgorithm GetHashAlgorithmWithFipsFallback(Func<HashAlgorithm> createStandardHashAlgorithmCallback, Func<HashAlgorithm> createFipsHashAlgorithmCallback)
         {
-            Contract.Requires(createStandardHashAlgorithmCallback != null);
-            Contract.Requires(createFipsHashAlgorithmCallback != null);
-            if (CryptoConfig.AllowOnlyFipsAlgorithms)
+                                    if (CryptoConfig.AllowOnlyFipsAlgorithms)
             {
                 try
                 {

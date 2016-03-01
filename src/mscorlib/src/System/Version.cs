@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Text;
 
@@ -21,8 +21,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("build", Environment.GetResourceString("ArgumentOutOfRange_Version"));
             if (revision < 0)
                 throw new ArgumentOutOfRangeException("revision", Environment.GetResourceString("ArgumentOutOfRange_Version"));
-            Contract.EndContractBlock();
-            _Major = major;
+                        _Major = major;
             _Minor = minor;
             _Build = build;
             _Revision = revision;
@@ -36,8 +35,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("minor", Environment.GetResourceString("ArgumentOutOfRange_Version"));
             if (build < 0)
                 throw new ArgumentOutOfRangeException("build", Environment.GetResourceString("ArgumentOutOfRange_Version"));
-            Contract.EndContractBlock();
-            _Major = major;
+                        _Major = major;
             _Minor = minor;
             _Build = build;
         }
@@ -48,8 +46,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("major", Environment.GetResourceString("ArgumentOutOfRange_Version"));
             if (minor < 0)
                 throw new ArgumentOutOfRangeException("minor", Environment.GetResourceString("ArgumentOutOfRange_Version"));
-            Contract.EndContractBlock();
-            _Major = major;
+                        _Major = major;
             _Minor = minor;
         }
 
@@ -292,8 +289,7 @@ namespace System
         private const int ZERO_CHAR_VALUE = (int)'0';
         private static void AppendPositiveNumber(int num, StringBuilder sb)
         {
-            Contract.Assert(num >= 0, "AppendPositiveNumber expect positive numbers");
-            int index = sb.Length;
+                        int index = sb.Length;
             int reminder;
             do
             {
@@ -311,8 +307,7 @@ namespace System
                 throw new ArgumentNullException("input");
             }
 
-            Contract.EndContractBlock();
-            VersionResult r = new VersionResult();
+                        VersionResult r = new VersionResult();
             r.Init("input", true);
             if (!TryParseVersion(input, ref r))
             {
@@ -427,16 +422,14 @@ namespace System
         {
             if ((Object)v1 == null)
                 throw new ArgumentNullException("v1");
-            Contract.EndContractBlock();
-            return (v1.CompareTo(v2) < 0);
+                        return (v1.CompareTo(v2) < 0);
         }
 
         public static bool operator <=(Version v1, Version v2)
         {
             if ((Object)v1 == null)
                 throw new ArgumentNullException("v1");
-            Contract.EndContractBlock();
-            return (v1.CompareTo(v2) <= 0);
+                        return (v1.CompareTo(v2) <= 0);
         }
 
         public static bool operator>(Version v1, Version v2)
@@ -509,11 +502,9 @@ namespace System
                             return e;
                         }
 
-                        Contract.Assert(false, "Int32.Parse() did not throw exception but TryParse failed: " + m_exceptionArgument);
-                        return new FormatException(Environment.GetResourceString("Format_InvalidString"));
+                                                return new FormatException(Environment.GetResourceString("Format_InvalidString"));
                     default:
-                        Contract.Assert(false, "Unmatched case in Version.GetVersionParseException() for value: " + m_failure);
-                        return new ArgumentException(Environment.GetResourceString("Arg_VersionString"));
+                                                return new ArgumentException(Environment.GetResourceString("Arg_VersionString"));
                 }
             }
         }

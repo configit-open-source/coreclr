@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -31,14 +31,12 @@ namespace System.IO
 
         public virtual int Peek()
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            return -1;
+                        return -1;
         }
 
         public virtual int Read()
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            return -1;
+                        return -1;
         }
 
         public virtual int Read([In, Out] char[] buffer, int index, int count)
@@ -51,10 +49,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.Ensures(Contract.Result<int>() >= 0);
-            Contract.Ensures(Contract.Result<int>() <= Contract.OldValue(count));
-            Contract.EndContractBlock();
-            int n = 0;
+                                                int n = 0;
             do
             {
                 int ch = Read();
@@ -68,8 +63,7 @@ namespace System.IO
 
         public virtual String ReadToEnd()
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            char[] chars = new char[4096];
+                        char[] chars = new char[4096];
             int len;
             StringBuilder sb = new StringBuilder(4096);
             while ((len = Read(chars, 0, chars.Length)) != 0)
@@ -82,9 +76,7 @@ namespace System.IO
 
         public virtual int ReadBlock([In, Out] char[] buffer, int index, int count)
         {
-            Contract.Ensures(Contract.Result<int>() >= 0);
-            Contract.Ensures(Contract.Result<int>() <= count);
-            int i, n = 0;
+                                    int i, n = 0;
             do
             {
                 n += (i = Read(buffer, index + n, count - n));
@@ -147,17 +139,12 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            return ReadAsyncInternal(buffer, index, count);
+                        return ReadAsyncInternal(buffer, index, count);
         }
 
         internal virtual Task<int> ReadAsyncInternal(char[] buffer, int index, int count)
         {
-            Contract.Requires(buffer != null);
-            Contract.Requires(index >= 0);
-            Contract.Requires(count >= 0);
-            Contract.Requires(buffer.Length - index >= count);
-            var tuple = new Tuple<TextReader, char[], int, int>(this, buffer, index, count);
+                                                            var tuple = new Tuple<TextReader, char[], int, int>(this, buffer, index, count);
             return Task<int>.Factory.StartNew(state =>
             {
                 var t = (Tuple<TextReader, char[], int, int>)state;
@@ -175,17 +162,12 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            return ReadBlockAsyncInternal(buffer, index, count);
+                        return ReadBlockAsyncInternal(buffer, index, count);
         }
 
         private async Task<int> ReadBlockAsyncInternal(char[] buffer, int index, int count)
         {
-            Contract.Requires(buffer != null);
-            Contract.Requires(index >= 0);
-            Contract.Requires(count >= 0);
-            Contract.Requires(buffer.Length - index >= count);
-            int i, n = 0;
+                                                            int i, n = 0;
             do
             {
                 i = await ReadAsyncInternal(buffer, index + n, count - n).ConfigureAwait(false);
@@ -199,9 +181,7 @@ namespace System.IO
         {
             if (reader == null)
                 throw new ArgumentNullException("reader");
-            Contract.Ensures(Contract.Result<TextReader>() != null);
-            Contract.EndContractBlock();
-            if (reader is SyncTextReader)
+                                    if (reader is SyncTextReader)
                 return reader;
             return new SyncTextReader(reader);
         }
@@ -290,8 +270,7 @@ namespace System.IO
                     throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
                 if (buffer.Length - index < count)
                     throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-                Contract.EndContractBlock();
-                return Task.FromResult(ReadBlock(buffer, index, count));
+                                return Task.FromResult(ReadBlock(buffer, index, count));
             }
 
             public override Task<int> ReadAsync(char[] buffer, int index, int count)
@@ -302,8 +281,7 @@ namespace System.IO
                     throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
                 if (buffer.Length - index < count)
                     throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-                Contract.EndContractBlock();
-                return Task.FromResult(Read(buffer, index, count));
+                                return Task.FromResult(Read(buffer, index, count));
             }
         }
     }

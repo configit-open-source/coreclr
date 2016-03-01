@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
@@ -105,8 +105,7 @@ namespace System.Security.Cryptography
             {
                 if (value <= 0)
                     throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
-                Contract.EndContractBlock();
-                if (_baseValue != null)
+                                if (_baseValue != null)
                     throw new CryptographicException(Environment.GetResourceString("Cryptography_PasswordDerivedBytes_ValuesFixed", "IterationCount"));
                 _iterations = value;
             }

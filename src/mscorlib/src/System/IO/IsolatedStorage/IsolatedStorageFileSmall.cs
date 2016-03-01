@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
@@ -228,8 +227,7 @@ namespace System.IO.IsolatedStorage
                 throw new ArgumentException(Environment.GetResourceString("IsolatedStorage_OldQuotaLarger"));
             }
 
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             IsolatedStorageSecurityState s = IsolatedStorageSecurityState.CreateStateToIncreaseQuotaForGroup(m_GroupName, newQuotaSize, UsedSize);
             if (!s.IsStateAvailable())
             {
@@ -243,8 +241,7 @@ namespace System.IO.IsolatedStorage
         {
             if (file == null)
                 throw new ArgumentNullException("file");
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             try
             {
                 String fullPath = GetFullPath(file);
@@ -289,8 +286,7 @@ namespace System.IO.IsolatedStorage
         {
             if (path == null)
                 throw new ArgumentNullException("path");
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             String isPath = GetFullPath(path);
             String fullPath = Path.GetFullPathInternal(isPath);
             if (isPath.EndsWith(Path.DirectorySeparatorChar + ".", StringComparison.Ordinal))
@@ -322,8 +318,7 @@ namespace System.IO.IsolatedStorage
         {
             if (dir == null)
                 throw new ArgumentNullException("dir");
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             String isPath = GetFullPath(dir);
             String fullPath = Path.GetFullPathInternal(isPath);
             try
@@ -368,8 +363,7 @@ namespace System.IO.IsolatedStorage
         {
             if (dir == null)
                 throw new ArgumentNullException("dir");
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             try
             {
                 string fullPath = GetFullPath(dir);
@@ -391,8 +385,7 @@ namespace System.IO.IsolatedStorage
         {
             if (searchPattern == null)
                 throw new ArgumentNullException("searchPattern");
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             String[] retVal = GetFileDirectoryNames(GetFullPath(searchPattern), searchPattern, true, this);
             return retVal;
         }
@@ -406,8 +399,7 @@ namespace System.IO.IsolatedStorage
         {
             if (searchPattern == null)
                 throw new ArgumentNullException("searchPattern");
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             String[] retVal = GetFileDirectoryNames(GetFullPath(searchPattern), searchPattern, false, this);
             return retVal;
         }
@@ -445,8 +437,7 @@ namespace System.IO.IsolatedStorage
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyPath"), "path");
             }
 
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             String isPath = GetFullPath(path);
             String fullPath = Path.GetFullPathInternal(isPath);
             try
@@ -471,8 +462,7 @@ namespace System.IO.IsolatedStorage
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyPath"), "path");
             }
 
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             String isPath = GetFullPath(path);
             String fullPath = Path.GetFullPathInternal(isPath);
             try
@@ -497,8 +487,7 @@ namespace System.IO.IsolatedStorage
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyPath"), "path");
             }
 
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             String isPath = GetFullPath(path);
             String fullPath = Path.GetFullPathInternal(isPath);
             try
@@ -530,8 +519,7 @@ namespace System.IO.IsolatedStorage
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyPath"), "destinationFileName");
             }
 
-            Contract.EndContractBlock();
-            CopyFile(sourceFileName, destinationFileName, false);
+                        CopyFile(sourceFileName, destinationFileName, false);
         }
 
         public void CopyFile(string sourceFileName, string destinationFileName, bool overwrite)
@@ -550,8 +538,7 @@ namespace System.IO.IsolatedStorage
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyPath"), "destinationFileName");
             }
 
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             String sourceFileNameFullPath = Path.GetFullPathInternal(GetFullPath(sourceFileName));
             String destinationFileNameFullPath = Path.GetFullPathInternal(GetFullPath(destinationFileName));
             try
@@ -594,8 +581,7 @@ namespace System.IO.IsolatedStorage
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyPath"), "destinationFileName");
             }
 
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             String sourceFileNameFullPath = Path.GetFullPathInternal(GetFullPath(sourceFileName));
             String destinationFileNameFullPath = Path.GetFullPathInternal(GetFullPath(destinationFileName));
             try
@@ -638,8 +624,7 @@ namespace System.IO.IsolatedStorage
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyPath"), "destinationDirectoryName");
             }
 
-            Contract.EndContractBlock();
-            EnsureStoreIsValid();
+                        EnsureStoreIsValid();
             String sourceDirectoryNameFullPath = Path.GetFullPathInternal(GetFullPath(sourceDirectoryName));
             String destinationDirectoryNameFullPath = Path.GetFullPathInternal(GetFullPath(destinationDirectoryName));
             try
@@ -695,8 +680,7 @@ namespace System.IO.IsolatedStorage
 
         internal string GetFullPath(string partialPath)
         {
-            Contract.Assert(partialPath != null, "partialPath should be non null");
-            int i;
+                        int i;
             for (i = 0; i < partialPath.Length; i++)
             {
                 if (partialPath[i] != Path.DirectorySeparatorChar && partialPath[i] != Path.AltDirectorySeparatorChar)
@@ -712,8 +696,7 @@ namespace System.IO.IsolatedStorage
         private static void CreatePathPrefixIfNeeded(string path)
         {
             string root = Path.GetPathRoot(path);
-            Contract.Assert(!String.IsNullOrEmpty(root), "Path.GetPathRoot returned null or empty for: " + path);
-            try
+                        try
             {
                 if (!Directory.UnsafeExists(path))
                 {
@@ -816,8 +799,7 @@ namespace System.IO.IsolatedStorage
         {
             if (Disposed)
                 throw new ObjectDisposedException(null, Environment.GetResourceString("IsolatedStorage_StoreNotOpen"));
-            Contract.EndContractBlock();
-            if (IsDeleted)
+                        if (IsDeleted)
             {
                 throw new IsolatedStorageException(Environment.GetResourceString("IsolatedStorage_StoreNotOpen"));
             }
@@ -851,8 +833,7 @@ namespace System.IO.IsolatedStorage
 
         private String[] DirectoriesToCreate(String fullPath)
         {
-            Contract.Ensures(Contract.Result<string[]>() == null || Contract.Result<string[]>().Length > 0);
-            List<String> list = new List<String>();
+                        List<String> list = new List<String>();
             int length = fullPath.Length;
             if (length >= 2 && fullPath[length - 1] == Path.DirectorySeparatorChar)
                 length--;
@@ -924,8 +905,7 @@ namespace System.IO.IsolatedStorage
             int hr;
             if (path == null)
                 throw new ArgumentNullException("path", Environment.GetResourceString("ArgumentNull_Path"));
-            Contract.EndContractBlock();
-            bool fEndsWithDirectory = false;
+                        bool fEndsWithDirectory = false;
             char lastChar = path[path.Length - 1];
             if (lastChar == Path.DirectorySeparatorChar || lastChar == Path.AltDirectorySeparatorChar || lastChar == '.')
                 fEndsWithDirectory = true;

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Collections
 {
@@ -40,8 +40,7 @@ namespace System.Collections
                 throw new ArgumentNullException("obj");
             }
 
-            Contract.EndContractBlock();
-            if (_hcp != null)
+                        if (_hcp != null)
                 return _hcp.GetHashCode(obj);
             return obj.GetHashCode();
         }

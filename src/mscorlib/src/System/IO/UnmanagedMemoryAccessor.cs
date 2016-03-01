@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -55,8 +55,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("access");
             }
 
-            Contract.EndContractBlock();
-            if (_isOpen)
+                        if (_isOpen)
             {
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_CalledTwice"));
             }
@@ -435,8 +434,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("position", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (!_isOpen)
+                        if (!_isOpen)
             {
                 throw new ObjectDisposedException("UnmanagedMemoryAccessor", Environment.GetResourceString("ObjectDisposed_ViewAccessorClosed"));
             }
@@ -484,8 +482,7 @@ namespace System.IO
                 throw new ArgumentException(Environment.GetResourceString("Argument_OffsetAndLengthOutOfBounds"));
             }
 
-            Contract.EndContractBlock();
-            if (!CanRead)
+                        if (!CanRead)
             {
                 if (!_isOpen)
                 {
@@ -807,8 +804,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("position", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (!_isOpen)
+                        if (!_isOpen)
             {
                 throw new ObjectDisposedException("UnmanagedMemoryAccessor", Environment.GetResourceString("ObjectDisposed_ViewAccessorClosed"));
             }
@@ -866,8 +862,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("position", Environment.GetResourceString("ArgumentOutOfRange_PositionLessThanCapacityRequired"));
             }
 
-            Contract.EndContractBlock();
-            if (!_isOpen)
+                        if (!_isOpen)
             {
                 throw new ObjectDisposedException("UnmanagedMemoryAccessor", Environment.GetResourceString("ObjectDisposed_ViewAccessorClosed"));
             }
@@ -882,10 +877,7 @@ namespace System.IO
 
         private byte InternalReadByte(Int64 position)
         {
-            Contract.Assert(CanRead, "UMA not readable");
-            Contract.Assert(position >= 0, "position less than 0");
-            Contract.Assert(position <= _capacity - sizeof (byte), "position is greater than capacity - sizeof(byte)");
-            byte result;
+                                                byte result;
             unsafe
             {
                 byte *pointer = null;
@@ -909,10 +901,7 @@ namespace System.IO
 
         private void InternalWrite(Int64 position, byte value)
         {
-            Contract.Assert(CanWrite, "UMA not writeable");
-            Contract.Assert(position >= 0, "position less than 0");
-            Contract.Assert(position <= _capacity - sizeof (byte), "position is greater than capacity - sizeof(byte)");
-            unsafe
+                                                unsafe
             {
                 byte *pointer = null;
                 RuntimeHelpers.PrepareConstrainedRegions();
@@ -948,8 +937,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("position", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (position > _capacity - sizeOfType)
+                        if (position > _capacity - sizeOfType)
             {
                 if (position >= _capacity)
                 {
@@ -979,8 +967,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("position", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (position > _capacity - sizeOfType)
+                        if (position > _capacity - sizeOfType)
             {
                 if (position >= _capacity)
                 {

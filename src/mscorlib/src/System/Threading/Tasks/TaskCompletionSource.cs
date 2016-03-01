@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.ExceptionServices;
 
 namespace System.Threading.Tasks
@@ -70,13 +69,10 @@ namespace System.Threading.Tasks
             return rval;
         }
 
-        internal bool TrySetException(IEnumerable<ExceptionDispatchInfo> exceptions)
-        {
-            Contract.Assert(exceptions != null);
-            foreach (var edi in exceptions)
-                Contract.Assert(edi != null, "Contents must be non-null");
-            bool rval = m_task.TrySetException(exceptions);
-            if (!rval && !m_task.IsCompleted)
+        internal bool TrySetException( IEnumerable<ExceptionDispatchInfo> exceptions ) {
+
+            bool rval = m_task.TrySetException( exceptions );
+            if ( !rval && !m_task.IsCompleted )
                 SpinUntilCompleted();
             return rval;
         }

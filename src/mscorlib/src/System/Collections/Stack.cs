@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Collections
 {
@@ -20,8 +20,7 @@ namespace System.Collections
         {
             if (initialCapacity < 0)
                 throw new ArgumentOutOfRangeException("initialCapacity", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            if (initialCapacity < _defaultCapacity)
+                        if (initialCapacity < _defaultCapacity)
                 initialCapacity = _defaultCapacity;
             _array = new Object[initialCapacity];
             _size = 0;
@@ -32,8 +31,7 @@ namespace System.Collections
         {
             if (col == null)
                 throw new ArgumentNullException("col");
-            Contract.EndContractBlock();
-            IEnumerator en = col.GetEnumerator();
+                        IEnumerator en = col.GetEnumerator();
             while (en.MoveNext())
                 Push(en.Current);
         }
@@ -42,8 +40,7 @@ namespace System.Collections
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                return _size;
+                                return _size;
             }
         }
 
@@ -77,8 +74,7 @@ namespace System.Collections
 
         public virtual Object Clone()
         {
-            Contract.Ensures(Contract.Result<Object>() != null);
-            Stack s = new Stack(_size);
+                        Stack s = new Stack(_size);
             s._size = _size;
             Array.Copy(_array, 0, s._array, 0, _size);
             s._version = _version;
@@ -114,8 +110,7 @@ namespace System.Collections
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - index < _size)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            int i = 0;
+                        int i = 0;
             if (array is Object[])
             {
                 Object[] objArray = (Object[])array;
@@ -137,24 +132,21 @@ namespace System.Collections
 
         public virtual IEnumerator GetEnumerator()
         {
-            Contract.Ensures(Contract.Result<IEnumerator>() != null);
-            return new StackEnumerator(this);
+                        return new StackEnumerator(this);
         }
 
         public virtual Object Peek()
         {
             if (_size == 0)
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_EmptyStack"));
-            Contract.EndContractBlock();
-            return _array[_size - 1];
+                        return _array[_size - 1];
         }
 
         public virtual Object Pop()
         {
             if (_size == 0)
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_EmptyStack"));
-            Contract.EndContractBlock();
-            _version++;
+                        _version++;
             Object obj = _array[--_size];
             _array[_size] = null;
             return obj;
@@ -177,15 +169,12 @@ namespace System.Collections
         {
             if (stack == null)
                 throw new ArgumentNullException("stack");
-            Contract.Ensures(Contract.Result<Stack>() != null);
-            Contract.EndContractBlock();
-            return new SyncStack(stack);
+                                    return new SyncStack(stack);
         }
 
         public virtual Object[] ToArray()
         {
-            Contract.Ensures(Contract.Result<Object[]>() != null);
-            Object[] objArray = new Object[_size];
+                        Object[] objArray = new Object[_size];
             int i = 0;
             while (i < _size)
             {
@@ -380,8 +369,7 @@ namespace System.Collections
             {
                 if (stack == null)
                     throw new ArgumentNullException("stack");
-                Contract.EndContractBlock();
-                this.stack = stack;
+                                this.stack = stack;
             }
 
             public Object[] Items

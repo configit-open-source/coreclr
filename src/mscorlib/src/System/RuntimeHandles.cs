@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
@@ -375,8 +375,7 @@ namespace System
         {
             if (name == null || name.Length == 0)
                 throw new ArgumentException("name");
-            Contract.EndContractBlock();
-            RuntimeType type = null;
+                        RuntimeType type = null;
             GetTypeByNameUsingCARules(name, scope.GetNativeHandle(), JitHelpers.GetObjectHandleOnStack(ref type));
             return type;
         }
@@ -515,8 +514,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            RuntimeType m = (RuntimeType)info.GetValue("TypeObj", typeof (RuntimeType));
+                        RuntimeType m = (RuntimeType)info.GetValue("TypeObj", typeof (RuntimeType));
             m_type = m;
             if (m_type == null)
                 throw new SerializationException(Environment.GetResourceString("Serialization_InsufficientState"));
@@ -526,8 +524,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            if (m_type == null)
+                        if (m_type == null)
                 throw new SerializationException(Environment.GetResourceString("Serialization_InvalidFieldState"));
             info.AddValue("TypeObj", m_type, typeof (RuntimeType));
         }
@@ -642,8 +639,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            MethodBase m = (MethodBase)info.GetValue("MethodObj", typeof (MethodBase));
+                        MethodBase m = (MethodBase)info.GetValue("MethodObj", typeof (MethodBase));
             m_value = m.MethodHandle.m_value;
             if (m_value == null)
                 throw new SerializationException(Environment.GetResourceString("Serialization_InsufficientState"));
@@ -653,8 +649,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            if (m_value == null)
+                        if (m_value == null)
                 throw new SerializationException(Environment.GetResourceString("Serialization_InvalidFieldState"));
             MethodBase methodInfo = RuntimeType.GetMethodBase(m_value);
             info.AddValue("MethodObj", methodInfo, typeof (MethodBase));
@@ -746,8 +741,7 @@ namespace System
         internal extern static int GetSlot(RuntimeMethodHandleInternal method);
         internal static int GetSlot(IRuntimeMethodInfo method)
         {
-            Contract.Requires(method != null);
-            int slot = RuntimeMethodHandle.GetSlot(method.Value);
+                        int slot = RuntimeMethodHandle.GetSlot(method.Value);
             GC.KeepAlive(method);
             return slot;
         }
@@ -1056,8 +1050,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            FieldInfo f = (RuntimeFieldInfo)info.GetValue("FieldObj", typeof (RuntimeFieldInfo));
+                        FieldInfo f = (RuntimeFieldInfo)info.GetValue("FieldObj", typeof (RuntimeFieldInfo));
             if (f == null)
                 throw new SerializationException(Environment.GetResourceString("Serialization_InsufficientState"));
             m_ptr = f.FieldHandle.m_ptr;
@@ -1069,8 +1062,7 @@ namespace System
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            if (m_ptr == null)
+                        if (m_ptr == null)
                 throw new SerializationException(Environment.GetResourceString("Serialization_InvalidFieldState"));
             RuntimeFieldInfo fldInfo = (RuntimeFieldInfo)RuntimeType.GetFieldInfo(this.GetRuntimeFieldInfo());
             info.AddValue("FieldObj", fldInfo, typeof (RuntimeFieldInfo));

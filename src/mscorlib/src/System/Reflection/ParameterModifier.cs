@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Reflection
 {
@@ -9,8 +9,7 @@ namespace System.Reflection
         {
             if (parameterCount <= 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_ParmArraySize"));
-            Contract.EndContractBlock();
-            _byRef = new bool[parameterCount];
+                        _byRef = new bool[parameterCount];
         }
 
         internal bool[] IsByRefArray

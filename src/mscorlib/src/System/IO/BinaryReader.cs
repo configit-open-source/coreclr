@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Text;
 
 namespace System.IO
@@ -38,8 +38,7 @@ namespace System.IO
 
             if (!input.CanRead)
                 throw new ArgumentException(Environment.GetResourceString("Argument_StreamNotReadable"));
-            Contract.EndContractBlock();
-            m_stream = input;
+                        m_stream = input;
             m_decoder = encoding.GetDecoder();
             m_maxCharsSize = encoding.GetMaxCharCount(MaxCharBytesSize);
             int minBufferSize = encoding.GetMaxByteCount(1);
@@ -49,8 +48,7 @@ namespace System.IO
             m_2BytesPerChar = encoding is UnicodeEncoding;
             m_isMemoryStream = (m_stream.GetType() == typeof (MemoryStream));
             m_leaveOpen = leaveOpen;
-            Contract.Assert(m_decoder != null, "[BinaryReader.ctor]m_decoder!=null");
-        }
+                    }
 
         public virtual Stream BaseStream
         {
@@ -90,8 +88,7 @@ namespace System.IO
 
         public virtual int PeekChar()
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            if (m_stream == null)
+                        if (m_stream == null)
                 __Error.FileNotOpen();
             if (!m_stream.CanSeek)
                 return -1;
@@ -103,8 +100,7 @@ namespace System.IO
 
         public virtual int Read()
         {
-            Contract.Ensures(Contract.Result<int>() >= -1);
-            if (m_stream == null)
+                        if (m_stream == null)
             {
                 __Error.FileNotOpen();
             }
@@ -164,8 +160,7 @@ namespace System.IO
                 if (m_stream == null)
                     __Error.FileNotOpen();
                 MemoryStream mStream = m_stream as MemoryStream;
-                Contract.Assert(mStream != null, "m_stream as MemoryStream != null");
-                return mStream.InternalReadInt32();
+                                return mStream.InternalReadInt32();
             }
             else
             {
@@ -227,8 +222,7 @@ namespace System.IO
 
         public virtual String ReadString()
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            if (m_stream == null)
+                        if (m_stream == null)
                 __Error.FileNotOpen();
             int currPos = 0;
             int n;
@@ -300,20 +294,14 @@ namespace System.IO
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
             }
 
-            Contract.Ensures(Contract.Result<int>() >= 0);
-            Contract.Ensures(Contract.Result<int>() <= count);
-            Contract.EndContractBlock();
-            if (m_stream == null)
+                                                if (m_stream == null)
                 __Error.FileNotOpen();
             return InternalReadChars(buffer, index, count);
         }
 
         private int InternalReadChars(char[] buffer, int index, int count)
         {
-            Contract.Requires(buffer != null);
-            Contract.Requires(index >= 0 && count >= 0);
-            Contract.Assert(m_stream != null);
-            int numBytes = 0;
+                                                int numBytes = 0;
             int charsRemaining = count;
             if (m_charBytes == null)
             {
@@ -339,8 +327,7 @@ namespace System.IO
                 if (m_isMemoryStream)
                 {
                     MemoryStream mStream = m_stream as MemoryStream;
-                    Contract.Assert(mStream != null, "m_stream as MemoryStream != null");
-                    position = mStream.InternalGetPosition();
+                                        position = mStream.InternalGetPosition();
                     numBytes = mStream.InternalEmulateRead(numBytes);
                     byteBuffer = mStream.InternalGetBuffer();
                 }
@@ -355,8 +342,7 @@ namespace System.IO
                     return (count - charsRemaining);
                 }
 
-                Contract.Assert(byteBuffer != null, "expected byteBuffer to be non-null");
-                unsafe
+                                unsafe
                 {
                     fixed (byte *pBytes = byteBuffer)
                         fixed (char *pChars = buffer)
@@ -369,8 +355,7 @@ namespace System.IO
                 index += charsRead;
             }
 
-            Contract.Assert(charsRemaining >= 0, "We read too many characters.");
-            return (count - charsRemaining);
+                        return (count - charsRemaining);
         }
 
         private int InternalReadOneChar()
@@ -410,8 +395,7 @@ namespace System.IO
                     return -1;
                 }
 
-                Contract.Assert(numBytes == 1 || numBytes == 2, "BinaryReader::InternalReadOneChar assumes it's reading one or 2 bytes only.");
-                try
+                                try
                 {
                     charsRead = m_decoder.GetChars(m_charBytes, 0, numBytes, m_singleChar, 0);
                 }
@@ -422,8 +406,7 @@ namespace System.IO
                     throw;
                 }
 
-                Contract.Assert(charsRead < 2, "InternalReadOneChar - assuming we only got 0 or 1 char, not 2!");
-            }
+                            }
 
             if (charsRead == 0)
                 return -1;
@@ -437,10 +420,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.Ensures(Contract.Result<char[]>() != null);
-            Contract.Ensures(Contract.Result<char[]>().Length <= count);
-            Contract.EndContractBlock();
-            if (m_stream == null)
+                                                if (m_stream == null)
             {
                 __Error.FileNotOpen();
             }
@@ -472,10 +452,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.Ensures(Contract.Result<int>() >= 0);
-            Contract.Ensures(Contract.Result<int>() <= count);
-            Contract.EndContractBlock();
-            if (m_stream == null)
+                                                if (m_stream == null)
                 __Error.FileNotOpen();
             return m_stream.Read(buffer, index, count);
         }
@@ -484,10 +461,7 @@ namespace System.IO
         {
             if (count < 0)
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length <= Contract.OldValue(count));
-            Contract.EndContractBlock();
-            if (m_stream == null)
+                                                if (m_stream == null)
                 __Error.FileNotOpen();
             if (count == 0)
             {

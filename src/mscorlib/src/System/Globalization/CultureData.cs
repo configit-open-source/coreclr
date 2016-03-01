@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -331,8 +330,7 @@ namespace System.Globalization
 
             if ((types & (CultureTypes.NeutralCultures | CultureTypes.FrameworkCultures)) != 0)
             {
-                Contract.Assert(arrayLength == cultureNames.Length + 2, "CultureData.nativeEnumCultureNames() Incorrect array size");
-                cultures[cultureNames.Length] = new CultureInfo("zh-CHS");
+                                cultures[cultureNames.Length] = new CultureInfo("zh-CHS");
                 cultures[cultureNames.Length + 1] = new CultureInfo("zh-CHT");
             }
 
@@ -354,8 +352,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Assert(this.sRealName != null, "[CultureData.CultureName] Expected this.sRealName to be populated by COMNlsInfo::nativeInitCultureData already");
-                switch (this.sName)
+                                switch (this.sName)
                 {
                     case "zh-CHS":
                     case "zh-CHT":
@@ -501,8 +498,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Assert(this.sSpecificCulture != null, "[CultureData.SSPECIFICCULTURE] Expected this.sSpecificCulture to be populated by COMNlsInfo::nativeInitCultureData already");
-                return this.sSpecificCulture;
+                                return this.sSpecificCulture;
             }
         }
 
@@ -1155,8 +1151,7 @@ namespace System.Globalization
                 if (this.waCalendars == null)
                 {
                     int[] calendarInts = new int[23];
-                    Contract.Assert(this.sWindowsName != null, "[CultureData.CalendarIds] Expected this.sWindowsName to be populated by COMNlsInfo::nativeInitCultureData already");
-                    int count = CalendarData.nativeGetCalendars(this.sWindowsName, this.bUseOverrides, calendarInts);
+                                        int count = CalendarData.nativeGetCalendars(this.sWindowsName, this.bUseOverrides, calendarInts);
                     if (count == 0)
                     {
                         this.waCalendars = Invariant.waCalendars;
@@ -1210,8 +1205,7 @@ namespace System.Globalization
 
         internal CalendarData GetCalendar(int calendarId)
         {
-            Contract.Assert(calendarId > 0 && calendarId <= CalendarData.MAX_CALENDARS, "[CultureData.GetCalendar] Expect calendarId to be in a valid range");
-            int calendarIndex = calendarId - 1;
+                        int calendarIndex = calendarId - 1;
             if (calendars == null)
             {
                 calendars = new CalendarData[CalendarData.MAX_CALENDARS];
@@ -1220,8 +1214,7 @@ namespace System.Globalization
             CalendarData calendarData = calendars[calendarIndex];
             if (calendarData == null)
             {
-                Contract.Assert(this.sWindowsName != null, "[CultureData.GetCalendar] Expected this.sWindowsName to be populated by COMNlsInfo::nativeInitCultureData already");
-                calendarData = new CalendarData(this.sWindowsName, calendarId, this.UseUserOverride);
+                                calendarData = new CalendarData(this.sWindowsName, calendarId, this.UseUserOverride);
                 calendars[calendarIndex] = calendarData;
             }
 
@@ -1247,8 +1240,7 @@ namespace System.Globalization
             {
                 if (this.iReadingLayout == undef)
                 {
-                    Contract.Assert(this.sRealName != null, "[CultureData.IsRightToLeft] Expected this.sRealName to be populated by COMNlsInfo::nativeInitCultureData already");
-                    this.iReadingLayout = DoGetLocaleInfoInt(LOCALE_IREADINGLAYOUT);
+                                        this.iReadingLayout = DoGetLocaleInfoInt(LOCALE_IREADINGLAYOUT);
                 }
 
                 return (this.iReadingLayout);
@@ -1259,8 +1251,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Assert(this.sWindowsName != null, "[CultureData.STEXTINFO] Expected this.sWindowsName to be populated by COMNlsInfo::nativeInitCultureData already");
-                return (this.sWindowsName);
+                                return (this.sWindowsName);
             }
         }
 
@@ -1268,8 +1259,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Assert(this.sWindowsName != null, "[CultureData.SCOMPAREINFO] Expected this.sWindowsName to be populated by COMNlsInfo::nativeInitCultureData already");
-                return (this.sWindowsName);
+                                return (this.sWindowsName);
             }
         }
 
@@ -1313,20 +1303,17 @@ namespace System.Globalization
 
         internal String[] EraNames(int calendarId)
         {
-            Contract.Assert(calendarId > 0, "[CultureData.saEraNames] Expected Calendar.ID > 0");
-            return this.GetCalendar(calendarId).saEraNames;
+                        return this.GetCalendar(calendarId).saEraNames;
         }
 
         internal String[] AbbrevEraNames(int calendarId)
         {
-            Contract.Assert(calendarId > 0, "[CultureData.saAbbrevEraNames] Expected Calendar.ID > 0");
-            return this.GetCalendar(calendarId).saAbbrevEraNames;
+                        return this.GetCalendar(calendarId).saAbbrevEraNames;
         }
 
         internal String[] AbbreviatedEnglishEraNames(int calendarId)
         {
-            Contract.Assert(calendarId > 0, "[CultureData.saAbbrevEraNames] Expected Calendar.ID > 0");
-            return this.GetCalendar(calendarId).saAbbrevEnglishEraNames;
+                        return this.GetCalendar(calendarId).saAbbrevEnglishEraNames;
         }
 
         internal String TimeSeparator
@@ -1356,10 +1343,7 @@ namespace System.Globalization
 
         static private String UnescapeNlsString(String str, int start, int end)
         {
-            Contract.Requires(str != null);
-            Contract.Requires(start >= 0);
-            Contract.Requires(end >= 0);
-            StringBuilder result = null;
+                                                StringBuilder result = null;
             for (int i = start; i < str.Length && i <= end; i++)
             {
                 switch (str[i])
@@ -1494,9 +1478,7 @@ namespace System.Globalization
 
         private static int IndexOfTimePart(string format, int startIndex, string timeParts)
         {
-            Contract.Assert(startIndex >= 0, "startIndex cannot be negative");
-            Contract.Assert(timeParts.IndexOfAny(new char[]{'\'', '\\'}) == -1, "timeParts cannot include quote characters");
-            bool inQuote = false;
+                                    bool inQuote = false;
             for (int i = startIndex; i < format.Length; ++i)
             {
                 if (!inQuote && timeParts.IndexOf(format[i]) != -1)
@@ -1533,8 +1515,7 @@ namespace System.Globalization
 
         string DoGetLocaleInfo(uint lctype)
         {
-            Contract.Assert(this.sWindowsName != null, "[CultureData.DoGetLocaleInfo] Expected this.sWindowsName to be populated by COMNlsInfo::nativeInitCultureData already");
-            return DoGetLocaleInfo(this.sWindowsName, lctype);
+                        return DoGetLocaleInfo(this.sWindowsName, lctype);
         }
 
         string DoGetLocaleInfo(string localeName, uint lctype)
@@ -1544,8 +1525,7 @@ namespace System.Globalization
                 lctype |= LOCALE_NOUSEROVERRIDE;
             }
 
-            Contract.Assert(localeName != null, "[CultureData.DoGetLocaleInfo] Expected localeName to be not be null");
-            string result = CultureInfo.nativeGetLocaleInfoEx(localeName, lctype);
+                        string result = CultureInfo.nativeGetLocaleInfoEx(localeName, lctype);
             if (result == null)
             {
                 result = String.Empty;
@@ -1561,22 +1541,19 @@ namespace System.Globalization
                 lctype |= LOCALE_NOUSEROVERRIDE;
             }
 
-            Contract.Assert(this.sWindowsName != null, "[CultureData.DoGetLocaleInfoInt] Expected this.sWindowsName to be populated by COMNlsInfo::nativeInitCultureData already");
-            int result = CultureInfo.nativeGetLocaleInfoExInt(this.sWindowsName, lctype);
+                        int result = CultureInfo.nativeGetLocaleInfoExInt(this.sWindowsName, lctype);
             return result;
         }
 
         String[] DoEnumTimeFormats()
         {
-            Contract.Assert(this.sWindowsName != null, "[CultureData.DoEnumTimeFormats] Expected this.sWindowsName to be populated by COMNlsInfo::nativeInitCultureData already");
-            String[] result = ReescapeWin32Strings(nativeEnumTimeFormats(this.sWindowsName, 0, UseUserOverride));
+                        String[] result = ReescapeWin32Strings(nativeEnumTimeFormats(this.sWindowsName, 0, UseUserOverride));
             return result;
         }
 
         String[] DoEnumShortTimeFormats()
         {
-            Contract.Assert(this.sWindowsName != null, "[CultureData.DoEnumShortTimeFormats] Expected this.sWindowsName to be populated by COMNlsInfo::nativeInitCultureData already");
-            String[] result = ReescapeWin32Strings(nativeEnumTimeFormats(this.sWindowsName, TIME_NOSECONDS, UseUserOverride));
+                        String[] result = ReescapeWin32Strings(nativeEnumTimeFormats(this.sWindowsName, TIME_NOSECONDS, UseUserOverride));
             return result;
         }
 
@@ -1606,8 +1583,7 @@ namespace System.Globalization
             }
             else
             {
-                Contract.Assert(this.sWindowsName != null, "[CultureData.GetNFIValues] Expected this.sWindowsName to be populated by COMNlsInfo::nativeInitCultureData already");
-                CultureData.nativeGetNumberFormatInfoValues(this.sWindowsName, nfi, UseUserOverride);
+                                CultureData.nativeGetNumberFormatInfoValues(this.sWindowsName, nfi, UseUserOverride);
             }
 
             nfi.numberGroupSizes = this.WAGROUPING;

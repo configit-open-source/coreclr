@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 
 namespace System.Diagnostics.Tracing
@@ -329,8 +328,7 @@ namespace System.Diagnostics.Tracing
         public NullableTypeInfo(Type type, List<Type> recursionCheck): base (type)
         {
             var typeArgs = type.GenericTypeArguments;
-            Contract.Assert(typeArgs.Length == 1);
-            this.valueInfo = TraceLoggingTypeInfo.GetInstance(typeArgs[0], recursionCheck);
+                        this.valueInfo = TraceLoggingTypeInfo.GetInstance(typeArgs[0], recursionCheck);
             this.hasValueGetter = PropertyValue.GetPropertyGetter(type.GetTypeInfo().GetDeclaredProperty("HasValue"));
             this.valueGetter = PropertyValue.GetPropertyGetter(type.GetTypeInfo().GetDeclaredProperty("Value"));
         }

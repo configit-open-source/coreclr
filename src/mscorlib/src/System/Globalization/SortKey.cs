@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -40,12 +40,9 @@ namespace System.Globalization
                 throw new ArgumentNullException((sortkey1 == null ? "sortkey1" : "sortkey2"));
             }
 
-            Contract.EndContractBlock();
-            byte[] key1Data = sortkey1.m_KeyData;
+                        byte[] key1Data = sortkey1.m_KeyData;
             byte[] key2Data = sortkey2.m_KeyData;
-            Contract.Assert(key1Data != null, "key1Data!=null");
-            Contract.Assert(key2Data != null, "key2Data!=null");
-            if (key1Data.Length == 0)
+                                    if (key1Data.Length == 0)
             {
                 if (key2Data.Length == 0)
                 {

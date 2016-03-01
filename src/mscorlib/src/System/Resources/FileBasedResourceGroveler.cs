@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -11,14 +10,12 @@ namespace System.Resources
         private ResourceManager.ResourceManagerMediator _mediator;
         public FileBasedResourceGroveler(ResourceManager.ResourceManagerMediator mediator)
         {
-            Contract.Assert(mediator != null, "mediator shouldn't be null; check caller");
-            _mediator = mediator;
+                        _mediator = mediator;
         }
 
         public ResourceSet GrovelForResourceSet(CultureInfo culture, Dictionary<String, ResourceSet> localResourceSets, bool tryParents, bool createIfNotExists, ref StackCrawlMark stackMark)
         {
-            Contract.Assert(culture != null, "culture shouldn't be null; check caller");
-            String fileName = null;
+                        String fileName = null;
             ResourceSet rs = null;
             try
             {
@@ -50,9 +47,7 @@ namespace System.Resources
 
         private String FindResourceFile(CultureInfo culture, String fileName)
         {
-            Contract.Assert(culture != null, "culture shouldn't be null; check caller");
-            Contract.Assert(fileName != null, "fileName shouldn't be null; check caller");
-            if (_mediator.ModuleDir != null)
+                                    if (_mediator.ModuleDir != null)
             {
                 if (ResourceManager.DEBUG >= 3)
                     BCLDebug.Log("FindResourceFile: checking module dir: \"" + _mediator.ModuleDir + '\"');
@@ -74,8 +69,7 @@ namespace System.Resources
 
         private ResourceSet CreateResourceSet(String file)
         {
-            Contract.Assert(file != null, "file shouldn't be null; check caller");
-            if (_mediator.UserResourceSet == null)
+                        if (_mediator.UserResourceSet == null)
             {
                 return new RuntimeResourceSet(file);
             }

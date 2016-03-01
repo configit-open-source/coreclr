@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Globalization
@@ -68,8 +68,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("type", Environment.GetResourceString("ArgumentOutOfRange_Range", GregorianCalendarTypes.Localized, GregorianCalendarTypes.TransliteratedFrench));
             }
 
-            Contract.EndContractBlock();
-            this.m_type = type;
+                        this.m_type = type;
         }
 
         public virtual GregorianCalendarTypes CalendarType
@@ -169,8 +168,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("months", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), -120000, 120000));
             }
 
-            Contract.EndContractBlock();
-            int y = GetDatePart(time.Ticks, DatePartYear);
+                        int y = GetDatePart(time.Ticks, DatePartYear);
             int m = GetDatePart(time.Ticks, DatePartMonth);
             int d = GetDatePart(time.Ticks, DatePartDay);
             int i = m - 1 + months;
@@ -298,8 +296,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("month", Environment.GetResourceString("ArgumentOutOfRange_Range", 1, 12));
             }
 
-            Contract.EndContractBlock();
-            if (era != CurrentEra && era != ADEra)
+                        if (era != CurrentEra && era != ADEra)
             {
                 throw new ArgumentOutOfRangeException("era", Environment.GetResourceString("ArgumentOutOfRange_InvalidEraValue"));
             }
@@ -339,8 +336,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), 1, MaxYear));
             }
 
-            Contract.EndContractBlock();
-            return (0);
+                        return (0);
         }
 
         public override bool IsLeapMonth(int year, int month, int era)
@@ -360,8 +356,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("month", Environment.GetResourceString("ArgumentOutOfRange_Range", 1, 12));
             }
 
-            Contract.EndContractBlock();
-            return (false);
+                        return (false);
         }
 
         public override bool IsLeapYear(int year, int era)
@@ -432,8 +427,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (year > MaxYear)
+                        if (year > MaxYear)
             {
                 throw new ArgumentOutOfRangeException("year", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), 1, MaxYear));
             }

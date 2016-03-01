@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 
 namespace System.Security.Permissions
 {
@@ -88,8 +87,7 @@ namespace System.Security.Permissions
                 throw new ArgumentException(Environment.GetResourceString("Argument_IllegalZone"));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         public override IPermission Copy()
         {

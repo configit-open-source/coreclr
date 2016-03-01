@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
@@ -150,8 +149,7 @@ namespace System
         {
             if (fileName == null)
                 throw new ArgumentNullException("fileName");
-            Contract.EndContractBlock();
-            this.fileName = fileName;
+                        this.fileName = fileName;
             if (configPath[0] == '/')
             {
                 treeRootPath = configPath.Substring(1).Split('/');

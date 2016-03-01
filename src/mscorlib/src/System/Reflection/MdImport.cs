@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.InteropServices;
 
@@ -154,8 +154,7 @@ namespace System.Reflection
             {
                 if (index < 0 || index >= m_length)
                     throw new IndexOutOfRangeException();
-                Contract.EndContractBlock();
-                unsafe
+                                unsafe
                 {
                     return ((byte *)m_constArray.ToPointer())[index];
                 }
@@ -360,8 +359,7 @@ namespace System.Reflection
             [System.Security.SecurityCritical]
             get
             {
-                Contract.Requires(0 <= index && index < Length);
-                if (largeResult != null)
+                                if (largeResult != null)
                     return largeResult[index];
                 fixed (int *p = smallResult)
                     return p[index];

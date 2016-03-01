@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Util;
@@ -130,8 +129,7 @@ namespace System.Security.Permissions
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyPath"));
             }
 
-            Contract.EndContractBlock();
-            VerifyAccess(access);
+                        VerifyAccess(access);
             if (m_unrestricted)
                 return;
             String[] pathList = pathListOrig;
@@ -807,8 +805,7 @@ namespace System.Security.Permissions
                 return this.IsEmpty() ? null : this.Copy();
             }
 
-            Contract.Assert(this.m_pathDiscovery == operand.m_pathDiscovery, "Path discovery settings must match");
-            if (this.m_allFiles || operand.m_allFiles)
+                        if (this.m_allFiles || operand.m_allFiles)
             {
                 return new FileIOAccess(true, false, this.m_pathDiscovery);
             }
@@ -823,8 +820,7 @@ namespace System.Security.Permissions
                 return null;
             }
 
-            Contract.Assert(this.m_pathDiscovery == operand.m_pathDiscovery, "Path discovery settings must match");
-            if (this.m_allFiles)
+                        if (this.m_allFiles)
             {
                 if (operand.m_allFiles)
                 {
@@ -891,8 +887,7 @@ namespace System.Security.Permissions
                 return true;
             }
 
-            Contract.Assert(this.m_pathDiscovery == operand.m_pathDiscovery, "Path discovery settings must match");
-            if (!((m_pathDiscovery && this.m_set.IsSubsetOfPathDiscovery(operand.m_set)) || this.m_set.IsSubsetOf(operand.m_set)))
+                        if (!((m_pathDiscovery && this.m_set.IsSubsetOfPathDiscovery(operand.m_set)) || this.m_set.IsSubsetOf(operand.m_set)))
             {
                 if (operand.m_allLocalFiles)
                 {
@@ -962,8 +957,7 @@ namespace System.Security.Permissions
             FileIOAccess operand = obj as FileIOAccess;
             if (operand == null)
                 return (IsEmpty() && obj == null);
-            Contract.Assert(this.m_pathDiscovery == operand.m_pathDiscovery, "Path discovery settings must match");
-            if (m_pathDiscovery)
+                        if (m_pathDiscovery)
             {
                 if (this.m_allFiles && operand.m_allFiles)
                     return true;

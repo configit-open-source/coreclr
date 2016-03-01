@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Runtime.Serialization
 {
@@ -20,8 +20,7 @@ namespace System.Runtime.Serialization
             {
                 if (value < 1)
                     throw new ArgumentException(Environment.GetResourceString("Serialization_OptionalFieldVersionValue"));
-                Contract.EndContractBlock();
-                this.versionAdded = value;
+                                this.versionAdded = value;
             }
         }
     }

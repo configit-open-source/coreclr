@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -14,8 +14,7 @@ namespace System.Security.Cryptography
         {
             if (hash == null)
                 throw new ArgumentNullException("hash");
-            Contract.EndContractBlock();
-            SetHashAlgorithm(hash.ToString());
+                        SetHashAlgorithm(hash.ToString());
             return VerifySignature(hash.Hash, rgbSignature);
         }
 

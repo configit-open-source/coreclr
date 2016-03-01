@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Threading
 {
@@ -10,8 +10,7 @@ namespace System.Threading
             if (lockTaken)
                 ThrowLockTakenException();
             ReliableEnter(obj, ref lockTaken);
-            Contract.Assert(lockTaken);
-        }
+                    }
 
         private static void ThrowLockTakenException()
         {
@@ -113,8 +112,7 @@ namespace System.Threading
                 throw new ArgumentNullException("obj");
             }
 
-            Contract.EndContractBlock();
-            ObjPulse(obj);
+                        ObjPulse(obj);
         }
 
         private static extern void ObjPulseAll(Object obj);
@@ -125,8 +123,7 @@ namespace System.Threading
                 throw new ArgumentNullException("obj");
             }
 
-            Contract.EndContractBlock();
-            ObjPulseAll(obj);
+                        ObjPulseAll(obj);
         }
     }
 }

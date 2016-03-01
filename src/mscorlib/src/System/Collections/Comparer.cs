@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.Serialization;
 
@@ -22,8 +22,7 @@ namespace System.Collections
                 throw new ArgumentNullException("culture");
             }
 
-            Contract.EndContractBlock();
-            m_compareInfo = culture.CompareInfo;
+                        m_compareInfo = culture.CompareInfo;
         }
 
         private Comparer(SerializationInfo info, StreamingContext context)
@@ -73,8 +72,7 @@ namespace System.Collections
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            if (m_compareInfo != null)
+                        if (m_compareInfo != null)
             {
                 info.AddValue(CompareInfoName, m_compareInfo);
             }

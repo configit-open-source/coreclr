@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Diagnostics.Tracing;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -76,15 +76,12 @@ namespace System.Threading
 
             if (m_pauseTicks != 0)
             {
-                Contract.Assert(!m_isAppDomainTimerScheduled);
-                Contract.Assert(m_appDomainTimer == null);
-                return true;
+                                                return true;
             }
 
             if (m_appDomainTimer == null || m_appDomainTimer.IsInvalid)
             {
-                Contract.Assert(!m_isAppDomainTimerScheduled);
-                m_appDomainTimer = CreateAppDomainTimer(actualDuration);
+                                m_appDomainTimer = CreateAppDomainTimer(actualDuration);
                 if (!m_appDomainTimer.IsInvalid)
                 {
                     m_isAppDomainTimerScheduled = true;
@@ -155,9 +152,7 @@ namespace System.Threading
                     TimerQueueTimer timer = m_timers;
                     while (timer != null)
                     {
-                        Contract.Assert(timer.m_dueTime != Timeout.UnsignedInfinite);
-                        Contract.Assert(resumedTicks >= timer.m_startTicks);
-                        uint elapsed;
+                                                                        uint elapsed;
                         if (timer.m_startTicks <= pauseTicks)
                             elapsed = (uint)(pauseTicks - timer.m_startTicks);
                         else
@@ -199,8 +194,7 @@ namespace System.Threading
                     TimerQueueTimer timer = m_timers;
                     while (timer != null)
                     {
-                        Contract.Assert(timer.m_dueTime != Timeout.UnsignedInfinite);
-                        uint elapsed = (uint)(nowTicks - timer.m_startTicks);
+                                                uint elapsed = (uint)(nowTicks - timer.m_startTicks);
                         if (elapsed >= timer.m_dueTime)
                         {
                             TimerQueueTimer nextTimer = timer.m_next;
@@ -514,8 +508,7 @@ namespace System.Threading
                 throw new ArgumentOutOfRangeException("dueTime", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
             if (period < -1)
                 throw new ArgumentOutOfRangeException("period", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             TimerSetup(callback, state, (UInt32)dueTime, (UInt32)period, ref stackMark);
         }
 
@@ -551,8 +544,7 @@ namespace System.Threading
                 throw new ArgumentOutOfRangeException("dueTime", Environment.GetResourceString("ArgumentOutOfRange_TimeoutTooLarge"));
             if (period > MAX_SUPPORTED_TIMEOUT)
                 throw new ArgumentOutOfRangeException("period", Environment.GetResourceString("ArgumentOutOfRange_PeriodTooLarge"));
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             TimerSetup(callback, state, (UInt32)dueTime, (UInt32)period, ref stackMark);
         }
 
@@ -568,8 +560,7 @@ namespace System.Threading
         {
             if (callback == null)
                 throw new ArgumentNullException("TimerCallback");
-            Contract.EndContractBlock();
-            m_timer = new TimerHolder(new TimerQueueTimer(callback, state, dueTime, period, ref stackMark));
+                        m_timer = new TimerHolder(new TimerQueueTimer(callback, state, dueTime, period, ref stackMark));
         }
 
         internal static void Pause()
@@ -588,8 +579,7 @@ namespace System.Threading
                 throw new ArgumentOutOfRangeException("dueTime", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
             if (period < -1)
                 throw new ArgumentOutOfRangeException("period", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
-            Contract.EndContractBlock();
-            return m_timer.m_timer.Change((UInt32)dueTime, (UInt32)period);
+                        return m_timer.m_timer.Change((UInt32)dueTime, (UInt32)period);
         }
 
         public bool Change(TimeSpan dueTime, TimeSpan period)
@@ -612,16 +602,14 @@ namespace System.Threading
                 throw new ArgumentOutOfRangeException("dueTime", Environment.GetResourceString("ArgumentOutOfRange_TimeoutTooLarge"));
             if (period > MAX_SUPPORTED_TIMEOUT)
                 throw new ArgumentOutOfRangeException("period", Environment.GetResourceString("ArgumentOutOfRange_PeriodTooLarge"));
-            Contract.EndContractBlock();
-            return m_timer.m_timer.Change((UInt32)dueTime, (UInt32)period);
+                        return m_timer.m_timer.Change((UInt32)dueTime, (UInt32)period);
         }
 
         public bool Dispose(WaitHandle notifyObject)
         {
             if (notifyObject == null)
                 throw new ArgumentNullException("notifyObject");
-            Contract.EndContractBlock();
-            return m_timer.Close(notifyObject);
+                        return m_timer.Close(notifyObject);
         }
 
         public void Dispose()

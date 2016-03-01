@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Threading;
 
@@ -95,8 +95,7 @@ namespace System.Text
 
         internal unsafe virtual bool InternalFallback(byte[] bytes, byte *pBytes, ref char *chars)
         {
-            Contract.Assert(byteStart != null, "[DecoderFallback.InternalFallback]Used InternalFallback without calling InternalInitialize");
-            if (this.Fallback(bytes, (int)(pBytes - byteStart - bytes.Length)))
+                        if (this.Fallback(bytes, (int)(pBytes - byteStart - bytes.Length)))
             {
                 char ch;
                 char *charTemp = chars;
@@ -137,8 +136,7 @@ namespace System.Text
 
         internal unsafe virtual int InternalFallback(byte[] bytes, byte *pBytes)
         {
-            Contract.Assert(byteStart != null, "[DecoderFallback.InternalFallback]Used InternalFallback without calling InternalInitialize");
-            if (this.Fallback(bytes, (int)(pBytes - byteStart - bytes.Length)))
+                        if (this.Fallback(bytes, (int)(pBytes - byteStart - bytes.Length)))
             {
                 int count = 0;
                 char ch;

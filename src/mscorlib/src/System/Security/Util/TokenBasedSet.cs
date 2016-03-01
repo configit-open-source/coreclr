@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Threading;
@@ -323,8 +323,7 @@ namespace System.Security.Util
                 }
                 else
                 {
-                    Contract.Assert((thisObj == null || otherObj == null), "Permission cannot be in both TokenBasedSets");
-                }
+                                    }
             }
 
             return unionSet;

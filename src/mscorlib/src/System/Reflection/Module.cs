@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -309,8 +308,7 @@ namespace System.Reflection
                 throw new ArgumentNullException("name");
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            for (int i = 0; i < types.Length; i++)
+                        for (int i = 0; i < types.Length; i++)
             {
                 if (types[i] == null)
                     throw new ArgumentNullException("types");
@@ -325,8 +323,7 @@ namespace System.Reflection
                 throw new ArgumentNullException("name");
             if (types == null)
                 throw new ArgumentNullException("types");
-            Contract.EndContractBlock();
-            for (int i = 0; i < types.Length; i++)
+                        for (int i = 0; i < types.Length; i++)
             {
                 if (types[i] == null)
                     throw new ArgumentNullException("types");
@@ -339,8 +336,7 @@ namespace System.Reflection
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            return GetMethodImpl(name, Module.DefaultLookup, null, CallingConventions.Any, null, null);
+                        return GetMethodImpl(name, Module.DefaultLookup, null, CallingConventions.Any, null, null);
         }
 
         protected virtual MethodInfo GetMethodImpl(String name, BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
@@ -372,7 +368,7 @@ namespace System.Reflection
 
         public virtual Assembly Assembly
         {
-            [Pure]
+            
             get
             {
                 RuntimeModule rtModule = this as RuntimeModule;
@@ -704,8 +700,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.GetCustomAttributes(this, attributeRuntimeType);
@@ -715,8 +710,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.IsDefined(this, attributeRuntimeType);
@@ -734,8 +728,7 @@ namespace System.Reflection
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            UnitySerializationHolder.GetUnitySerializationInfo(info, UnitySerializationHolder.ModuleUnity, this.ScopeName, this.GetRuntimeAssembly());
+                        UnitySerializationHolder.GetUnitySerializationInfo(info, UnitySerializationHolder.ModuleUnity, this.ScopeName, this.GetRuntimeAssembly());
         }
 
         public override Type GetType(String className, bool throwOnError, bool ignoreCase)
@@ -864,7 +857,7 @@ namespace System.Reflection
 
         public override Assembly Assembly
         {
-            [Pure]
+            
             get
             {
                 return GetRuntimeAssembly();

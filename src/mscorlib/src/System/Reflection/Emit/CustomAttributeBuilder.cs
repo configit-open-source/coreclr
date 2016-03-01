@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -77,8 +77,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentException(Environment.GetResourceString("Arg_ArrayLengthsDiffer"), "namedProperties, propertyValues");
             if (namedFields.Length != fieldValues.Length)
                 throw new ArgumentException(Environment.GetResourceString("Arg_ArrayLengthsDiffer"), "namedFields, fieldValues");
-            Contract.EndContractBlock();
-            if ((con.Attributes & MethodAttributes.Static) == MethodAttributes.Static || (con.Attributes & MethodAttributes.MemberAccessMask) == MethodAttributes.Private)
+                        if ((con.Attributes & MethodAttributes.Static) == MethodAttributes.Static || (con.Attributes & MethodAttributes.MemberAccessMask) == MethodAttributes.Private)
                 throw new ArgumentException(Environment.GetResourceString("Argument_BadConstructor"));
             if ((con.CallingConvention & CallingConventions.Standard) != CallingConventions.Standard)
                 throw new ArgumentException(Environment.GetResourceString("Argument_BadConstructorCallConv"));
@@ -209,8 +208,7 @@ namespace System.Reflection.Emit
                         writer.Write((byte)CustomAttributeEncoding.Double);
                         break;
                     default:
-                        Contract.Assert(false, "Invalid primitive type");
-                        break;
+                                                break;
                 }
             }
             else if (type.IsEnum)
@@ -292,8 +290,7 @@ namespace System.Reflection.Emit
                         writer.Write((ulong)value);
                         break;
                     default:
-                        Contract.Assert(false, "Invalid enum base type");
-                        break;
+                                                break;
                 }
             }
             else if (type == typeof (String))
@@ -369,8 +366,7 @@ namespace System.Reflection.Emit
                         writer.Write((double)value);
                         break;
                     default:
-                        Contract.Assert(false, "Invalid primitive type");
-                        break;
+                                                break;
                 }
             }
             else if (type == typeof (object))

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Globalization
@@ -17,8 +17,7 @@ namespace System.Globalization
                 throw new ArgumentException(Environment.GetResourceString("Argument_NoRegionInvariantCulture"));
             }
 
-            Contract.EndContractBlock();
-            this.m_cultureData = CultureData.GetCultureDataForRegion(name, true);
+                        this.m_cultureData = CultureData.GetCultureDataForRegion(name, true);
             if (this.m_cultureData == null)
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("Argument_InvalidCultureName"), name), "name");
             if (this.m_cultureData.IsNeutralCulture)
@@ -79,8 +78,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Assert(m_name != null, "Expected RegionInfo.m_name to be populated already");
-                return (m_name);
+                                return (m_name);
             }
         }
 

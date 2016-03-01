@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Reflection;
 using System.Security.Permissions;
@@ -54,8 +53,7 @@ namespace System.Security
         {
             if (obj == null)
                 throw new ArgumentNullException("obj");
-            Contract.EndContractBlock();
-            String str = obj as String;
+                        String str = obj as String;
             if (str == null)
                 return obj.GetHashCode();
             int iComma = str.IndexOf(',');
@@ -80,8 +78,7 @@ namespace System.Security
         static internal TokenBasedSet s_tokenSet = new TokenBasedSet();
         internal static bool IsMscorlibClassName(string className)
         {
-            Contract.Assert(c_mscorlibName == ((RuntimeAssembly)Assembly.GetExecutingAssembly()).GetSimpleName(), "mscorlib name mismatch");
-            int index = className.IndexOf(',');
+                        int index = className.IndexOf(',');
             if (index == -1)
                 return true;
             index = className.LastIndexOf(']');
@@ -188,8 +185,7 @@ namespace System.Security
 
         internal PermissionToken GetToken(Type cls, IPermission perm)
         {
-            Contract.Assert(cls != null, "Must pass in valid type");
-            IntPtr typePtr = cls.TypeHandle.Value;
+                        IntPtr typePtr = cls.TypeHandle.Value;
             object tok = m_handleTable[typePtr];
             if (tok == null)
             {
@@ -242,13 +238,11 @@ namespace System.Security
             {
                 if (perm != null)
                 {
-                    Contract.Assert(!(perm is IBuiltInPermission), "This should not be called for built-ins");
-                    ((PermissionToken)tok).m_type = PermissionTokenType.IUnrestricted;
+                                        ((PermissionToken)tok).m_type = PermissionTokenType.IUnrestricted;
                 }
                 else
                 {
-                    Contract.Assert(cls.GetInterface("System.Security.Permissions.IBuiltInPermission") == null, "This shoudl not be called for built-ins");
-                    if (cls.GetInterface(s_unrestrictedPermissionInferfaceName) != null)
+                                        if (cls.GetInterface(s_unrestrictedPermissionInferfaceName) != null)
                         ((PermissionToken)tok).m_type = PermissionTokenType.IUnrestricted;
                     else
                         ((PermissionToken)tok).m_type = PermissionTokenType.Normal;

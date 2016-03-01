@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -16,8 +16,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("type");
             }
 
-            Contract.EndContractBlock();
-            if (!(type is RuntimeType))
+                        if (!(type is RuntimeType))
             {
                 throw new SerializationException(Environment.GetResourceString("Serialization_InvalidType", type.ToString()));
             }
@@ -32,8 +31,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("type");
             }
 
-            Contract.EndContractBlock();
-            if (!(type is RuntimeType))
+                        if (!(type is RuntimeType))
             {
                 throw new SerializationException(Environment.GetResourceString("Serialization_InvalidType", type.ToString()));
             }
@@ -53,8 +51,7 @@ namespace System.Runtime.Serialization
         private static Binder s_binder = Type.DefaultBinder;
         internal static void SerializationSetValue(MemberInfo fi, Object target, Object value)
         {
-            Contract.Requires(fi != null);
-            RtFieldInfo rtField = fi as RtFieldInfo;
+                        RtFieldInfo rtField = fi as RtFieldInfo;
             if (rtField != null)
             {
                 rtField.CheckConsistency(target);
@@ -94,8 +91,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentException(Environment.GetResourceString("Argument_DataLengthDifferent"));
             }
 
-            Contract.EndContractBlock();
-            MemberInfo mi;
+                        MemberInfo mi;
             BCLDebug.Trace("SER", "[PopulateObjectMembers]Enter.");
             for (int i = 0; i < members.Length; i++)
             {
@@ -136,8 +132,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("members");
             }
 
-            Contract.EndContractBlock();
-            int numberOfMembers = members.Length;
+                        int numberOfMembers = members.Length;
             Object[] data = new Object[numberOfMembers];
             MemberInfo mi;
             for (int i = 0; i < numberOfMembers; i++)
@@ -150,8 +145,7 @@ namespace System.Runtime.Serialization
 
                 if (mi.MemberType == MemberTypes.Field)
                 {
-                    Contract.Assert(mi is RuntimeFieldInfo || mi is SerializationFieldInfo, "[FormatterServices.GetObjectData]mi is RuntimeFieldInfo || mi is SerializationFieldInfo.");
-                    RtFieldInfo rfi = mi as RtFieldInfo;
+                                        RtFieldInfo rfi = mi as RtFieldInfo;
                     if (rfi != null)
                     {
                         rfi.CheckConsistency(obj);
@@ -175,16 +169,14 @@ namespace System.Runtime.Serialization
         {
             if (innerSurrogate == null)
                 throw new ArgumentNullException("innerSurrogate");
-            Contract.EndContractBlock();
-            return new SurrogateForCyclicalReference(innerSurrogate);
+                        return new SurrogateForCyclicalReference(innerSurrogate);
         }
 
         public static Type GetTypeFromAssembly(Assembly assem, String name)
         {
             if (assem == null)
                 throw new ArgumentNullException("assem");
-            Contract.EndContractBlock();
-            return assem.GetType(name, false, false);
+                        return assem.GetType(name, false, false);
         }
 
         internal static Assembly LoadAssemblyFromString(String assemblyName)

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -86,8 +85,7 @@ namespace System.Security.Util
         {
             if (str == null)
                 throw new ArgumentNullException("str");
-            Contract.EndContractBlock();
-            if (str.Length == 0)
+                        if (str.Length == 0)
                 return;
             str = ProcessWholeString(str);
             if (m_expressions == null)
@@ -133,8 +131,7 @@ namespace System.Security.Util
 
         public void AddExpressions(ArrayList exprArrayList, bool checkForDuplicates)
         {
-            Contract.Assert(m_throwOnRelative, "This should only be called when throw on relative is set");
-            m_expressionsArray = null;
+                        m_expressionsArray = null;
             m_expressions = null;
             if (m_list != null)
                 m_list.AddRange(exprArrayList);
@@ -151,8 +148,7 @@ namespace System.Security.Util
                 throw new ArgumentNullException("str");
             }
 
-            Contract.EndContractBlock();
-            ArrayList retArrayList = new ArrayList();
+                        ArrayList retArrayList = new ArrayList();
             for (int index = 0; index < str.Length; ++index)
             {
                 if (str[index] == null)

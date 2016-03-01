@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -85,10 +85,7 @@ namespace System.Threading
                     throw new ArgumentException(Environment.GetResourceString("Argument_WaitHandleNameTooLong", name));
             }
 
-            Contract.Assert(initialCount >= 0);
-            Contract.Assert(maximumCount >= 1);
-            Contract.Assert(initialCount <= maximumCount);
-            return Win32Native.CreateSemaphore(null, initialCount, maximumCount, name);
+                                                return Win32Native.CreateSemaphore(null, initialCount, maximumCount, name);
         }
 
         public static Semaphore OpenExisting(string name)

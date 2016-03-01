@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 
 namespace System.Security.Cryptography
@@ -31,8 +31,7 @@ namespace System.Security.Cryptography
         {
             if (rgbKey == null)
                 throw new ArgumentNullException("rgbKey");
-            Contract.EndContractBlock();
-            if (strTripleDES == null)
+                        if (strTripleDES == null)
             {
                 des = TripleDES.Create();
             }
@@ -161,7 +160,7 @@ namespace System.Security.Cryptography
 
         public override bool CanRead
         {
-            [Pure]
+            
             get
             {
                 return false;
@@ -170,7 +169,7 @@ namespace System.Security.Cryptography
 
         public override bool CanSeek
         {
-            [Pure]
+            
             get
             {
                 return false;
@@ -179,7 +178,7 @@ namespace System.Security.Cryptography
 
         public override bool CanWrite
         {
-            [Pure]
+            
             get
             {
                 return _Buffer != null;

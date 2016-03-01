@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 
 namespace System.Runtime.Serialization
 {
@@ -50,14 +49,7 @@ namespace System.Runtime.Serialization
         bool m_current;
         internal SerializationInfoEnumerator(String[] members, Object[] info, Type[] types, int numItems)
         {
-            Contract.Assert(members != null, "[SerializationInfoEnumerator.ctor]members!=null");
-            Contract.Assert(info != null, "[SerializationInfoEnumerator.ctor]info!=null");
-            Contract.Assert(types != null, "[SerializationInfoEnumerator.ctor]types!=null");
-            Contract.Assert(numItems >= 0, "[SerializationInfoEnumerator.ctor]numItems>=0");
-            Contract.Assert(members.Length >= numItems, "[SerializationInfoEnumerator.ctor]members.Length>=numItems");
-            Contract.Assert(info.Length >= numItems, "[SerializationInfoEnumerator.ctor]info.Length>=numItems");
-            Contract.Assert(types.Length >= numItems, "[SerializationInfoEnumerator.ctor]types.Length>=numItems");
-            m_members = members;
+                                                                                                m_members = members;
             m_data = info;
             m_types = types;
             m_numItems = numItems - 1;

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Diagnostics.Tracing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,8 +10,7 @@ namespace System.Runtime.CompilerServices
         private readonly Task m_task;
         internal TaskAwaiter(Task task)
         {
-            Contract.Requires(task != null, "Constructing an awaiter requires a task to await.");
-            m_task = task;
+                        m_task = task;
         }
 
         public bool IsCompleted
@@ -50,8 +49,7 @@ namespace System.Runtime.CompilerServices
             if (!task.IsCompleted)
             {
                 bool taskCompleted = task.InternalWait(Timeout.Infinite, default (CancellationToken));
-                Contract.Assert(taskCompleted, "With an infinite timeout, the task should have always completed.");
-            }
+                            }
 
             task.NotifyDebuggerOfWaitCompletionIfNecessary();
             if (!task.IsRanToCompletion)
@@ -60,17 +58,14 @@ namespace System.Runtime.CompilerServices
 
         private static void ThrowForNonSuccess(Task task)
         {
-            Contract.Requires(task.IsCompleted, "Task must have been completed by now.");
-            Contract.Requires(task.Status != TaskStatus.RanToCompletion, "Task should not be completed successfully.");
-            switch (task.Status)
+                                    switch (task.Status)
             {
                 case TaskStatus.Canceled:
                     var oceEdi = task.GetCancellationExceptionDispatchInfo();
                     if (oceEdi != null)
                     {
                         oceEdi.Throw();
-                        Contract.Assert(false, "Throw() should have thrown");
-                    }
+                                            }
 
                     throw new TaskCanceledException(task);
                 case TaskStatus.Faulted:
@@ -78,13 +73,11 @@ namespace System.Runtime.CompilerServices
                     if (edis.Count > 0)
                     {
                         edis[0].Throw();
-                        Contract.Assert(false, "Throw() should have thrown");
-                        break;
+                                                break;
                     }
                     else
                     {
-                        Contract.Assert(false, "There should be exceptions if we're Faulted.");
-                        throw task.Exception;
+                                                throw task.Exception;
                     }
             }
         }
@@ -104,9 +97,7 @@ namespace System.Runtime.CompilerServices
 
         private static Action OutputWaitEtwEvents(Task task, Action continuation)
         {
-            Contract.Requires(task != null, "Need a task to wait on");
-            Contract.Requires(continuation != null, "Need a continuation to invoke when the wait completes");
-            if (Task.s_asyncDebuggingEnabled)
+                                    if (Task.s_asyncDebuggingEnabled)
             {
                 Task.AddToActiveTasks(task);
             }
@@ -154,8 +145,7 @@ namespace System.Runtime.CompilerServices
         private readonly Task<TResult> m_task;
         internal TaskAwaiter(Task<TResult> task)
         {
-            Contract.Requires(task != null, "Constructing an awaiter requires a task to await.");
-            m_task = task;
+                        m_task = task;
         }
 
         public bool IsCompleted
@@ -188,8 +178,7 @@ namespace System.Runtime.CompilerServices
         private readonly ConfiguredTaskAwaitable.ConfiguredTaskAwaiter m_configuredTaskAwaiter;
         internal ConfiguredTaskAwaitable(Task task, bool continueOnCapturedContext)
         {
-            Contract.Requires(task != null, "Constructing an awaitable requires a task to await.");
-            m_configuredTaskAwaiter = new ConfiguredTaskAwaitable.ConfiguredTaskAwaiter(task, continueOnCapturedContext);
+                        m_configuredTaskAwaiter = new ConfiguredTaskAwaitable.ConfiguredTaskAwaiter(task, continueOnCapturedContext);
         }
 
         public ConfiguredTaskAwaitable.ConfiguredTaskAwaiter GetAwaiter()
@@ -203,8 +192,7 @@ namespace System.Runtime.CompilerServices
             private readonly bool m_continueOnCapturedContext;
             internal ConfiguredTaskAwaiter(Task task, bool continueOnCapturedContext)
             {
-                Contract.Requires(task != null, "Constructing an awaiter requires a task to await.");
-                m_task = task;
+                                m_task = task;
                 m_continueOnCapturedContext = continueOnCapturedContext;
             }
 
@@ -252,8 +240,7 @@ namespace System.Runtime.CompilerServices
             private readonly bool m_continueOnCapturedContext;
             internal ConfiguredTaskAwaiter(Task<TResult> task, bool continueOnCapturedContext)
             {
-                Contract.Requires(task != null, "Constructing an awaiter requires a task to await.");
-                m_task = task;
+                                m_task = task;
                 m_continueOnCapturedContext = continueOnCapturedContext;
             }
 

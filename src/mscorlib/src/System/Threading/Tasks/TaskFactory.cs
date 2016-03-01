@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Threading.Tasks
 {
@@ -63,8 +62,7 @@ namespace System.Threading.Tasks
                 throw new ArgumentOutOfRangeException("creationOptions");
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         public CancellationToken CancellationToken
         {
@@ -355,8 +353,7 @@ namespace System.Threading.Tasks
             private int _count;
             internal CompleteOnCountdownPromise(Task[] tasksCopy): base ()
             {
-                Contract.Requires((tasksCopy != null) && (tasksCopy.Length > 0), "Expected non-null task array with at least one element in it");
-                _tasks = tasksCopy;
+                                _tasks = tasksCopy;
                 _count = tasksCopy.Length;
                 if (AsyncCausalityTracer.LoggingOn)
                     AsyncCausalityTracer.TraceOperationCreation(CausalityTraceLevel.Required, this.Id, "TaskFactory.ContinueWhenAll", 0);
@@ -384,8 +381,7 @@ namespace System.Threading.Tasks
                     TrySetResult(_tasks);
                 }
 
-                Contract.Assert(_count >= 0, "Count should never go below 0");
-            }
+                            }
 
             public bool InvokeMayRunArbitraryCode
             {
@@ -406,8 +402,7 @@ namespace System.Threading.Tasks
 
         internal static Task<Task[]> CommonCWAllLogic(Task[] tasksCopy)
         {
-            Contract.Requires(tasksCopy != null);
-            CompleteOnCountdownPromise promise = new CompleteOnCountdownPromise(tasksCopy);
+                        CompleteOnCountdownPromise promise = new CompleteOnCountdownPromise(tasksCopy);
             for (int i = 0; i < tasksCopy.Length; i++)
             {
                 if (tasksCopy[i].IsCompleted)
@@ -425,8 +420,7 @@ namespace System.Threading.Tasks
             private int _count;
             internal CompleteOnCountdownPromise(Task<T>[] tasksCopy): base ()
             {
-                Contract.Requires((tasksCopy != null) && (tasksCopy.Length > 0), "Expected non-null task array with at least one element in it");
-                _tasks = tasksCopy;
+                                _tasks = tasksCopy;
                 _count = tasksCopy.Length;
                 if (AsyncCausalityTracer.LoggingOn)
                     AsyncCausalityTracer.TraceOperationCreation(CausalityTraceLevel.Required, this.Id, "TaskFactory.ContinueWhenAll<>", 0);
@@ -454,8 +448,7 @@ namespace System.Threading.Tasks
                     TrySetResult(_tasks);
                 }
 
-                Contract.Assert(_count >= 0, "Count should never go below 0");
-            }
+                            }
 
             public bool InvokeMayRunArbitraryCode
             {
@@ -476,8 +469,7 @@ namespace System.Threading.Tasks
 
         internal static Task<Task<T>[]> CommonCWAllLogic<T>(Task<T>[] tasksCopy)
         {
-            Contract.Requires(tasksCopy != null);
-            CompleteOnCountdownPromise<T> promise = new CompleteOnCountdownPromise<T>(tasksCopy);
+                        CompleteOnCountdownPromise<T> promise = new CompleteOnCountdownPromise<T>(tasksCopy);
             for (int i = 0; i < tasksCopy.Length; i++)
             {
                 if (tasksCopy[i].IsCompleted)
@@ -493,8 +485,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAllImpl(tasks, null, continuationAction, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -502,8 +493,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAllImpl(tasks, null, continuationAction, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -511,8 +501,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAllImpl(tasks, null, continuationAction, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -520,8 +509,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAllImpl(tasks, null, continuationAction, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -529,8 +517,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAllImpl<TAntecedentResult>(tasks, null, continuationAction, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -538,8 +525,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAllImpl<TAntecedentResult>(tasks, null, continuationAction, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -547,8 +533,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAllImpl<TAntecedentResult>(tasks, null, continuationAction, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -556,8 +541,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAllImpl<TAntecedentResult>(tasks, null, continuationAction, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -565,8 +549,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAllImpl(tasks, continuationFunction, null, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -574,8 +557,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAllImpl(tasks, continuationFunction, null, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -583,8 +565,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAllImpl(tasks, continuationFunction, null, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -592,8 +573,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAllImpl(tasks, continuationFunction, null, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -601,8 +581,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAllImpl<TAntecedentResult>(tasks, continuationFunction, null, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -610,8 +589,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAllImpl<TAntecedentResult>(tasks, continuationFunction, null, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -619,8 +597,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAllImpl<TAntecedentResult>(tasks, continuationFunction, null, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -628,8 +605,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAllImpl<TAntecedentResult>(tasks, continuationFunction, null, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -639,8 +615,7 @@ namespace System.Threading.Tasks
             private int m_firstTaskAlreadyCompleted;
             public CompleteOnInvokePromise(IList<Task> tasks): base ()
             {
-                Contract.Requires(tasks != null, "Expected non-null collection of tasks");
-                _tasks = tasks;
+                                _tasks = tasks;
                 if (AsyncCausalityTracer.LoggingOn)
                     AsyncCausalityTracer.TraceOperationCreation(CausalityTraceLevel.Required, this.Id, "TaskFactory.ContinueWhenAny", 0);
                 if (Task.s_asyncDebuggingEnabled)
@@ -665,8 +640,7 @@ namespace System.Threading.Tasks
                     }
 
                     bool success = TrySetResult(completingTask);
-                    Contract.Assert(success, "Only one task should have gotten to this point, and thus this must be successful.");
-                    var tasks = _tasks;
+                                        var tasks = _tasks;
                     int numTasks = tasks.Count;
                     for (int i = 0; i < numTasks; i++)
                     {
@@ -690,8 +664,7 @@ namespace System.Threading.Tasks
 
         internal static Task<Task> CommonCWAnyLogic(IList<Task> tasks)
         {
-            Contract.Requires(tasks != null);
-            var promise = new CompleteOnInvokePromise(tasks);
+                        var promise = new CompleteOnInvokePromise(tasks);
             bool checkArgsOnly = false;
             int numTasks = tasks.Count;
             for (int i = 0; i < numTasks; i++)
@@ -721,8 +694,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAnyImpl(tasks, null, continuationAction, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -730,8 +702,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAnyImpl(tasks, null, continuationAction, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -739,8 +710,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAnyImpl(tasks, null, continuationAction, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -748,8 +718,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAnyImpl(tasks, null, continuationAction, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -757,8 +726,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAnyImpl(tasks, continuationFunction, null, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -766,8 +734,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAnyImpl(tasks, continuationFunction, null, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -775,8 +742,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAnyImpl(tasks, continuationFunction, null, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -784,8 +750,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAnyImpl(tasks, continuationFunction, null, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -801,8 +766,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAnyImpl<TAntecedentResult>(tasks, continuationFunction, null, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -810,8 +774,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAnyImpl<TAntecedentResult>(tasks, continuationFunction, null, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -819,8 +782,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<TResult>.ContinueWhenAnyImpl<TAntecedentResult>(tasks, continuationFunction, null, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -828,8 +790,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAnyImpl<TAntecedentResult>(tasks, null, continuationAction, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -837,8 +798,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAnyImpl<TAntecedentResult>(tasks, null, continuationAction, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -846,8 +806,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAnyImpl<TAntecedentResult>(tasks, null, continuationAction, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -855,8 +814,7 @@ namespace System.Threading.Tasks
         {
             if (continuationAction == null)
                 throw new ArgumentNullException("continuationAction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return TaskFactory<VoidTaskResult>.ContinueWhenAnyImpl<TAntecedentResult>(tasks, null, continuationAction, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -866,8 +824,7 @@ namespace System.Threading.Tasks
                 throw new ArgumentNullException("tasks");
             if (tasks.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Task_MultiTaskContinuation_EmptyTaskList"), "tasks");
-            Contract.EndContractBlock();
-            Task[] tasksCopy = new Task[tasks.Length];
+                        Task[] tasksCopy = new Task[tasks.Length];
             for (int i = 0; i < tasks.Length; i++)
             {
                 tasksCopy[i] = tasks[i];
@@ -884,8 +841,7 @@ namespace System.Threading.Tasks
                 throw new ArgumentNullException("tasks");
             if (tasks.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Task_MultiTaskContinuation_EmptyTaskList"), "tasks");
-            Contract.EndContractBlock();
-            Task<TResult>[] tasksCopy = new Task<TResult>[tasks.Length];
+                        Task<TResult>[] tasksCopy = new Task<TResult>[tasks.Length];
             for (int i = 0; i < tasks.Length; i++)
             {
                 tasksCopy[i] = tasks[i];
@@ -912,7 +868,6 @@ namespace System.Threading.Tasks
 
             if ((continuationOptions & NotOnAny) != 0)
                 throw new ArgumentOutOfRangeException("continuationOptions", Environment.GetResourceString("Task_MultiTaskContinuation_FireOptions"));
-            Contract.EndContractBlock();
-        }
+                    }
     }
 }

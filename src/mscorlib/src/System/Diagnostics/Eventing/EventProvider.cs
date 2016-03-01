@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
@@ -615,8 +614,7 @@ namespace System.Diagnostics.Tracing
         {
             if (childActivityID != null)
             {
-                Contract.Assert((EventOpcode)eventDescriptor.Opcode == EventOpcode.Send || (EventOpcode)eventDescriptor.Opcode == EventOpcode.Receive || (EventOpcode)eventDescriptor.Opcode == EventOpcode.Start || (EventOpcode)eventDescriptor.Opcode == EventOpcode.Stop);
-            }
+                            }
 
             int status = UnsafeNativeMethods.ManifestEtw.EventWriteTransferWrapper(m_regHandle, ref eventDescriptor, activityID, childActivityID, dataCount, (EventData*)data);
             if (status != 0)
@@ -665,8 +663,7 @@ namespace System.Diagnostics.Tracing
 
         private static int bitindex(uint n)
         {
-            Contract.Assert(bitcount(n) == 1);
-            int idx = 0;
+                        int idx = 0;
             while ((n & (1 << idx)) == 0)
                 idx++;
             return idx;

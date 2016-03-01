@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 
 namespace System.Collections.Generic
 {
@@ -97,8 +96,7 @@ namespace System.Collections.Generic
                 throw new ArgumentNullException("keyedCollection");
             }
 
-            Contract.EndContractBlock();
-            kc = keyedCollection;
+                        kc = keyedCollection;
         }
 
         public T[] Items

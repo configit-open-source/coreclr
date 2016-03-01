@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System.Reflection.Emit
@@ -9,8 +9,7 @@ namespace System.Reflection.Emit
         {
             if (!method.IsGenericMethodDefinition)
                 throw new InvalidOperationException();
-            Contract.EndContractBlock();
-            return new MethodBuilderInstantiation(method, inst);
+                        return new MethodBuilderInstantiation(method, inst);
         }
 
         internal MethodInfo m_method;

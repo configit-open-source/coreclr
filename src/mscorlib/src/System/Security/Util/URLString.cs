@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -470,8 +469,7 @@ namespace System.Security.Util
                 throw new ArgumentNullException("url");
             }
 
-            Contract.EndContractBlock();
-            if (url.Length == 0)
+                        if (url.Length == 0)
             {
                 throw new FormatException(Environment.GetResourceString("Format_StringZeroLength"));
             }
@@ -823,8 +821,7 @@ namespace System.Security.Util
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidDirectoryOnUrl"));
             }
 
-            Contract.EndContractBlock();
-            ArrayList list = new ArrayList();
+                        ArrayList list = new ArrayList();
             String[] separatedArray = directory.Split(m_separators);
             for (int index = 0; index < separatedArray.Length; ++index)
             {
@@ -897,8 +894,7 @@ namespace System.Security.Util
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidDirectoryOnUrl"));
             }
 
-            Contract.EndContractBlock();
-            ArrayList list = new ArrayList();
+                        ArrayList list = new ArrayList();
             String[] separatedArray = directory.Split(m_separators);
             for (int index = 0; index < separatedArray.Length; ++index)
             {

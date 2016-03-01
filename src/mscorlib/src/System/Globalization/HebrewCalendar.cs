@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -188,8 +188,7 @@ namespace System.Globalization
             result.month++;
             result.day = 1;
             NumDays -= (long)(LunarMonthLen[hebrewYearType, lunarDate.month] - lunarDate.day);
-            Contract.Assert(NumDays >= 1, "NumDays >= 1");
-            if (NumDays > 1)
+                        if (NumDays > 1)
             {
                 while (NumDays > (long)(LunarMonthLen[hebrewYearType, result.month]))
                 {
@@ -319,8 +318,7 @@ namespace System.Globalization
             CheckEraRange(era);
             int hebrewYearType = GetHebrewYearType(year, era);
             CheckHebrewMonthValue(year, month, era);
-            Contract.Assert(hebrewYearType >= 1 && hebrewYearType <= 6, "hebrewYearType should be from  1 to 6, but now hebrewYearType = " + hebrewYearType + " for hebrew year " + year);
-            int monthDays = LunarMonthLen[hebrewYearType, month];
+                        int monthDays = LunarMonthLen[hebrewYearType, month];
             if (monthDays == 0)
             {
                 throw new ArgumentOutOfRangeException("month", Environment.GetResourceString("ArgumentOutOfRange_Month"));
@@ -509,8 +507,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (year < 100)
+                        if (year < 100)
             {
                 return (base.ToFourDigitYear(year));
             }

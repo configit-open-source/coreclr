@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration.Assemblies;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -243,8 +242,7 @@ namespace System
             {
                 if (s_flags == 0)
                     s_flags = nGetAppXFlags();
-                Contract.Assert(s_flags != 0);
-                return s_flags;
+                                return s_flags;
             }
         }
 
@@ -284,8 +282,7 @@ namespace System
 
         private void CreateAppDomainManager()
         {
-            Contract.Assert(_domainManager == null, "_domainManager == null");
-            AppDomainSetup adSetup = FusionStore;
+                        AppDomainSetup adSetup = FusionStore;
             String trustedPlatformAssemblies = (String)(GetData("TRUSTED_PLATFORM_ASSEMBLIES"));
             if (trustedPlatformAssemblies != null)
             {
@@ -367,8 +364,7 @@ namespace System
                 _compatFlags = new Dictionary<String, object>(adSetup.GetCompatibilityFlags(), StringComparer.OrdinalIgnoreCase);
             }
 
-            Contract.Assert(!_compatFlagsInitialized);
-            _compatFlagsInitialized = true;
+                        _compatFlagsInitialized = true;
             CompatibilitySwitches.InitializeSwitches();
         }
 
@@ -383,8 +379,7 @@ namespace System
                     TargetFrameworkAttribute[] attrs = (TargetFrameworkAttribute[])assembly.GetCustomAttributes(typeof (TargetFrameworkAttribute));
                     if (attrs != null && attrs.Length > 0)
                     {
-                        Contract.Assert(attrs.Length == 1);
-                        targetFrameworkName = attrs[0].FrameworkName;
+                                                targetFrameworkName = attrs[0].FrameworkName;
                         _FusionStore.TargetFrameworkName = targetFrameworkName;
                     }
                 }
@@ -475,9 +470,7 @@ namespace System
 
         private void SetAppDomainManagerType(string assembly, string type)
         {
-            Contract.Assert(assembly != null, "assembly != null");
-            Contract.Assert(type != null, "type != null");
-            SetAppDomainManagerType(GetNativeHandle(), assembly, type);
+                                    SetAppDomainManagerType(GetNativeHandle(), assembly, type);
         }
 
         private void InitializeDomainSecurity(Evidence providedSecurityInfo, Evidence creatorsSecurityInfo, bool generateDefaultEvidence, IntPtr parentSecurityDescriptor, bool publishAppDomain)
@@ -528,92 +521,79 @@ namespace System
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, null, null, null, null, null, ref stackMark, null, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, IEnumerable<CustomAttributeBuilder> assemblyAttributes)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, null, null, null, null, null, ref stackMark, assemblyAttributes, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, IEnumerable<CustomAttributeBuilder> assemblyAttributes, SecurityContextSource securityContextSource)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, null, null, null, null, null, ref stackMark, assemblyAttributes, securityContextSource);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, String dir)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, dir, null, null, null, null, ref stackMark, null, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, Evidence evidence)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, null, evidence, null, null, null, ref stackMark, null, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, PermissionSet requiredPermissions, PermissionSet optionalPermissions, PermissionSet refusedPermissions)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, null, null, requiredPermissions, optionalPermissions, refusedPermissions, ref stackMark, null, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, String dir, Evidence evidence)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, dir, evidence, null, null, null, ref stackMark, null, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, String dir, PermissionSet requiredPermissions, PermissionSet optionalPermissions, PermissionSet refusedPermissions)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, dir, null, requiredPermissions, optionalPermissions, refusedPermissions, ref stackMark, null, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, Evidence evidence, PermissionSet requiredPermissions, PermissionSet optionalPermissions, PermissionSet refusedPermissions)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, null, evidence, requiredPermissions, optionalPermissions, refusedPermissions, ref stackMark, null, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, String dir, Evidence evidence, PermissionSet requiredPermissions, PermissionSet optionalPermissions, PermissionSet refusedPermissions)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, dir, evidence, requiredPermissions, optionalPermissions, refusedPermissions, ref stackMark, null, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, String dir, Evidence evidence, PermissionSet requiredPermissions, PermissionSet optionalPermissions, PermissionSet refusedPermissions, bool isSynchronized)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, dir, evidence, requiredPermissions, optionalPermissions, refusedPermissions, ref stackMark, null, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, String dir, Evidence evidence, PermissionSet requiredPermissions, PermissionSet optionalPermissions, PermissionSet refusedPermissions, bool isSynchronized, IEnumerable<CustomAttributeBuilder> assemblyAttributes)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, dir, evidence, requiredPermissions, optionalPermissions, refusedPermissions, ref stackMark, assemblyAttributes, SecurityContextSource.CurrentAssembly);
         }
 
         public AssemblyBuilder DefineDynamicAssembly(AssemblyName name, AssemblyBuilderAccess access, String dir, bool isSynchronized, IEnumerable<CustomAttributeBuilder> assemblyAttributes)
         {
-            Contract.Ensures(Contract.Result<AssemblyBuilder>() != null);
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return InternalDefineDynamicAssembly(name, access, dir, null, null, null, null, ref stackMark, assemblyAttributes, SecurityContextSource.CurrentAssembly);
         }
 
@@ -641,8 +621,7 @@ namespace System
                 throw new NullReferenceException();
             if (assemblyName == null)
                 throw new ArgumentNullException("assemblyName");
-            Contract.EndContractBlock();
-            return Activator.CreateInstance(assemblyName, typeName);
+                        return Activator.CreateInstance(assemblyName, typeName);
         }
 
         internal ObjectHandle InternalCreateInstanceWithNoSecurity(string assemblyName, string typeName)
@@ -655,8 +634,7 @@ namespace System
         {
             if (this == null)
                 throw new NullReferenceException();
-            Contract.EndContractBlock();
-            return Activator.CreateInstanceFrom(assemblyFile, typeName);
+                        return Activator.CreateInstanceFrom(assemblyFile, typeName);
         }
 
         internal ObjectHandle InternalCreateInstanceFromWithNoSecurity(string assemblyName, string typeName)
@@ -669,16 +647,14 @@ namespace System
         {
             if (this == null)
                 throw new NullReferenceException();
-            Contract.EndContractBlock();
-            return Activator.CreateComInstanceFrom(assemblyName, typeName);
+                        return Activator.CreateComInstanceFrom(assemblyName, typeName);
         }
 
         public ObjectHandle CreateComInstanceFrom(String assemblyFile, String typeName, byte[] hashValue, AssemblyHashAlgorithm hashAlgorithm)
         {
             if (this == null)
                 throw new NullReferenceException();
-            Contract.EndContractBlock();
-            return Activator.CreateComInstanceFrom(assemblyFile, typeName, hashValue, hashAlgorithm);
+                        return Activator.CreateComInstanceFrom(assemblyFile, typeName, hashValue, hashAlgorithm);
         }
 
         public ObjectHandle CreateInstance(String assemblyName, String typeName, Object[] activationAttributes)
@@ -687,16 +663,14 @@ namespace System
                 throw new NullReferenceException();
             if (assemblyName == null)
                 throw new ArgumentNullException("assemblyName");
-            Contract.EndContractBlock();
-            return Activator.CreateInstance(assemblyName, typeName, activationAttributes);
+                        return Activator.CreateInstance(assemblyName, typeName, activationAttributes);
         }
 
         public ObjectHandle CreateInstanceFrom(String assemblyFile, String typeName, Object[] activationAttributes)
         {
             if (this == null)
                 throw new NullReferenceException();
-            Contract.EndContractBlock();
-            return Activator.CreateInstanceFrom(assemblyFile, typeName, activationAttributes);
+                        return Activator.CreateInstanceFrom(assemblyFile, typeName, activationAttributes);
         }
 
         public ObjectHandle CreateInstance(String assemblyName, String typeName, bool ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, Evidence securityAttributes)
@@ -705,8 +679,7 @@ namespace System
                 throw new NullReferenceException();
             if (assemblyName == null)
                 throw new ArgumentNullException("assemblyName");
-            Contract.EndContractBlock();
-            return Activator.CreateInstance(assemblyName, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, securityAttributes);
+                        return Activator.CreateInstance(assemblyName, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, securityAttributes);
         }
 
         public ObjectHandle CreateInstance(string assemblyName, string typeName, bool ignoreCase, BindingFlags bindingAttr, Binder binder, object[] args, CultureInfo culture, object[] activationAttributes)
@@ -715,8 +688,7 @@ namespace System
                 throw new NullReferenceException();
             if (assemblyName == null)
                 throw new ArgumentNullException("assemblyName");
-            Contract.EndContractBlock();
-            return Activator.CreateInstance(assemblyName, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes);
+                        return Activator.CreateInstance(assemblyName, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes);
         }
 
         internal ObjectHandle InternalCreateInstanceWithNoSecurity(string assemblyName, string typeName, bool ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, Evidence securityAttributes)
@@ -729,16 +701,14 @@ namespace System
         {
             if (this == null)
                 throw new NullReferenceException();
-            Contract.EndContractBlock();
-            return Activator.CreateInstanceFrom(assemblyFile, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, securityAttributes);
+                        return Activator.CreateInstanceFrom(assemblyFile, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes, securityAttributes);
         }
 
         public ObjectHandle CreateInstanceFrom(string assemblyFile, string typeName, bool ignoreCase, BindingFlags bindingAttr, Binder binder, object[] args, CultureInfo culture, object[] activationAttributes)
         {
             if (this == null)
                 throw new NullReferenceException();
-            Contract.EndContractBlock();
-            return Activator.CreateInstanceFrom(assemblyFile, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes);
+                        return Activator.CreateInstanceFrom(assemblyFile, typeName, ignoreCase, bindingAttr, binder, args, culture, activationAttributes);
         }
 
         internal ObjectHandle InternalCreateInstanceFromWithNoSecurity(string assemblyName, string typeName, bool ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, Evidence securityAttributes)
@@ -877,8 +847,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<AppDomain>() != null);
-                return Thread.GetDomain();
+                                return Thread.GetDomain();
             }
         }
 
@@ -963,8 +932,7 @@ namespace System
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            {
+                        {
                 object[] currentVal;
                 lock (((ICollection)LocalStore).SyncRoot)
                 {
@@ -987,8 +955,7 @@ namespace System
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            int key = AppDomainSetup.Locate(name);
+                        int key = AppDomainSetup.Locate(name);
             if (key == -1)
             {
                 if (name.Equals(AppDomainSetup.LoaderOptimizationKey))
@@ -1021,8 +988,7 @@ namespace System
                     case (int)AppDomainSetup.LoaderInformation.ApplicationNameValue:
                         return FusionStore.ApplicationName;
                     default:
-                        Contract.Assert(false, "Need to handle new LoaderInformation value in AppDomain.GetData()");
-                        return null;
+                                                return null;
                 }
             }
         }
@@ -1236,8 +1202,7 @@ namespace System
         {
             get
             {
-                Contract.Assert(_FusionStore != null, "Fusion store has not been correctly setup in this domain");
-                return _FusionStore;
+                                return _FusionStore;
             }
         }
 
@@ -1272,8 +1237,7 @@ namespace System
         private static extern void nSetNativeDllSearchDirectories(string paths);
         private void SetupFusionStore(AppDomainSetup info, AppDomainSetup oldInfo)
         {
-            Contract.Requires(info != null);
-            if (info.ApplicationBase == null)
+                        if (info.ApplicationBase == null)
             {
                 info.SetupDefaults(RuntimeEnvironment.GetModuleFileName(), imageLocationAlreadyNormalized: true);
             }
@@ -1333,9 +1297,7 @@ namespace System
 
         private static Object Setup(Object arg)
         {
-            Contract.Requires(arg != null && arg is Object[]);
-            Contract.Requires(((Object[])arg).Length >= 8);
-            Object[] args = (Object[])arg;
+                                    Object[] args = (Object[])arg;
             String friendlyName = (String)args[0];
             AppDomainSetup setup = (AppDomainSetup)args[1];
             IntPtr parentSecurityDescriptor = (IntPtr)args[2];
@@ -1488,8 +1450,7 @@ namespace System
         {
             if (policy != LoaderOptimization.NotSpecified)
             {
-                Contract.Assert(FusionStore.LoaderOptimization == LoaderOptimization.NotSpecified, "It is illegal to change the Loader optimization on a domain");
-                FusionStore.LoaderOptimization = policy;
+                                FusionStore.LoaderOptimization = policy;
                 UpdateLoaderOptimization(FusionStore.LoaderOptimization);
             }
         }

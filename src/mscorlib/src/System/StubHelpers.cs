@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -274,20 +273,17 @@ namespace System.StubHelpers
     {
         static internal IntPtr ConvertToNative(string strManaged)
         {
-            Contract.Assert(false, "NYI");
-            return IntPtr.Zero;
+                        return IntPtr.Zero;
         }
 
         static internal unsafe string ConvertToManaged(IntPtr bstr)
         {
-            Contract.Assert(false, "NYI");
-            return null;
+                        return null;
         }
 
         static internal void ClearNative(IntPtr pNative)
         {
-            Contract.Assert(false, "NYI");
-        }
+                    }
     }
 
     internal struct DateTimeNative
@@ -354,8 +350,7 @@ namespace System.StubHelpers
 
         internal static void ClearNative(IntPtr hstring)
         {
-            Contract.Assert(Environment.IsWinRTSupported);
-            if (hstring != IntPtr.Zero)
+                        if (hstring != IntPtr.Zero)
             {
                 System.Runtime.InteropServices.WindowsRuntime.UnsafeNativeMethods.WindowsDeleteString(hstring);
             }
@@ -582,8 +577,7 @@ namespace System.StubHelpers
         internal static extern void ClearNativeContents(IntPtr pMarshalState, IntPtr pNativeHome, int cElements);
         internal static unsafe void ClearNativeContents_Type(IntPtr pNativeHome, int cElements)
         {
-            Contract.Assert(Environment.IsWinRTSupported);
-            TypeNameNative*pNativeTypeArray = *(TypeNameNative**)pNativeHome;
+                        TypeNameNative*pNativeTypeArray = *(TypeNameNative**)pNativeHome;
             if (pNativeTypeArray != null)
             {
                 for (int i = 0; i < cElements; ++i)
@@ -771,8 +765,7 @@ namespace System.StubHelpers
                 if (IsIn(dwFlags))
                 {
                     int length = pManagedHome.ToString().ConvertToAnsi(ptr, allocSize, IsBestFit(dwFlags), IsThrowOn(dwFlags));
-                    Contract.Assert(length < allocSize, "Expected a length less than the allocated size");
-                }
+                                    }
 
                 if (IsOut(dwFlags))
                 {
@@ -1031,8 +1024,7 @@ namespace System.StubHelpers
 
         internal static unsafe void ClearNative(TypeNameNative*pNativeType)
         {
-            Contract.Assert(Environment.IsWinRTSupported);
-            if (pNativeType->typeName != IntPtr.Zero)
+                        if (pNativeType->typeName != IntPtr.Zero)
             {
                 System.Runtime.InteropServices.WindowsRuntime.UnsafeNativeMethods.WindowsDeleteString(pNativeType->typeName);
             }
@@ -1055,8 +1047,7 @@ namespace System.StubHelpers
 
         static internal unsafe Exception ConvertToManaged(int hr)
         {
-            Contract.Ensures(Contract.Result<Exception>() != null || hr >= 0);
-            if (!Environment.IsWinRTSupported)
+                        if (!Environment.IsWinRTSupported)
             {
                 throw new PlatformNotSupportedException(Environment.GetResourceString("PlatformNotSupported_WinRT"));
             }
@@ -1067,8 +1058,7 @@ namespace System.StubHelpers
                 e = StubHelpers.InternalGetCOMHRExceptionObject(hr, IntPtr.Zero, null, true);
             }
 
-            Contract.Assert(e != null || hr == 0 || hr == 1, "Unexpected HRESULT - it is a success HRESULT (without the high bit set) other than S_OK & S_FALSE.");
-            return e;
+                        return e;
         }
     }
 
@@ -1191,8 +1181,7 @@ namespace System.StubHelpers
                 throw new ArgumentNullException(Environment.GetResourceString("ArgumentNull_SafeHandle"));
             }
 
-            Contract.EndContractBlock();
-            pHandle.DangerousAddRef(ref success);
+                        pHandle.DangerousAddRef(ref success);
             return (success ? pHandle.DangerousGetHandle() : IntPtr.Zero);
         }
 
@@ -1203,8 +1192,7 @@ namespace System.StubHelpers
                 throw new ArgumentNullException(Environment.GetResourceString("ArgumentNull_SafeHandle"));
             }
 
-            Contract.EndContractBlock();
-            try
+                        try
             {
                 pHandle.DangerousRelease();
             }

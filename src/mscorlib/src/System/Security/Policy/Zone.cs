@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security.Permissions;
 
 namespace System.Security.Policy
@@ -11,14 +11,12 @@ namespace System.Security.Policy
         {
             if (zone < SecurityZone.NoZone || zone > SecurityZone.Untrusted)
                 throw new ArgumentException(Environment.GetResourceString("Argument_IllegalZone"));
-            Contract.EndContractBlock();
-            m_zone = zone;
+                        m_zone = zone;
         }
 
         private Zone(Zone zone)
         {
-            Contract.Assert(zone != null);
-            m_zone = zone.m_zone;
+                        m_zone = zone.m_zone;
         }
 
         public IPermission CreateIdentityPermission(Evidence evidence)

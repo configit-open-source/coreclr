@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
 {
@@ -10,8 +9,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         {
             if (list == null)
                 throw new ArgumentNullException("list");
-            Contract.EndContractBlock();
-            this.list = list;
+                        this.list = list;
         }
 
         private static void EnsureIndexInt32(uint index, int listCapacity)

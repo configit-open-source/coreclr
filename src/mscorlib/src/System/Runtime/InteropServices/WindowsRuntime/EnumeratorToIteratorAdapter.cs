@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -9,8 +8,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private EnumerableToIterableAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal IIterator<T> First_Stub<T>()
         {
@@ -23,8 +21,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private EnumerableToBindableIterableAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal sealed class NonGenericToGenericEnumerator : IEnumerator<object>
         {
@@ -71,8 +68,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         private bool m_hasCurrent;
         internal EnumeratorToIteratorAdapter(IEnumerator<T> enumerator)
         {
-            Contract.Requires(enumerator != null);
-            m_enumerator = enumerator;
+                        m_enumerator = enumerator;
         }
 
         public T Current

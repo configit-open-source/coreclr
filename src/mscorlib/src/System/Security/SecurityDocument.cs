@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Security.Util;
 using System.Text;
 
@@ -116,8 +115,7 @@ namespace System.Security
                 }
             }
 
-            Contract.Assert(bFoundEnd, "Malformed string in parse data");
-            Tokenizer.StringMaker m = System.SharedStatics.GetSharedStringMaker();
+                        Tokenizer.StringMaker m = System.SharedStatics.GetSharedStringMaker();
             try
             {
                 if (bCreate)

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -309,8 +308,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.GetCustomAttributes(this, attributeRuntimeType);
@@ -320,8 +318,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.IsDefined(this, attributeRuntimeType);
@@ -336,8 +333,7 @@ namespace System.Reflection
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            MemberInfoSerializationHolder.GetSerializationInfo(info, Name, ReflectedTypeInternal, ToString(), MemberTypes.Field);
+                        MemberInfoSerializationHolder.GetSerializationInfo(info, Name, ReflectedTypeInternal, ToString(), MemberTypes.Field);
         }
     }
 
@@ -602,8 +598,7 @@ namespace System.Reflection
         {
             if (obj.IsNull)
                 throw new ArgumentException(Environment.GetResourceString("Arg_TypedReference_Null"));
-            Contract.EndContractBlock();
-            unsafe
+                        unsafe
             {
                 return RuntimeFieldHandle.GetValueDirect(this, (RuntimeType)FieldType, &obj, (RuntimeType)DeclaringType);
             }
@@ -619,8 +614,7 @@ namespace System.Reflection
         {
             if (obj.IsNull)
                 throw new ArgumentException(Environment.GetResourceString("Arg_TypedReference_Null"));
-            Contract.EndContractBlock();
-            unsafe
+                        unsafe
             {
                 RuntimeFieldHandle.SetValueDirect(this, (RuntimeType)FieldType, &obj, value, (RuntimeType)DeclaringType);
             }

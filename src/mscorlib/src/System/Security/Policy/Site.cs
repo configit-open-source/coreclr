@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Security.Permissions;
 using System.Security.Util;
@@ -12,14 +12,12 @@ namespace System.Security.Policy
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            m_name = new SiteString(name);
+                        m_name = new SiteString(name);
         }
 
         private Site(SiteString name)
         {
-            Contract.Assert(name != null);
-            m_name = name;
+                        m_name = name;
         }
 
         public static Site CreateFromUrl(String url)

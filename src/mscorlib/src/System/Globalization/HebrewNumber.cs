@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Text;
 
 namespace System.Globalization
@@ -39,8 +39,7 @@ namespace System.Globalization
                 Number -= 5000;
             }
 
-            Contract.Assert(Number > 0 && Number <= 999, "Number is out of range.");
-            ;
+                        ;
             Hundreds = Number / 100;
             if (Hundreds > 0)
             {

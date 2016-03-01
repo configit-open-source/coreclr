@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Threading;
 
 namespace System.Collections.Concurrent
@@ -207,8 +206,7 @@ namespace System.Collections.Concurrent
             {
                 if (m_localOffset == null)
                 {
-                    Contract.Assert(m_currentChunkSize == null);
-                    m_localOffset = new SharedInt(-1);
+                                        m_localOffset = new SharedInt(-1);
                     m_currentChunkSize = new SharedInt(0);
                     m_doublingCountdown = CHUNK_DOUBLING_RATE;
                 }
@@ -220,8 +218,7 @@ namespace System.Collections.Concurrent
                 }
                 else
                 {
-                    Contract.Assert(m_localOffset.Value == m_currentChunkSize.Value - 1 || m_currentChunkSize.Value == 0);
-                    int requestedChunkSize;
+                                        int requestedChunkSize;
                     if (m_currentChunkSize.Value == 0)
                     {
                         requestedChunkSize = 1;
@@ -237,11 +234,9 @@ namespace System.Collections.Concurrent
                     }
 
                     m_doublingCountdown--;
-                    Contract.Assert(requestedChunkSize > 0 && requestedChunkSize <= m_maxChunkSize);
-                    if (GrabNextChunk(requestedChunkSize))
+                                        if (GrabNextChunk(requestedChunkSize))
                     {
-                        Contract.Assert(m_currentChunkSize.Value <= requestedChunkSize && m_currentChunkSize.Value > 0);
-                        m_localOffset.Value = 0;
+                                                m_localOffset.Value = 0;
                         return true;
                     }
                     else
@@ -390,11 +385,7 @@ namespace System.Collections.Concurrent
 
                 internal bool GrabChunk_Single(KeyValuePair<long, TSource>[] destArray, int requestedChunkSize, ref int actualNumElementsGrabbed)
                 {
-                    Contract.Assert(m_useSingleChunking, "Expected m_useSingleChecking to be true");
-                    Contract.Assert(requestedChunkSize == 1, "Got requested chunk size of " + requestedChunkSize + " when single-chunking was on");
-                    Contract.Assert(actualNumElementsGrabbed == 0, "Expected actualNumElementsGrabbed == 0, instead it is " + actualNumElementsGrabbed);
-                    Contract.Assert(destArray.Length == 1, "Expected destArray to be of length 1, instead its length is " + destArray.Length);
-                    lock (m_sharedLock)
+                                                                                                    lock (m_sharedLock)
                     {
                         if (m_hasNoElementsLeft.Value)
                             return false;
@@ -425,9 +416,7 @@ namespace System.Collections.Concurrent
 
                 internal bool GrabChunk_Buffered(KeyValuePair<long, TSource>[] destArray, int requestedChunkSize, ref int actualNumElementsGrabbed)
                 {
-                    Contract.Assert(requestedChunkSize > 0);
-                    Contract.Assert(!m_useSingleChunking, "Did not expect to be in single-chunking mode");
-                    TryCopyFromFillBuffer(destArray, requestedChunkSize, ref actualNumElementsGrabbed);
+                                                            TryCopyFromFillBuffer(destArray, requestedChunkSize, ref actualNumElementsGrabbed);
                     if (actualNumElementsGrabbed == requestedChunkSize)
                     {
                         return true;
@@ -455,8 +444,7 @@ namespace System.Collections.Concurrent
                                     sw.SpinOnce();
                             }
 
-                            Contract.Assert(m_sharedIndex != null);
-                            for (; actualNumElementsGrabbed < requestedChunkSize; actualNumElementsGrabbed++)
+                                                        for (; actualNumElementsGrabbed < requestedChunkSize; actualNumElementsGrabbed++)
                             {
                                 if (m_sharedReader.MoveNext())
                                 {
@@ -533,8 +521,7 @@ namespace System.Collections.Concurrent
 
                 override protected bool GrabNextChunk(int requestedChunkSize)
                 {
-                    Contract.Assert(requestedChunkSize > 0);
-                    if (HasNoElementsLeft)
+                                        if (HasNoElementsLeft)
                     {
                         return false;
                     }
@@ -556,9 +543,7 @@ namespace System.Collections.Concurrent
 
                     set
                     {
-                        Contract.Assert(value);
-                        Contract.Assert(!m_hasNoElementsLeft.Value);
-                        m_hasNoElementsLeft.Value = true;
+                                                                        m_hasNoElementsLeft.Value = true;
                     }
                 }
 
@@ -571,9 +556,7 @@ namespace System.Collections.Concurrent
                             throw new InvalidOperationException(Environment.GetResourceString("PartitionerStatic_CurrentCalledBeforeMoveNext"));
                         }
 
-                        Contract.Assert(m_localList != null);
-                        Contract.Assert(m_localOffset.Value >= 0 && m_localOffset.Value < m_currentChunkSize.Value);
-                        return (m_localList[m_localOffset.Value]);
+                                                                        return (m_localList[m_localOffset.Value]);
                     }
                 }
 
@@ -641,11 +624,9 @@ namespace System.Collections.Concurrent
 
             override protected bool GrabNextChunk(int requestedChunkSize)
             {
-                Contract.Assert(requestedChunkSize > 0);
-                while (!HasNoElementsLeft)
+                                while (!HasNoElementsLeft)
                 {
-                    Contract.Assert(m_sharedIndex != null);
-                    long oldSharedIndex = Volatile.Read(ref m_sharedIndex.Value);
+                                        long oldSharedIndex = Volatile.Read(ref m_sharedIndex.Value);
                     if (HasNoElementsLeft)
                     {
                         return false;
@@ -668,14 +649,12 @@ namespace System.Collections.Concurrent
             {
                 get
                 {
-                    Contract.Assert(m_sharedIndex != null);
-                    return Volatile.Read(ref m_sharedIndex.Value) >= SourceCount - 1;
+                                        return Volatile.Read(ref m_sharedIndex.Value) >= SourceCount - 1;
                 }
 
                 set
                 {
-                    Contract.Assert(false);
-                }
+                                    }
             }
 
             override public void Dispose()
@@ -738,8 +717,7 @@ namespace System.Collections.Concurrent
                             throw new InvalidOperationException(Environment.GetResourceString("PartitionerStatic_CurrentCalledBeforeMoveNext"));
                         }
 
-                        Contract.Assert(m_localOffset.Value >= 0 && m_localOffset.Value < m_currentChunkSize.Value);
-                        return new KeyValuePair<long, TSource>(m_startIndex + m_localOffset.Value, m_sharedReader[m_startIndex + m_localOffset.Value]);
+                                                return new KeyValuePair<long, TSource>(m_startIndex + m_localOffset.Value, m_sharedReader[m_startIndex + m_localOffset.Value]);
                     }
                 }
             }
@@ -800,8 +778,7 @@ namespace System.Collections.Concurrent
                             throw new InvalidOperationException(Environment.GetResourceString("PartitionerStatic_CurrentCalledBeforeMoveNext"));
                         }
 
-                        Contract.Assert(m_localOffset.Value >= 0 && m_localOffset.Value < m_currentChunkSize.Value);
-                        return new KeyValuePair<long, TSource>(m_startIndex + m_localOffset.Value, m_sharedReader[m_startIndex + m_localOffset.Value]);
+                                                return new KeyValuePair<long, TSource>(m_startIndex + m_localOffset.Value, m_sharedReader[m_startIndex + m_localOffset.Value]);
                     }
                 }
             }
@@ -903,8 +880,7 @@ namespace System.Collections.Concurrent
             IList<TSource> m_list;
             internal StaticIndexRangePartitionerForIList(IList<TSource> list): base ()
             {
-                Contract.Assert(list != null);
-                m_list = list;
+                                m_list = list;
             }
 
             override protected int SourceCount
@@ -926,8 +902,7 @@ namespace System.Collections.Concurrent
             private volatile IList<TSource> m_list;
             internal StaticIndexRangePartitionForIList(IList<TSource> list, int startIndex, int endIndex): base (startIndex, endIndex)
             {
-                Contract.Assert(startIndex >= 0 && endIndex <= list.Count - 1);
-                m_list = list;
+                                m_list = list;
             }
 
             override public KeyValuePair<long, TSource> Current
@@ -939,8 +914,7 @@ namespace System.Collections.Concurrent
                         throw new InvalidOperationException(Environment.GetResourceString("PartitionerStatic_CurrentCalledBeforeMoveNext"));
                     }
 
-                    Contract.Assert(m_offset >= m_startIndex && m_offset <= m_endIndex);
-                    return (new KeyValuePair<long, TSource>(m_offset, m_list[m_offset]));
+                                        return (new KeyValuePair<long, TSource>(m_offset, m_list[m_offset]));
                 }
             }
         }
@@ -950,8 +924,7 @@ namespace System.Collections.Concurrent
             TSource[] m_array;
             internal StaticIndexRangePartitionerForArray(TSource[] array): base ()
             {
-                Contract.Assert(array != null);
-                m_array = array;
+                                m_array = array;
             }
 
             override protected int SourceCount
@@ -973,8 +946,7 @@ namespace System.Collections.Concurrent
             private volatile TSource[] m_array;
             internal StaticIndexRangePartitionForArray(TSource[] array, int startIndex, int endIndex): base (startIndex, endIndex)
             {
-                Contract.Assert(startIndex >= 0 && endIndex <= array.Length - 1);
-                m_array = array;
+                                m_array = array;
             }
 
             override public KeyValuePair<long, TSource> Current
@@ -986,8 +958,7 @@ namespace System.Collections.Concurrent
                         throw new InvalidOperationException(Environment.GetResourceString("PartitionerStatic_CurrentCalledBeforeMoveNext"));
                     }
 
-                    Contract.Assert(m_offset >= m_startIndex && m_offset <= m_endIndex);
-                    return (new KeyValuePair<long, TSource>(m_offset, m_array[m_offset]));
+                                        return (new KeyValuePair<long, TSource>(m_offset, m_array[m_offset]));
                 }
             }
         }
@@ -1029,8 +1000,7 @@ namespace System.Collections.Concurrent
             }
             else
             {
-                Contract.Assert((DEFAULT_BYTES_PER_CHUNK % IntPtr.Size) == 0, "bytes per chunk should be a multiple of pointer size");
-                chunkSize = (DEFAULT_BYTES_PER_CHUNK / IntPtr.Size);
+                                chunkSize = (DEFAULT_BYTES_PER_CHUNK / IntPtr.Size);
             }
 
             return chunkSize;

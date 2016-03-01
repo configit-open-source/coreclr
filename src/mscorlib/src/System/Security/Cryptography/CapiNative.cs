@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 
 using Microsoft.Win32.SafeHandles;
@@ -113,8 +113,7 @@ namespace System.Security.Cryptography
 
         internal static SafeCspHandle AcquireCsp(string keyContainer, string providerName, ProviderType providerType, CryptAcquireContextFlags flags)
         {
-            Contract.Assert(keyContainer == null, "Key containers are not supported");
-            if (((flags & CryptAcquireContextFlags.VerifyContext) == CryptAcquireContextFlags.VerifyContext) && ((flags & CryptAcquireContextFlags.MachineKeyset) == CryptAcquireContextFlags.MachineKeyset))
+                        if (((flags & CryptAcquireContextFlags.VerifyContext) == CryptAcquireContextFlags.VerifyContext) && ((flags & CryptAcquireContextFlags.MachineKeyset) == CryptAcquireContextFlags.MachineKeyset))
             {
                 flags &= ~CryptAcquireContextFlags.MachineKeyset;
             }
@@ -130,9 +129,7 @@ namespace System.Security.Cryptography
 
         internal static SafeCspHashHandle CreateHashAlgorithm(SafeCspHandle cspHandle, AlgorithmID algorithm)
         {
-            Contract.Assert(cspHandle != null && !cspHandle.IsInvalid, "cspHandle != null && !cspHandle.IsInvalid");
-            Contract.Assert(((AlgorithmClass)algorithm & AlgorithmClass.Hash) == AlgorithmClass.Hash, "Invalid hash algorithm");
-            SafeCspHashHandle hashHandle = null;
+                                    SafeCspHashHandle hashHandle = null;
             if (!UnsafeNativeMethods.CryptCreateHash(cspHandle, algorithm, IntPtr.Zero, 0, out hashHandle))
             {
                 throw new CryptographicException(Marshal.GetLastWin32Error());
@@ -143,9 +140,7 @@ namespace System.Security.Cryptography
 
         internal static void GenerateRandomBytes(SafeCspHandle cspHandle, byte[] buffer)
         {
-            Contract.Assert(cspHandle != null && !cspHandle.IsInvalid, "cspHandle != null && !cspHandle.IsInvalid");
-            Contract.Assert(buffer != null && buffer.Length > 0, "buffer != null && buffer.Length > 0");
-            if (!UnsafeNativeMethods.CryptGenRandom(cspHandle, buffer.Length, buffer))
+                                    if (!UnsafeNativeMethods.CryptGenRandom(cspHandle, buffer.Length, buffer))
             {
                 throw new CryptographicException(Marshal.GetLastWin32Error());
             }
@@ -153,11 +148,7 @@ namespace System.Security.Cryptography
 
         internal static unsafe void GenerateRandomBytes(SafeCspHandle cspHandle, byte[] buffer, int offset, int count)
         {
-            Contract.Assert(cspHandle != null && !cspHandle.IsInvalid, "cspHandle != null && !cspHandle.IsInvalid");
-            Contract.Assert(buffer != null && buffer.Length > 0, "buffer != null && buffer.Length > 0");
-            Contract.Assert(offset >= 0 && count > 0, "offset >= 0 && count > 0");
-            Contract.Assert(buffer.Length >= offset + count, "buffer.Length >= offset + count");
-            fixed (byte *pBuffer = &buffer[offset])
+                                                            fixed (byte *pBuffer = &buffer[offset])
             {
                 if (!UnsafeNativeMethods.CryptGenRandom(cspHandle, count, pBuffer))
                 {
@@ -169,14 +160,12 @@ namespace System.Security.Cryptography
         internal static int GetHashPropertyInt32(SafeCspHashHandle hashHandle, HashProperty property)
         {
             byte[] rawProperty = GetHashProperty(hashHandle, property);
-            Contract.Assert(rawProperty.Length == sizeof (int) || rawProperty.Length == 0, "Unexpected property size");
-            return rawProperty.Length == sizeof (int) ? BitConverter.ToInt32(rawProperty, 0) : 0;
+                        return rawProperty.Length == sizeof (int) ? BitConverter.ToInt32(rawProperty, 0) : 0;
         }
 
         internal static byte[] GetHashProperty(SafeCspHashHandle hashHandle, HashProperty property)
         {
-            Contract.Assert(hashHandle != null && !hashHandle.IsInvalid, "keyHandle != null && !keyHandle.IsInvalid");
-            int bufferSize = 0;
+                        int bufferSize = 0;
             byte[] buffer = null;
             if (!UnsafeNativeMethods.CryptGetHashParam(hashHandle, property, buffer, ref bufferSize, 0))
             {
@@ -199,14 +188,12 @@ namespace System.Security.Cryptography
         internal static int GetKeyPropertyInt32(SafeCspKeyHandle keyHandle, KeyProperty property)
         {
             byte[] rawProperty = GetKeyProperty(keyHandle, property);
-            Contract.Assert(rawProperty.Length == sizeof (int) || rawProperty.Length == 0, "Unexpected property size");
-            return rawProperty.Length == sizeof (int) ? BitConverter.ToInt32(rawProperty, 0) : 0;
+                        return rawProperty.Length == sizeof (int) ? BitConverter.ToInt32(rawProperty, 0) : 0;
         }
 
         internal static byte[] GetKeyProperty(SafeCspKeyHandle keyHandle, KeyProperty property)
         {
-            Contract.Assert(keyHandle != null && !keyHandle.IsInvalid, "keyHandle != null && !keyHandle.IsInvalid");
-            int bufferSize = 0;
+                        int bufferSize = 0;
             byte[] buffer = null;
             if (!UnsafeNativeMethods.CryptGetKeyParam(keyHandle, property, buffer, ref bufferSize, 0))
             {
@@ -228,8 +215,7 @@ namespace System.Security.Cryptography
 
         internal static void SetHashProperty(SafeCspHashHandle hashHandle, HashProperty property, byte[] value)
         {
-            Contract.Assert(hashHandle != null && !hashHandle.IsInvalid, "hashHandle != null && !hashHandle.IsInvalid");
-            if (!UnsafeNativeMethods.CryptSetHashParam(hashHandle, property, value, 0))
+                        if (!UnsafeNativeMethods.CryptSetHashParam(hashHandle, property, value, 0))
             {
                 throw new CryptographicException(Marshal.GetLastWin32Error());
             }
@@ -237,13 +223,7 @@ namespace System.Security.Cryptography
 
         internal static bool VerifySignature(SafeCspHandle cspHandle, SafeCspKeyHandle keyHandle, AlgorithmID signatureAlgorithm, AlgorithmID hashAlgorithm, byte[] hashValue, byte[] signature)
         {
-            Contract.Assert(cspHandle != null && !cspHandle.IsInvalid, "cspHandle != null && !cspHandle.IsInvalid");
-            Contract.Assert(keyHandle != null && !keyHandle.IsInvalid, "keyHandle != null && !keyHandle.IsInvalid");
-            Contract.Assert(((AlgorithmClass)signatureAlgorithm & AlgorithmClass.Signature) == AlgorithmClass.Signature, "Invalid signature algorithm");
-            Contract.Assert(((AlgorithmClass)hashAlgorithm & AlgorithmClass.Hash) == AlgorithmClass.Hash, "Invalid hash algorithm");
-            Contract.Assert(hashValue != null, "hashValue != null");
-            Contract.Assert(signature != null, "signature != null");
-            byte[] signatureValue = new byte[signature.Length];
+                                                                                    byte[] signatureValue = new byte[signature.Length];
             Array.Copy(signature, signatureValue, signatureValue.Length);
             Array.Reverse(signatureValue);
             using (SafeCspHashHandle hashHandle = CreateHashAlgorithm(cspHandle, hashAlgorithm))

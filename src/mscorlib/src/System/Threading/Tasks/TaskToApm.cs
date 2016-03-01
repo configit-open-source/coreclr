@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 
 namespace System.Threading.Tasks
@@ -7,8 +7,7 @@ namespace System.Threading.Tasks
     {
         public static IAsyncResult Begin(Task task, AsyncCallback callback, object state)
         {
-            Contract.Requires(task != null);
-            IAsyncResult asyncResult;
+                        IAsyncResult asyncResult;
             if (task.IsCompleted)
             {
                 asyncResult = new TaskWrapperAsyncResult(task, state, completedSynchronously: true);
@@ -32,8 +31,7 @@ namespace System.Threading.Tasks
             if (twar != null)
             {
                 task = twar.Task;
-                Contract.Assert(task != null, "TaskWrapperAsyncResult should never wrap a null Task.");
-            }
+                            }
             else
             {
                 task = asyncResult as Task;
@@ -51,8 +49,7 @@ namespace System.Threading.Tasks
             if (twar != null)
             {
                 task = twar.Task as Task<TResult>;
-                Contract.Assert(twar.Task != null, "TaskWrapperAsyncResult should never wrap a null Task.");
-            }
+                            }
             else
             {
                 task = asyncResult as Task<TResult>;
@@ -65,10 +62,7 @@ namespace System.Threading.Tasks
 
         private static void InvokeCallbackWhenTaskCompletes(Task antecedent, AsyncCallback callback, IAsyncResult asyncResult)
         {
-            Contract.Requires(antecedent != null);
-            Contract.Requires(callback != null);
-            Contract.Requires(asyncResult != null);
-            antecedent.ConfigureAwait(continueOnCapturedContext: false).GetAwaiter().OnCompleted(() => callback(asyncResult));
+                                                antecedent.ConfigureAwait(continueOnCapturedContext: false).GetAwaiter().OnCompleted(() => callback(asyncResult));
         }
 
         private sealed class TaskWrapperAsyncResult : IAsyncResult
@@ -78,9 +72,7 @@ namespace System.Threading.Tasks
             private readonly bool m_completedSynchronously;
             internal TaskWrapperAsyncResult(Task task, object state, bool completedSynchronously)
             {
-                Contract.Requires(task != null);
-                Contract.Requires(!completedSynchronously || task.IsCompleted, "If completedSynchronously is true, the task must be completed.");
-                this.Task = task;
+                                                this.Task = task;
                 m_state = state;
                 m_completedSynchronously = completedSynchronously;
             }

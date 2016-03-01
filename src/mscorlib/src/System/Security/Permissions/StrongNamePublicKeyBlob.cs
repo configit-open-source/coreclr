@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security.Util;
 
 namespace System.Security.Permissions
@@ -14,8 +14,7 @@ namespace System.Security.Permissions
         {
             if (publicKey == null)
                 throw new ArgumentNullException("PublicKey");
-            Contract.EndContractBlock();
-            this.PublicKey = new byte[publicKey.Length];
+                        this.PublicKey = new byte[publicKey.Length];
             Array.Copy(publicKey, 0, this.PublicKey, 0, publicKey.Length);
         }
 

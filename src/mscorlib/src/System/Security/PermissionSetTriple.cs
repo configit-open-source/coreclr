@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security.Permissions;
 
 namespace System.Security
@@ -75,8 +75,7 @@ namespace System.Security
             PermissionSetTriple retTriple = null;
             if (in_a != null)
             {
-                Contract.Assert((!in_a.IsUnrestricted() || RefusedSet == null), "Cannot be unrestricted or refused must be null");
-                if (in_a.IsSubsetOf(AssertSet))
+                                if (in_a.IsSubsetOf(AssertSet))
                     return null;
                 PermissionSet retPs;
                 if (GrantSet != null)
@@ -204,14 +203,12 @@ namespace System.Security
 
         internal bool CheckDemandNoThrow(CodeAccessPermission demand, PermissionToken permToken)
         {
-            Contract.Assert(AssertSet == null, "AssertSet not null");
-            return CodeAccessSecurityEngine.CheckHelper(GrantSet, RefusedSet, demand, permToken, RuntimeMethodHandleInternal.EmptyHandle, null, SecurityAction.Demand, false);
+                        return CodeAccessSecurityEngine.CheckHelper(GrantSet, RefusedSet, demand, permToken, RuntimeMethodHandleInternal.EmptyHandle, null, SecurityAction.Demand, false);
         }
 
         internal bool CheckSetDemandNoThrow(PermissionSet demandSet)
         {
-            Contract.Assert(AssertSet == null, "AssertSet not null");
-            return CodeAccessSecurityEngine.CheckSetHelper(GrantSet, RefusedSet, demandSet, RuntimeMethodHandleInternal.EmptyHandle, null, SecurityAction.Demand, false);
+                        return CodeAccessSecurityEngine.CheckSetHelper(GrantSet, RefusedSet, demandSet, RuntimeMethodHandleInternal.EmptyHandle, null, SecurityAction.Demand, false);
         }
 
         internal bool CheckFlags(ref int flags)

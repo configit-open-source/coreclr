@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Globalization
@@ -87,17 +87,12 @@ namespace System.Globalization
 
         internal static unsafe int CompareOrdinalIgnoreCaseEx(String strA, int indexA, String strB, int indexB, int lengthA, int lengthB)
         {
-            Contract.Assert(strA.Length >= indexA + lengthA, "[TextInfo.CompareOrdinalIgnoreCaseEx] Caller should've validated strA.Length >= indexA + lengthA");
-            Contract.Assert(strB.Length >= indexB + lengthB, "[TextInfo.CompareOrdinalIgnoreCaseEx]  Caller should've validated strB.Length >= indexB + lengthB");
-            return InternalCompareStringOrdinalIgnoreCase(strA, indexA, strB, indexB, lengthA, lengthB);
+                                    return InternalCompareStringOrdinalIgnoreCase(strA, indexA, strB, indexB, lengthA, lengthB);
         }
 
         internal static int IndexOfStringOrdinalIgnoreCase(String source, String value, int startIndex, int count)
         {
-            Contract.Assert(source != null, "[TextInfo.IndexOfStringOrdinalIgnoreCase] Caller should've validated source != null");
-            Contract.Assert(value != null, "[TextInfo.IndexOfStringOrdinalIgnoreCase] Caller should've validated value != null");
-            Contract.Assert(startIndex + count <= source.Length, "[TextInfo.IndexOfStringOrdinalIgnoreCase] Caller should've validated startIndex + count <= source.Length");
-            if (source.Length == 0 && value.Length == 0)
+                                                if (source.Length == 0 && value.Length == 0)
             {
                 return 0;
             }
@@ -109,8 +104,7 @@ namespace System.Globalization
             int maxStartIndex = end - value.Length;
             for (; startIndex <= maxStartIndex; startIndex++)
             {
-                Contract.Assert(end - startIndex >= value.Length);
-                if (CompareOrdinalIgnoreCaseEx(source, startIndex, value, 0, value.Length, value.Length) == 0)
+                                if (CompareOrdinalIgnoreCaseEx(source, startIndex, value, 0, value.Length, value.Length) == 0)
                 {
                     return startIndex;
                 }
@@ -121,11 +115,7 @@ namespace System.Globalization
 
         internal static int LastIndexOfStringOrdinalIgnoreCase(String source, String value, int startIndex, int count)
         {
-            Contract.Assert(source != null, "[TextInfo.LastIndexOfStringOrdinalIgnoreCase] Caller should've validated source != null");
-            Contract.Assert(value != null, "[TextInfo.LastIndexOfStringOrdinalIgnoreCase] Caller should've validated value != null");
-            Contract.Assert(startIndex - count + 1 >= 0, "[TextInfo.LastIndexOfStringOrdinalIgnoreCase] Caller should've validated startIndex - count+1 >= 0");
-            Contract.Assert(startIndex <= source.Length, "[TextInfo.LastIndexOfStringOrdinalIgnoreCase] Caller should've validated startIndex <= source.Length");
-            if (value.Length == 0)
+                                                            if (value.Length == 0)
             {
                 return startIndex;
             }
@@ -180,8 +170,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("textInfo");
             }
 
-            Contract.EndContractBlock();
-            if (textInfo.IsReadOnly)
+                        if (textInfo.IsReadOnly)
             {
                 return (textInfo);
             }
@@ -198,8 +187,7 @@ namespace System.Globalization
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_ReadOnly"));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         internal void SetReadOnlyState(bool readOnly)
         {
@@ -227,8 +215,7 @@ namespace System.Globalization
                     throw new ArgumentNullException("value", Environment.GetResourceString("ArgumentNull_String"));
                 }
 
-                Contract.EndContractBlock();
-                VerifyWritable();
+                                VerifyWritable();
                 m_listSeparator = value;
             }
         }
@@ -250,8 +237,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("str");
             }
 
-            Contract.EndContractBlock();
-            return InternalChangeCaseString(this.m_dataHandle, this.m_handleOrigin, this.m_textInfoName, str, false);
+                        return InternalChangeCaseString(this.m_dataHandle, this.m_handleOrigin, this.m_textInfoName, str, false);
         }
 
         static private Char ToLowerAsciiInvariant(Char c)
@@ -281,8 +267,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("str");
             }
 
-            Contract.EndContractBlock();
-            return InternalChangeCaseString(this.m_dataHandle, this.m_handleOrigin, this.m_textInfoName, str, true);
+                        return InternalChangeCaseString(this.m_dataHandle, this.m_handleOrigin, this.m_textInfoName, str, true);
         }
 
         static private Char ToUpperAsciiInvariant(Char c)
@@ -354,8 +339,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("str");
             }
 
-            Contract.EndContractBlock();
-            return (InternalGetCaseInsHash(this.m_dataHandle, this.m_handleOrigin, this.m_textInfoName, str, forceRandomizedHashing, additionalEntropy));
+                        return (InternalGetCaseInsHash(this.m_dataHandle, this.m_handleOrigin, this.m_textInfoName, str, forceRandomizedHashing, additionalEntropy));
         }
 
         private static unsafe extern char InternalChangeCaseChar(IntPtr handle, IntPtr handleOrigin, String localeName, char ch, bool isToUpper);

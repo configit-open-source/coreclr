@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -19,8 +19,7 @@ namespace System.IO
         {
             if (fileName == null)
                 throw new ArgumentNullException("fileName");
-            Contract.EndContractBlock();
-            FileInfo fi = new FileInfo();
+                        FileInfo fi = new FileInfo();
             fi.Init(fileName, false);
             return fi;
         }
@@ -29,8 +28,7 @@ namespace System.IO
         {
             if (fileName == null)
                 throw new ArgumentNullException("fileName");
-            Contract.EndContractBlock();
-            if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
+                        if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
             {
                 System.Reflection.Assembly callingAssembly = System.Reflection.Assembly.GetCallingAssembly();
                 if (callingAssembly != null && !callingAssembly.IsProfileAssembly)
@@ -72,8 +70,7 @@ namespace System.IO
 
         internal FileInfo(String fullPath, bool ignoreThis)
         {
-            Contract.Assert(Path.GetRootLength(fullPath) > 0, "fullPath must be fully qualified!");
-            _name = Path.GetFileName(fullPath);
+                        _name = Path.GetFileName(fullPath);
             OriginalPath = _name;
             FullPath = fullPath;
             DisplayPath = _name;
@@ -166,8 +163,7 @@ namespace System.IO
                 throw new ArgumentNullException("destFileName", Environment.GetResourceString("ArgumentNull_FileName"));
             if (destFileName.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyFileName"), "destFileName");
-            Contract.EndContractBlock();
-            destFileName = File.InternalCopy(FullPath, destFileName, false, true);
+                        destFileName = File.InternalCopy(FullPath, destFileName, false, true);
             return new FileInfo(destFileName, false);
         }
 
@@ -177,8 +173,7 @@ namespace System.IO
                 throw new ArgumentNullException("destFileName", Environment.GetResourceString("ArgumentNull_FileName"));
             if (destFileName.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyFileName"), "destFileName");
-            Contract.EndContractBlock();
-            destFileName = File.InternalCopy(FullPath, destFileName, overwrite, true);
+                        destFileName = File.InternalCopy(FullPath, destFileName, overwrite, true);
             return new FileInfo(destFileName, false);
         }
 
@@ -266,8 +261,7 @@ namespace System.IO
                 throw new ArgumentNullException("destFileName");
             if (destFileName.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyFileName"), "destFileName");
-            Contract.EndContractBlock();
-            String fullDestFileName = Path.GetFullPathInternal(destFileName);
+                        String fullDestFileName = Path.GetFullPathInternal(destFileName);
             FileSecurityState sourceState = new FileSecurityState(FileSecurityStateAccess.Write | FileSecurityStateAccess.Read, DisplayPath, FullPath);
             FileSecurityState destState = new FileSecurityState(FileSecurityStateAccess.Write, destFileName, fullDestFileName);
             sourceState.EnsureState();

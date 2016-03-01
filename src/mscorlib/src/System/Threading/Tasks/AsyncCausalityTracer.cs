@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 
@@ -82,8 +81,7 @@ namespace System.Threading.Tasks
                     return;
                 s_TracerFactory = (WFD.IAsyncCausalityTracerStatics)factory;
                 EventRegistrationToken token = s_TracerFactory.add_TracingStatusChanged(new EventHandler<WFD.TracingStatusChangedEventArgs>(TracingStatusChangedHandler));
-                Contract.Assert(token != default (EventRegistrationToken), "EventRegistrationToken is null");
-            }
+                            }
             catch (Exception ex)
             {
                 LogAndDisable(ex);

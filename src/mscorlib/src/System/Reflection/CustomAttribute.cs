@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -21,30 +20,26 @@ namespace System.Reflection
         {
             if (target == null)
                 throw new ArgumentNullException("target");
-            Contract.EndContractBlock();
-            return target.GetCustomAttributesData();
+                        return target.GetCustomAttributesData();
         }
 
         public static IList<CustomAttributeData> GetCustomAttributes(Assembly target)
         {
             if (target == null)
                 throw new ArgumentNullException("target");
-            Contract.EndContractBlock();
-            return target.GetCustomAttributesData();
+                        return target.GetCustomAttributesData();
         }
 
         public static IList<CustomAttributeData> GetCustomAttributes(ParameterInfo target)
         {
             if (target == null)
                 throw new ArgumentNullException("target");
-            Contract.EndContractBlock();
-            return target.GetCustomAttributesData();
+                        return target.GetCustomAttributesData();
         }
 
         internal static IList<CustomAttributeData> GetCustomAttributesInternal(RuntimeType target)
         {
-            Contract.Assert(target != null);
-            IList<CustomAttributeData> cad = GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
+                        IList<CustomAttributeData> cad = GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
             int pcaCount = 0;
             Attribute[] a = PseudoCustomAttribute.GetCustomAttributes((RuntimeType)target, typeof (object) as RuntimeType, true, out pcaCount);
             if (pcaCount == 0)
@@ -61,8 +56,7 @@ namespace System.Reflection
 
         internal static IList<CustomAttributeData> GetCustomAttributesInternal(RuntimeFieldInfo target)
         {
-            Contract.Assert(target != null);
-            IList<CustomAttributeData> cad = GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
+                        IList<CustomAttributeData> cad = GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
             int pcaCount = 0;
             Attribute[] a = PseudoCustomAttribute.GetCustomAttributes((RuntimeFieldInfo)target, typeof (object) as RuntimeType, out pcaCount);
             if (pcaCount == 0)
@@ -79,8 +73,7 @@ namespace System.Reflection
 
         internal static IList<CustomAttributeData> GetCustomAttributesInternal(RuntimeMethodInfo target)
         {
-            Contract.Assert(target != null);
-            IList<CustomAttributeData> cad = GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
+                        IList<CustomAttributeData> cad = GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
             int pcaCount = 0;
             Attribute[] a = PseudoCustomAttribute.GetCustomAttributes((RuntimeMethodInfo)target, typeof (object) as RuntimeType, true, out pcaCount);
             if (pcaCount == 0)
@@ -97,34 +90,29 @@ namespace System.Reflection
 
         internal static IList<CustomAttributeData> GetCustomAttributesInternal(RuntimeConstructorInfo target)
         {
-            Contract.Assert(target != null);
-            return GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
+                        return GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
         }
 
         internal static IList<CustomAttributeData> GetCustomAttributesInternal(RuntimeEventInfo target)
         {
-            Contract.Assert(target != null);
-            return GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
+                        return GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
         }
 
         internal static IList<CustomAttributeData> GetCustomAttributesInternal(RuntimePropertyInfo target)
         {
-            Contract.Assert(target != null);
-            return GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
+                        return GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
         }
 
         internal static IList<CustomAttributeData> GetCustomAttributesInternal(RuntimeModule target)
         {
-            Contract.Assert(target != null);
-            if (target.IsResource())
+                        if (target.IsResource())
                 return new List<CustomAttributeData>();
             return GetCustomAttributes(target, target.MetadataToken);
         }
 
         internal static IList<CustomAttributeData> GetCustomAttributesInternal(RuntimeAssembly target)
         {
-            Contract.Assert(target != null);
-            IList<CustomAttributeData> cad = GetCustomAttributes((RuntimeModule)target.ManifestModule, RuntimeAssembly.GetToken(target.GetNativeHandle()));
+                        IList<CustomAttributeData> cad = GetCustomAttributes((RuntimeModule)target.ManifestModule, RuntimeAssembly.GetToken(target.GetNativeHandle()));
             int pcaCount = 0;
             Attribute[] a = PseudoCustomAttribute.GetCustomAttributes(target, typeof (object) as RuntimeType, false, out pcaCount);
             if (pcaCount == 0)
@@ -141,8 +129,7 @@ namespace System.Reflection
 
         internal static IList<CustomAttributeData> GetCustomAttributesInternal(RuntimeParameterInfo target)
         {
-            Contract.Assert(target != null);
-            IList<CustomAttributeData> cad = GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
+                        IList<CustomAttributeData> cad = GetCustomAttributes(target.GetRuntimeModule(), target.MetadataToken);
             int pcaCount = 0;
             Attribute[] a = PseudoCustomAttribute.GetCustomAttributes(target, typeof (object) as RuntimeType, out pcaCount);
             if (pcaCount == 0)
@@ -680,8 +667,7 @@ namespace System.Reflection
 
         private static object CanonicalizeValue(object value)
         {
-            Contract.Assert(value != null);
-            if (value.GetType().IsEnum)
+                        if (value.GetType().IsEnum)
             {
                 return ((Enum)value).GetValue();
             }
@@ -841,10 +827,7 @@ namespace System.Reflection
         {
             if (customAttributeModule == null)
                 throw new ArgumentNullException("customAttributeModule");
-            Contract.EndContractBlock();
-            Contract.Assert(customAttributeCtorParameters != null);
-            Contract.Assert(customAttributeNamedParameters != null);
-            if (customAttributeCtorParameters.Length != 0 || customAttributeNamedParameters.Length != 0)
+                                                if (customAttributeCtorParameters.Length != 0 || customAttributeNamedParameters.Length != 0)
             {
                 unsafe
                 {
@@ -901,8 +884,7 @@ namespace System.Reflection
         {
             if (argumentName == null)
                 throw new ArgumentNullException("argumentName");
-            Contract.EndContractBlock();
-            m_argumentName = argumentName;
+                        m_argumentName = argumentName;
             m_fieldOrProperty = fieldOrProperty;
             m_padding = fieldOrProperty;
             m_type = type;
@@ -1002,8 +984,7 @@ namespace System.Reflection
         private static RuntimeType Type_Type = (RuntimeType)typeof (Type);
         internal static bool IsDefined(RuntimeType type, RuntimeType caType, bool inherit)
         {
-            Contract.Requires(type != null);
-            if (type.GetElementType() != null)
+                        if (type.GetElementType() != null)
                 return false;
             if (PseudoCustomAttribute.IsDefined(type, caType))
                 return true;
@@ -1024,9 +1005,7 @@ namespace System.Reflection
 
         internal static bool IsDefined(RuntimeMethodInfo method, RuntimeType caType, bool inherit)
         {
-            Contract.Requires(method != null);
-            Contract.Requires(caType != null);
-            if (PseudoCustomAttribute.IsDefined(method, caType))
+                                    if (PseudoCustomAttribute.IsDefined(method, caType))
                 return true;
             if (IsCustomAttributeDefined(method.GetRuntimeModule(), method.MetadataToken, caType))
                 return true;
@@ -1045,72 +1024,56 @@ namespace System.Reflection
 
         internal static bool IsDefined(RuntimeConstructorInfo ctor, RuntimeType caType)
         {
-            Contract.Requires(ctor != null);
-            Contract.Requires(caType != null);
-            if (PseudoCustomAttribute.IsDefined(ctor, caType))
+                                    if (PseudoCustomAttribute.IsDefined(ctor, caType))
                 return true;
             return IsCustomAttributeDefined(ctor.GetRuntimeModule(), ctor.MetadataToken, caType);
         }
 
         internal static bool IsDefined(RuntimePropertyInfo property, RuntimeType caType)
         {
-            Contract.Requires(property != null);
-            Contract.Requires(caType != null);
-            if (PseudoCustomAttribute.IsDefined(property, caType))
+                                    if (PseudoCustomAttribute.IsDefined(property, caType))
                 return true;
             return IsCustomAttributeDefined(property.GetRuntimeModule(), property.MetadataToken, caType);
         }
 
         internal static bool IsDefined(RuntimeEventInfo e, RuntimeType caType)
         {
-            Contract.Requires(e != null);
-            Contract.Requires(caType != null);
-            if (PseudoCustomAttribute.IsDefined(e, caType))
+                                    if (PseudoCustomAttribute.IsDefined(e, caType))
                 return true;
             return IsCustomAttributeDefined(e.GetRuntimeModule(), e.MetadataToken, caType);
         }
 
         internal static bool IsDefined(RuntimeFieldInfo field, RuntimeType caType)
         {
-            Contract.Requires(field != null);
-            Contract.Requires(caType != null);
-            if (PseudoCustomAttribute.IsDefined(field, caType))
+                                    if (PseudoCustomAttribute.IsDefined(field, caType))
                 return true;
             return IsCustomAttributeDefined(field.GetRuntimeModule(), field.MetadataToken, caType);
         }
 
         internal static bool IsDefined(RuntimeParameterInfo parameter, RuntimeType caType)
         {
-            Contract.Requires(parameter != null);
-            Contract.Requires(caType != null);
-            if (PseudoCustomAttribute.IsDefined(parameter, caType))
+                                    if (PseudoCustomAttribute.IsDefined(parameter, caType))
                 return true;
             return IsCustomAttributeDefined(parameter.GetRuntimeModule(), parameter.MetadataToken, caType);
         }
 
         internal static bool IsDefined(RuntimeAssembly assembly, RuntimeType caType)
         {
-            Contract.Requires(assembly != null);
-            Contract.Requires(caType != null);
-            if (PseudoCustomAttribute.IsDefined(assembly, caType))
+                                    if (PseudoCustomAttribute.IsDefined(assembly, caType))
                 return true;
             return IsCustomAttributeDefined(assembly.ManifestModule as RuntimeModule, RuntimeAssembly.GetToken(assembly.GetNativeHandle()), caType);
         }
 
         internal static bool IsDefined(RuntimeModule module, RuntimeType caType)
         {
-            Contract.Requires(module != null);
-            Contract.Requires(caType != null);
-            if (PseudoCustomAttribute.IsDefined(module, caType))
+                                    if (PseudoCustomAttribute.IsDefined(module, caType))
                 return true;
             return IsCustomAttributeDefined(module, module.MetadataToken, caType);
         }
 
         internal static Object[] GetCustomAttributes(RuntimeType type, RuntimeType caType, bool inherit)
         {
-            Contract.Requires(type != null);
-            Contract.Requires(caType != null);
-            if (type.GetElementType() != null)
+                                    if (type.GetElementType() != null)
                 return (caType.IsValueType) ? EmptyArray<Object>.Value : CreateAttributeArrayHelper(caType, 0);
             if (type.IsGenericType && !type.IsGenericTypeDefinition)
                 type = type.GetGenericTypeDefinition() as RuntimeType;
@@ -1156,8 +1119,7 @@ namespace System.Reflection
                 else
                 {
                     type = type.DeclaringType as RuntimeType;
-                    Contract.Assert(type != null);
-                }
+                                    }
             }
 
             return !type.IsSecurityTransparent || SpecialAllowCriticalAttributes(type);
@@ -1170,8 +1132,7 @@ namespace System.Reflection
 
         private static bool AllowCriticalCustomAttributes(MethodBase method)
         {
-            Contract.Requires(method is RuntimeMethodInfo || method is RuntimeConstructorInfo);
-            return !method.IsSecurityTransparent || SpecialAllowCriticalAttributes((RuntimeType)method.DeclaringType);
+                        return !method.IsSecurityTransparent || SpecialAllowCriticalAttributes((RuntimeType)method.DeclaringType);
         }
 
         private static bool AllowCriticalCustomAttributes(RuntimeFieldInfo field)
@@ -1186,9 +1147,7 @@ namespace System.Reflection
 
         internal static Object[] GetCustomAttributes(RuntimeMethodInfo method, RuntimeType caType, bool inherit)
         {
-            Contract.Requires(method != null);
-            Contract.Requires(caType != null);
-            if (method.IsGenericMethod && !method.IsGenericMethodDefinition)
+                                    if (method.IsGenericMethod && !method.IsGenericMethodDefinition)
                 method = method.GetGenericMethodDefinition() as RuntimeMethodInfo;
             int pcaCount = 0;
             Attribute[] pca = PseudoCustomAttribute.GetCustomAttributes(method, caType, true, out pcaCount);
@@ -1222,9 +1181,7 @@ namespace System.Reflection
 
         internal static Object[] GetCustomAttributes(RuntimeConstructorInfo ctor, RuntimeType caType)
         {
-            Contract.Requires(ctor != null);
-            Contract.Requires(caType != null);
-            int pcaCount = 0;
+                                    int pcaCount = 0;
             Attribute[] pca = PseudoCustomAttribute.GetCustomAttributes(ctor, caType, true, out pcaCount);
             object[] attributes = GetCustomAttributes(ctor.GetRuntimeModule(), ctor.MetadataToken, pcaCount, caType, !AllowCriticalCustomAttributes(ctor));
             if (pcaCount > 0)
@@ -1234,9 +1191,7 @@ namespace System.Reflection
 
         internal static Object[] GetCustomAttributes(RuntimePropertyInfo property, RuntimeType caType)
         {
-            Contract.Requires(property != null);
-            Contract.Requires(caType != null);
-            int pcaCount = 0;
+                                    int pcaCount = 0;
             Attribute[] pca = PseudoCustomAttribute.GetCustomAttributes(property, caType, out pcaCount);
             bool disallowCriticalCustomAttributes = property.GetRuntimeModule().GetRuntimeAssembly().IsAllSecurityTransparent();
             object[] attributes = GetCustomAttributes(property.GetRuntimeModule(), property.MetadataToken, pcaCount, caType, disallowCriticalCustomAttributes);
@@ -1247,9 +1202,7 @@ namespace System.Reflection
 
         internal static Object[] GetCustomAttributes(RuntimeEventInfo e, RuntimeType caType)
         {
-            Contract.Requires(e != null);
-            Contract.Requires(caType != null);
-            int pcaCount = 0;
+                                    int pcaCount = 0;
             Attribute[] pca = PseudoCustomAttribute.GetCustomAttributes(e, caType, out pcaCount);
             bool disallowCriticalCustomAttributes = e.GetRuntimeModule().GetRuntimeAssembly().IsAllSecurityTransparent();
             object[] attributes = GetCustomAttributes(e.GetRuntimeModule(), e.MetadataToken, pcaCount, caType, disallowCriticalCustomAttributes);
@@ -1260,9 +1213,7 @@ namespace System.Reflection
 
         internal static Object[] GetCustomAttributes(RuntimeFieldInfo field, RuntimeType caType)
         {
-            Contract.Requires(field != null);
-            Contract.Requires(caType != null);
-            int pcaCount = 0;
+                                    int pcaCount = 0;
             Attribute[] pca = PseudoCustomAttribute.GetCustomAttributes(field, caType, out pcaCount);
             object[] attributes = GetCustomAttributes(field.GetRuntimeModule(), field.MetadataToken, pcaCount, caType, !AllowCriticalCustomAttributes(field));
             if (pcaCount > 0)
@@ -1272,9 +1223,7 @@ namespace System.Reflection
 
         internal static Object[] GetCustomAttributes(RuntimeParameterInfo parameter, RuntimeType caType)
         {
-            Contract.Requires(parameter != null);
-            Contract.Requires(caType != null);
-            int pcaCount = 0;
+                                    int pcaCount = 0;
             Attribute[] pca = PseudoCustomAttribute.GetCustomAttributes(parameter, caType, out pcaCount);
             object[] attributes = GetCustomAttributes(parameter.GetRuntimeModule(), parameter.MetadataToken, pcaCount, caType, !AllowCriticalCustomAttributes(parameter));
             if (pcaCount > 0)
@@ -1284,9 +1233,7 @@ namespace System.Reflection
 
         internal static Object[] GetCustomAttributes(RuntimeAssembly assembly, RuntimeType caType)
         {
-            Contract.Requires(assembly != null);
-            Contract.Requires(caType != null);
-            int pcaCount = 0;
+                                    int pcaCount = 0;
             Attribute[] pca = PseudoCustomAttribute.GetCustomAttributes(assembly, caType, true, out pcaCount);
             int assemblyToken = RuntimeAssembly.GetToken(assembly.GetNativeHandle());
             bool isAssemblySecurityTransparent = assembly.IsAllSecurityTransparent();
@@ -1298,9 +1245,7 @@ namespace System.Reflection
 
         internal static Object[] GetCustomAttributes(RuntimeModule module, RuntimeType caType)
         {
-            Contract.Requires(module != null);
-            Contract.Requires(caType != null);
-            int pcaCount = 0;
+                                    int pcaCount = 0;
             Attribute[] pca = PseudoCustomAttribute.GetCustomAttributes(module, caType, out pcaCount);
             bool isModuleSecurityTransparent = module.GetRuntimeAssembly().IsAllSecurityTransparent();
             object[] attributes = GetCustomAttributes(module, module.MetadataToken, pcaCount, caType, isModuleSecurityTransparent);
@@ -1323,12 +1268,10 @@ namespace System.Reflection
         {
             if (decoratedModule.Assembly.ReflectionOnly)
                 throw new InvalidOperationException(Environment.GetResourceString("Arg_ReflectionOnlyCA"));
-            Contract.EndContractBlock();
-            CustomAttributeRecord[] car = CustomAttributeData.GetCustomAttributeRecords(decoratedModule, decoratedMetadataToken);
+                        CustomAttributeRecord[] car = CustomAttributeData.GetCustomAttributeRecords(decoratedModule, decoratedMetadataToken);
             if (attributeFilterType != null)
             {
-                Contract.Assert(attributeCtorToken == 0);
-                MetadataImport scope = decoratedModule.MetadataImport;
+                                MetadataImport scope = decoratedModule.MetadataImport;
                 RuntimeType attributeType;
                 IRuntimeMethodInfo ctor;
                 bool ctorHasParameters, isVarArg;
@@ -1342,9 +1285,7 @@ namespace System.Reflection
             }
             else
             {
-                Contract.Assert(attributeFilterType == null);
-                Contract.Assert(!MetadataToken.IsNullToken(attributeCtorToken));
-                for (int i = 0; i < car.Length; i++)
+                                                for (int i = 0; i < car.Length; i++)
                 {
                     CustomAttributeRecord caRecord = car[i];
                     if (caRecord.tkCtor == attributeCtorToken)
@@ -1364,8 +1305,7 @@ namespace System.Reflection
         {
             if (decoratedModule.Assembly.ReflectionOnly)
                 throw new InvalidOperationException(Environment.GetResourceString("Arg_ReflectionOnlyCA"));
-            Contract.EndContractBlock();
-            MetadataImport scope = decoratedModule.MetadataImport;
+                        MetadataImport scope = decoratedModule.MetadataImport;
             CustomAttributeRecord[] car = CustomAttributeData.GetCustomAttributeRecords(decoratedModule, decoratedMetadataToken);
             bool useObjectArray = (attributeFilterType == null || attributeFilterType.IsValueType || attributeFilterType.ContainsGenericParameters);
             Type arrayType = useObjectArray ? typeof (object) : attributeFilterType;
@@ -1550,8 +1490,7 @@ namespace System.Reflection
             }
             else
             {
-                Contract.Assert(decoratedToken.IsModule || decoratedToken.IsAssembly, "The decoratedToken must be either an assembly, a module, a type, or a member.");
-            }
+                            }
 
             RuntimeTypeHandle parentTypeHandle = tkParent.IsTypeDef ? decoratedModule.ModuleHandle.ResolveTypeHandle(tkParent) : new RuntimeTypeHandle();
             return RuntimeMethodHandle.IsCAVisibleFromDecoratedType(attributeType.TypeHandle, ctor, parentTypeHandle, decoratedModule);
@@ -1667,10 +1606,8 @@ namespace System.Reflection
 
         private static void VerifyPseudoCustomAttribute(RuntimeType pca)
         {
-            Contract.Assert(pca.BaseType == (RuntimeType)typeof (Attribute), "Pseudo CA Error");
-            AttributeUsageAttribute usage = CustomAttribute.GetAttributeUsage(pca);
-            Contract.Assert(usage.Inherited == false, "Pseudo CA Error");
-        }
+                        AttributeUsageAttribute usage = CustomAttribute.GetAttributeUsage(pca);
+                    }
 
         internal static bool IsSecurityAttribute(RuntimeType type)
         {
@@ -1679,9 +1616,7 @@ namespace System.Reflection
 
         internal static Attribute[] GetCustomAttributes(RuntimeType type, RuntimeType caType, bool includeSecCa, out int count)
         {
-            Contract.Requires(type != null);
-            Contract.Requires(caType != null);
-            count = 0;
+                                    count = 0;
             bool all = caType == (RuntimeType)typeof (object) || caType == (RuntimeType)typeof (Attribute);
             if (!all && s_pca.GetValueOrDefault(caType) == null && !IsSecurityAttribute(caType))
                 return Array.Empty<Attribute>();
@@ -1736,9 +1671,7 @@ namespace System.Reflection
 
         internal static Attribute[] GetCustomAttributes(RuntimeMethodInfo method, RuntimeType caType, bool includeSecCa, out int count)
         {
-            Contract.Requires(method != null);
-            Contract.Requires(caType != null);
-            count = 0;
+                                    count = 0;
             bool all = caType == (RuntimeType)typeof (object) || caType == (RuntimeType)typeof (Attribute);
             if (!all && s_pca.GetValueOrDefault(caType) == null && !IsSecurityAttribute(caType))
                 return Array.Empty<Attribute>();
@@ -1801,9 +1734,7 @@ namespace System.Reflection
 
         internal static Attribute[] GetCustomAttributes(RuntimeParameterInfo parameter, RuntimeType caType, out int count)
         {
-            Contract.Requires(parameter != null);
-            Contract.Requires(caType != null);
-            count = 0;
+                                    count = 0;
             bool all = caType == (RuntimeType)typeof (object) || caType == (RuntimeType)typeof (Attribute);
             if (!all && s_pca.GetValueOrDefault(caType) == null)
                 return null;
@@ -1912,9 +1843,7 @@ namespace System.Reflection
 
         internal static Attribute[] GetCustomAttributes(RuntimeFieldInfo field, RuntimeType caType, out int count)
         {
-            Contract.Requires(field != null);
-            Contract.Requires(caType != null);
-            count = 0;
+                                    count = 0;
             bool all = caType == (RuntimeType)typeof (object) || caType == (RuntimeType)typeof (Attribute);
             if (!all && s_pca.GetValueOrDefault(caType) == null)
                 return null;

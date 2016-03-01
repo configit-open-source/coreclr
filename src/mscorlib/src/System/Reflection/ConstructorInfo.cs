@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -124,8 +123,7 @@ namespace System.Reflection
 
         internal RuntimeConstructorInfo(RuntimeMethodHandleInternal handle, RuntimeType declaringType, RuntimeType.RuntimeTypeCache reflectedTypeCache, MethodAttributes methodAttributes, BindingFlags bindingFlags)
         {
-            Contract.Ensures(methodAttributes == RuntimeMethodHandle.GetAttributes(handle));
-            m_bindingFlags = bindingFlags;
+                        m_bindingFlags = bindingFlags;
             m_reflectedTypeCache = reflectedTypeCache;
             m_declaringType = declaringType;
             m_handle = handle.Value;
@@ -216,8 +214,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.GetCustomAttributes(this, attributeRuntimeType);
@@ -227,8 +224,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.IsDefined(this, attributeRuntimeType);
@@ -362,8 +358,7 @@ namespace System.Reflection
         {
             if (declaringType == null)
                 throw new ArgumentNullException("declaringType");
-            Contract.EndContractBlock();
-            if (declaringType is ReflectionOnlyType)
+                        if (declaringType is ReflectionOnlyType)
                 throw new InvalidOperationException(Environment.GetResourceString("Arg_ReflectionOnlyInvoke"));
             else if (declaringType.IsInterface)
                 throw new MemberAccessException(String.Format(CultureInfo.CurrentUICulture, Environment.GetResourceString("Acc_CreateInterfaceEx"), declaringType));
@@ -513,8 +508,7 @@ namespace System.Reflection
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            MemberInfoSerializationHolder.GetSerializationInfo(info, Name, ReflectedTypeInternal, ToString(), SerializationToString(), MemberTypes.Constructor, null);
+                        MemberInfoSerializationHolder.GetSerializationInfo(info, Name, ReflectedTypeInternal, ToString(), SerializationToString(), MemberTypes.Constructor, null);
         }
 
         internal string SerializationToString()

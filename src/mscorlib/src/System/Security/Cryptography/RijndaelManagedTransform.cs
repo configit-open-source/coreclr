@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -32,8 +32,7 @@ namespace System.Security.Cryptography
         {
             if (rgbKey == null)
                 throw new ArgumentNullException("rgbKey");
-            Contract.EndContractBlock();
-            m_blockSizeBits = blockSize;
+                        m_blockSizeBits = blockSize;
             m_blockSizeBytes = blockSize / 8;
             m_cipherMode = mode;
             m_paddingValue = PaddingValue;
@@ -217,8 +216,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
             if ((inputBuffer.Length - inputCount) < inputOffset)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (m_transformMode == RijndaelManagedTransformMode.Encrypt)
+                        if (m_transformMode == RijndaelManagedTransformMode.Encrypt)
             {
                 return EncryptData(inputBuffer, inputOffset, inputCount, ref outputBuffer, outputOffset, m_paddingValue, false);
             }
@@ -260,8 +258,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidValue"));
             if ((inputBuffer.Length - inputCount) < inputOffset)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (m_transformMode == RijndaelManagedTransformMode.Encrypt)
+                        if (m_transformMode == RijndaelManagedTransformMode.Encrypt)
             {
                 byte[] transformedBytes = null;
                 EncryptData(inputBuffer, inputOffset, inputCount, ref transformedBytes, 0, m_paddingValue, true);
@@ -383,15 +380,13 @@ namespace System.Security.Cryptography
                             {
                                 if (m_cipherMode == CipherMode.CFB)
                                 {
-                                    Contract.Assert(m_blockSizeBytes <= m_Nb * sizeof (int), "m_blockSizeBytes <= m_Nb * sizeof(int)");
-                                    Buffer.Memcpy((byte *)work, 0, m_shiftRegister, 0, m_blockSizeBytes);
+                                                                        Buffer.Memcpy((byte *)work, 0, m_shiftRegister, 0, m_blockSizeBytes);
                                 }
                                 else
                                 {
                                     if (blockNum != iNumBlocks - 1 || padSize == 0)
                                     {
-                                        Contract.Assert(m_blockSizeBytes <= m_Nb * sizeof (int), "m_blockSizeBytes <= m_Nb * sizeof(int)");
-                                        Buffer.Memcpy((byte *)work, 0, inputBuffer, workBaseIndex, m_blockSizeBytes);
+                                                                                Buffer.Memcpy((byte *)work, 0, inputBuffer, workBaseIndex, m_blockSizeBytes);
                                     }
                                     else
                                     {
@@ -484,8 +479,7 @@ namespace System.Security.Cryptography
                                     {
                                         fixed (int *pLastBlockBuffer = m_lastBlockBuffer)
                                         {
-                                            Contract.Assert(m_blockSizeBytes <= m_lastBlockBuffer.Length * sizeof (int), "m_blockSizeBytes <= m_lastBlockBuffer.Length * sizeof(int)");
-                                            Buffer.Memcpy((byte *)pLastBlockBuffer, (byte *)temp, m_blockSizeBytes);
+                                                                                        Buffer.Memcpy((byte *)pLastBlockBuffer, (byte *)temp, m_blockSizeBytes);
                                         }
                                     }
                                 }

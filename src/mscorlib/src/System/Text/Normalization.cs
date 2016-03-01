@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System.Text
@@ -70,8 +70,7 @@ namespace System.Text
 
         internal static bool IsNormalized(String strInput, NormalizationForm normForm)
         {
-            Contract.Requires(strInput != null);
-            EnsureInitialized(normForm);
+                        EnsureInitialized(normForm);
             int iError = ERROR_SUCCESS;
             bool result = nativeNormalizationIsNormalizedString(normForm, ref iError, strInput, strInput.Length);
             switch (iError)
@@ -92,8 +91,7 @@ namespace System.Text
 
         internal static String Normalize(String strInput, NormalizationForm normForm)
         {
-            Contract.Requires(strInput != null);
-            EnsureInitialized(normForm);
+                        EnsureInitialized(normForm);
             int iError = ERROR_SUCCESS;
             int iLength = nativeNormalizationNormalizeString(normForm, ref iError, strInput, strInput.Length, null, 0);
             if (iError != ERROR_SUCCESS)
@@ -117,8 +115,7 @@ namespace System.Text
                 switch (iError)
                 {
                     case ERROR_INSUFFICIENT_BUFFER:
-                        Contract.Assert(iLength > cBuffer.Length, "Buffer overflow should have iLength > cBuffer.Length");
-                        continue;
+                                                continue;
                     case ERROR_INVALID_PARAMETER:
                     case ERROR_NO_UNICODE_TRANSLATION:
                         throw new ArgumentException(Environment.GetResourceString("Argument_InvalidCharSequence", iLength), "strInput");

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Reflection;
 
@@ -27,9 +27,7 @@ namespace System.Runtime.Serialization
 
         internal SerializationFieldInfo(RuntimeFieldInfo field, String namePrefix)
         {
-            Contract.Assert(field != null, "[SerializationFieldInfo.ctor]field!=null");
-            Contract.Assert(namePrefix != null, "[SerializationFieldInfo.ctor]namePrefix!=null");
-            m_field = field;
+                                    m_field = field;
             m_serializationName = String.Concat(namePrefix, FakeNameSeparatorString, m_field.Name);
         }
 

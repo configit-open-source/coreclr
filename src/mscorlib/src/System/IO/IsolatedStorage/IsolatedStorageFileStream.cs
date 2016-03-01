@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security;
 
 using Microsoft.Win32;
@@ -35,8 +35,7 @@ namespace System.IO.IsolatedStorage
         {
             if (path == null)
                 throw new ArgumentNullException("path");
-            Contract.EndContractBlock();
-            if ((path.Length == 0) || path.Equals(s_BackSlash))
+                        if ((path.Length == 0) || path.Equals(s_BackSlash))
                 throw new ArgumentException(Environment.GetResourceString("IsolatedStorage_Path"));
             if (isf == null)
             {
@@ -74,7 +73,7 @@ namespace System.IO.IsolatedStorage
 
         public override bool CanRead
         {
-            [Pure]
+            
             get
             {
                 return m_fs.CanRead;
@@ -83,7 +82,7 @@ namespace System.IO.IsolatedStorage
 
         public override bool CanWrite
         {
-            [Pure]
+            
             get
             {
                 return m_fs.CanWrite;
@@ -92,7 +91,7 @@ namespace System.IO.IsolatedStorage
 
         public override bool CanSeek
         {
-            [Pure]
+            
             get
             {
                 return m_fs.CanSeek;
@@ -129,8 +128,7 @@ namespace System.IO.IsolatedStorage
                     throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
                 }
 
-                Contract.EndContractBlock();
-                Seek(value, SeekOrigin.Begin);
+                                Seek(value, SeekOrigin.Begin);
             }
         }
 
@@ -201,8 +199,7 @@ namespace System.IO.IsolatedStorage
         {
             if (value < 0)
                 throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            ulong oldLen = (ulong)m_fs.Length;
+                        ulong oldLen = (ulong)m_fs.Length;
             ulong newLen = (ulong)value;
             ZeroInit(oldLen, newLen);
             m_fs.SetLength(value);
@@ -212,16 +209,14 @@ namespace System.IO.IsolatedStorage
         {
             if (position < 0 || length < 0)
                 throw new ArgumentOutOfRangeException((position < 0 ? "position" : "length"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            m_fs.Lock(position, length);
+                        m_fs.Lock(position, length);
         }
 
         public override void Unlock(long position, long length)
         {
             if (position < 0 || length < 0)
                 throw new ArgumentOutOfRangeException((position < 0 ? "position" : "length"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            m_fs.Unlock(position, length);
+                        m_fs.Unlock(position, length);
         }
 
         private void ZeroInit(ulong oldLen, ulong newLen)
@@ -304,8 +299,7 @@ namespace System.IO.IsolatedStorage
         {
             if (asyncResult == null)
                 throw new ArgumentNullException("asyncResult");
-            Contract.EndContractBlock();
-            return m_fs.EndRead(asyncResult);
+                        return m_fs.EndRead(asyncResult);
         }
 
         public override IAsyncResult BeginWrite(byte[] buffer, int offset, int numBytes, AsyncCallback userCallback, Object stateObject)
@@ -317,8 +311,7 @@ namespace System.IO.IsolatedStorage
         {
             if (asyncResult == null)
                 throw new ArgumentNullException("asyncResult");
-            Contract.EndContractBlock();
-            m_fs.EndWrite(asyncResult);
+                        m_fs.EndWrite(asyncResult);
         }
 
         internal void NotPermittedError(String str)

@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Threading.Tasks
 {
@@ -53,8 +52,7 @@ namespace System.Threading.Tasks
                 throw new ArgumentOutOfRangeException("maxConcurrencyLevel");
             if (maxItemsPerTask == 0 || maxItemsPerTask < -1)
                 throw new ArgumentOutOfRangeException("maxItemsPerTask");
-            Contract.EndContractBlock();
-            m_underlyingTaskScheduler = taskScheduler;
+                        m_underlyingTaskScheduler = taskScheduler;
             m_maxConcurrencyLevel = maxConcurrencyLevel;
             m_maxItemsPerTask = maxItemsPerTask;
             int mcl = taskScheduler.MaximumConcurrencyLevel;
@@ -128,8 +126,7 @@ namespace System.Threading.Tasks
 
         private void CompleteTaskAsync()
         {
-            Contract.Requires(ReadyToComplete, "The block must be ready to complete to be here.");
-            ContractAssertMonitorStatus(ValueLock, held: true);
+                        ContractAssertMonitorStatus(ValueLock, held: true);
             var cs = EnsureCompletionStateInitialized();
             if (!cs.m_completionQueued)
             {
@@ -137,11 +134,9 @@ namespace System.Threading.Tasks
                 ThreadPool.QueueUserWorkItem(state =>
                 {
                     var localCs = (CompletionState)state;
-                    Contract.Assert(!localCs.Task.IsCompleted, "Completion should only happen once.");
-                    var exceptions = localCs.m_exceptions;
+                                        var exceptions = localCs.m_exceptions;
                     bool success = (exceptions != null && exceptions.Count > 0) ? localCs.TrySetException(exceptions) : localCs.TrySetResult(default (VoidTaskResult));
-                    Contract.Assert(success, "Expected to complete completion task.");
-                }
+                                    }
 
                 , cs);
             }
@@ -149,8 +144,7 @@ namespace System.Threading.Tasks
 
         private void FaultWithTask(Task faultedTask)
         {
-            Contract.Requires(faultedTask != null && faultedTask.IsFaulted && faultedTask.Exception.InnerExceptions.Count > 0, "Needs a task in the faulted state and thus with exceptions.");
-            ContractAssertMonitorStatus(ValueLock, held: true);
+                        ContractAssertMonitorStatus(ValueLock, held: true);
             var cs = EnsureCompletionStateInitialized();
             if (cs.m_exceptions == null)
                 cs.m_exceptions = new List<Exception>();
@@ -190,44 +184,34 @@ namespace System.Threading.Tasks
             }
         }
 
-        private void ProcessAsyncIfNecessary(bool fairly = false)
-        {
-            ContractAssertMonitorStatus(ValueLock, held: true);
-            if (m_processingCount >= 0)
-            {
+        private void ProcessAsyncIfNecessary( bool fairly = false ) {
+            ContractAssertMonitorStatus( ValueLock, held: true );
+            if ( m_processingCount >= 0 ) {
                 bool exclusiveTasksAreWaiting = !m_exclusiveTaskScheduler.m_tasks.IsEmpty;
                 Task processingTask = null;
-                if (m_processingCount == 0 && exclusiveTasksAreWaiting)
-                {
+                if ( m_processingCount == 0 && exclusiveTasksAreWaiting ) {
                     m_processingCount = EXCLUSIVE_PROCESSING_SENTINEL;
-                    try
-                    {
-                        processingTask = new Task(thisPair => ((ConcurrentExclusiveSchedulerPair)thisPair).ProcessExclusiveTasks(), this, default (CancellationToken), GetCreationOptionsForTask(fairly));
-                        processingTask.Start(m_underlyingTaskScheduler);
+                    try {
+                        processingTask = new Task( thisPair => ( (ConcurrentExclusiveSchedulerPair) thisPair ).ProcessExclusiveTasks(), this, default( CancellationToken ), GetCreationOptionsForTask( fairly ) );
+                        processingTask.Start( m_underlyingTaskScheduler );
                     }
-                    catch
-                    {
+                    catch {
                         m_processingCount = 0;
-                        FaultWithTask(processingTask);
+                        FaultWithTask( processingTask );
                     }
                 }
-                else
-                {
+                else {
                     int concurrentTasksWaitingCount = m_concurrentTaskScheduler.m_tasks.Count;
-                    if (concurrentTasksWaitingCount > 0 && !exclusiveTasksAreWaiting && m_processingCount < m_maxConcurrencyLevel)
-                    {
-                        for (int i = 0; i < concurrentTasksWaitingCount && m_processingCount < m_maxConcurrencyLevel; ++i)
-                        {
+                    if ( concurrentTasksWaitingCount > 0 && !exclusiveTasksAreWaiting && m_processingCount < m_maxConcurrencyLevel ) {
+                        for ( int i = 0; i < concurrentTasksWaitingCount && m_processingCount < m_maxConcurrencyLevel; ++i ) {
                             ++m_processingCount;
-                            try
-                            {
-                                processingTask = new Task(thisPair => ((ConcurrentExclusiveSchedulerPair)thisPair).ProcessConcurrentTasks(), this, default (CancellationToken), GetCreationOptionsForTask(fairly));
-                                processingTask.Start(m_underlyingTaskScheduler);
+                            try {
+                                processingTask = new Task( thisPair => ( (ConcurrentExclusiveSchedulerPair) thisPair ).ProcessConcurrentTasks(), this, default( CancellationToken ), GetCreationOptionsForTask( fairly ) );
+                                processingTask.Start( m_underlyingTaskScheduler );
                             }
-                            catch
-                            {
+                            catch {
                                 --m_processingCount;
-                                FaultWithTask(processingTask);
+                                FaultWithTask( processingTask );
                             }
                         }
                     }
@@ -235,19 +219,14 @@ namespace System.Threading.Tasks
 
                 CleanupStateIfCompletingAndQuiesced();
             }
-            else
-                Contract.Assert(m_processingCount == EXCLUSIVE_PROCESSING_SENTINEL, "The processing count must be the sentinel if it's not >= 0.");
         }
 
         private void ProcessExclusiveTasks()
         {
-            Contract.Requires(m_processingCount == EXCLUSIVE_PROCESSING_SENTINEL, "Processing exclusive tasks requires being in exclusive mode.");
-            Contract.Requires(!m_exclusiveTaskScheduler.m_tasks.IsEmpty, "Processing exclusive tasks requires tasks to be processed.");
-            ContractAssertMonitorStatus(ValueLock, held: false);
+                                    ContractAssertMonitorStatus(ValueLock, held: false);
             try
             {
-                Contract.Assert(!m_threadProcessingMapping.ContainsKey(Thread.CurrentThread.ManagedThreadId), "This thread should not yet be involved in this pair's processing.");
-                m_threadProcessingMapping[Thread.CurrentThread.ManagedThreadId] = ProcessingMode.ProcessingExclusiveTask;
+                                m_threadProcessingMapping[Thread.CurrentThread.ManagedThreadId] = ProcessingMode.ProcessingExclusiveTask;
                 for (int i = 0; i < m_maxItemsPerTask; i++)
                 {
                     Task exclusiveTask;
@@ -261,11 +240,9 @@ namespace System.Threading.Tasks
             {
                 ProcessingMode currentMode;
                 m_threadProcessingMapping.TryRemove(Thread.CurrentThread.ManagedThreadId, out currentMode);
-                Contract.Assert(currentMode == ProcessingMode.ProcessingExclusiveTask, "Somehow we ended up escaping exclusive mode.");
-                lock (ValueLock)
+                                lock (ValueLock)
                 {
-                    Contract.Assert(m_processingCount == EXCLUSIVE_PROCESSING_SENTINEL, "The processing mode should not have deviated from exclusive.");
-                    m_processingCount = 0;
+                                        m_processingCount = 0;
                     ProcessAsyncIfNecessary(true);
                 }
             }
@@ -273,12 +250,10 @@ namespace System.Threading.Tasks
 
         private void ProcessConcurrentTasks()
         {
-            Contract.Requires(m_processingCount > 0, "Processing concurrent tasks requires us to be in concurrent mode.");
-            ContractAssertMonitorStatus(ValueLock, held: false);
+                        ContractAssertMonitorStatus(ValueLock, held: false);
             try
             {
-                Contract.Assert(!m_threadProcessingMapping.ContainsKey(Thread.CurrentThread.ManagedThreadId), "This thread should not yet be involved in this pair's processing.");
-                m_threadProcessingMapping[Thread.CurrentThread.ManagedThreadId] = ProcessingMode.ProcessingConcurrentTasks;
+                                m_threadProcessingMapping[Thread.CurrentThread.ManagedThreadId] = ProcessingMode.ProcessingConcurrentTasks;
                 for (int i = 0; i < m_maxItemsPerTask; i++)
                 {
                     Task concurrentTask;
@@ -294,11 +269,9 @@ namespace System.Threading.Tasks
             {
                 ProcessingMode currentMode;
                 m_threadProcessingMapping.TryRemove(Thread.CurrentThread.ManagedThreadId, out currentMode);
-                Contract.Assert(currentMode == ProcessingMode.ProcessingConcurrentTasks, "Somehow we ended up escaping concurrent mode.");
-                lock (ValueLock)
+                                lock (ValueLock)
                 {
-                    Contract.Assert(m_processingCount > 0, "The procesing mode should not have deviated from concurrent.");
-                    if (m_processingCount > 0)
+                                        if (m_processingCount > 0)
                         --m_processingCount;
                     ProcessAsyncIfNecessary(true);
                 }
@@ -321,10 +294,7 @@ namespace System.Threading.Tasks
             internal readonly IProducerConsumerQueue<Task> m_tasks;
             internal ConcurrentExclusiveTaskScheduler(ConcurrentExclusiveSchedulerPair pair, int maxConcurrencyLevel, ProcessingMode processingMode)
             {
-                Contract.Requires(pair != null, "Scheduler must be associated with a valid pair.");
-                Contract.Requires(processingMode == ProcessingMode.ProcessingConcurrentTasks || processingMode == ProcessingMode.ProcessingExclusiveTask, "Scheduler must be for concurrent or exclusive processing.");
-                Contract.Requires((processingMode == ProcessingMode.ProcessingConcurrentTasks && (maxConcurrencyLevel >= 1 || maxConcurrencyLevel == UNLIMITED_PROCESSING)) || (processingMode == ProcessingMode.ProcessingExclusiveTask && maxConcurrencyLevel == 1), "If we're in concurrent mode, our concurrency level should be positive or unlimited.  If exclusive, it should be 1.");
-                m_pair = pair;
+                                                                m_pair = pair;
                 m_maxConcurrencyLevel = maxConcurrencyLevel;
                 m_processingMode = processingMode;
                 m_tasks = (processingMode == ProcessingMode.ProcessingExclusiveTask) ? (IProducerConsumerQueue<Task>)new SingleProducerSingleConsumerQueue<Task>() : (IProducerConsumerQueue<Task>)new MultiProducerMultiConsumerQueue<Task>();
@@ -340,8 +310,7 @@ namespace System.Threading.Tasks
 
             protected internal override void QueueTask(Task task)
             {
-                Contract.Assert(task != null, "Infrastructure should have provided a non-null task.");
-                lock (m_pair.ValueLock)
+                                lock (m_pair.ValueLock)
                 {
                     if (m_pair.CompletionRequested)
                         throw new InvalidOperationException(GetType().Name);
@@ -352,14 +321,12 @@ namespace System.Threading.Tasks
 
             internal void ExecuteTask(Task task)
             {
-                Contract.Assert(task != null, "Infrastructure should have provided a non-null task.");
-                base.TryExecuteTask(task);
+                                base.TryExecuteTask(task);
             }
 
             protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
             {
-                Contract.Assert(task != null, "Infrastructure should have provided a non-null task.");
-                if (!taskWasPreviouslyQueued && m_pair.CompletionRequested)
+                                if (!taskWasPreviouslyQueued && m_pair.CompletionRequested)
                     return false;
                 bool isDefaultScheduler = m_pair.m_underlyingTaskScheduler == TaskScheduler.Default;
                 if (isDefaultScheduler && taskWasPreviouslyQueued && !Thread.CurrentThread.IsThreadPoolThread)
@@ -388,8 +355,7 @@ namespace System.Threading.Tasks
                 }
                 catch
                 {
-                    Contract.Assert(t.IsFaulted, "Task should be faulted due to the scheduler faulting it and throwing the exception.");
-                    var ignored = t.Exception;
+                                        var ignored = t.Exception;
                     throw;
                 }
                 finally
@@ -422,8 +388,7 @@ namespace System.Threading.Tasks
                 private readonly ConcurrentExclusiveTaskScheduler m_taskScheduler;
                 public DebugView(ConcurrentExclusiveTaskScheduler scheduler)
                 {
-                    Contract.Requires(scheduler != null, "Need a scheduler with which to construct the debug view.");
-                    m_taskScheduler = scheduler;
+                                        m_taskScheduler = scheduler;
                 }
 
                 public int MaximumConcurrencyLevel
@@ -457,8 +422,7 @@ namespace System.Threading.Tasks
             private readonly ConcurrentExclusiveSchedulerPair m_pair;
             public DebugView(ConcurrentExclusiveSchedulerPair pair)
             {
-                Contract.Requires(pair != null, "Need a pair with which to construct the debug view.");
-                m_pair = pair;
+                                m_pair = pair;
             }
 
             public ProcessingMode Mode
@@ -521,9 +485,7 @@ namespace System.Threading.Tasks
 
         internal static void ContractAssertMonitorStatus(object syncObj, bool held)
         {
-            Contract.Requires(syncObj != null, "The monitor object to check must be provided.");
-            Contract.Assert(Monitor.IsEntered(syncObj) == held, "The locking scheme was not correctly followed.");
-        }
+                                }
 
         internal static TaskCreationOptions GetCreationOptionsForTask(bool isReplacementReplica = false)
         {

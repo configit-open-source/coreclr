@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System.Collections
@@ -32,8 +32,7 @@ namespace System.Collections
         {
             if (initialCapacity < 0)
                 throw new ArgumentOutOfRangeException("initialCapacity", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            keys = new Object[initialCapacity];
+                        keys = new Object[initialCapacity];
             values = new Object[initialCapacity];
             comparer = new Comparer(CultureInfo.CurrentCulture);
         }
@@ -57,8 +56,7 @@ namespace System.Collections
         {
             if (d == null)
                 throw new ArgumentNullException("d", Environment.GetResourceString("ArgumentNull_Dictionary"));
-            Contract.EndContractBlock();
-            d.Keys.CopyTo(keys, 0);
+                        d.Keys.CopyTo(keys, 0);
             d.Values.CopyTo(values, 0);
             Array.Sort(keys, values, comparer);
             _size = d.Count;
@@ -68,8 +66,7 @@ namespace System.Collections
         {
             if (key == null)
                 throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
-            Contract.EndContractBlock();
-            int i = Array.BinarySearch(keys, 0, _size, key, comparer);
+                        int i = Array.BinarySearch(keys, 0, _size, key, comparer);
             if (i >= 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_AddingDuplicate__", GetKey(i), key));
             Insert(~i, key, value);
@@ -89,8 +86,7 @@ namespace System.Collections
                     throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_SmallCapacity"));
                 }
 
-                Contract.EndContractBlock();
-                if (value != keys.Length)
+                                if (value != keys.Length)
                 {
                     if (value > 0)
                     {
@@ -107,8 +103,7 @@ namespace System.Collections
                     }
                     else
                     {
-                        Contract.Assert(_size == 0, "Size is not zero");
-                        keys = emptyArray;
+                                                keys = emptyArray;
                         values = emptyArray;
                     }
                 }
@@ -220,8 +215,7 @@ namespace System.Collections
                 throw new ArgumentOutOfRangeException("arrayIndex", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - arrayIndex < Count)
                 throw new ArgumentException(Environment.GetResourceString("Arg_ArrayPlusOffTooSmall"));
-            Contract.EndContractBlock();
-            for (int i = 0; i < Count; i++)
+                        for (int i = 0; i < Count; i++)
             {
                 DictionaryEntry entry = new DictionaryEntry(keys[i], values[i]);
                 array.SetValue(entry, i + arrayIndex);
@@ -253,8 +247,7 @@ namespace System.Collections
         {
             if (index < 0 || index >= Count)
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            return values[index];
+                        return values[index];
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -271,8 +264,7 @@ namespace System.Collections
         {
             if (index < 0 || index >= Count)
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            return keys[index];
+                        return keys[index];
         }
 
         public virtual IList GetKeyList()
@@ -303,8 +295,7 @@ namespace System.Collections
             {
                 if (key == null)
                     throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
-                Contract.EndContractBlock();
-                int i = Array.BinarySearch(keys, 0, _size, key, comparer);
+                                int i = Array.BinarySearch(keys, 0, _size, key, comparer);
                 if (i >= 0)
                 {
                     values[i] = value;
@@ -320,8 +311,7 @@ namespace System.Collections
         {
             if (key == null)
                 throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
-            Contract.EndContractBlock();
-            int ret = Array.BinarySearch(keys, 0, _size, key, comparer);
+                        int ret = Array.BinarySearch(keys, 0, _size, key, comparer);
             return ret >= 0 ? ret : -1;
         }
 
@@ -350,8 +340,7 @@ namespace System.Collections
         {
             if (index < 0 || index >= Count)
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            _size--;
+                        _size--;
             if (index < _size)
             {
                 Array.Copy(keys, index + 1, keys, index, _size - index);
@@ -374,8 +363,7 @@ namespace System.Collections
         {
             if (index < 0 || index >= Count)
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            values[index] = value;
+                        values[index] = value;
             version++;
         }
 
@@ -383,8 +371,7 @@ namespace System.Collections
         {
             if (list == null)
                 throw new ArgumentNullException("list");
-            Contract.EndContractBlock();
-            return new SyncSortedList(list);
+                        return new SyncSortedList(list);
         }
 
         public virtual void TrimToSize()
@@ -575,8 +562,7 @@ namespace System.Collections
             {
                 if (key == null)
                     throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
-                Contract.EndContractBlock();
-                lock (_root)
+                                lock (_root)
                 {
                     return _list.IndexOfKey(key);
                 }
@@ -806,8 +792,7 @@ namespace System.Collections
             {
                 if (array != null && array.Rank != 1)
                     throw new ArgumentException(Environment.GetResourceString("Arg_RankMultiDimNotSupported"));
-                Contract.EndContractBlock();
-                Array.Copy(sortedList.keys, 0, array, arrayIndex, sortedList.Count);
+                                Array.Copy(sortedList.keys, 0, array, arrayIndex, sortedList.Count);
             }
 
             public virtual void Insert(int index, Object value)
@@ -837,8 +822,7 @@ namespace System.Collections
             {
                 if (key == null)
                     throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
-                Contract.EndContractBlock();
-                int i = Array.BinarySearch(sortedList.keys, 0, sortedList.Count, key, sortedList.comparer);
+                                int i = Array.BinarySearch(sortedList.keys, 0, sortedList.Count, key, sortedList.comparer);
                 if (i >= 0)
                     return i;
                 return -1;
@@ -922,8 +906,7 @@ namespace System.Collections
             {
                 if (array != null && array.Rank != 1)
                     throw new ArgumentException(Environment.GetResourceString("Arg_RankMultiDimNotSupported"));
-                Contract.EndContractBlock();
-                Array.Copy(sortedList.values, 0, array, arrayIndex, sortedList.Count);
+                                Array.Copy(sortedList.values, 0, array, arrayIndex, sortedList.Count);
             }
 
             public virtual void Insert(int index, Object value)
@@ -975,8 +958,7 @@ namespace System.Collections
                     throw new ArgumentNullException("sortedList");
                 }
 
-                Contract.EndContractBlock();
-                this.sortedList = sortedList;
+                                this.sortedList = sortedList;
             }
 
             public KeyValuePairs[] Items

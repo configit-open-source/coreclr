@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
@@ -112,8 +111,7 @@ namespace System
             {
                 get
                 {
-                    Contract.Ensures(Contract.Result<TimeZoneInfo>() != null);
-                    TimeZoneInfo timeZone = m_utcTimeZone;
+                                        TimeZoneInfo timeZone = m_utcTimeZone;
                     if (timeZone == null)
                     {
                         timeZone = CreateUtc();
@@ -257,8 +255,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Argument_DateTimeOffsetIsNotAmbiguous"), "dateTimeOffset");
             }
 
-            Contract.EndContractBlock();
-            DateTime adjustedTime = (TimeZoneInfo.ConvertTime(dateTimeOffset, this)).DateTime;
+                        DateTime adjustedTime = (TimeZoneInfo.ConvertTime(dateTimeOffset, this)).DateTime;
             Boolean isAmbiguous = false;
             AdjustmentRule rule = GetAdjustmentRuleForAmbiguousOffsets(adjustedTime);
             if (rule != null && rule.HasDaylightSaving)
@@ -295,8 +292,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Argument_DateTimeIsNotAmbiguous"), "dateTime");
             }
 
-            Contract.EndContractBlock();
-            DateTime adjustedTime;
+                        DateTime adjustedTime;
             if (dateTime.Kind == DateTimeKind.Local)
             {
                 CachedData cachedData = s_cachedData;
@@ -581,8 +577,7 @@ namespace System
                 throw new ArgumentNullException("destinationTimeZone");
             }
 
-            Contract.EndContractBlock();
-            DateTime utcDateTime = dateTimeOffset.UtcDateTime;
+                        DateTime utcDateTime = dateTimeOffset.UtcDateTime;
             TimeSpan destinationOffset = GetUtcOffsetFromUtc(utcDateTime, destinationTimeZone);
             Int64 ticks = utcDateTime.Ticks + destinationOffset.Ticks;
             if (ticks > DateTimeOffset.MaxValue.Ticks)
@@ -606,8 +601,7 @@ namespace System
                 throw new ArgumentNullException("destinationTimeZone");
             }
 
-            Contract.EndContractBlock();
-            if (dateTime.Ticks == 0)
+                        if (dateTime.Ticks == 0)
             {
                 ClearCachedData();
             }
@@ -645,8 +639,7 @@ namespace System
                 throw new ArgumentNullException("destinationTimeZone");
             }
 
-            Contract.EndContractBlock();
-            DateTimeKind sourceKind = cachedData.GetCorrespondingKind(sourceTimeZone);
+                        DateTimeKind sourceKind = cachedData.GetCorrespondingKind(sourceTimeZone);
             if (((flags & TimeZoneInfoOptions.NoThrowOnInvalidTime) == 0) && (dateTime.Kind != DateTimeKind.Unspecified) && (dateTime.Kind != sourceKind))
             {
                 throw new ArgumentException(Environment.GetResourceString("Argument_ConvertMismatch"), "sourceTimeZone");
@@ -752,8 +745,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidSerializedString", source), "source");
             }
 
-            Contract.EndContractBlock();
-            return StringSerializer.GetDeserializedTimeZoneInfo(source);
+                        return StringSerializer.GetDeserializedTimeZoneInfo(source);
         }
 
         public override int GetHashCode()
@@ -814,8 +806,7 @@ namespace System
                 throw new ArgumentNullException("other");
             }
 
-            Contract.EndContractBlock();
-            if (this.m_baseUtcOffset != other.m_baseUtcOffset || this.m_supportsDaylightSavingTime != other.m_supportsDaylightSavingTime)
+                        if (this.m_baseUtcOffset != other.m_baseUtcOffset || this.m_supportsDaylightSavingTime != other.m_supportsDaylightSavingTime)
             {
                 return false;
             }
@@ -852,8 +843,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<TimeZoneInfo>() != null);
-                return s_cachedData.Local;
+                                return s_cachedData.Local;
             }
         }
 
@@ -871,8 +861,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<TimeZoneInfo>() != null);
-                return s_cachedData.Utc;
+                                return s_cachedData.Utc;
             }
         }
 
@@ -2221,8 +2210,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Argument_TimeSpanHasSeconds"), "baseUtcOffset");
             }
 
-            Contract.EndContractBlock();
-            adjustmentRulesSupportDst = false;
+                        adjustmentRulesSupportDst = false;
             if (adjustmentRules != null && adjustmentRules.Length != 0)
             {
                 adjustmentRulesSupportDst = true;
@@ -2417,8 +2405,7 @@ namespace System
                     throw new ArgumentException(Environment.GetResourceString("Argument_DateTimeHasTimeOfDay"), "dateEnd");
                 }
 
-                Contract.EndContractBlock();
-            }
+                            }
         }
 
         public struct TransitionTime : IEquatable<TransitionTime>, ISerializable, IDeserializationCallback
@@ -2570,8 +2557,7 @@ namespace System
                     throw new ArgumentOutOfRangeException("dayOfWeek", Environment.GetResourceString("ArgumentOutOfRange_DayOfWeek"));
                 }
 
-                Contract.EndContractBlock();
-                if (timeOfDay.Year != 1 || timeOfDay.Month != 1 || timeOfDay.Day != 1 || (timeOfDay.Ticks % TimeSpan.TicksPerMillisecond != 0))
+                                if (timeOfDay.Year != 1 || timeOfDay.Month != 1 || timeOfDay.Day != 1 || (timeOfDay.Ticks % TimeSpan.TicksPerMillisecond != 0))
                 {
                     throw new ArgumentException(Environment.GetResourceString("Argument_DateTimeHasTicks"), "timeOfDay");
                 }

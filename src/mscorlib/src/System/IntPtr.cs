@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.Serialization;
@@ -73,8 +73,7 @@ namespace System
 
         public unsafe String ToString(String format)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return ((long)m_value).ToString(format, CultureInfo.InvariantCulture);
+                        return ((long)m_value).ToString(format, CultureInfo.InvariantCulture);
         }
 
         public static explicit operator IntPtr(int value)
@@ -140,7 +139,7 @@ namespace System
 
         public static int Size
         {
-            [Pure]
+            
             [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
             [System.Runtime.Versioning.NonVersionable]
             get

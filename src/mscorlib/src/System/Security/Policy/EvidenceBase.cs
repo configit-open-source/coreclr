@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Security.Policy
 {
@@ -34,10 +33,7 @@ namespace System.Security.Policy
         private object m_legacyEvidence;
         internal LegacyEvidenceWrapper(object legacyEvidence)
         {
-            Contract.Assert(legacyEvidence != null);
-            Contract.Assert(legacyEvidence.GetType() != typeof (EvidenceBase), "Attempt to wrap an EvidenceBase in a LegacyEvidenceWrapper");
-            Contract.Assert(legacyEvidence.GetType().IsSerializable, "legacyEvidence.GetType().IsSerializable");
-            m_legacyEvidence = legacyEvidence;
+                                                m_legacyEvidence = legacyEvidence;
         }
 
         public object EvidenceObject
@@ -87,18 +83,14 @@ namespace System.Security.Policy
         {
             get
             {
-                Contract.Assert(m_legacyEvidenceList.Count > 0, "No items in LegacyEvidenceList, cannot tell what type they are");
-                ILegacyEvidenceAdapter adapter = m_legacyEvidenceList[0] as ILegacyEvidenceAdapter;
+                                ILegacyEvidenceAdapter adapter = m_legacyEvidenceList[0] as ILegacyEvidenceAdapter;
                 return adapter == null ? m_legacyEvidenceList[0].GetType() : adapter.EvidenceType;
             }
         }
 
         public void Add(EvidenceBase evidence)
         {
-            Contract.Assert(evidence != null);
-            Contract.Assert(m_legacyEvidenceList.Count == 0 || EvidenceType == evidence.GetType() || (evidence is LegacyEvidenceWrapper && (evidence as LegacyEvidenceWrapper).EvidenceType == EvidenceType), "LegacyEvidenceList must be homogeonous");
-            Contract.Assert(evidence.GetType() != typeof (LegacyEvidenceList), "Attempt to add a legacy evidence list to another legacy evidence list");
-            m_legacyEvidenceList.Add(evidence);
+                                                m_legacyEvidenceList.Add(evidence);
         }
 
         public IEnumerator<EvidenceBase> GetEnumerator()

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System
@@ -193,8 +193,7 @@ namespace System
         {
             if (Ticks == TimeSpan.MinValue.Ticks)
                 throw new OverflowException(Environment.GetResourceString("Overflow_Duration"));
-            Contract.EndContractBlock();
-            return new TimeSpan(_ticks >= 0 ? _ticks : -_ticks);
+                        return new TimeSpan(_ticks >= 0 ? _ticks : -_ticks);
         }
 
         public override bool Equals(Object value)
@@ -231,8 +230,7 @@ namespace System
         {
             if (Double.IsNaN(value))
                 throw new ArgumentException(Environment.GetResourceString("Arg_CannotBeNaN"));
-            Contract.EndContractBlock();
-            double tmp = value * scale;
+                        double tmp = value * scale;
             double millis = tmp + (value >= 0 ? 0.5 : -0.5);
             if ((millis > Int64.MaxValue / TicksPerMillisecond) || (millis < Int64.MinValue / TicksPerMillisecond))
                 throw new OverflowException(Environment.GetResourceString("Overflow_TimeSpanTooLong"));
@@ -253,8 +251,7 @@ namespace System
         {
             if (Ticks == TimeSpan.MinValue.Ticks)
                 throw new OverflowException(Environment.GetResourceString("Overflow_NegateTwosCompNum"));
-            Contract.EndContractBlock();
-            return new TimeSpan(-_ticks);
+                        return new TimeSpan(-_ticks);
         }
 
         public static TimeSpan FromSeconds(double value)

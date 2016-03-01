@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Security.Cryptography;
 
 namespace System.Security.Permissions
@@ -236,8 +235,7 @@ namespace System.Security.Permissions
                     throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_EnumNotStarted"));
                 if (index >= Count)
                     throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-                Contract.EndContractBlock();
-                return (KeyContainerPermissionAccessEntry)m_list[index];
+                                return (KeyContainerPermissionAccessEntry)m_list[index];
             }
         }
 
@@ -253,8 +251,7 @@ namespace System.Security.Permissions
         {
             if (accessEntry == null)
                 throw new ArgumentNullException("accessEntry");
-            Contract.EndContractBlock();
-            int index = m_list.IndexOf(accessEntry);
+                        int index = m_list.IndexOf(accessEntry);
             if (index == -1)
             {
                 if (accessEntry.Flags != m_globalFlags)
@@ -285,8 +282,7 @@ namespace System.Security.Permissions
         {
             if (accessEntry == null)
                 throw new ArgumentNullException("accessEntry");
-            Contract.EndContractBlock();
-            m_list.Remove(accessEntry);
+                        m_list.Remove(accessEntry);
         }
 
         public KeyContainerPermissionAccessEntryEnumerator GetEnumerator()
@@ -309,8 +305,7 @@ namespace System.Security.Permissions
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
             if (index + this.Count > array.Length)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            for (int i = 0; i < this.Count; i++)
+                        for (int i = 0; i < this.Count; i++)
             {
                 array.SetValue(this[i], index);
                 index++;
@@ -409,8 +404,7 @@ namespace System.Security.Permissions
         {
             if (accessList == null)
                 throw new ArgumentNullException("accessList");
-            Contract.EndContractBlock();
-            VerifyFlags(flags);
+                        VerifyFlags(flags);
             m_flags = flags;
             m_accessEntries = new KeyContainerPermissionAccessEntryCollection(m_flags);
             for (int index = 0; index < accessList.Length; index++)
@@ -569,8 +563,7 @@ namespace System.Security.Permissions
                         if (String.Equals(current.Tag, "AccessEntry"))
                         {
                             int iMax = current.m_lAttributes.Count;
-                            Contract.Assert(iMax % 2 == 0, "Odd number of strings means the attr/value pairs were not added correctly");
-                            string keyStore = null;
+                                                        string keyStore = null;
                             string providerName = null;
                             int providerType = -1;
                             string keyContainerName = null;
@@ -622,8 +615,7 @@ namespace System.Security.Permissions
         {
             if ((flags & ~KeyContainerPermissionFlags.AllFlags) != 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_EnumIllegalVal", (int)flags));
-            Contract.EndContractBlock();
-        }
+                    }
 
         private static KeyContainerPermissionFlags GetApplicableFlags(KeyContainerPermissionAccessEntry accessEntry, KeyContainerPermission target)
         {

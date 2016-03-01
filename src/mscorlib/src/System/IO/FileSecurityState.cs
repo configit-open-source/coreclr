@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security;
 using System.Security.Permissions;
 
@@ -74,8 +74,7 @@ namespace System.IO
 
         internal static FileSecurityStateAccess ToFileSecurityState(FileIOPermissionAccess access)
         {
-            Contract.Requires((access & ~FileIOPermissionAccess.AllAccess) == 0);
-            return (FileSecurityStateAccess)access;
+                        return (FileSecurityStateAccess)access;
         }
 
         private static void VerifyAccess(FileSecurityStateAccess access)

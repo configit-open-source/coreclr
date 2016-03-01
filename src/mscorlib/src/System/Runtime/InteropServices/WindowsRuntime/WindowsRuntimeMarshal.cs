@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -14,8 +13,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
                 throw new ArgumentNullException("addMethod");
             if (removeMethod == null)
                 throw new ArgumentNullException("removeMethod");
-            Contract.EndContractBlock();
-            if (handler == null)
+                        if (handler == null)
             {
                 return;
             }
@@ -31,8 +29,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         {
             if (removeMethod == null)
                 throw new ArgumentNullException("removeMethod");
-            Contract.EndContractBlock();
-            if (handler == null)
+                        if (handler == null)
             {
                 return;
             }
@@ -48,8 +45,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         {
             if (removeMethod == null)
                 throw new ArgumentNullException("removeMethod");
-            Contract.EndContractBlock();
-            object target = removeMethod.Target;
+                        object target = removeMethod.Target;
             if (target == null || Marshal.IsComObject(target))
                 NativeOrStaticEventRegistrationImpl.RemoveAllEventHandlers(removeMethod);
             else
@@ -134,9 +130,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
             internal volatile static ConditionalWeakTable<object, Dictionary<MethodInfo, Dictionary<object, EventRegistrationTokenList>>> s_eventRegistrations = new ConditionalWeakTable<object, Dictionary<MethodInfo, Dictionary<object, EventRegistrationTokenList>>>();
             internal static void AddEventHandler<T>(Func<T, EventRegistrationToken> addMethod, Action<EventRegistrationToken> removeMethod, T handler)
             {
-                Contract.Requires(addMethod != null);
-                Contract.Requires(removeMethod != null);
-                object instance = removeMethod.Target;
+                                                object instance = removeMethod.Target;
                 Dictionary<object, EventRegistrationTokenList> registrationTokens = GetEventRegistrationTokenTable(instance, removeMethod);
                 EventRegistrationToken token = addMethod(handler);
                 lock (registrationTokens)
@@ -160,10 +154,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
             private static Dictionary<object, EventRegistrationTokenList> GetEventRegistrationTokenTable(object instance, Action<EventRegistrationToken> removeMethod)
             {
-                Contract.Requires(instance != null);
-                Contract.Requires(removeMethod != null);
-                Contract.Requires(s_eventRegistrations != null);
-                lock (s_eventRegistrations)
+                                                                lock (s_eventRegistrations)
                 {
                     Dictionary<MethodInfo, Dictionary<object, EventRegistrationTokenList>> instanceMap = null;
                     if (!s_eventRegistrations.TryGetValue(instance, out instanceMap))
@@ -185,8 +176,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
             internal static void RemoveEventHandler<T>(Action<EventRegistrationToken> removeMethod, T handler)
             {
-                Contract.Requires(removeMethod != null);
-                object instance = removeMethod.Target;
+                                object instance = removeMethod.Target;
                 Dictionary<object, EventRegistrationTokenList> registrationTokens = GetEventRegistrationTokenTable(instance, removeMethod);
                 EventRegistrationToken token;
                 lock (registrationTokens)
@@ -211,8 +201,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
             internal static void RemoveAllEventHandlers(Action<EventRegistrationToken> removeMethod)
             {
-                Contract.Requires(removeMethod != null);
-                object instance = removeMethod.Target;
+                                object instance = removeMethod.Target;
                 Dictionary<object, EventRegistrationTokenList> registrationTokens = GetEventRegistrationTokenTable(instance, removeMethod);
                 List<EventRegistrationToken> tokensToRemove = new List<EventRegistrationToken>();
                 lock (registrationTokens)
@@ -331,8 +320,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
                 private void CleanupCache()
                 {
-                    Contract.Requires(s_eventRegistrations != null);
-                    BCLDebug.Log("INTEROP", "[WinRT_Eventing] Removing " + _key + " from cache" + "\n");
+                                        BCLDebug.Log("INTEROP", "[WinRT_Eventing] Removing " + _key + " from cache" + "\n");
                     s_eventRegistrations.Remove(_key);
                     BCLDebug.Log("INTEROP", "[WinRT_Eventing] s_eventRegistrations size = " + s_eventRegistrations.Count + "\n");
                 }
@@ -349,8 +337,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
             private static object GetInstanceKey(Action<EventRegistrationToken> removeMethod)
             {
                 object target = removeMethod.Target;
-                Contract.Assert(target == null || Marshal.IsComObject(target), "Must be null or a RCW");
-                if (target == null)
+                                if (target == null)
                     return removeMethod.Method.DeclaringType;
                 return (object)Marshal.GetRawIUnknownForComObjectNoAddRef(target);
             }
@@ -404,24 +391,17 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
             private static ConditionalWeakTable<object, EventRegistrationTokenListWithCount> GetEventRegistrationTokenTableNoCreate(object instance, Action<EventRegistrationToken> removeMethod, out TokenListCount tokenListCount)
             {
-                Contract.Requires(instance != null);
-                Contract.Requires(removeMethod != null);
-                return GetEventRegistrationTokenTableInternal(instance, removeMethod, out tokenListCount, false);
+                                                return GetEventRegistrationTokenTableInternal(instance, removeMethod, out tokenListCount, false);
             }
 
             private static ConditionalWeakTable<object, EventRegistrationTokenListWithCount> GetOrCreateEventRegistrationTokenTable(object instance, Action<EventRegistrationToken> removeMethod, out TokenListCount tokenListCount)
             {
-                Contract.Requires(instance != null);
-                Contract.Requires(removeMethod != null);
-                return GetEventRegistrationTokenTableInternal(instance, removeMethod, out tokenListCount, true);
+                                                return GetEventRegistrationTokenTableInternal(instance, removeMethod, out tokenListCount, true);
             }
 
             private static ConditionalWeakTable<object, EventRegistrationTokenListWithCount> GetEventRegistrationTokenTableInternal(object instance, Action<EventRegistrationToken> removeMethod, out TokenListCount tokenListCount, bool createIfNotFound)
             {
-                Contract.Requires(instance != null);
-                Contract.Requires(removeMethod != null);
-                Contract.Requires(s_eventRegistrations != null);
-                EventCacheKey eventCacheKey;
+                                                                EventCacheKey eventCacheKey;
                 eventCacheKey.target = instance;
                 eventCacheKey.method = removeMethod.Method;
                 lock (s_eventRegistrations)
@@ -466,8 +446,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
                     {
                         EventRegistrationTokenListWithCount tokens;
                         object key = registrationTokens.FindEquivalentKeyUnsafe(handler, out tokens);
-                        Contract.Assert((key != null && tokens != null) || (key == null && tokens == null), "key and tokens must be both null or non-null");
-                        if (tokens == null)
+                                                if (tokens == null)
                         {
                             BCLDebug.Log("INTEROP", "[WinRT_Eventing] no token list found for instance=" + instanceKey + ", handler= " + handler + "\n");
                             return;
@@ -590,24 +569,20 @@ namespace System.Runtime.InteropServices.WindowsRuntime
                 internal void ReleaseReaderLock()
                 {
                     EnterMyLock();
-                    Contract.Assert(owners > 0, "ReleasingReaderLock: releasing lock and no read lock taken");
-                    --owners;
+                                        --owners;
                     ExitAndWakeUpAppropriateWaiters();
                 }
 
                 internal void ReleaseWriterLock()
                 {
                     EnterMyLock();
-                    Contract.Assert(owners == -1, "Calling ReleaseWriterLock when no write lock is held");
-                    owners++;
+                                        owners++;
                     ExitAndWakeUpAppropriateWaiters();
                 }
 
                 private void LazyCreateEvent(ref EventWaitHandle waitEvent, bool makeAutoResetEvent)
                 {
-                    Contract.Assert(myLock != 0, "Lock must be held");
-                    Contract.Assert(waitEvent == null, "Wait event must be null");
-                    ExitMyLock();
+                                                            ExitMyLock();
                     EventWaitHandle newEvent;
                     if (makeAutoResetEvent)
                         newEvent = new AutoResetEvent(false);
@@ -620,8 +595,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
                 private void WaitOnEvent(EventWaitHandle waitEvent, ref uint numWaiters, int millisecondsTimeout)
                 {
-                    Contract.Assert(myLock != 0, "Lock must be held");
-                    waitEvent.Reset();
+                                        waitEvent.Reset();
                     numWaiters++;
                     bool waitSuccessful = false;
                     ExitMyLock();
@@ -642,8 +616,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
                 private void ExitAndWakeUpAppropriateWaiters()
                 {
-                    Contract.Assert(myLock != 0, "Lock must be held");
-                    if (owners == 0 && numWriteWaiters > 0)
+                                        if (owners == 0 && numWriteWaiters > 0)
                     {
                         ExitMyLock();
                         writeEvent.Set();
@@ -678,8 +651,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
                 private void ExitMyLock()
                 {
-                    Contract.Assert(myLock != 0, "Exiting spin lock that is not held");
-                    myLock = 0;
+                                        myLock = 0;
                 }
             }
 
@@ -709,8 +681,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
         internal static unsafe string HStringToString(IntPtr hstring)
         {
-            Contract.Requires(Environment.IsWinRTSupported);
-            if (hstring == IntPtr.Zero)
+                        if (hstring == IntPtr.Zero)
             {
                 return String.Empty;
             }

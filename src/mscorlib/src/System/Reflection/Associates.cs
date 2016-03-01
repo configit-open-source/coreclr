@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Reflection
 {
@@ -29,9 +28,7 @@ namespace System.Reflection
         {
             if (MetadataToken.IsNullToken(tkMethod))
                 return null;
-            Contract.Assert(declaredType != null);
-            Contract.Assert(reflectedType != null);
-            bool isInherited = declaredType != reflectedType;
+                                    bool isInherited = declaredType != reflectedType;
             IntPtr[] genericArgumentHandles = null;
             int genericArgumentCount = 0;
             RuntimeType[] genericArguments = declaredType.GetTypeHandleInternal().GetInstantiationInternal();
@@ -46,8 +43,7 @@ namespace System.Reflection
             }
 
             RuntimeMethodHandleInternal associateMethodHandle = ModuleHandle.ResolveMethodHandleInternalCore(RuntimeTypeHandle.GetModule(declaredType), tkMethod, genericArgumentHandles, genericArgumentCount, null, 0);
-            Contract.Assert(!associateMethodHandle.IsNullHandle(), "Failed to resolve associateRecord methodDef token");
-            if (isInherited)
+                        if (isInherited)
             {
                 MethodAttributes methAttr = RuntimeMethodHandle.GetAttributes(associateMethodHandle);
                 if (!CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)

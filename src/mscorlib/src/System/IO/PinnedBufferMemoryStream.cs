@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 
 namespace System.IO
@@ -13,8 +13,7 @@ namespace System.IO
 
         internal PinnedBufferMemoryStream(byte[] array)
         {
-            Contract.Assert(array != null, "Array can't be null");
-            int len = array.Length;
+                        int len = array.Length;
             if (len == 0)
             {
                 array = new byte[1];

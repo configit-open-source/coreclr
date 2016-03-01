@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -70,8 +70,7 @@ namespace System.Security
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            base.GetObjectData(info, context);
+                        base.GetObjectData(info, context);
         }
     }
 }

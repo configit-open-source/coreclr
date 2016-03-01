@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 
 namespace System.Reflection
@@ -190,8 +189,7 @@ namespace System.Reflection
         {
             get
             {
-                Contract.Assert(m_type != null, "type must be set!");
-                return m_type;
+                                return m_type;
             }
         }
 

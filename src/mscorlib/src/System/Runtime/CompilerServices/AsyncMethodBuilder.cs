@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
@@ -26,8 +24,7 @@ namespace System.Runtime.CompilerServices
         {
             if (stateMachine == null)
                 throw new ArgumentNullException("stateMachine");
-            Contract.EndContractBlock();
-            ExecutionContextSwitcher ecs = default (ExecutionContextSwitcher);
+                        ExecutionContextSwitcher ecs = default (ExecutionContextSwitcher);
             RuntimeHelpers.PrepareConstrainedRegions();
             try
             {
@@ -51,8 +48,7 @@ namespace System.Runtime.CompilerServices
             {
                 AsyncMethodBuilderCore.MoveNextRunner runnerToInitialize = null;
                 var continuation = m_coreState.GetCompletionAction(AsyncCausalityTracer.LoggingOn ? this.Task : null, ref runnerToInitialize);
-                Contract.Assert(continuation != null, "GetCompletionAction should always return a valid action.");
-                if (m_coreState.m_stateMachine == null)
+                                if (m_coreState.m_stateMachine == null)
                 {
                     if (AsyncCausalityTracer.LoggingOn)
                         AsyncCausalityTracer.TraceOperationCreation(CausalityTraceLevel.Required, this.Task.Id, "Async: " + stateMachine.GetType().Name, 0);
@@ -73,8 +69,7 @@ namespace System.Runtime.CompilerServices
             {
                 AsyncMethodBuilderCore.MoveNextRunner runnerToInitialize = null;
                 var continuation = m_coreState.GetCompletionAction(AsyncCausalityTracer.LoggingOn ? this.Task : null, ref runnerToInitialize);
-                Contract.Assert(continuation != null, "GetCompletionAction should always return a valid action.");
-                if (m_coreState.m_stateMachine == null)
+                                if (m_coreState.m_stateMachine == null)
                 {
                     if (AsyncCausalityTracer.LoggingOn)
                         AsyncCausalityTracer.TraceOperationCreation(CausalityTraceLevel.Required, this.Task.Id, "Async: " + stateMachine.GetType().Name, 0);
@@ -103,8 +98,7 @@ namespace System.Runtime.CompilerServices
         {
             if (exception == null)
                 throw new ArgumentNullException("exception");
-            Contract.EndContractBlock();
-            if (AsyncCausalityTracer.LoggingOn)
+                        if (AsyncCausalityTracer.LoggingOn)
                 AsyncCausalityTracer.TraceOperationCompletion(CausalityTraceLevel.Required, this.Task.Id, AsyncCausalityStatus.Error);
             if (m_synchronizationContext != null)
             {
@@ -125,8 +119,7 @@ namespace System.Runtime.CompilerServices
 
         private void NotifySynchronizationContextOfCompletion()
         {
-            Contract.Assert(m_synchronizationContext != null, "Must only be used with a non-null context.");
-            try
+                        try
             {
                 m_synchronizationContext.OperationCompleted();
             }
@@ -168,8 +161,7 @@ namespace System.Runtime.CompilerServices
         {
             if (stateMachine == null)
                 throw new ArgumentNullException("stateMachine");
-            Contract.EndContractBlock();
-            ExecutionContextSwitcher ecs = default (ExecutionContextSwitcher);
+                        ExecutionContextSwitcher ecs = default (ExecutionContextSwitcher);
             RuntimeHelpers.PrepareConstrainedRegions();
             try
             {
@@ -243,8 +235,7 @@ namespace System.Runtime.CompilerServices
         {
             if (stateMachine == null)
                 throw new ArgumentNullException("stateMachine");
-            Contract.EndContractBlock();
-            ExecutionContextSwitcher ecs = default (ExecutionContextSwitcher);
+                        ExecutionContextSwitcher ecs = default (ExecutionContextSwitcher);
             RuntimeHelpers.PrepareConstrainedRegions();
             try
             {
@@ -268,8 +259,7 @@ namespace System.Runtime.CompilerServices
             {
                 AsyncMethodBuilderCore.MoveNextRunner runnerToInitialize = null;
                 var continuation = m_coreState.GetCompletionAction(AsyncCausalityTracer.LoggingOn ? this.Task : null, ref runnerToInitialize);
-                Contract.Assert(continuation != null, "GetCompletionAction should always return a valid action.");
-                if (m_coreState.m_stateMachine == null)
+                                if (m_coreState.m_stateMachine == null)
                 {
                     var builtTask = this.Task;
                     m_coreState.PostBoxInitialization(stateMachine, runnerToInitialize, builtTask);
@@ -289,8 +279,7 @@ namespace System.Runtime.CompilerServices
             {
                 AsyncMethodBuilderCore.MoveNextRunner runnerToInitialize = null;
                 var continuation = m_coreState.GetCompletionAction(AsyncCausalityTracer.LoggingOn ? this.Task : null, ref runnerToInitialize);
-                Contract.Assert(continuation != null, "GetCompletionAction should always return a valid action.");
-                if (m_coreState.m_stateMachine == null)
+                                if (m_coreState.m_stateMachine == null)
                 {
                     var builtTask = this.Task;
                     m_coreState.PostBoxInitialization(stateMachine, runnerToInitialize, builtTask);
@@ -324,8 +313,7 @@ namespace System.Runtime.CompilerServices
             if (task == null)
             {
                 m_task = GetTaskForResult(result);
-                Contract.Assert(m_task != null, "GetTaskForResult should never return null");
-            }
+                            }
             else
             {
                 if (AsyncCausalityTracer.LoggingOn)
@@ -344,9 +332,7 @@ namespace System.Runtime.CompilerServices
 
         internal void SetResult(Task<TResult> completedTask)
         {
-            Contract.Requires(completedTask != null, "Expected non-null task");
-            Contract.Requires(completedTask.Status == TaskStatus.RanToCompletion, "Expected a successfully completed task");
-            var task = m_task;
+                                    var task = m_task;
             if (task == null)
             {
                 m_task = completedTask;
@@ -361,8 +347,7 @@ namespace System.Runtime.CompilerServices
         {
             if (exception == null)
                 throw new ArgumentNullException("exception");
-            Contract.EndContractBlock();
-            var task = m_task;
+                        var task = m_task;
             if (task == null)
             {
                 task = this.Task;
@@ -391,8 +376,7 @@ namespace System.Runtime.CompilerServices
 
         private Task<TResult> GetTaskForResult(TResult result)
         {
-            Contract.Ensures(EqualityComparer<TResult>.Default.Equals(result, Contract.Result<Task<TResult>>().Result), "The returned task's Result must return the same value as the specified result value.");
-            if (null != (object)default (TResult))
+                        if (null != (object)default (TResult))
             {
                 if (typeof (TResult) == typeof (Boolean))
                 {
@@ -432,8 +416,7 @@ namespace System.Runtime.CompilerServices
         internal const Int32 EXCLUSIVE_INT32_MAX = 9;
         private static Task<Int32>[] CreateInt32Tasks()
         {
-            Contract.Assert(EXCLUSIVE_INT32_MAX >= INCLUSIVE_INT32_MIN, "Expected max to be at least min");
-            var tasks = new Task<Int32>[EXCLUSIVE_INT32_MAX - INCLUSIVE_INT32_MIN];
+                        var tasks = new Task<Int32>[EXCLUSIVE_INT32_MAX - INCLUSIVE_INT32_MIN];
             for (int i = 0; i < tasks.Length; i++)
             {
                 tasks[i] = CreateCacheableTask(i + INCLUSIVE_INT32_MIN);
@@ -456,16 +439,14 @@ namespace System.Runtime.CompilerServices
         {
             if (stateMachine == null)
                 throw new ArgumentNullException("stateMachine");
-            Contract.EndContractBlock();
-            if (m_stateMachine != null)
+                        if (m_stateMachine != null)
                 throw new InvalidOperationException(Environment.GetResourceString("AsyncMethodBuilder_InstanceNotInitialized"));
             m_stateMachine = stateMachine;
         }
 
         internal Action GetCompletionAction(Task taskForTracing, ref MoveNextRunner runnerToInitialize)
         {
-            Contract.Assert(m_defaultContextAction == null || m_stateMachine != null, "Expected non-null m_stateMachine on non-null m_defaultContextAction");
-            Debugger.NotifyOfCrossThreadDependency();
+                        Debugger.NotifyOfCrossThreadDependency();
             var capturedContext = ExecutionContext.FastCapture();
             Action action;
             MoveNextRunner runner;
@@ -474,8 +455,7 @@ namespace System.Runtime.CompilerServices
                 action = m_defaultContextAction;
                 if (action != null)
                 {
-                    Contract.Assert(m_stateMachine != null, "If the delegate was set, the state machine should have been as well.");
-                    return action;
+                                        return action;
                 }
 
                 runner = new MoveNextRunner(capturedContext, m_stateMachine);
@@ -528,9 +508,7 @@ namespace System.Runtime.CompilerServices
 
             m_stateMachine = stateMachine;
             m_stateMachine.SetStateMachine(m_stateMachine);
-            Contract.Assert(runner.m_stateMachine == null, "The runner's state machine should not yet have been populated.");
-            Contract.Assert(m_stateMachine != null, "The builder's state machine field should have been initialized.");
-            runner.m_stateMachine = m_stateMachine;
+                                    runner.m_stateMachine = m_stateMachine;
         }
 
         internal static void ThrowAsync(Exception exception, SynchronizationContext targetContext)
@@ -567,8 +545,7 @@ namespace System.Runtime.CompilerServices
 
             internal void Run()
             {
-                Contract.Assert(m_stateMachine != null, "The state machine must have been set before calling Run.");
-                if (m_context != null)
+                                if (m_context != null)
                 {
                     try
                     {
@@ -605,8 +582,7 @@ namespace System.Runtime.CompilerServices
             internal readonly Task m_innerTask;
             internal ContinuationWrapper(Action continuation, Action invokeAction, Task innerTask)
             {
-                Contract.Requires(continuation != null, "Expected non-null continuation");
-                if (innerTask == null)
+                                if (innerTask == null)
                     innerTask = TryGetContinuationTask(continuation);
                 m_continuation = continuation;
                 m_innerTask = innerTask;

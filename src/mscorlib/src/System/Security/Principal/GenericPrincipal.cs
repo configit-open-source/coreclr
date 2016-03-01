@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Principal
 {
@@ -10,8 +10,7 @@ namespace System.Security.Principal
         {
             if (identity == null)
                 throw new ArgumentNullException("identity");
-            Contract.EndContractBlock();
-            m_identity = identity;
+                        m_identity = identity;
             if (roles != null)
             {
                 m_roles = new string[roles.Length];

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
@@ -76,8 +76,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("access");
             }
 
-            Contract.EndContractBlock();
-            if (_isOpen)
+                        if (_isOpen)
             {
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_CalledTwice"));
             }
@@ -144,8 +143,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException((length < 0) ? "length" : "capacity", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (length > capacity)
                 throw new ArgumentOutOfRangeException("length", Environment.GetResourceString("ArgumentOutOfRange_LengthGreaterThanCapacity"));
-            Contract.EndContractBlock();
-            if (((byte *)((long)pointer + capacity)) < pointer)
+                        if (((byte *)((long)pointer + capacity)) < pointer)
                 throw new ArgumentOutOfRangeException("capacity", Environment.GetResourceString("ArgumentOutOfRange_UnmanagedMemStreamWrapAround"));
             if (access < FileAccess.Read || access > FileAccess.ReadWrite)
                 throw new ArgumentOutOfRangeException("access", Environment.GetResourceString("ArgumentOutOfRange_Enum"));
@@ -163,7 +161,7 @@ namespace System.IO
 
         public override bool CanRead
         {
-            [Pure]
+            
             get
             {
                 return _isOpen && (_access & FileAccess.Read) != 0;
@@ -172,7 +170,7 @@ namespace System.IO
 
         public override bool CanSeek
         {
-            [Pure]
+            
             get
             {
                 return _isOpen;
@@ -181,7 +179,7 @@ namespace System.IO
 
         public override bool CanWrite
         {
-            [Pure]
+            
             get
             {
                 return _isOpen && (_access & FileAccess.Write) != 0;
@@ -246,8 +244,7 @@ namespace System.IO
             {
                 if (!CanSeek)
                     __Error.StreamIsClosed();
-                Contract.EndContractBlock();
-                return Interlocked.Read(ref _position);
+                                return Interlocked.Read(ref _position);
             }
 
             [System.Security.SecuritySafeCritical]
@@ -255,8 +252,7 @@ namespace System.IO
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-                Contract.EndContractBlock();
-                if (!CanSeek)
+                                if (!CanSeek)
                     __Error.StreamIsClosed();
                 Interlocked.Exchange(ref _position, value);
             }
@@ -317,8 +313,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (!_isOpen)
+                        if (!_isOpen)
                 __Error.StreamIsClosed();
             if (!CanRead)
                 __Error.ReadNotSupported();
@@ -332,8 +327,7 @@ namespace System.IO
             int nInt = (int)n;
             if (nInt < 0)
                 nInt = 0;
-            Contract.Assert(pos + nInt >= 0, "_position + n >= 0");
-            if (_buffer != null)
+                        if (_buffer != null)
             {
                 unsafe
                 {
@@ -375,8 +369,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (cancellationToken.IsCancellationRequested)
+                        if (cancellationToken.IsCancellationRequested)
                 return Task.FromCancellation<Int32>(cancellationToken);
             try
             {
@@ -386,8 +379,7 @@ namespace System.IO
             }
             catch (Exception ex)
             {
-                Contract.Assert(!(ex is OperationCanceledException));
-                return Task.FromException<Int32>(ex);
+                                return Task.FromException<Int32>(ex);
             }
         }
 
@@ -464,16 +456,14 @@ namespace System.IO
             }
 
             long finalPos = Interlocked.Read(ref _position);
-            Contract.Assert(finalPos >= 0, "_position >= 0");
-            return finalPos;
+                        return finalPos;
         }
 
         public override void SetLength(long value)
         {
             if (value < 0)
                 throw new ArgumentOutOfRangeException("length", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            if (_buffer != null)
+                        if (_buffer != null)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_UmsSafeBuffer"));
             if (!_isOpen)
                 __Error.StreamIsClosed();
@@ -508,8 +498,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (!_isOpen)
+                        if (!_isOpen)
                 __Error.StreamIsClosed();
             if (!CanWrite)
                 __Error.WriteNotSupported();
@@ -587,8 +576,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (cancellationToken.IsCancellationRequested)
+                        if (cancellationToken.IsCancellationRequested)
                 return Task.FromCancellation(cancellationToken);
             try
             {
@@ -597,8 +585,7 @@ namespace System.IO
             }
             catch (Exception ex)
             {
-                Contract.Assert(!(ex is OperationCanceledException));
-                return Task.FromException<Int32>(ex);
+                                return Task.FromException<Int32>(ex);
             }
         }
 

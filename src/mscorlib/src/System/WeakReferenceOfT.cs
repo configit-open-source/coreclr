@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Security;
@@ -24,8 +24,7 @@ namespace System
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            T target = (T)info.GetValue("TrackedObject", typeof (T));
+                        T target = (T)info.GetValue("TrackedObject", typeof (T));
             bool trackResurrection = info.GetBoolean("TrackResurrection");
             Create(target, trackResurrection);
         }
@@ -60,8 +59,7 @@ namespace System
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            info.AddValue("TrackedObject", this.Target, typeof (T));
+                        info.AddValue("TrackedObject", this.Target, typeof (T));
             info.AddValue("TrackResurrection", IsTrackResurrection());
         }
 

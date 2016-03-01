@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Text;
 
 namespace System.IO
@@ -39,8 +39,7 @@ namespace System.IO
                 throw new ArgumentNullException("encoding");
             if (!output.CanWrite)
                 throw new ArgumentException(Environment.GetResourceString("Argument_StreamNotWritable"));
-            Contract.EndContractBlock();
-            OutStream = output;
+                        OutStream = output;
             _buffer = new byte[16];
             _encoding = encoding;
             _encoder = _encoding.GetEncoder();
@@ -107,8 +106,7 @@ namespace System.IO
         {
             if (buffer == null)
                 throw new ArgumentNullException("buffer");
-            Contract.EndContractBlock();
-            OutStream.Write(buffer, 0, buffer.Length);
+                        OutStream.Write(buffer, 0, buffer.Length);
         }
 
         public virtual void Write(byte[] buffer, int index, int count)
@@ -120,9 +118,7 @@ namespace System.IO
         {
             if (Char.IsSurrogate(ch))
                 throw new ArgumentException(Environment.GetResourceString("Arg_SurrogatesNotAllowedAsSingleChar"));
-            Contract.EndContractBlock();
-            Contract.Assert(_encoding.GetMaxByteCount(1) <= 16, "_encoding.GetMaxByteCount(1) <= 16)");
-            int numBytes = 0;
+                                    int numBytes = 0;
             fixed (byte *pBytes = _buffer)
             {
                 numBytes = _encoder.GetBytes(&ch, 1, pBytes, 16, true);
@@ -135,8 +131,7 @@ namespace System.IO
         {
             if (chars == null)
                 throw new ArgumentNullException("chars");
-            Contract.EndContractBlock();
-            byte[] bytes = _encoding.GetBytes(chars, 0, chars.Length);
+                        byte[] bytes = _encoding.GetBytes(chars, 0, chars.Length);
             OutStream.Write(bytes, 0, bytes.Length);
         }
 
@@ -238,8 +233,7 @@ namespace System.IO
         {
             if (value == null)
                 throw new ArgumentNullException("value");
-            Contract.EndContractBlock();
-            int len = _encoding.GetByteCount(value);
+                        int len = _encoding.GetByteCount(value);
             Write7BitEncodedInt(len);
             if (_largeByteBuffer == null)
             {
@@ -270,14 +264,12 @@ namespace System.IO
                     }
 
                     totalBytes += byteLen;
-                    Contract.Assert(totalBytes <= len && byteLen <= LargeByteBufferSize, "BinaryWriter::Write(String) - More bytes encoded than expected!");
-                    OutStream.Write(_largeByteBuffer, 0, byteLen);
+                                        OutStream.Write(_largeByteBuffer, 0, byteLen);
                     charStart += charCount;
                     numLeft -= charCount;
                 }
 
-                Contract.Assert(totalBytes == len, "BinaryWriter::Write(String) - Didn't write out all the bytes!");
-            }
+                            }
         }
 
         protected void Write7BitEncodedInt(int value)

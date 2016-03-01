@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -16,15 +15,12 @@ namespace System.Resources
         private ResourceManager.ResourceManagerMediator _mediator;
         public ManifestBasedResourceGroveler(ResourceManager.ResourceManagerMediator mediator)
         {
-            Contract.Requires(mediator != null, "mediator shouldn't be null; check caller");
-            _mediator = mediator;
+                        _mediator = mediator;
         }
 
         public ResourceSet GrovelForResourceSet(CultureInfo culture, Dictionary<String, ResourceSet> localResourceSets, bool tryParents, bool createIfNotExists, ref StackCrawlMark stackMark)
         {
-            Contract.Assert(culture != null, "culture shouldn't be null; check caller");
-            Contract.Assert(localResourceSets != null, "localResourceSets shouldn't be null; check caller");
-            ResourceSet rs = null;
+                                    ResourceSet rs = null;
             Stream stream = null;
             RuntimeAssembly satellite = null;
             CultureInfo lookForCulture = UltimateFallbackFixup(culture);
@@ -101,8 +97,7 @@ namespace System.Resources
                 return CultureInfo.InvariantCulture;
             }
 
-            Contract.Assert(a != null, "assembly != null");
-            string cultureName = null;
+                        string cultureName = null;
             short fallback = 0;
             if (GetNeutralResourcesLanguageAttribute(((RuntimeAssembly)a).GetNativeHandle(), JitHelpers.GetStringHandleOnStack(ref cultureName), out fallback))
             {
@@ -128,8 +123,7 @@ namespace System.Resources
             {
                 if (a == typeof (Object).Assembly)
                 {
-                    Contract.Assert(false, "mscorlib's NeutralResourcesLanguageAttribute is a malformed culture name! name: \"" + cultureName + "\"  Exception: " + e);
-                    return CultureInfo.InvariantCulture;
+                                        return CultureInfo.InvariantCulture;
                 }
 
                 throw new ArgumentException(Environment.GetResourceString("Arg_InvalidNeutralResourcesLanguage_Asm_Culture", a.ToString(), cultureName), e);
@@ -138,8 +132,7 @@ namespace System.Resources
 
         internal ResourceSet CreateResourceSet(Stream store, Assembly assembly)
         {
-            Contract.Assert(store != null, "I need a Stream!");
-            if (store.CanSeek && store.Length > 4)
+                        if (store.CanSeek && store.Length > 4)
             {
                 long startPos = store.Position;
                 BinaryReader br = new BinaryReader(store);
@@ -185,8 +178,7 @@ namespace System.Resources
                         Type resSetType;
                         if (_mediator.UserResourceSet == null)
                         {
-                            Contract.Assert(resSetTypeName != null, "We should have a ResourceSet type name from the custom resource file here.");
-                            resSetType = Type.GetType(resSetTypeName, true, false);
+                                                        resSetType = Type.GetType(resSetTypeName, true, false);
                         }
                         else
                             resSetType = _mediator.UserResourceSet;
@@ -235,9 +227,7 @@ namespace System.Resources
 
         private Stream GetManifestResourceStream(RuntimeAssembly satellite, String fileName, ref StackCrawlMark stackMark)
         {
-            Contract.Requires(satellite != null, "satellite shouldn't be null; check caller");
-            Contract.Requires(fileName != null, "fileName shouldn't be null; check caller");
-            bool canSkipSecurityCheck = (_mediator.MainAssembly == satellite) && (_mediator.CallingAssembly == _mediator.MainAssembly);
+                                    bool canSkipSecurityCheck = (_mediator.MainAssembly == satellite) && (_mediator.CallingAssembly == _mediator.MainAssembly);
             Stream stream = satellite.GetManifestResourceStream(_mediator.LocationInfo, fileName, canSkipSecurityCheck, ref stackMark);
             if (stream == null)
             {
@@ -249,9 +239,7 @@ namespace System.Resources
 
         private Stream CaseInsensitiveManifestResourceStreamLookup(RuntimeAssembly satellite, String name)
         {
-            Contract.Requires(satellite != null, "satellite shouldn't be null; check caller");
-            Contract.Requires(name != null, "name shouldn't be null; check caller");
-            StringBuilder sb = new StringBuilder();
+                                    StringBuilder sb = new StringBuilder();
             if (_mediator.LocationInfo != null)
             {
                 String nameSpace = _mediator.LocationInfo.Namespace;
@@ -312,22 +300,18 @@ namespace System.Resources
                 int hr = fle._HResult;
                 if (hr != Win32Native.MakeHRFromErrorCode(Win32Native.ERROR_ACCESS_DENIED))
                 {
-                    Contract.Assert(false, "[This assert catches satellite assembly build/deployment problems - report this message to your build lab & loc engineer]" + Environment.NewLine + "GetSatelliteAssembly failed for culture " + lookForCulture.Name + " and version " + (_mediator.SatelliteContractVersion == null ? _mediator.MainAssembly.GetVersion().ToString() : _mediator.SatelliteContractVersion.ToString()) + " of assembly " + _mediator.MainAssembly.GetSimpleName() + " with error code 0x" + hr.ToString("X", CultureInfo.InvariantCulture) + Environment.NewLine + "Exception: " + fle);
-                }
+                                    }
             }
             catch (BadImageFormatException bife)
             {
-                Contract.Assert(false, "[This assert catches satellite assembly build/deployment problems - report this message to your build lab & loc engineer]" + Environment.NewLine + "GetSatelliteAssembly failed for culture " + lookForCulture.Name + " and version " + (_mediator.SatelliteContractVersion == null ? _mediator.MainAssembly.GetVersion().ToString() : _mediator.SatelliteContractVersion.ToString()) + " of assembly " + _mediator.MainAssembly.GetSimpleName() + Environment.NewLine + "Exception: " + bife);
-            }
+                            }
 
             return satellite;
         }
 
         private bool CanUseDefaultResourceClasses(String readerTypeName, String resSetTypeName)
         {
-            Contract.Assert(readerTypeName != null, "readerTypeName shouldn't be null; check caller");
-            Contract.Assert(resSetTypeName != null, "resSetTypeName shouldn't be null; check caller");
-            if (_mediator.UserResourceSet != null)
+                                    if (_mediator.UserResourceSet != null)
                 return false;
             AssemblyName mscorlib = new AssemblyName(ResourceManager.MscorlibName);
             if (readerTypeName != null)
@@ -384,8 +368,7 @@ namespace System.Resources
         {
             if (_mediator.MainAssembly == typeof (Object).Assembly && _mediator.BaseName.Equals("mscorlib"))
             {
-                Contract.Assert(false, "Couldn't get mscorlib" + ResourceManager.ResFileExtension + " from mscorlib's assembly" + Environment.NewLine + Environment.NewLine + "Are you building the runtime on your machine?  Chances are the BCL directory didn't build correctly.  Type 'build -c' in the BCL directory.  If you get build errors, look at buildd.log.  If you then can't figure out what's wrong (and you aren't changing the assembly-related metadata code), ask a BCL dev.\n\nIf you did NOT build the runtime, you shouldn't be seeing this and you've found a bug.");
-                string mesgFailFast = "mscorlib" + ResourceManager.ResFileExtension + " couldn't be found!  Large parts of the BCL won't work!";
+                                string mesgFailFast = "mscorlib" + ResourceManager.ResFileExtension + " couldn't be found!  Large parts of the BCL won't work!";
                 System.Environment.FailFast(mesgFailFast);
             }
 

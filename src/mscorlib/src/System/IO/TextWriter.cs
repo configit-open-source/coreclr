@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -78,9 +78,7 @@ namespace System.IO
         {
             if (writer == null)
                 throw new ArgumentNullException("writer");
-            Contract.Ensures(Contract.Result<TextWriter>() != null);
-            Contract.EndContractBlock();
-            if (writer is SyncTextWriter)
+                                    if (writer is SyncTextWriter)
                 return writer;
             return new SyncTextWriter(writer);
         }
@@ -105,8 +103,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            for (int i = 0; i < count; i++)
+                        for (int i = 0; i < count; i++)
                 Write(buffer[index + i]);
         }
 

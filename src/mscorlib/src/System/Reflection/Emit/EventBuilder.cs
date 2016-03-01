@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 
 namespace System.Reflection.Emit
@@ -30,8 +30,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("mdBuilder");
             }
 
-            Contract.EndContractBlock();
-            m_type.ThrowIfCreated();
+                        m_type.ThrowIfCreated();
             TypeBuilder.DefineMethodSemantics(m_module.GetNativeHandle(), m_evToken.Token, semantics, mdBuilder.GetToken().Token);
         }
 
@@ -61,8 +60,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("con");
             if (binaryAttribute == null)
                 throw new ArgumentNullException("binaryAttribute");
-            Contract.EndContractBlock();
-            m_type.ThrowIfCreated();
+                        m_type.ThrowIfCreated();
             TypeBuilder.DefineCustomAttribute(m_module, m_evToken.Token, m_module.GetConstructorToken(con).Token, binaryAttribute, false, false);
         }
 
@@ -73,8 +71,7 @@ namespace System.Reflection.Emit
                 throw new ArgumentNullException("customBuilder");
             }
 
-            Contract.EndContractBlock();
-            m_type.ThrowIfCreated();
+                        m_type.ThrowIfCreated();
             customBuilder.CreateCustomAttribute(m_module, m_evToken.Token);
         }
 

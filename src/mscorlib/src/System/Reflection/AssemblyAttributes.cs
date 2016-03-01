@@ -1,5 +1,4 @@
 using System.Configuration.Assemblies;
-using System.Diagnostics.Contracts;
 
 namespace System.Reflection
 {
@@ -163,8 +162,7 @@ namespace System.Reflection
         {
             if (version == null)
                 throw new ArgumentNullException("version");
-            Contract.EndContractBlock();
-            _version = version;
+                        _version = version;
         }
 
         public String Version

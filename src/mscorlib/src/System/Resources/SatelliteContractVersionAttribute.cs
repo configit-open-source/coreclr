@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Resources
 {
@@ -9,8 +9,7 @@ namespace System.Resources
         {
             if (version == null)
                 throw new ArgumentNullException("version");
-            Contract.EndContractBlock();
-            _version = version;
+                        _version = version;
         }
 
         public String Version

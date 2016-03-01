@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -53,8 +52,7 @@ namespace System.Security
         internal static readonly PermissionSet s_fullTrust = new PermissionSet(true);
         private void OnSerialized(StreamingContext context)
         {
-            Contract.Assert(false, "PermissionSet does not support serialization on CoreCLR");
-        }
+                    }
 
         internal PermissionSet()
         {
@@ -115,8 +113,7 @@ namespace System.Security
         {
             if (array == null)
                 throw new ArgumentNullException("array");
-            Contract.EndContractBlock();
-            PermissionSetEnumeratorInternal enumerator = new PermissionSetEnumeratorInternal(this);
+                        PermissionSetEnumeratorInternal enumerator = new PermissionSetEnumeratorInternal(this);
             while (enumerator.MoveNext())
             {
                 array.SetValue(enumerator.Current, index++);
@@ -221,9 +218,7 @@ namespace System.Security
                 return perm;
             if (perm == null)
                 return null;
-            Contract.Assert(PermissionToken.IsTokenProperlyAssigned(perm, PermissionToken.GetToken(perm)), "PermissionToken was improperly assigned");
-            Contract.Assert(PermissionToken.GetToken(perm).m_index == index, "Assigning permission to incorrect index in tokenbasedset");
-            return perm;
+                                    return perm;
         }
 
         internal IPermission GetPermission(PermissionToken permToken)
@@ -355,8 +350,7 @@ namespace System.Security
                         continue;
                     IPermission targetPerm = target.GetPermission(i);
                     PermissionToken token = (PermissionToken)PermissionToken.s_tokenSet.GetItem(i);
-                    Contract.Assert(targetPerm == null || (token.m_type & PermissionTokenType.DontKnow) == 0, "Token not properly initialized");
-                    if (target.m_Unrestricted)
+                                        if (target.m_Unrestricted)
                         continue;
                     CodeAccessPermission cap = thisPerm as CodeAccessPermission;
                     if (cap == null)
@@ -463,13 +457,11 @@ namespace System.Security
 
         internal void CheckDecoded(CodeAccessPermission demandedPerm, PermissionToken tokenDemandedPerm)
         {
-            Contract.Assert(demandedPerm != null, "Expected non-null value");
-            if (this.m_allPermissionsDecoded || this.m_permSet == null)
+                        if (this.m_allPermissionsDecoded || this.m_permSet == null)
                 return;
             if (tokenDemandedPerm == null)
                 tokenDemandedPerm = PermissionToken.GetToken(demandedPerm);
-            Contract.Assert(tokenDemandedPerm != null, "Unable to find token for demanded permission");
-            CheckDecoded(tokenDemandedPerm.m_index);
+                        CheckDecoded(tokenDemandedPerm.m_index);
         }
 
         internal void CheckDecoded(int index)
@@ -481,8 +473,7 @@ namespace System.Security
 
         internal void CheckDecoded(PermissionSet demandedSet)
         {
-            Contract.Assert(demandedSet != null, "Expected non-null value");
-            if (this.m_allPermissionsDecoded || this.m_permSet == null)
+                        if (this.m_allPermissionsDecoded || this.m_permSet == null)
                 return;
             PermissionSetEnumeratorInternal enumerator = demandedSet.GetEnumeratorInternal();
             while (enumerator.MoveNext())
@@ -535,8 +526,7 @@ namespace System.Security
                             if ((token.m_type & PermissionTokenType.IUnrestricted) != 0)
                             {
                                 this.m_permSet.SetItem(i, otherPerm.Copy());
-                                Contract.Assert(PermissionToken.s_tokenSet.GetItem(i) != null, "PermissionToken should already be assigned");
-                            }
+                                                            }
                         }
                     }
                 }
@@ -627,8 +617,7 @@ namespace System.Security
                             if ((token.m_type & PermissionTokenType.IUnrestricted) != 0)
                             {
                                 pset.m_permSet.SetItem(i, otherPerm.Copy());
-                                Contract.Assert(PermissionToken.s_tokenSet.GetItem(i) != null, "PermissionToken should already be assigned");
-                            }
+                                                            }
                         }
                     }
                 }
@@ -642,8 +631,7 @@ namespace System.Security
                             if ((token.m_type & PermissionTokenType.IUnrestricted) != 0)
                             {
                                 pset.m_permSet.SetItem(i, thisPerm.Copy());
-                                Contract.Assert(PermissionToken.s_tokenSet.GetItem(i) != null, "PermissionToken should already be assigned");
-                            }
+                                                            }
                         }
                     }
                 }
@@ -657,8 +645,7 @@ namespace System.Security
                     else
                         intersectPerm = thisPerm.Intersect(otherPerm);
                     pset.m_permSet.SetItem(i, intersectPerm);
-                    Contract.Assert(intersectPerm == null || PermissionToken.s_tokenSet.GetItem(i) != null, "PermissionToken should already be assigned");
-                }
+                                    }
             }
 
             pset.m_Unrestricted = this.m_Unrestricted && other.m_Unrestricted;
@@ -778,8 +765,7 @@ namespace System.Security
                         if (((token.m_type & PermissionTokenType.IUnrestricted) == 0) || !pset.m_Unrestricted)
                         {
                             pset.m_permSet.SetItem(i, otherPerm.Copy());
-                            Contract.Assert(PermissionToken.s_tokenSet.GetItem(i) != null, "PermissionToken should already be assigned");
-                        }
+                                                    }
                     }
                 }
                 else if (otherObj == null)
@@ -790,8 +776,7 @@ namespace System.Security
                         if (((token.m_type & PermissionTokenType.IUnrestricted) == 0) || !pset.m_Unrestricted)
                         {
                             pset.m_permSet.SetItem(i, thisPerm.Copy());
-                            Contract.Assert(PermissionToken.s_tokenSet.GetItem(i) != null, "PermissionToken should already be assigned");
-                        }
+                                                    }
                     }
                 }
                 else
@@ -804,8 +789,7 @@ namespace System.Security
                     else
                         unionPerm = thisPerm.Union(otherPerm);
                     pset.m_permSet.SetItem(i, unionPerm);
-                    Contract.Assert(unionPerm == null || PermissionToken.s_tokenSet.GetItem(i) != null, "PermissionToken should already be assigned");
-                }
+                                    }
             }
 
             return pset;
@@ -1118,9 +1102,7 @@ namespace System.Security
 
         private static void MergePermission(IPermission perm, bool separateCasFromNonCas, ref PermissionSet casPset, ref PermissionSet nonCasPset)
         {
-            Contract.Assert(casPset == null || !casPset.IsReadOnly);
-            Contract.Assert(nonCasPset == null || !nonCasPset.IsReadOnly);
-            if (perm == null)
+                                    if (perm == null)
                 return;
             if (!separateCasFromNonCas || perm is CodeAccessPermission)
             {
@@ -1148,8 +1130,7 @@ namespace System.Security
             PermissionSet nonCasPset = null;
             for (int i = 0; i < attrs.Length; i++)
             {
-                Contract.Assert(i == 0 || ((SecurityAttribute)attrs[i]).m_action == ((SecurityAttribute)attrs[i - 1]).m_action, "Mixed SecurityActions");
-                if (attrs[i] is PermissionSetAttribute)
+                                if (attrs[i] is PermissionSetAttribute)
                 {
                     PermissionSet pset = ((PermissionSetAttribute)attrs[i]).CreatePermissionSet();
                     if (pset == null)
@@ -1173,8 +1154,7 @@ namespace System.Security
                 }
             }
 
-            Contract.Assert(serialize || nonCasPset == null, "We shouldn't separate nonCAS permissions unless fSerialize is true");
-            if (casPset != null)
+                        if (casPset != null)
             {
                 casPset.FilterHostProtectionPermissions(fullTrustOnlyResources, HostProtectionResource.None);
                 casPset.ContainsNonCodeAccessPermissions();
@@ -1192,8 +1172,7 @@ namespace System.Security
 
             byte[] casBlob = null;
             nonCasBlob = null;
-            Contract.Assert(!serialize, "Cannot serialize permission sets on CoreCLR");
-            return casBlob;
+                        return casBlob;
         }
 
         public static void RevertAssert()
@@ -1204,8 +1183,7 @@ namespace System.Security
 
         internal static PermissionSet RemoveRefusedPermissionSet(PermissionSet assertSet, PermissionSet refusedSet, out bool bFailedToCompress)
         {
-            Contract.Assert((assertSet == null || !assertSet.IsUnrestricted()), "Cannot be unrestricted here");
-            PermissionSet retPs = null;
+                        PermissionSet retPs = null;
             bFailedToCompress = false;
             if (assertSet == null)
                 return null;
@@ -1255,8 +1233,7 @@ namespace System.Security
 
         internal static void RemoveAssertedPermissionSet(PermissionSet demandSet, PermissionSet assertSet, out PermissionSet alteredDemandSet)
         {
-            Contract.Assert(!assertSet.IsUnrestricted(), "Cannot call this function if assertSet is unrestricted");
-            alteredDemandSet = null;
+                        alteredDemandSet = null;
             PermissionSetEnumeratorInternal enumerator = new PermissionSetEnumeratorInternal(demandSet);
             while (enumerator.MoveNext())
             {

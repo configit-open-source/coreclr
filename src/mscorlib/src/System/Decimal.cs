@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.Serialization;
 
@@ -106,8 +106,7 @@ namespace System
         {
             if (bits == null)
                 throw new ArgumentNullException("bits");
-            Contract.EndContractBlock();
-            if (bits.Length == 4)
+                        if (bits.Length == 4)
             {
                 int f = bits[3];
                 if ((f & ~(SignMask | ScaleMask)) == 0 && (f & ScaleMask) <= (28 << 16))
@@ -127,8 +126,7 @@ namespace System
         {
             if (scale > 28)
                 throw new ArgumentOutOfRangeException("scale", Environment.GetResourceString("ArgumentOutOfRange_DecimalScale"));
-            Contract.EndContractBlock();
-            this.lo = lo;
+                        this.lo = lo;
             this.mid = mid;
             this.hi = hi;
             this.flags = ((int)scale) << 16;
@@ -228,26 +226,22 @@ namespace System
         private static extern void FCallFloor(ref Decimal d);
         public override String ToString()
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return Number.FormatDecimal(this, null, NumberFormatInfo.CurrentInfo);
+                        return Number.FormatDecimal(this, null, NumberFormatInfo.CurrentInfo);
         }
 
         public String ToString(String format)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return Number.FormatDecimal(this, format, NumberFormatInfo.CurrentInfo);
+                        return Number.FormatDecimal(this, format, NumberFormatInfo.CurrentInfo);
         }
 
         public String ToString(IFormatProvider provider)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return Number.FormatDecimal(this, null, NumberFormatInfo.GetInstance(provider));
+                        return Number.FormatDecimal(this, null, NumberFormatInfo.GetInstance(provider));
         }
 
         public String ToString(String format, IFormatProvider provider)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return Number.FormatDecimal(this, format, NumberFormatInfo.GetInstance(provider));
+                        return Number.FormatDecimal(this, format, NumberFormatInfo.GetInstance(provider));
         }
 
         public static Decimal Parse(String s)
@@ -290,8 +284,7 @@ namespace System
 
         internal static void GetBytes(Decimal d, byte[] buffer)
         {
-            Contract.Requires((buffer != null && buffer.Length >= 16), "[GetBytes]buffer != null && buffer.Length >= 16");
-            buffer[0] = (byte)d.lo;
+                        buffer[0] = (byte)d.lo;
             buffer[1] = (byte)(d.lo >> 8);
             buffer[2] = (byte)(d.lo >> 16);
             buffer[3] = (byte)(d.lo >> 24);
@@ -311,8 +304,7 @@ namespace System
 
         internal static decimal ToDecimal(byte[] buffer)
         {
-            Contract.Requires((buffer != null && buffer.Length >= 16), "[ToDecimal]buffer != null && buffer.Length >= 16");
-            int lo = ((int)buffer[0]) | ((int)buffer[1] << 8) | ((int)buffer[2] << 16) | ((int)buffer[3] << 24);
+                        int lo = ((int)buffer[0]) | ((int)buffer[1] << 8) | ((int)buffer[2] << 16) | ((int)buffer[3] << 24);
             int mid = ((int)buffer[4]) | ((int)buffer[5] << 8) | ((int)buffer[6] << 16) | ((int)buffer[7] << 24);
             int hi = ((int)buffer[8]) | ((int)buffer[9] << 8) | ((int)buffer[10] << 16) | ((int)buffer[11] << 24);
             int flags = ((int)buffer[12]) | ((int)buffer[13] << 8) | ((int)buffer[14] << 16) | ((int)buffer[15] << 24);
@@ -473,8 +465,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidEnumValue", mode, "MidpointRounding"), "mode");
             }
 
-            Contract.EndContractBlock();
-            if (mode == MidpointRounding.ToEven)
+                        if (mode == MidpointRounding.ToEven)
             {
                 FCallRound(ref d, decimals);
             }

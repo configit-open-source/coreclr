@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 using Microsoft.Win32.SafeHandles;
@@ -185,8 +185,7 @@ namespace System.Security
         internal bool CheckDemand2(CodeAccessPermission demand, PermissionToken permToken, RuntimeMethodHandleInternal rmh, bool fDeclarative)
         {
             PermissionSet permSet;
-            Contract.Assert(demand != null && !demand.CheckDemand(null), "Empty demands should have been filtered out by this point");
-            if (GetPermitOnly(fDeclarative) != null)
+                        if (GetPermitOnly(fDeclarative) != null)
                 GetPermitOnly(fDeclarative).CheckDecoded(demand, permToken);
             if (GetDenials(fDeclarative) != null)
                 GetDenials(fDeclarative).CheckDecoded(demand, permToken);

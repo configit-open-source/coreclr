@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Runtime.InteropServices.WindowsRuntime
 {
@@ -6,13 +6,13 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         PropertyType Type
         {
-            [Pure]
+            
             get;
         }
 
         bool IsNumericScalar
         {
-            [Pure]
+            
             get;
         }
 

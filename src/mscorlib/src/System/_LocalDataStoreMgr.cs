@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -219,8 +218,7 @@ namespace System
         {
             if (slot == null || slot.Manager != this)
                 throw new ArgumentException(Environment.GetResourceString("Argument_ALSInvalidSlot"));
-            Contract.EndContractBlock();
-        }
+                    }
 
         internal int GetSlotTableLength()
         {

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Globalization
@@ -72,8 +72,7 @@ namespace System.Globalization
                     throw new ArgumentNullException("String", Environment.GetResourceString("ArgumentNull_String"));
                 }
 
-                Contract.EndContractBlock();
-                this.m_str = value;
+                                this.m_str = value;
                 this.m_indexes = null;
             }
         }
@@ -148,9 +147,7 @@ namespace System.Globalization
 
         internal static int GetCurrentTextElementLen(String str, int index, int len, ref UnicodeCategory ucCurrent, ref int currentCharCount)
         {
-            Contract.Assert(index >= 0 && len >= 0, "StringInfo.GetCurrentTextElementLen() : index = " + index + ", len = " + len);
-            Contract.Assert(index < len, "StringInfo.GetCurrentTextElementLen() : index = " + index + ", len = " + len);
-            if (index + currentCharCount == len)
+                                    if (index + currentCharCount == len)
             {
                 return (currentCharCount);
             }
@@ -196,8 +193,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("str");
             }
 
-            Contract.EndContractBlock();
-            int len = str.Length;
+                        int len = str.Length;
             if (index < 0 || index >= len)
             {
                 if (index == len)
@@ -225,8 +221,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("str");
             }
 
-            Contract.EndContractBlock();
-            int len = str.Length;
+                        int len = str.Length;
             if (index < 0 || (index > len))
             {
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
@@ -242,8 +237,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("str");
             }
 
-            Contract.EndContractBlock();
-            int len = str.Length;
+                        int len = str.Length;
             int[] result = new int[len];
             if (len == 0)
             {

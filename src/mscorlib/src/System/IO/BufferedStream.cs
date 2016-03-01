@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -31,8 +31,7 @@ namespace System.IO
                 throw new ArgumentNullException("stream");
             if (bufferSize <= 0)
                 throw new ArgumentOutOfRangeException("bufferSize", Environment.GetResourceString("ArgumentOutOfRange_MustBePositive", "bufferSize"));
-            Contract.EndContractBlock();
-            BCLDebug.Perf(!(stream is FileStream), "FileStream is buffered - don't wrap it in a BufferedStream");
+                        BCLDebug.Perf(!(stream is FileStream), "FileStream is buffered - don't wrap it in a BufferedStream");
             BCLDebug.Perf(!(stream is MemoryStream), "MemoryStream shouldn't be wrapped in a BufferedStream!");
             BCLDebug.Perf(!(stream is BufferedStream), "BufferedStream shouldn't be wrapped in another BufferedStream!");
             _stream = stream;
@@ -49,22 +48,19 @@ namespace System.IO
 
         private void EnsureCanSeek()
         {
-            Contract.Requires(_stream != null);
-            if (!_stream.CanSeek)
+                        if (!_stream.CanSeek)
                 __Error.SeekNotSupported();
         }
 
         private void EnsureCanRead()
         {
-            Contract.Requires(_stream != null);
-            if (!_stream.CanRead)
+                        if (!_stream.CanRead)
                 __Error.ReadNotSupported();
         }
 
         private void EnsureCanWrite()
         {
-            Contract.Requires(_stream != null);
-            if (!_stream.CanWrite)
+                        if (!_stream.CanWrite)
                 __Error.WriteNotSupported();
         }
 
@@ -77,9 +73,7 @@ namespace System.IO
         private const Int32 MaxShadowBufferSize = 81920;
         private void EnsureShadowBufferAllocated()
         {
-            Contract.Assert(_buffer != null);
-            Contract.Assert(_bufferSize > 0);
-            if (_buffer.Length != _bufferSize || _bufferSize >= MaxShadowBufferSize)
+                                    if (_buffer.Length != _bufferSize || _bufferSize >= MaxShadowBufferSize)
                 return;
             Byte[] shadowBuffer = new Byte[Math.Min(_bufferSize + _bufferSize, MaxShadowBufferSize)];
             Buffer.InternalBlockCopy(_buffer, 0, shadowBuffer, 0, _writePos);
@@ -88,15 +82,14 @@ namespace System.IO
 
         private void EnsureBufferAllocated()
         {
-            Contract.Assert(_bufferSize > 0);
-            if (_buffer == null)
+                        if (_buffer == null)
                 _buffer = new Byte[_bufferSize];
         }
 
         internal Stream UnderlyingStream
         {
             [FriendAccessAllowed]
-            [Pure]
+            
             get
             {
                 return _stream;
@@ -106,7 +99,7 @@ namespace System.IO
         internal Int32 BufferSize
         {
             [FriendAccessAllowed]
-            [Pure]
+            
             get
             {
                 return _bufferSize;
@@ -115,7 +108,7 @@ namespace System.IO
 
         public override bool CanRead
         {
-            [Pure]
+            
             get
             {
                 return _stream != null && _stream.CanRead;
@@ -124,7 +117,7 @@ namespace System.IO
 
         public override bool CanWrite
         {
-            [Pure]
+            
             get
             {
                 return _stream != null && _stream.CanWrite;
@@ -133,7 +126,7 @@ namespace System.IO
 
         public override bool CanSeek
         {
-            [Pure]
+            
             get
             {
                 return _stream != null && _stream.CanSeek;
@@ -157,16 +150,14 @@ namespace System.IO
             {
                 EnsureNotClosed();
                 EnsureCanSeek();
-                Contract.Assert(!(_writePos > 0 && _readPos != _readLen), "Read and Write buffers cannot both have data in them at the same time.");
-                return _stream.Position + (_readPos - _readLen + _writePos);
+                                return _stream.Position + (_readPos - _readLen + _writePos);
             }
 
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-                Contract.EndContractBlock();
-                EnsureNotClosed();
+                                EnsureNotClosed();
                 EnsureCanSeek();
                 if (_writePos > 0)
                     FlushWrite();
@@ -207,8 +198,7 @@ namespace System.IO
             if (_writePos > 0)
             {
                 FlushWrite();
-                Contract.Assert(_writePos == 0 && _readPos == 0 && _readLen == 0);
-                return;
+                                return;
             }
 
             if (_readPos < _readLen)
@@ -218,8 +208,7 @@ namespace System.IO
                 FlushRead();
                 if (_stream.CanWrite || _stream is BufferedStream)
                     _stream.Flush();
-                Contract.Assert(_writePos == 0 && _readPos == 0 && _readLen == 0);
-                return;
+                                return;
             }
 
             if (_stream.CanWrite || _stream is BufferedStream)
@@ -237,16 +226,14 @@ namespace System.IO
 
         private static async Task FlushAsyncInternal(CancellationToken cancellationToken, BufferedStream _this, Stream stream, Int32 writePos, Int32 readPos, Int32 readLen)
         {
-            Contract.Assert(stream != null);
-            SemaphoreSlim sem = _this.EnsureAsyncActiveSemaphoreInitialized();
+                        SemaphoreSlim sem = _this.EnsureAsyncActiveSemaphoreInitialized();
             await sem.WaitAsync().ConfigureAwait(false);
             try
             {
                 if (writePos > 0)
                 {
                     await _this.FlushWriteAsync(cancellationToken).ConfigureAwait(false);
-                    Contract.Assert(_this._writePos == 0 && _this._readPos == 0 && _this._readLen == 0);
-                    return;
+                                        return;
                 }
 
                 if (readPos < readLen)
@@ -256,14 +243,12 @@ namespace System.IO
                     _this.FlushRead();
                     if (stream.CanRead || stream is BufferedStream)
                         await stream.FlushAsync(cancellationToken).ConfigureAwait(false);
-                    Contract.Assert(_this._writePos == 0 && _this._readPos == 0 && _this._readLen == 0);
-                    return;
+                                        return;
                 }
 
                 if (stream.CanWrite || stream is BufferedStream)
                     await stream.FlushAsync(cancellationToken).ConfigureAwait(false);
-                Contract.Assert(_this._writePos == 0 && _this._readPos == _this._readLen);
-            }
+                            }
             finally
             {
                 sem.Release();
@@ -272,8 +257,7 @@ namespace System.IO
 
         private void FlushRead()
         {
-            Contract.Assert(_writePos == 0, "BufferedStream: Write buffer must be empty in FlushRead!");
-            if (_readPos - _readLen != 0)
+                        if (_readPos - _readLen != 0)
                 _stream.Seek(_readPos - _readLen, SeekOrigin.Current);
             _readPos = 0;
             _readLen = 0;
@@ -281,33 +265,27 @@ namespace System.IO
 
         private void ClearReadBufferBeforeWrite()
         {
-            Contract.Assert(_readPos <= _readLen, "_readPos <= _readLen [" + _readPos + " <= " + _readLen + "]");
-            if (_readPos == _readLen)
+                        if (_readPos == _readLen)
             {
                 _readPos = _readLen = 0;
                 return;
             }
 
-            Contract.Assert(_readPos < _readLen);
-            if (!_stream.CanSeek)
+                        if (!_stream.CanSeek)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_CannotWriteToBufferedStreamIfReadBufferCannotBeFlushed"));
             FlushRead();
         }
 
         private void FlushWrite()
         {
-            Contract.Assert(_readPos == 0 && _readLen == 0, "BufferedStream: Read buffer must be empty in FlushWrite!");
-            Contract.Assert(_buffer != null && _bufferSize >= _writePos, "BufferedStream: Write buffer must be allocated and write position must be in the bounds of the buffer in FlushWrite!");
-            _stream.Write(_buffer, 0, _writePos);
+                                    _stream.Write(_buffer, 0, _writePos);
             _writePos = 0;
             _stream.Flush();
         }
 
         private async Task FlushWriteAsync(CancellationToken cancellationToken)
         {
-            Contract.Assert(_readPos == 0 && _readLen == 0, "BufferedStream: Read buffer must be empty in FlushWrite!");
-            Contract.Assert(_buffer != null && _bufferSize >= _writePos, "BufferedStream: Write buffer must be allocated and write position must be in the bounds of the buffer in FlushWrite!");
-            await _stream.WriteAsync(_buffer, 0, _writePos, cancellationToken).ConfigureAwait(false);
+                                    await _stream.WriteAsync(_buffer, 0, _writePos, cancellationToken).ConfigureAwait(false);
             _writePos = 0;
             await _stream.FlushAsync(cancellationToken).ConfigureAwait(false);
         }
@@ -315,11 +293,9 @@ namespace System.IO
         private Int32 ReadFromBuffer(Byte[] array, Int32 offset, Int32 count)
         {
             Int32 readBytes = _readLen - _readPos;
-            Contract.Assert(readBytes >= 0);
-            if (readBytes == 0)
+                        if (readBytes == 0)
                 return 0;
-            Contract.Assert(readBytes > 0);
-            if (readBytes > count)
+                        if (readBytes > count)
                 readBytes = count;
             Buffer.InternalBlockCopy(_buffer, _readPos, array, offset, readBytes);
             _readPos += readBytes;
@@ -350,8 +326,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            EnsureNotClosed();
+                        EnsureNotClosed();
             EnsureCanRead();
             Int32 bytesFromBuffer = ReadFromBuffer(array, offset, count);
             if (bytesFromBuffer == count)
@@ -363,8 +338,7 @@ namespace System.IO
                 offset += bytesFromBuffer;
             }
 
-            Contract.Assert(_readLen == _readPos);
-            _readPos = _readLen = 0;
+                        _readPos = _readLen = 0;
             if (_writePos > 0)
                 FlushWrite();
             if (count >= _bufferSize)
@@ -388,8 +362,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (_stream == null)
+                        if (_stream == null)
                 __Error.ReadNotSupported();
             EnsureCanRead();
             Int32 bytesFromBuffer = 0;
@@ -431,9 +404,7 @@ namespace System.IO
         {
             if (asyncResult == null)
                 throw new ArgumentNullException("asyncResult");
-            Contract.Ensures(Contract.Result<Int32>() >= 0);
-            Contract.EndContractBlock();
-            var sAR = asyncResult as SynchronousAsyncResult;
+                                    var sAR = asyncResult as SynchronousAsyncResult;
             if (sAR != null)
                 return SynchronousAsyncResult.EndRead(asyncResult);
             return TaskToApm.End<Int32>(asyncResult);
@@ -442,8 +413,7 @@ namespace System.IO
         private Task<Int32> LastSyncCompletedReadTask(Int32 val)
         {
             Task<Int32> t = _lastSyncCompletedReadTask;
-            Contract.Assert(t == null || t.Status == TaskStatus.RanToCompletion);
-            if (t != null && t.Result == val)
+                        if (t != null && t.Result == val)
                 return t;
             t = Task.FromResult<Int32>(val);
             _lastSyncCompletedReadTask = t;
@@ -460,8 +430,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (cancellationToken.IsCancellationRequested)
+                        if (cancellationToken.IsCancellationRequested)
                 return Task.FromCancellation<Int32>(cancellationToken);
             EnsureNotClosed();
             EnsureCanRead();
@@ -493,15 +462,7 @@ namespace System.IO
 
         private async Task<Int32> ReadFromUnderlyingStreamAsync(Byte[] array, Int32 offset, Int32 count, CancellationToken cancellationToken, Int32 bytesAlreadySatisfied, Task semaphoreLockTask, bool useApmPattern)
         {
-            Contract.Assert(array != null);
-            Contract.Assert(offset >= 0);
-            Contract.Assert(count >= 0);
-            Contract.Assert(array.Length - offset >= count);
-            Contract.Assert(_stream != null);
-            Contract.Assert(_stream.CanRead);
-            Contract.Assert(_bufferSize > 0);
-            Contract.Assert(semaphoreLockTask != null);
-            await semaphoreLockTask.ConfigureAwait(false);
+                                                                                                            await semaphoreLockTask.ConfigureAwait(false);
             try
             {
                 Int32 bytesFromBuffer = ReadFromBuffer(array, offset, count);
@@ -514,8 +475,7 @@ namespace System.IO
                     bytesAlreadySatisfied += bytesFromBuffer;
                 }
 
-                Contract.Assert(_readLen == _readPos);
-                _readPos = _readLen = 0;
+                                _readPos = _readLen = 0;
                 if (_writePos > 0)
                     await FlushWriteAsync(cancellationToken).ConfigureAwait(false);
                 if (count >= _bufferSize)
@@ -608,13 +568,11 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            EnsureNotClosed();
+                        EnsureNotClosed();
             EnsureCanWrite();
             if (_writePos == 0)
                 ClearReadBufferBeforeWrite();
-            Contract.Assert(_writePos < _bufferSize);
-            Int32 totalUserBytes;
+                        Int32 totalUserBytes;
             bool useBuffer;
             checked
             {
@@ -627,26 +585,18 @@ namespace System.IO
                 WriteToBuffer(array, ref offset, ref count);
                 if (_writePos < _bufferSize)
                 {
-                    Contract.Assert(count == 0);
-                    return;
+                                        return;
                 }
 
-                Contract.Assert(count >= 0);
-                Contract.Assert(_writePos == _bufferSize);
-                Contract.Assert(_buffer != null);
-                _stream.Write(_buffer, 0, _writePos);
+                                                                _stream.Write(_buffer, 0, _writePos);
                 _writePos = 0;
                 WriteToBuffer(array, ref offset, ref count);
-                Contract.Assert(count == 0);
-                Contract.Assert(_writePos < _bufferSize);
-            }
+                                            }
             else
             {
                 if (_writePos > 0)
                 {
-                    Contract.Assert(_buffer != null);
-                    Contract.Assert(totalUserBytes >= _bufferSize);
-                    if (totalUserBytes <= (_bufferSize + _bufferSize) && totalUserBytes <= MaxShadowBufferSize)
+                                                            if (totalUserBytes <= (_bufferSize + _bufferSize) && totalUserBytes <= MaxShadowBufferSize)
                     {
                         EnsureShadowBufferAllocated();
                         Buffer.InternalBlockCopy(array, offset, _buffer, _writePos, count);
@@ -673,8 +623,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (_stream == null)
+                        if (_stream == null)
                 __Error.ReadNotSupported();
             EnsureCanWrite();
             SemaphoreSlim sem = base.EnsureAsyncActiveSemaphoreInitialized();
@@ -686,14 +635,12 @@ namespace System.IO
                 {
                     if (_writePos == 0)
                         ClearReadBufferBeforeWrite();
-                    Contract.Assert(_writePos < _bufferSize);
-                    completeSynchronously = (count < _bufferSize - _writePos);
+                                        completeSynchronously = (count < _bufferSize - _writePos);
                     if (completeSynchronously)
                     {
                         Exception error;
                         WriteToBuffer(buffer, ref offset, ref count, out error);
-                        Contract.Assert(count == 0);
-                        SynchronousAsyncResult asyncResult = (error == null) ? new SynchronousAsyncResult(state) : new SynchronousAsyncResult(error, state, isWrite: true);
+                                                SynchronousAsyncResult asyncResult = (error == null) ? new SynchronousAsyncResult(state) : new SynchronousAsyncResult(error, state, isWrite: true);
                         if (callback != null)
                             callback(asyncResult);
                         return asyncResult;
@@ -719,8 +666,7 @@ namespace System.IO
         {
             if (asyncResult == null)
                 throw new ArgumentNullException("asyncResult");
-            Contract.EndContractBlock();
-            var sAR = asyncResult as SynchronousAsyncResult;
+                        var sAR = asyncResult as SynchronousAsyncResult;
             if (sAR != null)
             {
                 SynchronousAsyncResult.EndWrite(asyncResult);
@@ -740,8 +686,7 @@ namespace System.IO
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (cancellationToken.IsCancellationRequested)
+                        if (cancellationToken.IsCancellationRequested)
                 return Task.FromCancellation<Int32>(cancellationToken);
             EnsureNotClosed();
             EnsureCanWrite();
@@ -754,14 +699,12 @@ namespace System.IO
                 {
                     if (_writePos == 0)
                         ClearReadBufferBeforeWrite();
-                    Contract.Assert(_writePos < _bufferSize);
-                    completeSynchronously = (count < _bufferSize - _writePos);
+                                        completeSynchronously = (count < _bufferSize - _writePos);
                     if (completeSynchronously)
                     {
                         Exception error;
                         WriteToBuffer(buffer, ref offset, ref count, out error);
-                        Contract.Assert(count == 0);
-                        return (error == null) ? Task.CompletedTask : Task.FromException(error);
+                                                return (error == null) ? Task.CompletedTask : Task.FromException(error);
                     }
                 }
                 finally
@@ -776,15 +719,7 @@ namespace System.IO
 
         private async Task WriteToUnderlyingStreamAsync(Byte[] array, Int32 offset, Int32 count, CancellationToken cancellationToken, Task semaphoreLockTask, bool useApmPattern)
         {
-            Contract.Assert(array != null);
-            Contract.Assert(offset >= 0);
-            Contract.Assert(count >= 0);
-            Contract.Assert(array.Length - offset >= count);
-            Contract.Assert(_stream != null);
-            Contract.Assert(_stream.CanWrite);
-            Contract.Assert(_bufferSize > 0);
-            Contract.Assert(semaphoreLockTask != null);
-            await semaphoreLockTask.ConfigureAwait(false);
+                                                                                                            await semaphoreLockTask.ConfigureAwait(false);
             try
             {
                 if (_writePos == 0)
@@ -802,14 +737,10 @@ namespace System.IO
                     WriteToBuffer(array, ref offset, ref count);
                     if (_writePos < _bufferSize)
                     {
-                        Contract.Assert(count == 0);
-                        return;
+                                                return;
                     }
 
-                    Contract.Assert(count >= 0);
-                    Contract.Assert(_writePos == _bufferSize);
-                    Contract.Assert(_buffer != null);
-                    if (useApmPattern)
+                                                                                if (useApmPattern)
                     {
                         EnsureBeginEndAwaitableAllocated();
                         _stream.BeginWrite(_buffer, 0, _writePos, BeginEndAwaitableAdapter.Callback, _beginEndAwaitable);
@@ -822,16 +753,12 @@ namespace System.IO
 
                     _writePos = 0;
                     WriteToBuffer(array, ref offset, ref count);
-                    Contract.Assert(count == 0);
-                    Contract.Assert(_writePos < _bufferSize);
-                }
+                                                        }
                 else
                 {
                     if (_writePos > 0)
                     {
-                        Contract.Assert(_buffer != null);
-                        Contract.Assert(totalUserBytes >= _bufferSize);
-                        if (totalUserBytes <= (_bufferSize + _bufferSize) && totalUserBytes <= MaxShadowBufferSize)
+                                                                        if (totalUserBytes <= (_bufferSize + _bufferSize) && totalUserBytes <= MaxShadowBufferSize)
                         {
                             EnsureShadowBufferAllocated();
                             Buffer.InternalBlockCopy(array, offset, _buffer, _writePos, count);
@@ -896,8 +823,7 @@ namespace System.IO
             if (_writePos >= _bufferSize - 1)
                 FlushWrite();
             _buffer[_writePos++] = value;
-            Contract.Assert(_writePos < _bufferSize);
-        }
+                    }
 
         public override Int64 Seek(Int64 offset, SeekOrigin origin)
         {
@@ -915,8 +841,7 @@ namespace System.IO
             }
 
             Int64 oldPos = Position;
-            Contract.Assert(oldPos == _stream.Position + (_readPos - _readLen));
-            Int64 newPos = _stream.Seek(offset, origin);
+                        Int64 newPos = _stream.Seek(offset, origin);
             _readPos = (Int32)(newPos - (oldPos - _readPos));
             if (0 <= _readPos && _readPos < _readLen)
             {
@@ -927,16 +852,14 @@ namespace System.IO
                 _readPos = _readLen = 0;
             }
 
-            Contract.Assert(newPos == Position, "newPos (=" + newPos + ") == Position (=" + Position + ")");
-            return newPos;
+                        return newPos;
         }
 
         public override void SetLength(Int64 value)
         {
             if (value < 0)
                 throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_NegFileSize"));
-            Contract.EndContractBlock();
-            EnsureNotClosed();
+                        EnsureNotClosed();
             EnsureCanSeek();
             EnsureCanWrite();
             Flush();

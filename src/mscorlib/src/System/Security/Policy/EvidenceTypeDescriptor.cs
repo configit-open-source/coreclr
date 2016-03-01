@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Policy
 {
@@ -15,8 +15,7 @@ namespace System.Security.Policy
 
         private EvidenceTypeDescriptor(EvidenceTypeDescriptor descriptor)
         {
-            Contract.Assert(descriptor != null);
-            m_hostCanGenerate = descriptor.m_hostCanGenerate;
+                        m_hostCanGenerate = descriptor.m_hostCanGenerate;
             if (descriptor.m_assemblyEvidence != null)
             {
                 m_assemblyEvidence = descriptor.m_assemblyEvidence.Clone() as EvidenceBase;
@@ -39,9 +38,7 @@ namespace System.Security.Policy
 
             set
             {
-                Contract.Assert(value != null);
-                Contract.Assert(CheckEvidenceType(value), "Incorrect type of AssemblyEvidence set");
-                m_assemblyEvidence = value;
+                                                m_assemblyEvidence = value;
             }
         }
 
@@ -54,8 +51,7 @@ namespace System.Security.Policy
 
             set
             {
-                Contract.Assert(value, "Attempt to clear the Generated flag");
-                m_generated = value;
+                                m_generated = value;
             }
         }
 
@@ -68,8 +64,7 @@ namespace System.Security.Policy
 
             set
             {
-                Contract.Assert(value, "Attempt to clear HostCanGenerate flag");
-                m_hostCanGenerate = value;
+                                m_hostCanGenerate = value;
             }
         }
 
@@ -82,16 +77,13 @@ namespace System.Security.Policy
 
             set
             {
-                Contract.Assert(value != null);
-                Contract.Assert(CheckEvidenceType(value), "Incorrect type of HostEvidence set");
-                m_hostEvidence = value;
+                                                m_hostEvidence = value;
             }
         }
 
         private bool CheckEvidenceType(EvidenceBase evidence)
         {
-            Contract.Assert(evidence != null);
-            ILegacyEvidenceAdapter legacyAdapter = evidence as ILegacyEvidenceAdapter;
+                        ILegacyEvidenceAdapter legacyAdapter = evidence as ILegacyEvidenceAdapter;
             Type storedType = legacyAdapter == null ? evidence.GetType() : legacyAdapter.EvidenceType;
             return m_evidenceType == null || m_evidenceType.IsAssignableFrom(storedType);
         }
@@ -103,9 +95,7 @@ namespace System.Security.Policy
 
         internal void SetEvidenceType(Type evidenceType)
         {
-            Contract.Assert(evidenceType != null);
-            Contract.Assert(m_evidenceType == null, "Attempt to reset evidence type");
-            m_evidenceType = evidenceType;
+                                    m_evidenceType = evidenceType;
         }
     }
 }

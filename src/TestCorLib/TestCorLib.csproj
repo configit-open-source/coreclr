@@ -39,9 +39,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mscorlib\mscorlib.csproj">
+    <ProjectReference Include="..\mscorlib\mscorlib-clean.csproj">
       <Project>{3da06c3a-2e7b-4cb7-80ed-9b12916013f9}</Project>
-      <Name>mscorlib</Name>
+      <Name>mscorlib-clean</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

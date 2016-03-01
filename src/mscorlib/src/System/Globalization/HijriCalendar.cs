@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -106,8 +106,7 @@ namespace System.Globalization
                     throw new ArgumentOutOfRangeException("HijriAdjustment", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Bounds_Lower_Upper"), MinAdvancedHijri, MaxAdvancedHijri));
                 }
 
-                Contract.EndContractBlock();
-                VerifyWritable();
+                                VerifyWritable();
                 m_HijriAdvance = value;
             }
         }
@@ -288,8 +287,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("months", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), -120000, 120000));
             }
 
-            Contract.EndContractBlock();
-            int y = GetDatePart(time.Ticks, DatePartYear);
+                        int y = GetDatePart(time.Ticks, DatePartYear);
             int m = GetDatePart(time.Ticks, DatePartMonth);
             int d = GetDatePart(time.Ticks, DatePartDay);
             int i = m - 1 + months;
@@ -463,8 +461,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (year < 100)
+                        if (year < 100)
             {
                 return (base.ToFourDigitYear(year));
             }

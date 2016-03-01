@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Globalization
@@ -44,8 +44,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            base.GetObjectData(info, context);
+                        base.GetObjectData(info, context);
             Nullable<int> invalidCultureId = null;
             info.AddValue("InvalidCultureId", invalidCultureId, typeof (Nullable<int>));
             info.AddValue("InvalidCultureName", m_invalidCultureName, typeof (string));

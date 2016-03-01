@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -88,8 +88,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (era == Calendar.CurrentEra)
+                        if (era == Calendar.CurrentEra)
             {
                 era = m_Cal.CurrentEraValue;
             }
@@ -218,8 +217,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("time", String.Format(CultureInfo.InvariantCulture, Environment.GetResourceString("ArgumentOutOfRange_CalendarRange"), m_Cal.MinSupportedDateTime, m_Cal.MaxSupportedDateTime));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         public DateTime AddMonths(DateTime time, int months)
         {
@@ -228,8 +226,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("months", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), -120000, 120000));
             }
 
-            Contract.EndContractBlock();
-            CheckTicksRange(time.Ticks);
+                        CheckTicksRange(time.Ticks);
             int y = GetDatePart(time.Ticks, DatePartYear);
             int m = GetDatePart(time.Ticks, DatePartMonth);
             int d = GetDatePart(time.Ticks, DatePartDay);
@@ -374,8 +371,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("day", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_Range"), 1, GetDaysInMonth(year, month, era)));
             }
 
-            Contract.EndContractBlock();
-            if (!IsLeapYear(year, era))
+                        if (!IsLeapYear(year, era))
             {
                 return (false);
             }
@@ -432,8 +428,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
             }
 
-            Contract.EndContractBlock();
-            if (year < 100)
+                        if (year < 100)
             {
                 int y = year % 100;
                 return ((twoDigitYearMax / 100 - (y > twoDigitYearMax % 100 ? 1 : 0)) * 100 + y);

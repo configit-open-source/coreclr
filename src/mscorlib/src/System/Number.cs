@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Text;
 
@@ -77,8 +77,7 @@ namespace System
             }
 
             Char*p = number.digits;
-            Contract.Assert(p != null, "");
-            UInt32 n = 0;
+                        UInt32 n = 0;
             while (--i >= 0)
             {
                 if (n > ((UInt32)0xFFFFFFFF / 16))
@@ -104,8 +103,7 @@ namespace System
                             }
                             else
                             {
-                                Contract.Assert(*p >= 'a' && *p <= 'f', "");
-                                newN += (UInt32)((*p - 'a') + 10);
+                                                                newN += (UInt32)((*p - 'a') + 10);
                             }
                         }
 
@@ -134,8 +132,7 @@ namespace System
             }
 
             Char*p = number.digits;
-            Contract.Assert(p != null, "");
-            UInt64 n = 0;
+                        UInt64 n = 0;
             while (--i >= 0)
             {
                 if (n > (0xFFFFFFFFFFFFFFFF / 16))
@@ -161,8 +158,7 @@ namespace System
                             }
                             else
                             {
-                                Contract.Assert(*p >= 'a' && *p <= 'f', "");
-                                newN += (UInt64)((*p - 'a') + 10);
+                                                                newN += (UInt64)((*p - 'a') + 10);
                             }
                         }
 
@@ -196,8 +192,7 @@ namespace System
             }
 
             char *p = number.digits;
-            Contract.Assert(p != null, "");
-            Int32 n = 0;
+                        Int32 n = 0;
             while (--i >= 0)
             {
                 if ((UInt32)n > (0x7FFFFFFF / 10))
@@ -241,8 +236,7 @@ namespace System
             }
 
             char *p = number.digits;
-            Contract.Assert(p != null, "");
-            Int64 n = 0;
+                        Int64 n = 0;
             while (--i >= 0)
             {
                 if ((UInt64)n > (0x7FFFFFFFFFFFFFFF / 10))
@@ -286,8 +280,7 @@ namespace System
             }
 
             char *p = number.digits;
-            Contract.Assert(p != null, "");
-            UInt32 n = 0;
+                        UInt32 n = 0;
             while (--i >= 0)
             {
                 if (n > (0xFFFFFFFF / 10))
@@ -321,8 +314,7 @@ namespace System
             }
 
             char *p = number.digits;
-            Contract.Assert(p != null, "");
-            UInt64 n = 0;
+                        UInt64 n = 0;
             while (--i >= 0)
             {
                 if (n > (0xFFFFFFFFFFFFFFFF / 10))
@@ -357,8 +349,7 @@ namespace System
 
         private unsafe static char *MatchChars(char *p, char *str)
         {
-            Contract.Assert(p != null && str != null, "");
-            if (*str == '\0')
+                        if (*str == '\0')
             {
                 return null;
             }
@@ -822,9 +813,7 @@ namespace System
                 throw new ArgumentNullException("String");
             }
 
-            Contract.EndContractBlock();
-            Contract.Assert(info != null, "");
-            fixed (char *stringPointer = str)
+                                    fixed (char *stringPointer = str)
             {
                 char *p = stringPointer;
                 if (!ParseNumber(ref p, options, ref number, null, info, parseDecimal) || (p - stringPointer < str.Length && !TrailingZeros(str, (int)(p - stringPointer))))
@@ -1033,8 +1022,7 @@ namespace System
                 return false;
             }
 
-            Contract.Assert(numfmt != null, "");
-            fixed (char *stringPointer = str)
+                        fixed (char *stringPointer = str)
             {
                 char *p = stringPointer;
                 if (!ParseNumber(ref p, options, ref number, sb, numfmt, parseDecimal) || (p - stringPointer < str.Length && !TrailingZeros(str, (int)(p - stringPointer))))

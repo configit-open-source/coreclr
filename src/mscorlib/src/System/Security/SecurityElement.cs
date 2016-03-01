@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -66,8 +65,7 @@ namespace System.Security
                 throw new ArgumentNullException("tag");
             if (!IsValidTag(tag))
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("Argument_InvalidElementTag"), tag));
-            Contract.EndContractBlock();
-            m_strTag = tag;
+                        m_strTag = tag;
             m_strText = null;
         }
 
@@ -79,14 +77,13 @@ namespace System.Security
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("Argument_InvalidElementTag"), tag));
             if (text != null && !IsValidText(text))
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("Argument_InvalidElementText"), text));
-            Contract.EndContractBlock();
-            m_strTag = tag;
+                        m_strTag = tag;
             m_strText = text;
         }
 
         public String Tag
         {
-            [Pure]
+            
             get
             {
                 return m_strTag;
@@ -98,8 +95,7 @@ namespace System.Security
                     throw new ArgumentNullException("Tag");
                 if (!IsValidTag(value))
                     throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("Argument_InvalidElementTag"), value));
-                Contract.EndContractBlock();
-                m_strTag = value;
+                                m_strTag = value;
             }
         }
 
@@ -115,8 +111,7 @@ namespace System.Security
                 {
                     Hashtable hashtable = new Hashtable(m_lAttributes.Count / 2);
                     int iMax = m_lAttributes.Count;
-                    Contract.Assert(iMax % 2 == 0, "Odd number of strings means the attr/value pairs were not added correctly");
-                    for (int i = 0; i < iMax; i += 2)
+                                        for (int i = 0; i < iMax; i += 2)
                     {
                         hashtable.Add(m_lAttributes[i], m_lAttributes[i + 1]);
                     }
@@ -227,8 +222,7 @@ namespace System.Security
             else
             {
                 int iMax = m_lAttributes.Count;
-                Contract.Assert(iMax % 2 == 0, "Odd number of strings means the attr/value pairs were not added correctly");
-                for (int i = 0; i < iMax; i += 2)
+                                for (int i = 0; i < iMax; i += 2)
                 {
                     String strAttrName = (String)m_lAttributes[i];
                     if (String.Equals(strAttrName, name))
@@ -250,16 +244,14 @@ namespace System.Security
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("Argument_InvalidElementName"), name));
             if (!IsValidAttributeValue(value))
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("Argument_InvalidElementValue"), value));
-            Contract.EndContractBlock();
-            AddAttributeSafe(name, value);
+                        AddAttributeSafe(name, value);
         }
 
         public void AddChild(SecurityElement child)
         {
             if (child == null)
                 throw new ArgumentNullException("child");
-            Contract.EndContractBlock();
-            if (m_lChildren == null)
+                        if (m_lChildren == null)
                 m_lChildren = new ArrayList(c_ChildrenTypical);
             m_lChildren.Add(child);
         }
@@ -268,8 +260,7 @@ namespace System.Security
         {
             if (child == null)
                 throw new ArgumentNullException("child");
-            Contract.EndContractBlock();
-            if (m_lChildren == null)
+                        if (m_lChildren == null)
                 m_lChildren = new ArrayList(c_ChildrenTypical);
             m_lChildren.Add(child);
         }
@@ -278,8 +269,7 @@ namespace System.Security
         {
             if (child == null)
                 throw new ArgumentNullException("child");
-            Contract.EndContractBlock();
-            if (m_lChildren == null)
+                        if (m_lChildren == null)
             {
                 m_lChildren = new ArrayList(c_ChildrenTypical);
                 m_lChildren.Add(child);
@@ -312,8 +302,7 @@ namespace System.Security
             else
             {
                 int iMax = m_lAttributes.Count;
-                Contract.Assert(iMax % 2 == 0, "Odd number of strings means the attr/value pairs were not added correctly");
-                if (iMax != other.m_lAttributes.Count)
+                                if (iMax != other.m_lAttributes.Count)
                     return false;
                 for (int i = 0; i < iMax; i++)
                 {
@@ -388,8 +377,7 @@ namespace System.Security
         private static String GetEscapeSequence(char c)
         {
             int iMax = s_escapeStringPairs.Length;
-            Contract.Assert(iMax % 2 == 0, "Odd number of strings means the attr/value pairs were not added correctly");
-            for (int i = 0; i < iMax; i += 2)
+                        for (int i = 0; i < iMax; i += 2)
             {
                 String strEscSeq = s_escapeStringPairs[i];
                 String strEscValue = s_escapeStringPairs[i + 1];
@@ -397,8 +385,7 @@ namespace System.Security
                     return strEscValue;
             }
 
-            Contract.Assert(false, "Unable to find escape sequence for this character");
-            return c.ToString();
+                        return c.ToString();
         }
 
         public static String Escape(String str)
@@ -438,8 +425,7 @@ namespace System.Security
         {
             int maxCompareLength = str.Length - index;
             int iMax = s_escapeStringPairs.Length;
-            Contract.Assert(iMax % 2 == 0, "Odd number of strings means the attr/value pairs were not added correctly");
-            for (int i = 0; i < iMax; i += 2)
+                        for (int i = 0; i < iMax; i += 2)
             {
                 String strEscSeq = s_escapeStringPairs[i];
                 String strEscValue = s_escapeStringPairs[i + 1];
@@ -530,8 +516,7 @@ namespace System.Security
             {
                 func(obj, " ");
                 int iMax = m_lAttributes.Count;
-                Contract.Assert(iMax % 2 == 0, "Odd number of strings means the attr/value pairs were not added correctly");
-                for (int i = 0; i < iMax; i += 2)
+                                for (int i = 0; i < iMax; i += 2)
                 {
                     String strAttrName = (String)m_lAttributes[i];
                     String strAttrValue = (String)m_lAttributes[i + 1];
@@ -595,12 +580,10 @@ namespace System.Security
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            if (m_lAttributes == null)
+                        if (m_lAttributes == null)
                 return null;
             int iMax = m_lAttributes.Count;
-            Contract.Assert(iMax % 2 == 0, "Odd number of strings means the attr/value pairs were not added correctly");
-            for (int i = 0; i < iMax; i += 2)
+                        for (int i = 0; i < iMax; i += 2)
             {
                 String strAttrName = (String)m_lAttributes[i];
                 if (String.Equals(strAttrName, name))
@@ -617,8 +600,7 @@ namespace System.Security
         {
             if (tag == null)
                 throw new ArgumentNullException("tag");
-            Contract.EndContractBlock();
-            if (m_lChildren == null)
+                        if (m_lChildren == null)
                 return null;
             IEnumerator enumerator = m_lChildren.GetEnumerator();
             while (enumerator.MoveNext())
@@ -635,8 +617,7 @@ namespace System.Security
         {
             if (strLocalName == null)
                 throw new ArgumentNullException("strLocalName");
-            Contract.EndContractBlock();
-            if (m_strTag == null)
+                        if (m_strTag == null)
                 return null;
             if (m_strTag.Equals(strLocalName) || m_strTag.EndsWith(":" + strLocalName, StringComparison.Ordinal))
                 return Unescape(m_strText);
@@ -657,8 +638,7 @@ namespace System.Security
         {
             if (tag == null)
                 throw new ArgumentNullException("tag");
-            Contract.EndContractBlock();
-            if (String.Equals(m_strTag, tag))
+                        if (String.Equals(m_strTag, tag))
                 return Unescape(m_strText);
             if (m_lChildren == null)
                 return null;

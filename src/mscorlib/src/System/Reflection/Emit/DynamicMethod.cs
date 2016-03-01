@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Security;
@@ -90,8 +89,7 @@ namespace System.Reflection.Emit
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_DynamicMethodFlags"));
             if ((attributes & MethodAttributes.MemberAccessMask) != MethodAttributes.Public)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_DynamicMethodFlags"));
-            Contract.EndContractBlock();
-            if (callingConvention != CallingConventions.Standard && callingConvention != CallingConventions.VarArgs)
+                        if (callingConvention != CallingConventions.Standard && callingConvention != CallingConventions.VarArgs)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_DynamicMethodFlags"));
             if (callingConvention == CallingConventions.VarArgs)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_DynamicMethodFlags"));
@@ -144,8 +142,7 @@ namespace System.Reflection.Emit
                 throw new NotSupportedException(Environment.GetResourceString("Arg_InvalidTypeInRetType"));
             if (transparentMethod)
             {
-                Contract.Assert(owner == null && m == null, "owner and m cannot be set for transparent methods");
-                m_module = GetDynamicMethodsModule();
+                                m_module = GetDynamicMethodsModule();
                 if (skipVisibility)
                 {
                     m_restrictedSkipVisibility = true;
@@ -153,10 +150,7 @@ namespace System.Reflection.Emit
             }
             else
             {
-                Contract.Assert(m != null || owner != null, "PerformSecurityCheck should ensure that either m or owner is set");
-                Contract.Assert(m == null || !m.Equals(s_anonymouslyHostedDynamicMethodsModule), "The user cannot explicitly use this assembly");
-                Contract.Assert(m == null || owner == null, "m and owner cannot both be set");
-                if (m != null)
+                                                                if (m != null)
                     m_module = m.ModuleHandle.GetRuntimeModule();
                 else
                 {
@@ -195,8 +189,7 @@ namespace System.Reflection.Emit
         {
             if (m == null)
                 throw new ArgumentNullException("m");
-            Contract.EndContractBlock();
-            RuntimeModule rtModule;
+                        RuntimeModule rtModule;
             ModuleBuilder mb = m as ModuleBuilder;
             if (mb != null)
                 rtModule = mb.InternalModule;
@@ -386,14 +379,12 @@ namespace System.Reflection.Emit
                 else if (m_typeOwner != null)
                 {
                     RuntimeAssembly assembly = m_typeOwner.Assembly as RuntimeAssembly;
-                    Contract.Assert(assembly != null);
-                    return assembly.IsAllSecurityCritical();
+                                        return assembly.IsAllSecurityCritical();
                 }
                 else
                 {
                     RuntimeAssembly assembly = m_module.Assembly as RuntimeAssembly;
-                    Contract.Assert(assembly != null);
-                    return assembly.IsAllSecurityCritical();
+                                        return assembly.IsAllSecurityCritical();
                 }
             }
         }
@@ -410,14 +401,12 @@ namespace System.Reflection.Emit
                 else if (m_typeOwner != null)
                 {
                     RuntimeAssembly assembly = m_typeOwner.Assembly as RuntimeAssembly;
-                    Contract.Assert(assembly != null);
-                    return assembly.IsAllPublicAreaSecuritySafeCritical();
+                                        return assembly.IsAllPublicAreaSecuritySafeCritical();
                 }
                 else
                 {
                     RuntimeAssembly assembly = m_module.Assembly as RuntimeAssembly;
-                    Contract.Assert(assembly != null);
-                    return assembly.IsAllSecuritySafeCritical();
+                                        return assembly.IsAllSecuritySafeCritical();
                 }
             }
         }
@@ -434,14 +423,12 @@ namespace System.Reflection.Emit
                 else if (m_typeOwner != null)
                 {
                     RuntimeAssembly assembly = m_typeOwner.Assembly as RuntimeAssembly;
-                    Contract.Assert(assembly != null);
-                    return !assembly.IsAllSecurityCritical();
+                                        return !assembly.IsAllSecurityCritical();
                 }
                 else
                 {
                     RuntimeAssembly assembly = m_module.Assembly as RuntimeAssembly;
-                    Contract.Assert(assembly != null);
-                    return !assembly.IsAllSecurityCritical();
+                                        return !assembly.IsAllSecurityCritical();
                 }
             }
         }
@@ -450,8 +437,7 @@ namespace System.Reflection.Emit
         {
             if ((CallingConvention & CallingConventions.VarArgs) == CallingConventions.VarArgs)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_CallToVarArg"));
-            Contract.EndContractBlock();
-            RuntimeMethodHandle method = GetMethodDescriptor();
+                        RuntimeMethodHandle method = GetMethodDescriptor();
             Signature sig = new Signature(this.m_methodHandle, m_parameterTypes, m_returnType, CallingConvention);
             int formalCount = sig.Arguments.Length;
             int actualCount = (parameters != null) ? parameters.Length : 0;
@@ -688,8 +674,7 @@ namespace System.Reflection.Emit
             {
                 if (attributeType == null)
                     throw new ArgumentNullException("attributeType");
-                Contract.EndContractBlock();
-                if (attributeType.IsAssignableFrom(typeof (MethodImplAttribute)))
+                                if (attributeType.IsAssignableFrom(typeof (MethodImplAttribute)))
                     return new Object[]{new MethodImplAttribute(GetMethodImplementationFlags())};
                 else
                     return EmptyArray<Object>.Value;
@@ -704,8 +689,7 @@ namespace System.Reflection.Emit
             {
                 if (attributeType == null)
                     throw new ArgumentNullException("attributeType");
-                Contract.EndContractBlock();
-                if (attributeType.IsAssignableFrom(typeof (MethodImplAttribute)))
+                                if (attributeType.IsAssignableFrom(typeof (MethodImplAttribute)))
                     return true;
                 else
                     return false;

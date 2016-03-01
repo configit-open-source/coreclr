@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 
@@ -21,8 +21,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentOutOfRangeException("numBytes", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (IntPtr.Size == 4 && numBytes > UInt32.MaxValue)
                 throw new ArgumentOutOfRangeException("numBytes", Environment.GetResourceString("ArgumentOutOfRange_AddressSpace"));
-            Contract.EndContractBlock();
-            if (numBytes >= (ulong)Uninitialized)
+                        if (numBytes >= (ulong)Uninitialized)
                 throw new ArgumentOutOfRangeException("numBytes", Environment.GetResourceString("ArgumentOutOfRange_UIntPtrMax-1"));
             _numBytes = (UIntPtr)numBytes;
         }
@@ -35,8 +34,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentOutOfRangeException("sizeOfEachElement", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (IntPtr.Size == 4 && numElements * sizeOfEachElement > UInt32.MaxValue)
                 throw new ArgumentOutOfRangeException("numBytes", Environment.GetResourceString("ArgumentOutOfRange_AddressSpace"));
-            Contract.EndContractBlock();
-            if (numElements * sizeOfEachElement >= (ulong)Uninitialized)
+                        if (numElements * sizeOfEachElement >= (ulong)Uninitialized)
                 throw new ArgumentOutOfRangeException("numElements", Environment.GetResourceString("ArgumentOutOfRange_UIntPtrMax-1"));
             _numBytes = checked ((UIntPtr)(numElements * sizeOfEachElement));
         }
@@ -104,8 +102,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (_numBytes == Uninitialized)
+                        if (_numBytes == Uninitialized)
                 throw NotInitialized();
             uint sizeofT = Marshal.SizeOfType(typeof (T));
             uint alignedSizeofT = Marshal.AlignedSizeOf<T>();
@@ -160,8 +157,7 @@ namespace System.Runtime.InteropServices
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - index < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (_numBytes == Uninitialized)
+                        if (_numBytes == Uninitialized)
                 throw NotInitialized();
             uint sizeofT = Marshal.SizeOfType(typeof (T));
             uint alignedSizeofT = Marshal.AlignedSizeOf<T>();
@@ -211,8 +207,7 @@ namespace System.Runtime.InteropServices
 
         private static InvalidOperationException NotInitialized()
         {
-            Contract.Assert(false, "Uninitialized SafeBuffer!  Someone needs to call Initialize before using this instance!");
-            return new InvalidOperationException(Environment.GetResourceString("InvalidOperation_MustCallInitialize"));
+                        return new InvalidOperationException(Environment.GetResourceString("InvalidOperation_MustCallInitialize"));
         }
 
         internal static void GenericPtrToStructure<T>(byte *ptr, out T structure, uint sizeofT)where T : struct

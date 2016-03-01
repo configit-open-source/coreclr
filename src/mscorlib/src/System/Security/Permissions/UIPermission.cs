@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Permissions
 {
@@ -93,8 +93,7 @@ namespace System.Security.Permissions
                 throw new ArgumentException(Environment.GetResourceString("Arg_EnumIllegalVal", (int)flag));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         private static void VerifyClipboardFlag(UIPermissionClipboard flag)
         {
@@ -103,8 +102,7 @@ namespace System.Security.Permissions
                 throw new ArgumentException(Environment.GetResourceString("Arg_EnumIllegalVal", (int)flag));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         private void Reset()
         {

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -27,8 +27,7 @@ namespace System.IO
         {
             if (driveName == null)
                 throw new ArgumentNullException("driveName");
-            Contract.EndContractBlock();
-            if (driveName.Length == 1)
+                        if (driveName.Length == 1)
                 _name = driveName + ":\\";
             else
             {

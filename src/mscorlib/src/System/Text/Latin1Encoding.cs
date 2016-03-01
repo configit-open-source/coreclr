@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Text
@@ -16,18 +16,13 @@ namespace System.Text
 
         internal override unsafe int GetByteCount(char *chars, int charCount, EncoderNLS encoder)
         {
-            Contract.Assert(charCount >= 0, "[Latin1Encoding.GetByteCount]count is negative");
-            Contract.Assert(chars != null, "[Latin1Encoding.GetByteCount]chars is null");
-            Contract.Assert(encoderFallback != null, "[Latin1Encoding.GetByteCount]Attempting to use null fallback encoder");
-            char charLeftOver = (char)0;
+                                                char charLeftOver = (char)0;
             EncoderReplacementFallback fallback;
             if (encoder != null)
             {
                 charLeftOver = encoder.charLeftOver;
-                Contract.Assert(charLeftOver == 0 || Char.IsHighSurrogate(charLeftOver), "[Latin1Encoding.GetByteCount]leftover character should be high surrogate");
-                fallback = encoder.Fallback as EncoderReplacementFallback;
-                Contract.Assert(!encoder.m_throwOnOverflow || !encoder.InternalHasFallbackBuffer || encoder.FallbackBuffer.Remaining == 0, "[Latin1CodePageEncoding.GetByteCount]Expected empty fallback buffer");
-            }
+                                fallback = encoder.Fallback as EncoderReplacementFallback;
+                            }
             else
                 fallback = this.EncoderFallback as EncoderReplacementFallback;
             if ((fallback != null && fallback.MaxCharCount == 1))
@@ -42,8 +37,7 @@ namespace System.Text
             EncoderFallbackBuffer fallbackBuffer = null;
             if (charLeftOver > 0)
             {
-                Contract.Assert(encoder != null, "[Latin1Encoding.GetByteCount]Expected encoder if we have charLeftOver");
-                fallbackBuffer = encoder.FallbackBuffer;
+                                fallbackBuffer = encoder.FallbackBuffer;
                 fallbackBuffer.InternalInitialize(chars, charEnd, encoder, false);
                 fallbackBuffer.InternalFallback(charLeftOver, ref chars);
             }
@@ -75,26 +69,18 @@ namespace System.Text
                 byteCount++;
             }
 
-            Contract.Assert(fallbackBuffer == null || fallbackBuffer.Remaining == 0, "[Latin1Encoding.GetByteCount]Expected Empty fallback buffer");
-            return byteCount;
+                        return byteCount;
         }
 
         internal override unsafe int GetBytes(char *chars, int charCount, byte *bytes, int byteCount, EncoderNLS encoder)
         {
-            Contract.Assert(bytes != null, "[Latin1Encoding.GetBytes]bytes is null");
-            Contract.Assert(byteCount >= 0, "[Latin1Encoding.GetBytes]byteCount is negative");
-            Contract.Assert(chars != null, "[Latin1Encoding.GetBytes]chars is null");
-            Contract.Assert(charCount >= 0, "[Latin1Encoding.GetBytes]charCount is negative");
-            Contract.Assert(encoderFallback != null, "[Latin1Encoding.GetBytes]Attempting to use null encoder fallback");
-            char charLeftOver = (char)0;
+                                                                        char charLeftOver = (char)0;
             EncoderReplacementFallback fallback = null;
             if (encoder != null)
             {
                 charLeftOver = encoder.charLeftOver;
                 fallback = encoder.Fallback as EncoderReplacementFallback;
-                Contract.Assert(charLeftOver == 0 || Char.IsHighSurrogate(charLeftOver), "[Latin1Encoding.GetBytes]leftover character should be high surrogate");
-                Contract.Assert(!encoder.m_throwOnOverflow || !encoder.InternalHasFallbackBuffer || encoder.FallbackBuffer.Remaining == 0, "[Latin1CodePageEncoding.GetBytes]Expected empty fallback buffer");
-            }
+                                            }
             else
             {
                 fallback = this.EncoderFallback as EncoderReplacementFallback;
@@ -145,8 +131,7 @@ namespace System.Text
             EncoderFallbackBuffer fallbackBuffer = null;
             if (charLeftOver > 0)
             {
-                Contract.Assert(encoder != null, "[Latin1Encoding.GetBytes]Expected encoder if we have charLeftOver");
-                fallbackBuffer = encoder.FallbackBuffer;
+                                fallbackBuffer = encoder.FallbackBuffer;
                 fallbackBuffer.InternalInitialize(chars, charEnd, encoder, true);
                 fallbackBuffer.InternalFallback(charLeftOver, ref chars);
                 if (fallbackBuffer.Remaining > byteEnd - bytes)
@@ -178,8 +163,7 @@ namespace System.Text
                     fallbackBuffer.InternalFallback(ch, ref chars);
                     if (fallbackBuffer.Remaining > byteEnd - bytes)
                     {
-                        Contract.Assert(chars > charStart, "[Latin1Encoding.GetBytes]Expected chars to have advanced (fallback case)");
-                        chars--;
+                                                chars--;
                         fallbackBuffer.InternalReset();
                         ThrowBytesOverflow(encoder, chars == charStart);
                         break;
@@ -190,11 +174,9 @@ namespace System.Text
 
                 if (bytes >= byteEnd)
                 {
-                    Contract.Assert(fallbackBuffer == null || fallbackBuffer.bFallingBack == false, "[Latin1Encoding.GetBytes]Expected fallback to have throw initially if insufficient space");
-                    if (fallbackBuffer == null || fallbackBuffer.bFallingBack == false)
+                                        if (fallbackBuffer == null || fallbackBuffer.bFallingBack == false)
                     {
-                        Contract.Assert(chars > charStart, "[Latin1Encoding.GetBytes]Expected chars to have advanced (fallback case)");
-                        chars--;
+                                                chars--;
                     }
 
                     ThrowBytesOverflow(encoder, chars == charStart);
@@ -212,24 +194,17 @@ namespace System.Text
                 encoder.m_charsUsed = (int)(chars - charStart);
             }
 
-            Contract.Assert(fallbackBuffer == null || fallbackBuffer.Remaining == 0, "[Latin1Encoding.GetBytes]Expected Empty fallback buffer");
-            return (int)(bytes - byteStart);
+                        return (int)(bytes - byteStart);
         }
 
         internal override unsafe int GetCharCount(byte *bytes, int count, DecoderNLS decoder)
         {
-            Contract.Assert(bytes != null, "[Latin1Encoding.GetCharCount]bytes is null");
-            Contract.Assert(count >= 0, "[Latin1Encoding.GetCharCount]byteCount is negative");
-            return count;
+                                    return count;
         }
 
         internal override unsafe int GetChars(byte *bytes, int byteCount, char *chars, int charCount, DecoderNLS decoder)
         {
-            Contract.Assert(bytes != null, "[Latin1Encoding.GetChars]bytes is null");
-            Contract.Assert(byteCount >= 0, "[Latin1Encoding.GetChars]byteCount is negative");
-            Contract.Assert(chars != null, "[Latin1Encoding.GetChars]chars is null");
-            Contract.Assert(charCount >= 0, "[Latin1Encoding.GetChars]charCount is negative");
-            if (charCount < byteCount)
+                                                            if (charCount < byteCount)
             {
                 ThrowCharsOverflow(decoder, charCount < 1);
                 byteCount = charCount;
@@ -252,8 +227,7 @@ namespace System.Text
         {
             if (charCount < 0)
                 throw new ArgumentOutOfRangeException("charCount", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            long byteCount = (long)charCount + 1;
+                        long byteCount = (long)charCount + 1;
             if (EncoderFallback.MaxCharCount > 1)
                 byteCount *= EncoderFallback.MaxCharCount;
             if (byteCount > 0x7fffffff)
@@ -265,8 +239,7 @@ namespace System.Text
         {
             if (byteCount < 0)
                 throw new ArgumentOutOfRangeException("byteCount", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            long charCount = (long)byteCount;
+                        long charCount = (long)byteCount;
             if (DecoderFallback.MaxCharCount > 1)
                 charCount *= DecoderFallback.MaxCharCount;
             if (charCount > 0x7fffffff)

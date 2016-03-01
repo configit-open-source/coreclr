@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 
 namespace System.Diagnostics.Tracing
@@ -187,8 +187,7 @@ namespace System.Diagnostics.Tracing
         {
             get
             {
-                Contract.Assert(_scalarLength == 0, "This ReflectedValue refers to an unboxed value type, not a reference type or boxed value type.");
-                return _reference;
+                                return _reference;
             }
         }
 
@@ -196,8 +195,7 @@ namespace System.Diagnostics.Tracing
         {
             get
             {
-                Contract.Assert(_scalarLength > 0, "This ReflectedValue refers to a reference type or boxed value type, not an unboxed value type");
-                return _scalar;
+                                return _scalar;
             }
         }
 
@@ -205,8 +203,7 @@ namespace System.Diagnostics.Tracing
         {
             get
             {
-                Contract.Assert(_scalarLength > 0, "This ReflectedValue refers to a reference type or boxed value type, not an unboxed value type");
-                return _scalarLength;
+                                return _scalarLength;
             }
         }
 

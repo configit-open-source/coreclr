@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -25,8 +25,7 @@ namespace System.Security.Cryptography
         {
             if (saltSize < 0)
                 throw new ArgumentOutOfRangeException("saltSize", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            byte[] salt = new byte[saltSize];
+                        byte[] salt = new byte[saltSize];
             Utils.StaticRandomNumberGenerator.GetBytes(salt);
             Salt = salt;
             IterationCount = iterations;
@@ -63,8 +62,7 @@ namespace System.Security.Cryptography
             {
                 if (value <= 0)
                     throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
-                Contract.EndContractBlock();
-                m_iterations = (uint)value;
+                                m_iterations = (uint)value;
                 Initialize();
             }
         }
@@ -82,8 +80,7 @@ namespace System.Security.Cryptography
                     throw new ArgumentNullException("value");
                 if (value.Length < 8)
                     throw new ArgumentException(Environment.GetResourceString("Cryptography_PasswordDerivedBytes_FewBytesSalt"));
-                Contract.EndContractBlock();
-                m_salt = (byte[])value.Clone();
+                                m_salt = (byte[])value.Clone();
                 Initialize();
             }
         }
@@ -92,8 +89,7 @@ namespace System.Security.Cryptography
         {
             if (cb <= 0)
                 throw new ArgumentOutOfRangeException("cb", Environment.GetResourceString("ArgumentOutOfRange_NeedPosNum"));
-            Contract.EndContractBlock();
-            byte[] password = new byte[cb];
+                        byte[] password = new byte[cb];
             int offset = 0;
             int size = m_endIndex - m_startIndex;
             if (size > 0)
@@ -112,8 +108,7 @@ namespace System.Security.Cryptography
                 }
             }
 
-            Contract.Assert(m_startIndex == 0 && m_endIndex == 0, "Invalid start or end index in the internal buffer.");
-            while (offset < cb)
+                        while (offset < cb)
             {
                 byte[] T_block = Func();
                 int remainder = cb - offset;

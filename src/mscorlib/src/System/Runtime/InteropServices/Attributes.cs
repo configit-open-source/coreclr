@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 
 namespace System.Runtime.InteropServices
@@ -578,8 +578,7 @@ namespace System.Runtime.InteropServices
             }
             catch (System.TypeLoadException)
             {
-                Contract.Assert(marshalTypeName != null);
-            }
+                            }
 
             return new MarshalAsAttribute(unmanagedType, safeArraySubType, safeArrayUserDefinedType, arraySubType, (short)sizeParamIndex, sizeConst, marshalTypeName, marshalTypeRef, marshalCookie, iidParamIndex);
         }
@@ -886,8 +885,7 @@ namespace System.Runtime.InteropServices
                     layoutKind = LayoutKind.Sequential;
                     break;
                 default:
-                    Contract.Assume(false);
-                    break;
+                                        break;
             }
 
             CharSet charSet = CharSet.None;
@@ -903,8 +901,7 @@ namespace System.Runtime.InteropServices
                     charSet = CharSet.Unicode;
                     break;
                 default:
-                    Contract.Assume(false);
-                    break;
+                                        break;
             }
 
             type.GetRuntimeModule().MetadataImport.GetClassLayout(type.MetadataToken, out pack, out size);

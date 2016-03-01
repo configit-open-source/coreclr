@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -145,8 +145,7 @@ namespace System.Diagnostics
         {
             if (skipFrames < 0)
                 throw new ArgumentOutOfRangeException("skipFrames", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            m_iNumOfFrames = 0;
+                        m_iNumOfFrames = 0;
             m_iMethodsToSkip = 0;
             CaptureStackTrace(skipFrames + METHODS_TO_SKIP, false, null, null);
         }
@@ -155,8 +154,7 @@ namespace System.Diagnostics
         {
             if (skipFrames < 0)
                 throw new ArgumentOutOfRangeException("skipFrames", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            m_iNumOfFrames = 0;
+                        m_iNumOfFrames = 0;
             m_iMethodsToSkip = 0;
             CaptureStackTrace(skipFrames + METHODS_TO_SKIP, fNeedFileInfo, null, null);
         }
@@ -165,8 +163,7 @@ namespace System.Diagnostics
         {
             if (e == null)
                 throw new ArgumentNullException("e");
-            Contract.EndContractBlock();
-            m_iNumOfFrames = 0;
+                        m_iNumOfFrames = 0;
             m_iMethodsToSkip = 0;
             CaptureStackTrace(METHODS_TO_SKIP, false, null, e);
         }
@@ -175,8 +172,7 @@ namespace System.Diagnostics
         {
             if (e == null)
                 throw new ArgumentNullException("e");
-            Contract.EndContractBlock();
-            m_iNumOfFrames = 0;
+                        m_iNumOfFrames = 0;
             m_iMethodsToSkip = 0;
             CaptureStackTrace(METHODS_TO_SKIP, fNeedFileInfo, null, e);
         }
@@ -187,8 +183,7 @@ namespace System.Diagnostics
                 throw new ArgumentNullException("e");
             if (skipFrames < 0)
                 throw new ArgumentOutOfRangeException("skipFrames", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            m_iNumOfFrames = 0;
+                        m_iNumOfFrames = 0;
             m_iMethodsToSkip = 0;
             CaptureStackTrace(skipFrames + METHODS_TO_SKIP, false, null, e);
         }
@@ -199,8 +194,7 @@ namespace System.Diagnostics
                 throw new ArgumentNullException("e");
             if (skipFrames < 0)
                 throw new ArgumentOutOfRangeException("skipFrames", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            m_iNumOfFrames = 0;
+                        m_iNumOfFrames = 0;
             m_iMethodsToSkip = 0;
             CaptureStackTrace(skipFrames + METHODS_TO_SKIP, fNeedFileInfo, null, e);
         }

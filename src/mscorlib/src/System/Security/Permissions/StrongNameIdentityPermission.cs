@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Security.Permissions
 {
@@ -89,8 +88,7 @@ namespace System.Security.Permissions
                 throw new ArgumentNullException("blob");
             if (name != null && name.Equals(""))
                 throw new ArgumentException(Environment.GetResourceString("Argument_EmptyStrongName"));
-            Contract.EndContractBlock();
-            m_unrestricted = false;
+                        m_unrestricted = false;
             m_strongNames = new StrongName2[1];
             m_strongNames[0] = new StrongName2(blob, name, version);
         }
@@ -101,8 +99,7 @@ namespace System.Security.Permissions
             {
                 if (value == null)
                     throw new ArgumentNullException("PublicKey");
-                Contract.EndContractBlock();
-                m_unrestricted = false;
+                                m_unrestricted = false;
                 if (m_strongNames != null && m_strongNames.Length == 1)
                     m_strongNames[0].m_publicKeyBlob = value;
                 else
@@ -128,8 +125,7 @@ namespace System.Security.Permissions
             {
                 if (value != null && value.Length == 0)
                     throw new ArgumentException(Environment.GetResourceString("Argument_EmptyName"));
-                Contract.EndContractBlock();
-                m_unrestricted = false;
+                                m_unrestricted = false;
                 if (m_strongNames != null && m_strongNames.Length == 1)
                     m_strongNames[0].m_name = value;
                 else

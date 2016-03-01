@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Reflection;
 using System.Security.Permissions;
@@ -30,8 +30,7 @@ namespace System.Security.Policy
                 throw new ArgumentNullException("blob");
             if (version == null)
                 throw new ArgumentNullException("version");
-            Contract.EndContractBlock();
-            RuntimeAssembly rtAssembly = assembly as RuntimeAssembly;
+                        RuntimeAssembly rtAssembly = assembly as RuntimeAssembly;
             if (assembly != null && rtAssembly == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeAssembly"), "assembly");
             m_publicKeyBlob = blob;

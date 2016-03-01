@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Diagnostics.Tracing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,8 +36,7 @@ namespace System.Runtime.CompilerServices
             {
                 if (continuation == null)
                     throw new ArgumentNullException("continuation");
-                Contract.EndContractBlock();
-                if (TplEtwProvider.Log.IsEnabled())
+                                if (TplEtwProvider.Log.IsEnabled())
                 {
                     continuation = OutputCorrelationEtwEvent(continuation);
                 }

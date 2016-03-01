@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Text;
 
 namespace System.Globalization
@@ -77,11 +77,7 @@ namespace System.Globalization
 
             public bool IsInvalidNumber(int maxValue, int maxPrecision)
             {
-                Contract.Assert(ttt == TTT.Num);
-                Contract.Assert(num > -1);
-                Contract.Assert(maxValue > 0);
-                Contract.Assert(maxPrecision == maxFractionDigits || maxPrecision == unlimitedDigits);
-                if (num > maxValue)
+                                                                                if (num > maxValue)
                     return true;
                 if (maxPrecision == unlimitedDigits)
                     return false;
@@ -110,8 +106,7 @@ namespace System.Globalization
 
             internal TimeSpanToken GetNextToken()
             {
-                Contract.Assert(m_pos > -1);
-                TimeSpanToken tok = new TimeSpanToken();
+                                TimeSpanToken tok = new TimeSpanToken();
                 char ch = CurrentChar;
                 if (ch == (char)0)
                 {
@@ -311,8 +306,7 @@ namespace System.Globalization
             private const int MaxNumericTokens = 5;
             internal void Init(DateTimeFormatInfo dtfi)
             {
-                Contract.Assert(dtfi != null);
-                lastSeenTTT = TTT.None;
+                                lastSeenTTT = TTT.None;
                 tokenCount = 0;
                 SepCount = 0;
                 NumCount = 0;
@@ -359,8 +353,7 @@ namespace System.Globalization
                 }
 
                 lastSeenTTT = tok.ttt;
-                Contract.Assert(tokenCount == (SepCount + NumCount), "tokenCount == (SepCount + NumCount)");
-                return true;
+                                return true;
             }
 
             private bool AddSep(String sep, ref TimeSpanResult result)
@@ -439,8 +432,7 @@ namespace System.Globalization
                     case ParseFailureKind.Overflow:
                         return new OverflowException(Environment.GetResourceString(m_failureMessageID));
                     default:
-                        Contract.Assert(false, "Unknown TimeSpanParseFailure: " + m_failure);
-                        return new FormatException(Environment.GetResourceString("Format_InvalidString"));
+                                                return new FormatException(Environment.GetResourceString("Format_InvalidString"));
                 }
             }
         }
@@ -1174,9 +1166,7 @@ namespace System.Globalization
 
         private static Boolean TryParseByFormat(String input, String format, TimeSpanStyles styles, ref TimeSpanResult result)
         {
-            Contract.Assert(input != null, "input != null");
-            Contract.Assert(format != null, "format != null");
-            bool seenDD = false;
+                                    bool seenDD = false;
             bool seenHH = false;
             bool seenMM = false;
             bool seenSS = false;

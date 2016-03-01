@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -54,9 +54,7 @@ namespace System
         protected extern Object MemberwiseClone();
         private void FieldSetter(String typeName, String fieldName, Object val)
         {
-            Contract.Requires(typeName != null);
-            Contract.Requires(fieldName != null);
-            FieldInfo fldInfo = GetFieldInfo(typeName, fieldName);
+                                    FieldInfo fldInfo = GetFieldInfo(typeName, fieldName);
             if (fldInfo.IsInitOnly)
                 throw new FieldAccessException(Environment.GetResourceString("FieldAccess_InitOnly"));
             Type pt = fldInfo.FieldType;
@@ -75,18 +73,13 @@ namespace System
 
         private void FieldGetter(String typeName, String fieldName, ref Object val)
         {
-            Contract.Requires(typeName != null);
-            Contract.Requires(fieldName != null);
-            FieldInfo fldInfo = GetFieldInfo(typeName, fieldName);
+                                    FieldInfo fldInfo = GetFieldInfo(typeName, fieldName);
             val = fldInfo.GetValue(this);
         }
 
         private FieldInfo GetFieldInfo(String typeName, String fieldName)
         {
-            Contract.Requires(typeName != null);
-            Contract.Requires(fieldName != null);
-            Contract.Ensures(Contract.Result<FieldInfo>() != null);
-            Type t = GetType();
+                                                Type t = GetType();
             while (null != t)
             {
                 if (t.FullName.Equals(typeName))

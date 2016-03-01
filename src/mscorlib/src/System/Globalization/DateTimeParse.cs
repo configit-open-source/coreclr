@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Text;
 using System.Threading;
@@ -98,8 +98,7 @@ namespace System
                 return false;
             }
 
-            Contract.Assert(dtfi != null, "dtfi == null");
-            return DoStrictParse(s, format, style, dtfi, ref result);
+                        return DoStrictParse(s, format, style, dtfi, ref result);
         }
 
         internal static DateTime ParseExactMultiple(String s, String[] formats, DateTimeFormatInfo dtfi, DateTimeStyles style)
@@ -190,8 +189,7 @@ namespace System
                 return false;
             }
 
-            Contract.Assert(dtfi != null, "dtfi == null");
-            for (int i = 0; i < formats.Length; i++)
+                        for (int i = 0; i < formats.Length; i++)
             {
                 if (formats[i] == null || formats[i].Length == 0)
                 {
@@ -415,9 +413,7 @@ namespace System
                 return false;
             }
 
-            Contract.Assert(hourOffset >= 0 && hourOffset <= 99, "hourOffset >= 0 && hourOffset <= 99");
-            Contract.Assert(minuteOffset >= 0 && minuteOffset <= 99, "minuteOffset >= 0 && minuteOffset <= 99");
-            if (minuteOffset < 0 || minuteOffset >= 60)
+                                    if (minuteOffset < 0 || minuteOffset >= 60)
             {
                 return false;
             }
@@ -1758,8 +1754,7 @@ namespace System
 
         private static Boolean GetTimeOfNN(DateTimeFormatInfo dtfi, ref DateTimeResult result, ref DateTimeRawInfo raw)
         {
-            Contract.Assert(raw.numCount >= 2, "raw.numCount >= 2");
-            if ((result.flags & ParseFlags.HaveTime) != 0)
+                        if ((result.flags & ParseFlags.HaveTime) != 0)
             {
                 result.SetFailure(ParseFailureKind.Format, "Format_BadDateTime", null);
                 return false;
@@ -1779,8 +1774,7 @@ namespace System
                 return false;
             }
 
-            Contract.Assert(raw.numCount >= 3, "raw.numCount >= 3");
-            result.Hour = raw.GetNumber(0);
+                        result.Hour = raw.GetNumber(0);
             result.Minute = raw.GetNumber(1);
             result.Second = raw.GetNumber(2);
             result.flags |= ParseFlags.HaveTime;
@@ -2174,8 +2168,7 @@ namespace System
                 return false;
             }
 
-            Contract.Assert(dtfi != null, "dtfi == null");
-            DTFITrace(dtfi);
+                        DTFITrace(dtfi);
             DateTime time;
             DS dps = DS.BEGIN;
             bool reachTerminalState = false;
@@ -2399,8 +2392,7 @@ namespace System
                 }
                 else
                 {
-                    Contract.Assert(result.parsedDate.Kind == DateTimeKind.Unspecified, "result.parsedDate.Kind == DateTimeKind.Unspecified");
-                    return true;
+                                        return true;
                 }
             }
 
@@ -2678,10 +2670,7 @@ namespace System
 
         internal static bool ParseDigits(ref __DTString str, int minDigitLen, int maxDigitLen, out int result)
         {
-            Contract.Assert(minDigitLen > 0, "minDigitLen > 0");
-            Contract.Assert(maxDigitLen < 9, "maxDigitLen < 9");
-            Contract.Assert(minDigitLen <= maxDigitLen, "minDigitLen <= maxDigitLen");
-            result = 0;
+                                                result = 0;
             int startingIndex = str.Index;
             int tokenLength = 0;
             while (tokenLength < maxDigitLen)
@@ -3911,8 +3900,7 @@ namespace System
                 case ParseFailureKind.FormatBadDateTimeCalendar:
                     return new FormatException(Environment.GetResourceString(result.failureMessageID, result.calendar));
                 default:
-                    Contract.Assert(false, "Unkown DateTimeParseFailure: " + result);
-                    return null;
+                                        return null;
             }
         }
 
@@ -4089,8 +4077,7 @@ namespace System
 
         internal bool Advance(int count)
         {
-            Contract.Assert(Index + count <= len, "__DTString::Advance: Index + count <= len");
-            Index += count;
+                        Index += count;
             if (Index < len)
             {
                 m_current = Value[Index];
@@ -4395,15 +4382,12 @@ namespace System
 
         internal char GetChar()
         {
-            Contract.Assert(Index >= 0 && Index < len, "Index >= 0 && Index < len");
-            return (Value[Index]);
+                        return (Value[Index]);
         }
 
         internal int GetDigit()
         {
-            Contract.Assert(Index >= 0 && Index < len, "Index >= 0 && Index < len");
-            Contract.Assert(DateTimeParse.IsDigit(Value[Index]), "IsDigit(Value[Index])");
-            return (Value[Index] - '0');
+                                    return (Value[Index] - '0');
         }
 
         internal void SkipWhiteSpaces()
@@ -4547,8 +4531,7 @@ namespace System
                     }
 
                     int number = ch - '0';
-                    Contract.Assert(number >= 0 && number <= 9, "number >= 0 && number <= 9");
-                    sub.value = sub.value * 10 + number;
+                                        sub.value = sub.value * 10 + number;
                 }
                 else
                 {
@@ -4567,9 +4550,7 @@ namespace System
 
         internal void ConsumeSubString(DTSubString sub)
         {
-            Contract.Assert(sub.index == Index, "sub.index == Index");
-            Contract.Assert(sub.index + sub.length <= len, "sub.index + sub.length <= len");
-            Index = sub.index + sub.length;
+                                    Index = sub.index + sub.length;
             if (Index < len)
             {
                 m_current = Value[Index];

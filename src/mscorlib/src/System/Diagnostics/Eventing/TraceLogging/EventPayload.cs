@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Diagnostics.Tracing
 {
@@ -8,8 +7,7 @@ namespace System.Diagnostics.Tracing
     {
         internal EventPayload(List<string> payloadNames, List<object> payloadValues)
         {
-            Contract.Assert(payloadNames.Count == payloadValues.Count);
-            m_names = payloadNames;
+                        m_names = payloadNames;
             m_values = payloadValues;
         }
 

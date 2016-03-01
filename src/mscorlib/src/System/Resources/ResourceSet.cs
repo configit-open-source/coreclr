@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.IO;
 
 namespace System.Resources
@@ -36,8 +35,7 @@ namespace System.Resources
         {
             if (reader == null)
                 throw new ArgumentNullException("reader");
-            Contract.EndContractBlock();
-            Reader = reader;
+                        Reader = reader;
             CommonInit();
             ReadResources();
         }
@@ -165,8 +163,7 @@ namespace System.Resources
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            Hashtable copyOfTable = Table;
+                        Hashtable copyOfTable = Table;
             if (copyOfTable == null)
                 throw new ObjectDisposedException(null, Environment.GetResourceString("ObjectDisposed_ResourceSet"));
             return copyOfTable[name];

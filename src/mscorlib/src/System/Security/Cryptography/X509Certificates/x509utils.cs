@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -95,8 +95,7 @@ namespace System.Security.Cryptography.X509Certificates
 
         private static CRYPT_OID_INFO FindOidInfo(OidKeyType keyType, string key, OidGroup group)
         {
-            Contract.Requires(key != null);
-            IntPtr rawKey = IntPtr.Zero;
+                        IntPtr rawKey = IntPtr.Zero;
             RuntimeHelpers.PrepareConstrainedRegions();
             try
             {
@@ -147,8 +146,7 @@ namespace System.Security.Cryptography.X509Certificates
 
         internal static int GetAlgIdFromOid(string oid, OidGroup oidGroup)
         {
-            Contract.Requires(oid != null);
-            if (String.Equals(oid, Constants.OID_OIWSEC_SHA256, StringComparison.Ordinal))
+                        if (String.Equals(oid, Constants.OID_OIWSEC_SHA256, StringComparison.Ordinal))
             {
                 return Constants.CALG_SHA_256;
             }
@@ -168,15 +166,13 @@ namespace System.Security.Cryptography.X509Certificates
 
         internal static string GetFriendlyNameFromOid(string oid, OidGroup oidGroup)
         {
-            Contract.Requires(oid != null);
-            CRYPT_OID_INFO oidInfo = FindOidInfo(OidKeyType.Oid, oid, oidGroup);
+                        CRYPT_OID_INFO oidInfo = FindOidInfo(OidKeyType.Oid, oid, oidGroup);
             return oidInfo.pwszName;
         }
 
         internal static string GetOidFromFriendlyName(string friendlyName, OidGroup oidGroup)
         {
-            Contract.Requires(friendlyName != null);
-            CRYPT_OID_INFO oidInfo = FindOidInfo(OidKeyType.Name, friendlyName, oidGroup);
+                        CRYPT_OID_INFO oidInfo = FindOidInfo(OidKeyType.Name, friendlyName, oidGroup);
             return oidInfo.pszOID;
         }
 

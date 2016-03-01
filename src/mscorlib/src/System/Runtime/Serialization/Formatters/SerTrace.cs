@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 
 namespace System.Runtime.Serialization.Formatters
@@ -43,8 +43,7 @@ namespace System.Runtime.Serialization.Formatters
 
         public static void SoapAssert(bool condition, String message)
         {
-            Contract.Assert(condition, message);
-        }
+                    }
 
         public static void SerializationSetValue(FieldInfo fi, Object target, Object value)
         {
@@ -54,8 +53,7 @@ namespace System.Runtime.Serialization.Formatters
                 throw new ArgumentNullException("target");
             if (value == null)
                 throw new ArgumentNullException("value");
-            Contract.EndContractBlock();
-            FormatterServices.SerializationSetValue(fi, target, value);
+                        FormatterServices.SerializationSetValue(fi, target, value);
         }
 
         public static Assembly LoadAssemblyFromString(String assemblyString)

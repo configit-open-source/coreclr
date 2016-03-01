@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Text
@@ -62,8 +62,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("CharUnknownLow", Environment.GetResourceString("ArgumentOutOfRange_Range", 0xDC00, 0xDFFF));
             }
 
-            Contract.EndContractBlock();
-            int iTemp = Char.ConvertToUtf32(charUnknownHigh, charUnknownLow);
+                        int iTemp = Char.ConvertToUtf32(charUnknownHigh, charUnknownLow);
             throw new EncoderFallbackException(Environment.GetResourceString("Argument_InvalidCodePageConversionIndex", iTemp, index), charUnknownHigh, charUnknownLow, index);
         }
 
@@ -129,8 +128,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("CharUnknownLow", Environment.GetResourceString("ArgumentOutOfRange_Range", 0xDC00, 0xDFFF));
             }
 
-            Contract.EndContractBlock();
-            this.charUnknownHigh = charUnknownHigh;
+                        this.charUnknownHigh = charUnknownHigh;
             this.charUnknownLow = charUnknownLow;
             this.index = index;
         }

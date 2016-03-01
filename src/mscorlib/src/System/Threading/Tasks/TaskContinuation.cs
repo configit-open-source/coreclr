@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -10,19 +10,16 @@ namespace System.Threading.Tasks
         private Task m_antecedent;
         public ContinuationTaskFromTask(Task antecedent, Delegate action, object state, TaskCreationOptions creationOptions, InternalTaskOptions internalOptions, ref StackCrawlMark stackMark): base (action, state, Task.InternalCurrentIfAttached(creationOptions), default (CancellationToken), creationOptions, internalOptions, null)
         {
-            Contract.Requires(action is Action<Task> || action is Action<Task, object>, "Invalid delegate type in ContinuationTaskFromTask");
-            m_antecedent = antecedent;
+                        m_antecedent = antecedent;
             PossiblyCaptureContext(ref stackMark);
         }
 
         internal override void InnerInvoke()
         {
             var antecedent = m_antecedent;
-            Contract.Assert(antecedent != null, "No antecedent was set for the ContinuationTaskFromTask.");
-            m_antecedent = null;
+                        m_antecedent = null;
             antecedent.NotifyDebuggerOfWaitCompletionIfNecessary();
-            Contract.Assert(m_action != null);
-            var action = m_action as Action<Task>;
+                        var action = m_action as Action<Task>;
             if (action != null)
             {
                 action(antecedent);
@@ -36,8 +33,7 @@ namespace System.Threading.Tasks
                 return;
             }
 
-            Contract.Assert(false, "Invalid m_action in ContinuationTaskFromTask");
-        }
+                    }
     }
 
     internal sealed class ContinuationResultTaskFromTask<TResult> : Task<TResult>
@@ -45,19 +41,16 @@ namespace System.Threading.Tasks
         private Task m_antecedent;
         public ContinuationResultTaskFromTask(Task antecedent, Delegate function, object state, TaskCreationOptions creationOptions, InternalTaskOptions internalOptions, ref StackCrawlMark stackMark): base (function, state, Task.InternalCurrentIfAttached(creationOptions), default (CancellationToken), creationOptions, internalOptions, null)
         {
-            Contract.Requires(function is Func<Task, TResult> || function is Func<Task, object, TResult>, "Invalid delegate type in ContinuationResultTaskFromTask");
-            m_antecedent = antecedent;
+                        m_antecedent = antecedent;
             PossiblyCaptureContext(ref stackMark);
         }
 
         internal override void InnerInvoke()
         {
             var antecedent = m_antecedent;
-            Contract.Assert(antecedent != null, "No antecedent was set for the ContinuationResultTaskFromTask.");
-            m_antecedent = null;
+                        m_antecedent = null;
             antecedent.NotifyDebuggerOfWaitCompletionIfNecessary();
-            Contract.Assert(m_action != null);
-            var func = m_action as Func<Task, TResult>;
+                        var func = m_action as Func<Task, TResult>;
             if (func != null)
             {
                 m_result = func(antecedent);
@@ -71,8 +64,7 @@ namespace System.Threading.Tasks
                 return;
             }
 
-            Contract.Assert(false, "Invalid m_action in ContinuationResultTaskFromTask");
-        }
+                    }
     }
 
     internal sealed class ContinuationTaskFromResultTask<TAntecedentResult> : Task
@@ -80,19 +72,16 @@ namespace System.Threading.Tasks
         private Task<TAntecedentResult> m_antecedent;
         public ContinuationTaskFromResultTask(Task<TAntecedentResult> antecedent, Delegate action, object state, TaskCreationOptions creationOptions, InternalTaskOptions internalOptions, ref StackCrawlMark stackMark): base (action, state, Task.InternalCurrentIfAttached(creationOptions), default (CancellationToken), creationOptions, internalOptions, null)
         {
-            Contract.Requires(action is Action<Task<TAntecedentResult>> || action is Action<Task<TAntecedentResult>, object>, "Invalid delegate type in ContinuationTaskFromResultTask");
-            m_antecedent = antecedent;
+                        m_antecedent = antecedent;
             PossiblyCaptureContext(ref stackMark);
         }
 
         internal override void InnerInvoke()
         {
             var antecedent = m_antecedent;
-            Contract.Assert(antecedent != null, "No antecedent was set for the ContinuationTaskFromResultTask.");
-            m_antecedent = null;
+                        m_antecedent = null;
             antecedent.NotifyDebuggerOfWaitCompletionIfNecessary();
-            Contract.Assert(m_action != null);
-            var action = m_action as Action<Task<TAntecedentResult>>;
+                        var action = m_action as Action<Task<TAntecedentResult>>;
             if (action != null)
             {
                 action(antecedent);
@@ -106,8 +95,7 @@ namespace System.Threading.Tasks
                 return;
             }
 
-            Contract.Assert(false, "Invalid m_action in ContinuationTaskFromResultTask");
-        }
+                    }
     }
 
     internal sealed class ContinuationResultTaskFromResultTask<TAntecedentResult, TResult> : Task<TResult>
@@ -115,19 +103,16 @@ namespace System.Threading.Tasks
         private Task<TAntecedentResult> m_antecedent;
         public ContinuationResultTaskFromResultTask(Task<TAntecedentResult> antecedent, Delegate function, object state, TaskCreationOptions creationOptions, InternalTaskOptions internalOptions, ref StackCrawlMark stackMark): base (function, state, Task.InternalCurrentIfAttached(creationOptions), default (CancellationToken), creationOptions, internalOptions, null)
         {
-            Contract.Requires(function is Func<Task<TAntecedentResult>, TResult> || function is Func<Task<TAntecedentResult>, object, TResult>, "Invalid delegate type in ContinuationResultTaskFromResultTask");
-            m_antecedent = antecedent;
+                        m_antecedent = antecedent;
             PossiblyCaptureContext(ref stackMark);
         }
 
         internal override void InnerInvoke()
         {
             var antecedent = m_antecedent;
-            Contract.Assert(antecedent != null, "No antecedent was set for the ContinuationResultTaskFromResultTask.");
-            m_antecedent = null;
+                        m_antecedent = null;
             antecedent.NotifyDebuggerOfWaitCompletionIfNecessary();
-            Contract.Assert(m_action != null);
-            var func = m_action as Func<Task<TAntecedentResult>, TResult>;
+                        var func = m_action as Func<Task<TAntecedentResult>, TResult>;
             if (func != null)
             {
                 m_result = func(antecedent);
@@ -141,8 +126,7 @@ namespace System.Threading.Tasks
                 return;
             }
 
-            Contract.Assert(false, "Invalid m_action in ContinuationResultTaskFromResultTask");
-        }
+                    }
     }
 
     internal abstract class TaskContinuation
@@ -150,9 +134,7 @@ namespace System.Threading.Tasks
         internal abstract void Run(Task completedTask, bool bCanInlineContinuationTask);
         protected static void InlineIfPossibleOrElseQueue(Task task, bool needsProtection)
         {
-            Contract.Requires(task != null);
-            Contract.Assert(task.m_taskScheduler != null);
-            if (needsProtection)
+                                    if (needsProtection)
             {
                 if (!task.MarkStarted())
                     return;
@@ -190,9 +172,7 @@ namespace System.Threading.Tasks
         private readonly TaskScheduler m_taskScheduler;
         internal StandardTaskContinuation(Task task, TaskContinuationOptions options, TaskScheduler scheduler)
         {
-            Contract.Requires(task != null, "TaskContinuation ctor: task is null");
-            Contract.Requires(scheduler != null, "TaskContinuation ctor: scheduler is null");
-            m_task = task;
+                                    m_task = task;
             m_options = options;
             m_taskScheduler = scheduler;
             if (AsyncCausalityTracer.LoggingOn)
@@ -205,9 +185,7 @@ namespace System.Threading.Tasks
 
         internal override void Run(Task completedTask, bool bCanInlineContinuationTask)
         {
-            Contract.Assert(completedTask != null);
-            Contract.Assert(completedTask.IsCompleted, "ContinuationTask.Run(): completedTask not completed");
-            TaskContinuationOptions options = m_options;
+                                    TaskContinuationOptions options = m_options;
             bool isRightKind = completedTask.IsRanToCompletion ? (options & TaskContinuationOptions.NotOnRanToCompletion) == 0 : (completedTask.IsCanceled ? (options & TaskContinuationOptions.NotOnCanceled) == 0 : (options & TaskContinuationOptions.NotOnFaulted) == 0);
             Task continuationTask = m_task;
             if (isRightKind)
@@ -255,8 +233,7 @@ namespace System.Threading.Tasks
         private readonly SynchronizationContext m_syncContext;
         internal SynchronizationContextAwaitTaskContinuation(SynchronizationContext context, Action action, bool flowExecutionContext, ref StackCrawlMark stackMark): base (action, flowExecutionContext, ref stackMark)
         {
-            Contract.Assert(context != null);
-            m_syncContext = context;
+                        m_syncContext = context;
         }
 
         internal sealed override void Run(Task task, bool canInlineContinuationTask)
@@ -329,8 +306,7 @@ namespace System.Threading.Tasks
         private readonly TaskScheduler m_scheduler;
         internal TaskSchedulerAwaitTaskContinuation(TaskScheduler scheduler, Action action, bool flowExecutionContext, ref StackCrawlMark stackMark): base (action, flowExecutionContext, ref stackMark)
         {
-            Contract.Assert(scheduler != null);
-            m_scheduler = scheduler;
+                        m_scheduler = scheduler;
         }
 
         internal sealed override void Run(Task ignored, bool canInlineContinuationTask)
@@ -380,8 +356,7 @@ namespace System.Threading.Tasks
         protected int m_continuationId;
         internal AwaitTaskContinuation(Action action, bool flowExecutionContext, ref StackCrawlMark stackMark)
         {
-            Contract.Requires(action != null);
-            m_action = action;
+                        m_action = action;
             if (flowExecutionContext)
             {
                 m_capturedContext = ExecutionContext.Capture(ref stackMark, ExecutionContext.CaptureOptions.IgnoreSyncCtx | ExecutionContext.CaptureOptions.OptimizeDefaultCase);
@@ -390,8 +365,7 @@ namespace System.Threading.Tasks
 
         internal AwaitTaskContinuation(Action action, bool flowExecutionContext)
         {
-            Contract.Requires(action != null);
-            m_action = action;
+                        m_action = action;
             if (flowExecutionContext)
             {
                 m_capturedContext = ExecutionContext.FastCapture();
@@ -400,9 +374,7 @@ namespace System.Threading.Tasks
 
         protected Task CreateTask(Action<object> action, object state, TaskScheduler scheduler)
         {
-            Contract.Requires(action != null);
-            Contract.Requires(scheduler != null);
-            return new Task(action, state, null, default (CancellationToken), TaskCreationOptions.None, InternalTaskOptions.QueuedByRuntime, scheduler)
+                                    return new Task(action, state, null, default (CancellationToken), TaskCreationOptions.None, InternalTaskOptions.QueuedByRuntime, scheduler)
             {CapturedContext = m_capturedContext};
         }
 
@@ -509,9 +481,7 @@ namespace System.Threading.Tasks
 
         protected void RunCallback(ContextCallback callback, object state, ref Task currentTask)
         {
-            Contract.Requires(callback != null);
-            Contract.Assert(currentTask == Task.t_currentTask);
-            var prevCurrentTask = currentTask;
+                                    var prevCurrentTask = currentTask;
             try
             {
                 if (prevCurrentTask != null)
@@ -536,8 +506,7 @@ namespace System.Threading.Tasks
 
         internal static void RunOrScheduleAction(Action action, bool allowInlining, ref Task currentTask)
         {
-            Contract.Assert(currentTask == Task.t_currentTask);
-            if (!allowInlining || !IsValidLocationForInlining)
+                        if (!allowInlining || !IsValidLocationForInlining)
             {
                 UnsafeScheduleAction(action, currentTask);
                 return;
@@ -588,8 +557,7 @@ namespace System.Threading.Tasks
 
         internal override Delegate[] GetDelegateContinuationsForDebugger()
         {
-            Contract.Assert(m_action != null);
-            return new Delegate[]{AsyncMethodBuilderCore.TryGetStateMachineForDebugger(m_action)};
+                        return new Delegate[]{AsyncMethodBuilderCore.TryGetStateMachineForDebugger(m_action)};
         }
     }
 }

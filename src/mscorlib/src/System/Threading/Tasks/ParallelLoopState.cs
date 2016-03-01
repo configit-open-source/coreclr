@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Threading.Tasks
 {
@@ -14,8 +14,7 @@ namespace System.Threading.Tasks
         {
             get
             {
-                Contract.Assert(false);
-                throw new NotSupportedException(Environment.GetResourceString("ParallelState_NotSupportedException_UnsupportedMethod"));
+                                throw new NotSupportedException(Environment.GetResourceString("ParallelState_NotSupportedException_UnsupportedMethod"));
             }
         }
 
@@ -47,8 +46,7 @@ namespace System.Threading.Tasks
         {
             get
             {
-                Contract.Assert(false);
-                throw new NotSupportedException(Environment.GetResourceString("ParallelState_NotSupportedException_UnsupportedMethod"));
+                                throw new NotSupportedException(Environment.GetResourceString("ParallelState_NotSupportedException_UnsupportedMethod"));
             }
         }
 
@@ -67,8 +65,7 @@ namespace System.Threading.Tasks
 
         internal virtual void InternalBreak()
         {
-            Contract.Assert(false);
-            throw new NotSupportedException(Environment.GetResourceString("ParallelState_NotSupportedException_UnsupportedMethod"));
+                        throw new NotSupportedException(Environment.GetResourceString("ParallelState_NotSupportedException_UnsupportedMethod"));
         }
 
         public void Break()

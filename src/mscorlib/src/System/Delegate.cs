@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Threading;
@@ -17,8 +17,7 @@ namespace System
                 throw new ArgumentNullException("target");
             if (method == null)
                 throw new ArgumentNullException("method");
-            Contract.EndContractBlock();
-            if (!BindToMethodName(target, (RuntimeType)target.GetType(), method, DelegateBindingFlags.InstanceMethodOnly | DelegateBindingFlags.ClosedDelegateOnly))
+                        if (!BindToMethodName(target, (RuntimeType)target.GetType(), method, DelegateBindingFlags.InstanceMethodOnly | DelegateBindingFlags.ClosedDelegateOnly))
                 throw new ArgumentException(Environment.GetResourceString("Arg_DlgtTargMeth"));
         }
 
@@ -30,8 +29,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Arg_UnboundGenParam"), "target");
             if (method == null)
                 throw new ArgumentNullException("method");
-            Contract.EndContractBlock();
-            RuntimeType rtTarget = target as RuntimeType;
+                        RuntimeType rtTarget = target as RuntimeType;
             if (rtTarget == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeType"), "target");
             BindToMethodName(null, rtTarget, method, DelegateBindingFlags.StaticMethodOnly | DelegateBindingFlags.OpenDelegateOnly | DelegateBindingFlags.CaselessMatching);
@@ -235,8 +233,7 @@ namespace System
                 throw new ArgumentNullException("target");
             if (method == null)
                 throw new ArgumentNullException("method");
-            Contract.EndContractBlock();
-            RuntimeType rtType = type as RuntimeType;
+                        RuntimeType rtType = type as RuntimeType;
             if (rtType == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeType"), "type");
             if (!rtType.IsDelegate())
@@ -274,8 +271,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Arg_UnboundGenParam"), "target");
             if (method == null)
                 throw new ArgumentNullException("method");
-            Contract.EndContractBlock();
-            RuntimeType rtType = type as RuntimeType;
+                        RuntimeType rtType = type as RuntimeType;
             RuntimeType rtTarget = target as RuntimeType;
             if (rtType == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeType"), "type");
@@ -302,8 +298,7 @@ namespace System
                 throw new ArgumentNullException("type");
             if (method == null)
                 throw new ArgumentNullException("method");
-            Contract.EndContractBlock();
-            RuntimeType rtType = type as RuntimeType;
+                        RuntimeType rtType = type as RuntimeType;
             if (rtType == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeType"), "type");
             RuntimeMethodInfo rmi = method as RuntimeMethodInfo;
@@ -329,8 +324,7 @@ namespace System
                 throw new ArgumentNullException("type");
             if (method == null)
                 throw new ArgumentNullException("method");
-            Contract.EndContractBlock();
-            RuntimeType rtType = type as RuntimeType;
+                        RuntimeType rtType = type as RuntimeType;
             if (rtType == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeType"), "type");
             RuntimeMethodInfo rmi = method as RuntimeMethodInfo;
@@ -368,8 +362,7 @@ namespace System
         {
             if (type == null)
                 throw new ArgumentNullException("type");
-            Contract.EndContractBlock();
-            if (method.IsNullHandle())
+                        if (method.IsNullHandle())
                 throw new ArgumentNullException("method");
             RuntimeType rtType = type as RuntimeType;
             if (rtType == null)
@@ -388,8 +381,7 @@ namespace System
                 throw new ArgumentNullException("type");
             if (method == null)
                 throw new ArgumentNullException("method");
-            Contract.EndContractBlock();
-            RuntimeMethodInfo rtMethod = method as RuntimeMethodInfo;
+                        RuntimeMethodInfo rtMethod = method as RuntimeMethodInfo;
             if (rtMethod == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeMethodInfo"), "method");
             if (!type.IsDelegate())
@@ -407,8 +399,7 @@ namespace System
 
         internal static Delegate CreateDelegateInternal(RuntimeType rtType, RuntimeMethodInfo rtMethod, Object firstArgument, DelegateBindingFlags flags, ref StackCrawlMark stackMark)
         {
-            Contract.Assert((flags & DelegateBindingFlags.SkipSecurityChecks) == 0);
-            bool nonW8PMethod = (rtMethod.InvocationFlags & INVOCATION_FLAGS.INVOCATION_FLAGS_NON_W8P_FX_API) != 0;
+                        bool nonW8PMethod = (rtMethod.InvocationFlags & INVOCATION_FLAGS.INVOCATION_FLAGS_NON_W8P_FX_API) != 0;
             bool nonW8PType = (rtType.InvocationFlags & INVOCATION_FLAGS.INVOCATION_FLAGS_NON_W8P_FX_API) != 0;
             if (nonW8PMethod || nonW8PType)
             {

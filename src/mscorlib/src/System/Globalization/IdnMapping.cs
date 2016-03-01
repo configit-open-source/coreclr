@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -51,8 +51,7 @@ namespace System.Globalization
         {
             if (unicode == null)
                 throw new ArgumentNullException("unicode");
-            Contract.EndContractBlock();
-            return GetAscii(unicode, index, unicode.Length - index);
+                        return GetAscii(unicode, index, unicode.Length - index);
         }
 
         public String GetAscii(String unicode, int index, int count)
@@ -65,8 +64,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("byteIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
             if (index > unicode.Length - count)
                 throw new ArgumentOutOfRangeException("unicode", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
-            Contract.EndContractBlock();
-            unicode = unicode.Substring(index, count);
+                        unicode = unicode.Substring(index, count);
             if (Environment.IsWindows8OrAbove)
             {
                 return GetAsciiUsingOS(unicode);
@@ -77,8 +75,7 @@ namespace System.Globalization
                 return unicode;
             }
 
-            Contract.Assert(unicode.Length >= 1, "[IdnMapping.GetAscii]Expected 0 length strings to fail before now.");
-            if (unicode[unicode.Length - 1] <= 0x1f)
+                        if (unicode[unicode.Length - 1] <= 0x1f)
             {
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidCharSequence", unicode.Length - 1), "unicode");
             }
@@ -149,8 +146,7 @@ namespace System.Globalization
         {
             if (ascii == null)
                 throw new ArgumentNullException("ascii");
-            Contract.EndContractBlock();
-            return GetUnicode(ascii, index, ascii.Length - index);
+                        return GetUnicode(ascii, index, ascii.Length - index);
         }
 
         public String GetUnicode(String ascii, int index, int count)
@@ -165,8 +161,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("ascii", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
             if (count > 0 && ascii[index + count - 1] == (char)0)
                 throw new ArgumentException("ascii", Environment.GetResourceString("Argument_IdnBadPunycode"));
-            Contract.EndContractBlock();
-            ascii = ascii.Substring(index, count);
+                        ascii = ascii.Substring(index, count);
             if (Environment.IsWindows8OrAbove)
             {
                 return GetUnicodeUsingOS(ascii);
@@ -240,8 +235,7 @@ namespace System.Globalization
         {
             if (unicode.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_IdnBadLabelSize"), "unicode");
-            Contract.EndContractBlock();
-            int iLastDot = -1;
+                        int iLastDot = -1;
             for (int i = 0; i < unicode.Length; i++)
             {
                 if (unicode[i] <= 0x1f)
@@ -315,8 +309,7 @@ namespace System.Globalization
 
         static char encode_digit(int d)
         {
-            Contract.Assert(d >= 0 && d < punycodeBase, "[IdnMapping.encode_digit]Expected 0 <= d < punycodeBase");
-            if (d > 25)
+                        if (d > 25)
                 return (char)(d - 26 + '0');
             return (char)(d + 'a');
         }
@@ -333,31 +326,27 @@ namespace System.Globalization
         {
             uint k;
             delta = firsttime ? delta / damp : delta / 2;
-            Contract.Assert(numpoints != 0, "[IdnMapping.adapt]Expected non-zero numpoints.");
-            delta += delta / numpoints;
+                        delta += delta / numpoints;
             for (k = 0; delta > ((punycodeBase - tmin) * tmax) / 2; k += punycodeBase)
             {
                 delta /= punycodeBase - tmin;
             }
 
-            Contract.Assert(delta + skew != 0, "[IdnMapping.adapt]Expected non-zero delta+skew.");
-            return (int)(k + (punycodeBase - tmin + 1) * delta / (delta + skew));
+                        return (int)(k + (punycodeBase - tmin + 1) * delta / (delta + skew));
         }
 
         static String punycode_encode(String unicode)
         {
             if (unicode.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_IdnBadLabelSize"), "unicode");
-            Contract.EndContractBlock();
-            StringBuilder output = new StringBuilder(unicode.Length);
+                        StringBuilder output = new StringBuilder(unicode.Length);
             int iNextDot = 0;
             int iAfterLastDot = 0;
             int iOutputAfterLastDot = 0;
             while (iNextDot < unicode.Length)
             {
                 iNextDot = unicode.IndexOfAny(M_Dots, iAfterLastDot);
-                Contract.Assert(iNextDot <= unicode.Length, "[IdnMapping.punycode_encode]IndexOfAny is broken");
-                if (iNextDot < 0)
+                                if (iNextDot < 0)
                     iNextDot = unicode.Length;
                 if (iNextDot == iAfterLastDot)
                 {
@@ -389,8 +378,7 @@ namespace System.Globalization
                 int numProcessed = 0;
                 for (basicCount = iAfterLastDot; basicCount < iNextDot; basicCount++)
                 {
-                    Contract.Assert(Char.IsLowSurrogate(unicode, basicCount) == false, "[IdnMapping.punycode_encode]Unexpected low surrogate");
-                    BidiCategory testBidi = CharUnicodeInfo.GetBidiCategory(unicode, basicCount);
+                                        BidiCategory testBidi = CharUnicodeInfo.GetBidiCategory(unicode, basicCount);
                     if (bRightToLeft && testBidi == BidiCategory.LeftToRight)
                     {
                         throw new ArgumentException(Environment.GetResourceString("Argument_IdnBadBidi"), "unicode");
@@ -441,16 +429,14 @@ namespace System.Globalization
                         }
 
                         delta += (int)((m - n) * ((numProcessed - numSurrogatePairs) + 1));
-                        Contract.Assert(delta > 0, "[IdnMapping.cs]1 punycode_encode - delta overflowed int");
-                        n = m;
+                                                n = m;
                         for (j = iAfterLastDot; j < iNextDot; j += IsSupplementary(test) ? 2 : 1)
                         {
                             test = Char.ConvertToUtf32(unicode, j);
                             if (test < n)
                             {
                                 delta++;
-                                Contract.Assert(delta > 0, "[IdnMapping.cs]2 punycode_encode - delta overflowed int");
-                            }
+                                                            }
 
                             if (test == n)
                             {
@@ -460,8 +446,7 @@ namespace System.Globalization
                                     int t = k <= bias ? tmin : k >= bias + tmax ? tmax : k - bias;
                                     if (q < t)
                                         break;
-                                    Contract.Assert(punycodeBase != t, "[IdnMapping.punycode_encode]Expected punycodeBase (36) to be != t");
-                                    output.Append(encode_digit(t + (q - t) % (punycodeBase - t)));
+                                                                        output.Append(encode_digit(t + (q - t) % (punycodeBase - t)));
                                     q = (q - t) / (punycodeBase - t);
                                 }
 
@@ -479,8 +464,7 @@ namespace System.Globalization
 
                         ++delta;
                         ++n;
-                        Contract.Assert(delta > 0, "[IdnMapping.cs]3 punycode_encode - delta overflowed int");
-                    }
+                                            }
                 }
 
                 if (output.Length - iOutputAfterLastDot > M_labelLimit)
@@ -500,8 +484,7 @@ namespace System.Globalization
         {
             if (ascii.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_IdnBadLabelSize"), "ascii");
-            Contract.EndContractBlock();
-            if (ascii.Length > M_defaultNameLimit - (IsDot(ascii[ascii.Length - 1]) ? 0 : 1))
+                        if (ascii.Length > M_defaultNameLimit - (IsDot(ascii[ascii.Length - 1]) ? 0 : 1))
                 throw new ArgumentException(Environment.GetResourceString("Argument_IdnBadNameSize", M_defaultNameLimit - (IsDot(ascii[ascii.Length - 1]) ? 0 : 1)), "ascii");
             StringBuilder output = new StringBuilder(ascii.Length);
             int iNextDot = 0;
@@ -559,22 +542,19 @@ namespace System.Globalization
                             if (asciiIndex >= iNextDot)
                                 throw new ArgumentException(Environment.GetResourceString("Argument_IdnBadPunycode"), "ascii");
                             int digit = decode_digit(ascii[asciiIndex++]);
-                            Contract.Assert(w > 0, "[IdnMapping.punycode_decode]Expected w > 0");
-                            if (digit > (maxint - i) / w)
+                                                        if (digit > (maxint - i) / w)
                                 throw new ArgumentException(Environment.GetResourceString("Argument_IdnBadPunycode"), "ascii");
                             i += (int)(digit * w);
                             int t = k <= bias ? tmin : k >= bias + tmax ? tmax : k - bias;
                             if (digit < t)
                                 break;
-                            Contract.Assert(punycodeBase != t, "[IdnMapping.punycode_decode]Expected t != punycodeBase (36)");
-                            if (w > maxint / (punycodeBase - t))
+                                                        if (w > maxint / (punycodeBase - t))
                                 throw new ArgumentException(Environment.GetResourceString("Argument_IdnBadPunycode"), "ascii");
                             w *= (punycodeBase - t);
                         }
 
                         bias = adapt(i - oldi, (output.Length - iOutputAfterLastDot - numSurrogatePairs) + 1, oldi == 0);
-                        Contract.Assert((output.Length - iOutputAfterLastDot - numSurrogatePairs) + 1 > 0, "[IdnMapping.punycode_decode]Expected to have added > 0 characters this segment");
-                        if (i / ((output.Length - iOutputAfterLastDot - numSurrogatePairs) + 1) > maxint - n)
+                                                if (i / ((output.Length - iOutputAfterLastDot - numSurrogatePairs) + 1) > maxint - n)
                             throw new ArgumentException(Environment.GetResourceString("Argument_IdnBadPunycode"), "ascii");
                         n += (int)(i / (output.Length - iOutputAfterLastDot - numSurrogatePairs + 1));
                         i %= (output.Length - iOutputAfterLastDot - numSurrogatePairs + 1);

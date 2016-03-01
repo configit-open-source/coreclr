@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Versioning;
 
 namespace System.Threading.Tasks
@@ -144,8 +144,7 @@ namespace System.Threading.Tasks
 
         private static void FromAsyncCoreLogic(IAsyncResult iar, Func<IAsyncResult, TResult> endFunction, Action<IAsyncResult> endAction, Task<TResult> promise, bool requiresSynchronization)
         {
-            Contract.Requires((endFunction != null) != (endAction != null), "Expected exactly one of endFunction/endAction to be non-null");
-            Exception ex = null;
+                        Exception ex = null;
             OperationCanceledException oce = null;
             TResult result = default (TResult);
             try
@@ -226,11 +225,9 @@ namespace System.Threading.Tasks
                 throw new ArgumentNullException("asyncResult");
             if (endFunction == null && endAction == null)
                 throw new ArgumentNullException("endMethod");
-            Contract.Requires((endFunction != null) != (endAction != null), "Both endFunction and endAction were non-null");
-            if (scheduler == null)
+                        if (scheduler == null)
                 throw new ArgumentNullException("scheduler");
-            Contract.EndContractBlock();
-            TaskFactory.CheckFromAsyncOptions(creationOptions, false);
+                        TaskFactory.CheckFromAsyncOptions(creationOptions, false);
             Task<TResult> promise = new Task<TResult>((object)null, creationOptions);
             if (AsyncCausalityTracer.LoggingOn)
                 AsyncCausalityTracer.TraceOperationCreation(CausalityTraceLevel.Required, promise.Id, "TaskFactory.FromAsync", 0);
@@ -299,8 +296,7 @@ namespace System.Threading.Tasks
                 throw new ArgumentNullException("beginMethod");
             if (endFunction == null && endAction == null)
                 throw new ArgumentNullException("endMethod");
-            Contract.Requires((endFunction != null) != (endAction != null), "Both endFunction and endAction were non-null");
-            TaskFactory.CheckFromAsyncOptions(creationOptions, true);
+                        TaskFactory.CheckFromAsyncOptions(creationOptions, true);
             Task<TResult> promise = new Task<TResult>(state, creationOptions);
             if (AsyncCausalityTracer.LoggingOn)
                 AsyncCausalityTracer.TraceOperationCreation(CausalityTraceLevel.Required, promise.Id, "TaskFactory.FromAsync: " + beginMethod.Method.Name, 0);
@@ -322,8 +318,7 @@ namespace System.Threading.Tasks
                     , state);
                     if (asyncResult.CompletedSynchronously)
                     {
-                        Contract.Assert(asyncResult.IsCompleted, "If the operation completed synchronously, it must be completed.");
-                        FromAsyncCoreLogic(asyncResult, endFunction, endAction, promise, requiresSynchronization: false);
+                                                FromAsyncCoreLogic(asyncResult, endFunction, endAction, promise, requiresSynchronization: false);
                     }
                 }
                 else
@@ -368,8 +363,7 @@ namespace System.Threading.Tasks
                 throw new ArgumentNullException("beginMethod");
             if (endFunction == null && endAction == null)
                 throw new ArgumentNullException("endFunction");
-            Contract.Requires((endFunction != null) != (endAction != null), "Both endFunction and endAction were non-null");
-            TaskFactory.CheckFromAsyncOptions(creationOptions, true);
+                        TaskFactory.CheckFromAsyncOptions(creationOptions, true);
             Task<TResult> promise = new Task<TResult>(state, creationOptions);
             if (AsyncCausalityTracer.LoggingOn)
                 AsyncCausalityTracer.TraceOperationCreation(CausalityTraceLevel.Required, promise.Id, "TaskFactory.FromAsync: " + beginMethod.Method.Name, 0);
@@ -391,8 +385,7 @@ namespace System.Threading.Tasks
                     , state);
                     if (asyncResult.CompletedSynchronously)
                     {
-                        Contract.Assert(asyncResult.IsCompleted, "If the operation completed synchronously, it must be completed.");
-                        FromAsyncCoreLogic(asyncResult, endFunction, endAction, promise, requiresSynchronization: false);
+                                                FromAsyncCoreLogic(asyncResult, endFunction, endAction, promise, requiresSynchronization: false);
                     }
                 }
                 else
@@ -437,8 +430,7 @@ namespace System.Threading.Tasks
                 throw new ArgumentNullException("beginMethod");
             if (endFunction == null && endAction == null)
                 throw new ArgumentNullException("endMethod");
-            Contract.Requires((endFunction != null) != (endAction != null), "Both endFunction and endAction were non-null");
-            TaskFactory.CheckFromAsyncOptions(creationOptions, true);
+                        TaskFactory.CheckFromAsyncOptions(creationOptions, true);
             Task<TResult> promise = new Task<TResult>(state, creationOptions);
             if (AsyncCausalityTracer.LoggingOn)
                 AsyncCausalityTracer.TraceOperationCreation(CausalityTraceLevel.Required, promise.Id, "TaskFactory.FromAsync: " + beginMethod.Method.Name, 0);
@@ -460,8 +452,7 @@ namespace System.Threading.Tasks
                     , state);
                     if (asyncResult.CompletedSynchronously)
                     {
-                        Contract.Assert(asyncResult.IsCompleted, "If the operation completed synchronously, it must be completed.");
-                        FromAsyncCoreLogic(asyncResult, endFunction, endAction, promise, requiresSynchronization: false);
+                                                FromAsyncCoreLogic(asyncResult, endFunction, endAction, promise, requiresSynchronization: false);
                     }
                 }
                 else
@@ -506,8 +497,7 @@ namespace System.Threading.Tasks
                 throw new ArgumentNullException("beginMethod");
             if (endFunction == null && endAction == null)
                 throw new ArgumentNullException("endMethod");
-            Contract.Requires((endFunction != null) != (endAction != null), "Both endFunction and endAction were non-null");
-            TaskFactory.CheckFromAsyncOptions(creationOptions, true);
+                        TaskFactory.CheckFromAsyncOptions(creationOptions, true);
             Task<TResult> promise = new Task<TResult>(state, creationOptions);
             if (AsyncCausalityTracer.LoggingOn)
                 AsyncCausalityTracer.TraceOperationCreation(CausalityTraceLevel.Required, promise.Id, "TaskFactory.FromAsync: " + beginMethod.Method.Name, 0);
@@ -529,8 +519,7 @@ namespace System.Threading.Tasks
                     , state);
                     if (asyncResult.CompletedSynchronously)
                     {
-                        Contract.Assert(asyncResult.IsCompleted, "If the operation completed synchronously, it must be completed.");
-                        FromAsyncCoreLogic(asyncResult, endFunction, endAction, promise, requiresSynchronization: false);
+                                                FromAsyncCoreLogic(asyncResult, endFunction, endAction, promise, requiresSynchronization: false);
                     }
                 }
                 else
@@ -561,15 +550,11 @@ namespace System.Threading.Tasks
 
         internal static Task<TResult> FromAsyncTrim<TInstance, TArgs>(TInstance thisRef, TArgs args, Func<TInstance, TArgs, AsyncCallback, object, IAsyncResult> beginMethod, Func<TInstance, IAsyncResult, TResult> endMethod)where TInstance : class
         {
-            Contract.Assert(thisRef != null, "Expected a non-null thisRef");
-            Contract.Assert(beginMethod != null, "Expected a non-null beginMethod");
-            Contract.Assert(endMethod != null, "Expected a non-null endMethod");
-            var promise = new FromAsyncTrimPromise<TInstance>(thisRef, endMethod);
+                                                var promise = new FromAsyncTrimPromise<TInstance>(thisRef, endMethod);
             var asyncResult = beginMethod(thisRef, args, FromAsyncTrimPromise<TInstance>.s_completeFromAsyncResult, promise);
             if (asyncResult.CompletedSynchronously)
             {
-                Contract.Assert(asyncResult.IsCompleted, "If the operation completed synchronously, it must be completed.");
-                promise.Complete(thisRef, endMethod, asyncResult, requiresSynchronization: false);
+                                promise.Complete(thisRef, endMethod, asyncResult, requiresSynchronization: false);
             }
 
             return promise;
@@ -582,9 +567,7 @@ namespace System.Threading.Tasks
             private Func<TInstance, IAsyncResult, TResult> m_endMethod;
             internal FromAsyncTrimPromise(TInstance thisRef, Func<TInstance, IAsyncResult, TResult> endMethod): base ()
             {
-                Contract.Requires(thisRef != null, "Expected a non-null thisRef");
-                Contract.Requires(endMethod != null, "Expected a non-null endMethod");
-                m_thisRef = thisRef;
+                                                m_thisRef = thisRef;
                 m_endMethod = endMethod;
             }
 
@@ -592,8 +575,7 @@ namespace System.Threading.Tasks
             {
                 if (asyncResult == null)
                     throw new ArgumentNullException("asyncResult");
-                Contract.EndContractBlock();
-                var promise = asyncResult.AsyncState as FromAsyncTrimPromise<TInstance>;
+                                var promise = asyncResult.AsyncState as FromAsyncTrimPromise<TInstance>;
                 if (promise == null)
                     throw new ArgumentException(Environment.GetResourceString("InvalidOperation_WrongAsyncResultOrEndCalledMultiple"), "asyncResult");
                 var thisRef = promise.m_thisRef;
@@ -610,8 +592,7 @@ namespace System.Threading.Tasks
 
             internal void Complete(TInstance thisRef, Func<TInstance, IAsyncResult, TResult> endMethod, IAsyncResult asyncResult, bool requiresSynchronization)
             {
-                Contract.Assert(!IsCompleted, "The task should not have been completed yet.");
-                bool successfullySet = false;
+                                bool successfullySet = false;
                 try
                 {
                     var result = endMethod(thisRef, asyncResult);
@@ -634,8 +615,7 @@ namespace System.Threading.Tasks
                     successfullySet = TrySetException(exc);
                 }
 
-                Contract.Assert(successfullySet, "Expected the task to not yet be completed");
-            }
+                            }
         }
 
         private static Task<TResult> CreateCanceledTask(TaskContinuationOptions continuationOptions, CancellationToken ct)
@@ -650,8 +630,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAllImpl(tasks, continuationFunction, null, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -659,8 +638,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAllImpl(tasks, continuationFunction, null, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -668,8 +646,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAllImpl(tasks, continuationFunction, null, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -677,8 +654,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAllImpl(tasks, continuationFunction, null, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -686,8 +662,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAllImpl<TAntecedentResult>(tasks, continuationFunction, null, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -695,8 +670,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAllImpl<TAntecedentResult>(tasks, continuationFunction, null, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -704,8 +678,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAllImpl<TAntecedentResult>(tasks, continuationFunction, null, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -713,8 +686,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAllImpl<TAntecedentResult>(tasks, continuationFunction, null, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -723,11 +695,9 @@ namespace System.Threading.Tasks
             TaskFactory.CheckMultiTaskContinuationOptions(continuationOptions);
             if (tasks == null)
                 throw new ArgumentNullException("tasks");
-            Contract.Requires((continuationFunction != null) != (continuationAction != null), "Expected exactly one of endFunction/endAction to be non-null");
-            if (scheduler == null)
+                        if (scheduler == null)
                 throw new ArgumentNullException("scheduler");
-            Contract.EndContractBlock();
-            Task<TAntecedentResult>[] tasksCopy = TaskFactory.CheckMultiContinuationTasksAndCopy<TAntecedentResult>(tasks);
+                        Task<TAntecedentResult>[] tasksCopy = TaskFactory.CheckMultiContinuationTasksAndCopy<TAntecedentResult>(tasks);
             if (cancellationToken.IsCancellationRequested && ((continuationOptions & TaskContinuationOptions.LazyCancellation) == 0))
             {
                 return CreateCanceledTask(continuationOptions, cancellationToken);
@@ -740,8 +710,7 @@ namespace System.Threading.Tasks
             }
             else
             {
-                Contract.Assert(continuationAction != null);
-                return starter.ContinueWith<TResult>(GenericDelegateCache<TAntecedentResult, TResult>.CWAllActionDelegate, continuationAction, scheduler, cancellationToken, continuationOptions, ref stackMark);
+                                return starter.ContinueWith<TResult>(GenericDelegateCache<TAntecedentResult, TResult>.CWAllActionDelegate, continuationAction, scheduler, cancellationToken, continuationOptions, ref stackMark);
             }
         }
 
@@ -750,11 +719,9 @@ namespace System.Threading.Tasks
             TaskFactory.CheckMultiTaskContinuationOptions(continuationOptions);
             if (tasks == null)
                 throw new ArgumentNullException("tasks");
-            Contract.Requires((continuationFunction != null) != (continuationAction != null), "Expected exactly one of endFunction/endAction to be non-null");
-            if (scheduler == null)
+                        if (scheduler == null)
                 throw new ArgumentNullException("scheduler");
-            Contract.EndContractBlock();
-            Task[] tasksCopy = TaskFactory.CheckMultiContinuationTasksAndCopy(tasks);
+                        Task[] tasksCopy = TaskFactory.CheckMultiContinuationTasksAndCopy(tasks);
             if (cancellationToken.IsCancellationRequested && ((continuationOptions & TaskContinuationOptions.LazyCancellation) == 0))
             {
                 return CreateCanceledTask(continuationOptions, cancellationToken);
@@ -773,8 +740,7 @@ namespace System.Threading.Tasks
             }
             else
             {
-                Contract.Assert(continuationAction != null);
-                return starter.ContinueWith<TResult>((completedTasks, state) =>
+                                return starter.ContinueWith<TResult>((completedTasks, state) =>
                 {
                     completedTasks.NotifyDebuggerOfWaitCompletionIfNecessary();
                     ((Action<Task[]>)state)(completedTasks.Result);
@@ -789,8 +755,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAnyImpl(tasks, continuationFunction, null, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -798,8 +763,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAnyImpl(tasks, continuationFunction, null, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -807,8 +771,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAnyImpl(tasks, continuationFunction, null, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -816,8 +779,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAnyImpl(tasks, continuationFunction, null, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -825,8 +787,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAnyImpl<TAntecedentResult>(tasks, continuationFunction, null, m_defaultContinuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -834,8 +795,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAnyImpl<TAntecedentResult>(tasks, continuationFunction, null, m_defaultContinuationOptions, cancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -843,8 +803,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAnyImpl<TAntecedentResult>(tasks, continuationFunction, null, continuationOptions, m_defaultCancellationToken, DefaultScheduler, ref stackMark);
         }
 
@@ -852,8 +811,7 @@ namespace System.Threading.Tasks
         {
             if (continuationFunction == null)
                 throw new ArgumentNullException("continuationFunction");
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return ContinueWhenAnyImpl<TAntecedentResult>(tasks, continuationFunction, null, continuationOptions, cancellationToken, scheduler, ref stackMark);
         }
 
@@ -864,11 +822,9 @@ namespace System.Threading.Tasks
                 throw new ArgumentNullException("tasks");
             if (tasks.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Task_MultiTaskContinuation_EmptyTaskList"), "tasks");
-            Contract.Requires((continuationFunction != null) != (continuationAction != null), "Expected exactly one of endFunction/endAction to be non-null");
-            if (scheduler == null)
+                        if (scheduler == null)
                 throw new ArgumentNullException("scheduler");
-            Contract.EndContractBlock();
-            Task<Task> starter = TaskFactory.CommonCWAnyLogic(tasks);
+                        Task<Task> starter = TaskFactory.CommonCWAnyLogic(tasks);
             if (cancellationToken.IsCancellationRequested && ((continuationOptions & TaskContinuationOptions.LazyCancellation) == 0))
             {
                 return CreateCanceledTask(continuationOptions, cancellationToken);
@@ -885,8 +841,7 @@ namespace System.Threading.Tasks
             }
             else
             {
-                Contract.Assert(continuationAction != null);
-                return starter.ContinueWith<TResult>((completedTask, state) =>
+                                return starter.ContinueWith<TResult>((completedTask, state) =>
                 {
                     ((Action<Task>)state)(completedTask.Result);
                     return default (TResult);
@@ -903,11 +858,9 @@ namespace System.Threading.Tasks
                 throw new ArgumentNullException("tasks");
             if (tasks.Length == 0)
                 throw new ArgumentException(Environment.GetResourceString("Task_MultiTaskContinuation_EmptyTaskList"), "tasks");
-            Contract.Requires((continuationFunction != null) != (continuationAction != null), "Expected exactly one of endFunction/endAction to be non-null");
-            if (scheduler == null)
+                        if (scheduler == null)
                 throw new ArgumentNullException("scheduler");
-            Contract.EndContractBlock();
-            var starter = TaskFactory.CommonCWAnyLogic(tasks);
+                        var starter = TaskFactory.CommonCWAnyLogic(tasks);
             if (cancellationToken.IsCancellationRequested && ((continuationOptions & TaskContinuationOptions.LazyCancellation) == 0))
             {
                 return CreateCanceledTask(continuationOptions, cancellationToken);
@@ -919,8 +872,7 @@ namespace System.Threading.Tasks
             }
             else
             {
-                Contract.Assert(continuationAction != null);
-                return starter.ContinueWith<TResult>(GenericDelegateCache<TAntecedentResult, TResult>.CWAnyActionDelegate, continuationAction, scheduler, cancellationToken, continuationOptions, ref stackMark);
+                                return starter.ContinueWith<TResult>(GenericDelegateCache<TAntecedentResult, TResult>.CWAnyActionDelegate, continuationAction, scheduler, cancellationToken, continuationOptions, ref stackMark);
             }
         }
     }

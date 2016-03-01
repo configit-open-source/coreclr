@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
 {
@@ -23,8 +22,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         {
             if (data == null)
                 throw new ArgumentNullException("data");
-            Contract.EndContractBlock();
-            this.firstItemIndex = 0;
+                        this.firstItemIndex = 0;
             this.lastItemIndex = data.Count - 1;
             this.items = CreateKeyValueArray(data.Count, data.GetEnumerator());
         }
@@ -196,12 +194,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
             private int _current;
             internal IKeyValuePairEnumerator(KeyValuePair<TKey, TValue>[] items, int first, int end)
             {
-                Contract.Requires(items != null);
-                Contract.Requires(first >= 0);
-                Contract.Requires(end >= 0);
-                Contract.Requires(first < items.Length);
-                Contract.Requires(end < items.Length);
-                _array = items;
+                                                                                                _array = items;
                 _start = first;
                 _end = end;
                 _current = _start - 1;

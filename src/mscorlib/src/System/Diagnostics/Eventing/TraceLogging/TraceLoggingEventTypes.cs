@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Diagnostics.Tracing
 {
@@ -33,8 +32,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("name");
             }
 
-            Contract.EndContractBlock();
-            this.typeInfos = MakeArray(paramInfos);
+                        this.typeInfos = MakeArray(paramInfos);
             this.name = name;
             this.tags = tags;
             this.level = Statics.DefaultLevel;
@@ -67,8 +65,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("defaultName");
             }
 
-            Contract.EndContractBlock();
-            this.typeInfos = typeInfos;
+                        this.typeInfos = typeInfos;
             this.name = defaultName;
             this.tags = tags;
             this.level = Statics.DefaultLevel;
@@ -145,8 +142,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("paramInfos");
             }
 
-            Contract.EndContractBlock();
-            var recursionCheck = new List<Type>(paramInfos.Length);
+                        var recursionCheck = new List<Type>(paramInfos.Length);
             var result = new TraceLoggingTypeInfo[paramInfos.Length];
             for (int i = 0; i < paramInfos.Length; ++i)
             {
@@ -163,8 +159,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("types");
             }
 
-            Contract.EndContractBlock();
-            var recursionCheck = new List<Type>(types.Length);
+                        var recursionCheck = new List<Type>(types.Length);
             var result = new TraceLoggingTypeInfo[types.Length];
             for (int i = 0; i < types.Length; i++)
             {
@@ -181,8 +176,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("typeInfos");
             }
 
-            Contract.EndContractBlock();
-            return (TraceLoggingTypeInfo[])typeInfos.Clone();
+                        return (TraceLoggingTypeInfo[])typeInfos.Clone();
             ;
         }
     }

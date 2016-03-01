@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Threading
 {
@@ -32,8 +32,7 @@ namespace System.Threading
         static internal void IOCompletionCallback_Context(Object state)
         {
             _IOCompletionCallback helper = (_IOCompletionCallback)state;
-            Contract.Assert(helper != null, "_IOCompletionCallback cannot be null");
-            helper._ioCompletionCallback(helper._errorCode, helper._numBytes, helper._pOVERLAP);
+                        helper._ioCompletionCallback(helper._errorCode, helper._numBytes, helper._pOVERLAP);
         }
 
         static unsafe internal void PerformIOCompletionCallback(uint errorCode, uint numBytes, NativeOverlapped*pOVERLAP)
@@ -88,11 +87,9 @@ namespace System.Threading
             m_iocbHelper = null;
             m_overlapped = null;
             m_userObject = null;
-            Contract.Assert(m_pinSelf.IsNull(), "OverlappedData has not been freed: m_pinSelf");
-            m_pinSelf = (IntPtr)0;
+                        m_pinSelf = (IntPtr)0;
             m_userObjectInternal = (IntPtr)0;
-            Contract.Assert(m_AppDomainId == 0 || m_AppDomainId == AppDomain.CurrentDomain.Id, "OverlappedData is not in the current domain");
-            m_AppDomainId = 0;
+                        m_AppDomainId = 0;
             m_nativeOverlapped.EventHandle = (IntPtr)0;
             m_isArray = 0;
             m_nativeOverlapped.InternalLow = (IntPtr)0;
@@ -308,8 +305,7 @@ namespace System.Threading
         {
             if (nativeOverlappedPtr == null)
                 throw new ArgumentNullException("nativeOverlappedPtr");
-            Contract.EndContractBlock();
-            Overlapped overlapped = OverlappedData.GetOverlappedFromNative(nativeOverlappedPtr).m_overlapped;
+                        Overlapped overlapped = OverlappedData.GetOverlappedFromNative(nativeOverlappedPtr).m_overlapped;
             return overlapped;
         }
 
@@ -317,8 +313,7 @@ namespace System.Threading
         {
             if (nativeOverlappedPtr == null)
                 throw new ArgumentNullException("nativeOverlappedPtr");
-            Contract.EndContractBlock();
-            Overlapped overlapped = OverlappedData.GetOverlappedFromNative(nativeOverlappedPtr).m_overlapped;
+                        Overlapped overlapped = OverlappedData.GetOverlappedFromNative(nativeOverlappedPtr).m_overlapped;
             OverlappedData.FreeNativeOverlapped(nativeOverlappedPtr);
             OverlappedData overlappedData = overlapped.m_overlappedData;
             overlapped.m_overlappedData = null;

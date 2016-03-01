@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security.Permissions;
 using System.Security.Util;
 
@@ -11,22 +11,19 @@ namespace System.Security.Policy
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            m_url = new URLString(name, parsed);
+                        m_url = new URLString(name, parsed);
         }
 
         public Url(String name)
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            m_url = new URLString(name);
+                        m_url = new URLString(name);
         }
 
         private Url(Url url)
         {
-            Contract.Assert(url != null);
-            m_url = url.m_url;
+                        m_url = url.m_url;
         }
 
         public String Value

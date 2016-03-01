@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System
 {
@@ -99,8 +99,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("minValue", Environment.GetResourceString("Argument_MinMaxValue", "minValue", "maxValue"));
             }
 
-            Contract.EndContractBlock();
-            long range = (long)maxValue - minValue;
+                        long range = (long)maxValue - minValue;
             if (range <= (long)Int32.MaxValue)
             {
                 return ((int)(Sample() * range) + minValue);
@@ -118,8 +117,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("maxValue", Environment.GetResourceString("ArgumentOutOfRange_MustBePositive", "maxValue"));
             }
 
-            Contract.EndContractBlock();
-            return (int)(Sample() * maxValue);
+                        return (int)(Sample() * maxValue);
         }
 
         public virtual double NextDouble()
@@ -131,8 +129,7 @@ namespace System
         {
             if (buffer == null)
                 throw new ArgumentNullException("buffer");
-            Contract.EndContractBlock();
-            for (int i = 0; i < buffer.Length; i++)
+                        for (int i = 0; i < buffer.Length; i++)
             {
                 buffer[i] = (byte)(InternalSample() % (Byte.MaxValue + 1));
             }

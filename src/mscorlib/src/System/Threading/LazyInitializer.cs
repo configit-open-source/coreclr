@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Threading
 {
@@ -40,8 +40,7 @@ namespace System.Threading
             }
 
             Interlocked.CompareExchange(ref target, value, null);
-            Contract.Assert(target != null);
-            return target;
+                        return target;
         }
 
         public static T EnsureInitialized<T>(ref T target, ref bool initialized, ref object syncLock)

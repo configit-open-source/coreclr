@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -8,8 +7,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private MapToCollectionAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal int Count<K, V>()
         {
@@ -103,8 +101,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
                 throw new ArgumentException(Environment.GetResourceString("Argument_IndexOutOfArrayBounds"));
             if (array.Length - arrayIndex < Count<K, V>())
                 throw new ArgumentException(Environment.GetResourceString("Argument_InsufficientSpaceToCopyCollection"));
-            Contract.EndContractBlock();
-            IIterable<KeyValuePair<K, V>> _this = JitHelpers.UnsafeCast<IIterable<KeyValuePair<K, V>>>(this);
+                        IIterable<KeyValuePair<K, V>> _this = JitHelpers.UnsafeCast<IIterable<KeyValuePair<K, V>>>(this);
             foreach (KeyValuePair<K, V> mapping in _this)
             {
                 array[arrayIndex++] = mapping;

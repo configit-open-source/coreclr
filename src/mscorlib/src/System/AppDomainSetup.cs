@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Security;
 using System.Security.Policy;
@@ -175,7 +174,7 @@ namespace System
         public String ApplicationBase
         {
             [System.Security.SecurityCritical]
-            [Pure]
+            
             get
             {
                 return VerifyDir(GetUnsecureApplicationBase(), false);
@@ -894,8 +893,7 @@ namespace System
         {
             if (String.IsNullOrEmpty(s))
                 return -1;
-            Contract.Assert('A' == ACTAG_APP_BASE_URL[0], "Assumption violated");
-            if (s[0] == 'A' && s == ACTAG_APP_BASE_URL)
+                        if (s[0] == 'A' && s == ACTAG_APP_BASE_URL)
                 return (int)LoaderInformation.ApplicationBaseValue;
             return -1;
         }

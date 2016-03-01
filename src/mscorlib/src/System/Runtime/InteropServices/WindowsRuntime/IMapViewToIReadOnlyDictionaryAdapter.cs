@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -9,15 +8,13 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private IMapViewToIReadOnlyDictionaryAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal V Indexer_Get<K, V>(K key)
         {
             if (key == null)
                 throw new ArgumentNullException("key");
-            Contract.EndContractBlock();
-            IMapView<K, V> _this = JitHelpers.UnsafeCast<IMapView<K, V>>(this);
+                        IMapView<K, V> _this = JitHelpers.UnsafeCast<IMapView<K, V>>(this);
             return Lookup(_this, key);
         }
 
@@ -73,8 +70,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
         private static V Lookup<K, V>(IMapView<K, V> _this, K key)
         {
-            Contract.Requires(null != key);
-            try
+                        try
             {
                 return _this.Lookup(key);
             }

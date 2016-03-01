@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Resources;
@@ -58,8 +57,7 @@ namespace System
             {
                 if (key == null || key.Length == 0)
                 {
-                    Contract.Assert(false, "Environment::GetResourceString with null or empty key.  Bug in caller, or weird recursive loading problem?");
-                    return "[Resource lookup failed - null or empty resource name]";
+                                        return "[Resource lookup failed - null or empty resource name]";
                 }
 
                 return GetResourceString(key, null);
@@ -69,8 +67,7 @@ namespace System
             {
                 if (key == null || key.Length == 0)
                 {
-                    Contract.Assert(false, "Environment::GetResourceString with null or empty key.  Bug in caller, or weird recursive loading problem?");
-                    return "[Resource lookup failed - null or empty resource name]";
+                                        return "[Resource lookup failed - null or empty resource name]";
                 }
 
                 GetResourceStringUserData userData = new GetResourceStringUserData(this, key, culture);
@@ -127,8 +124,7 @@ namespace System
 
                 String s = rh.SystemResMgr.GetString(key, null);
                 rh.currentlyLoading.Pop();
-                Contract.Assert(s != null, "Managed resource string lookup failed.  Was your resource name misspelled?  Did you rebuild mscorlib after adding a resource to resources.txt?  Debug this w/ cordbg and bug whoever owns the code that called Environment.GetResourceString.  Resource name was: \"" + key + "\"");
-                userData.m_retVal = s;
+                                userData.m_retVal = s;
             }
 
             private void GetResourceStringBackoutCode(Object userDataIn, bool exceptionThrown)
@@ -217,8 +213,7 @@ namespace System
             {
                 StringBuilder sb = new StringBuilder(Path.MaxPath);
                 int r = Win32Native.GetSystemDirectory(sb, Path.MaxPath);
-                Contract.Assert(r < Path.MaxPath, "r < Path.MaxPath");
-                if (r == 0)
+                                if (r == 0)
                     __Error.WinIOError();
                 String path = sb.ToString();
                 return path;
@@ -232,8 +227,7 @@ namespace System
             {
                 StringBuilder sb = new StringBuilder(Path.MaxPath);
                 int r = Win32Native.GetWindowsDirectory(sb, Path.MaxPath);
-                Contract.Assert(r < Path.MaxPath, "r < Path.MaxPath");
-                if (r == 0)
+                                if (r == 0)
                     __Error.WinIOError();
                 String path = sb.ToString();
                 return path;
@@ -244,8 +238,7 @@ namespace System
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            Contract.EndContractBlock();
-            if (name.Length == 0)
+                        if (name.Length == 0)
             {
                 return name;
             }
@@ -334,8 +327,7 @@ namespace System
         {
             if (variable == null)
                 throw new ArgumentNullException("variable");
-            Contract.EndContractBlock();
-            if (AppDomain.IsAppXModel() && !AppDomain.IsAppXDesignMode())
+                        if (AppDomain.IsAppXModel() && !AppDomain.IsAppXDesignMode())
             {
                 return null;
             }
@@ -368,8 +360,7 @@ namespace System
                 throw new ArgumentNullException("variable");
             }
 
-            Contract.EndContractBlock();
-            if (target == EnvironmentVariableTarget.Process)
+                        if (target == EnvironmentVariableTarget.Process)
             {
                 return GetEnvironmentVariable(variable);
             }
@@ -379,8 +370,7 @@ namespace System
             {
                 using (RegistryKey environmentKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Session Manager\Environment", false))
                 {
-                    Contract.Assert(environmentKey != null, @"HKLM\System\CurrentControlSet\Control\Session Manager\Environment is missing!");
-                    if (environmentKey == null)
+                                        if (environmentKey == null)
                     {
                         return null;
                     }
@@ -393,8 +383,7 @@ namespace System
             {
                 using (RegistryKey environmentKey = Registry.CurrentUser.OpenSubKey("Environment", false))
                 {
-                    Contract.Assert(environmentKey != null, @"HKCU\Environment is missing!");
-                    if (environmentKey == null)
+                                        if (environmentKey == null)
                     {
                         return null;
                     }
@@ -600,8 +589,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Argument_IllegalEnvVarName"));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         public static void SetEnvironmentVariable(string variable, string value, EnvironmentVariableTarget target)
         {
@@ -627,8 +615,7 @@ namespace System
             {
                 using (RegistryKey environmentKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Session Manager\Environment", true))
                 {
-                    Contract.Assert(environmentKey != null, @"HKLM\System\CurrentControlSet\Control\Session Manager\Environment is missing!");
-                    if (environmentKey != null)
+                                        if (environmentKey != null)
                     {
                         if (value == null)
                             environmentKey.DeleteValue(variable, false);
@@ -646,8 +633,7 @@ namespace System
 
                 using (RegistryKey environmentKey = Registry.CurrentUser.OpenSubKey("Environment", true))
                 {
-                    Contract.Assert(environmentKey != null, @"HKCU\Environment is missing!");
-                    if (environmentKey != null)
+                                        if (environmentKey != null)
                     {
                         if (value == null)
                             environmentKey.DeleteValue(variable, false);
@@ -703,8 +689,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<String>() != null);
-                return "\r\n";
+                                return "\r\n";
             }
         }
 
@@ -732,8 +717,7 @@ namespace System
             [System.Security.SecuritySafeCritical]
             get
             {
-                Contract.Ensures(Contract.Result<OperatingSystem>() != null);
-                if (m_os == null)
+                                if (m_os == null)
                 {
                     Microsoft.Win32.Win32Native.OSVERSIONINFO osvi = new Microsoft.Win32.Win32Native.OSVERSIONINFO();
                     if (!GetVersion(osvi))
@@ -754,8 +738,7 @@ namespace System
                     m_os = new OperatingSystem(id, v, osvi.CSDVersion);
                 }
 
-                Contract.Assert(m_os != null, "m_os != null");
-                return m_os;
+                                return m_os;
             }
         }
 
@@ -782,8 +765,7 @@ namespace System
             [System.Security.SecuritySafeCritical]
             get
             {
-                Contract.Ensures(Contract.Result<String>() != null);
-                new EnvironmentPermission(PermissionState.Unrestricted).Demand();
+                                new EnvironmentPermission(PermissionState.Unrestricted).Demand();
                 return GetStackTrace(null, true);
             }
         }
@@ -901,8 +883,7 @@ namespace System
         {
             if (!Enum.IsDefined(typeof (SpecialFolder), folder))
                 throw new ArgumentException(Environment.GetResourceString("Arg_EnumIllegalVal", (int)folder));
-            Contract.EndContractBlock();
-            return InternalGetFolderPath(folder, SpecialFolderOption.None);
+                        return InternalGetFolderPath(folder, SpecialFolderOption.None);
         }
 
         public static string GetFolderPath(SpecialFolder folder, SpecialFolderOption option)
@@ -911,8 +892,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Arg_EnumIllegalVal", (int)folder));
             if (!Enum.IsDefined(typeof (SpecialFolderOption), option))
                 throw new ArgumentException(Environment.GetResourceString("Arg_EnumIllegalVal", (int)option));
-            Contract.EndContractBlock();
-            return InternalGetFolderPath(folder, option);
+                        return InternalGetFolderPath(folder, option);
         }
 
         internal static string UnsafeGetFolderPath(SpecialFolder folder)

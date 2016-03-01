@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System.Reflection
@@ -21,8 +21,7 @@ namespace System.Reflection
         {
             if (delegatingType == null)
                 throw new ArgumentNullException("delegatingType");
-            Contract.EndContractBlock();
-            typeImpl = delegatingType;
+                        typeImpl = delegatingType;
         }
 
         public override Guid GUID

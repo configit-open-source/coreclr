@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -13,8 +13,7 @@ namespace System.Security.Cryptography
         {
             if (key == null)
                 throw new ArgumentNullException("key");
-            Contract.EndContractBlock();
-            _rsaKey = (RSA)key;
+                        _rsaKey = (RSA)key;
         }
 
         public override String Parameters
@@ -48,8 +47,7 @@ namespace System.Security.Cryptography
         {
             if (key == null)
                 throw new ArgumentNullException("key");
-            Contract.EndContractBlock();
-            _rsaKey = (RSA)key;
+                        _rsaKey = (RSA)key;
         }
     }
 }

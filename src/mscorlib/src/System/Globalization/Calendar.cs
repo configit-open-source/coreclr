@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Globalization
 {
@@ -110,8 +110,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("calendar");
             }
 
-            Contract.EndContractBlock();
-            if (calendar.IsReadOnly)
+                        if (calendar.IsReadOnly)
             {
                 return (calendar);
             }
@@ -140,8 +139,7 @@ namespace System.Globalization
             {
                 if (m_currentEraValue == -1)
                 {
-                    Contract.Assert(BaseCalendarID > 0, "[Calendar.CurrentEraValue] Expected ID > 0");
-                    m_currentEraValue = CalendarData.GetCalendarData(BaseCalendarID).iCurrentEra;
+                                        m_currentEraValue = CalendarData.GetCalendarData(BaseCalendarID).iCurrentEra;
                 }
 
                 return (m_currentEraValue);
@@ -157,8 +155,7 @@ namespace System.Globalization
                 throw new ArgumentException(String.Format(CultureInfo.InvariantCulture, Environment.GetResourceString("Argument_ResultCalendarRange"), minValue, maxValue));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         internal DateTime Add(DateTime time, double value, int scale)
         {
@@ -259,8 +256,7 @@ namespace System.Globalization
             int dayOfYear = GetDayOfYear(time) - 1;
             int dayForJan1 = (int)GetDayOfWeek(time) - (dayOfYear % 7);
             int offset = (dayForJan1 - firstDayOfWeek + 14) % 7;
-            Contract.Assert(offset >= 0, "Calendar.GetFirstDayWeekOfYear(): offset >= 0");
-            return ((dayOfYear + offset) / 7 + 1);
+                        return ((dayOfYear + offset) / 7 + 1);
         }
 
         private int GetWeekOfYearFullDays(DateTime time, int firstDayOfWeek, int fullDays)
@@ -327,8 +323,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("firstDayOfWeek", Environment.GetResourceString("ArgumentOutOfRange_Range", DayOfWeek.Sunday, DayOfWeek.Saturday));
             }
 
-            Contract.EndContractBlock();
-            switch (rule)
+                        switch (rule)
             {
                 case CalendarWeekRule.FirstDay:
                     return (GetFirstDayWeekOfYear(time, (int)firstDayOfWeek));
@@ -435,8 +430,7 @@ namespace System.Globalization
                 throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            if (year < 100)
+                        if (year < 100)
             {
                 return ((TwoDigitYearMax / 100 - (year > TwoDigitYearMax % 100 ? 1 : 0)) * 100 + year);
             }

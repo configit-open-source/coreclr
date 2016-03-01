@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 
 namespace System.Reflection.Emit
@@ -34,8 +34,7 @@ namespace System.Reflection.Emit
 
         internal virtual void ModifyModuleName(String strModuleName)
         {
-            Contract.Assert(m_strModuleName == AssemblyBuilder.MANIFEST_MODULE_NAME, "Changing names for non-manifest module");
-            InitNames(strModuleName, null);
+                        InitNames(strModuleName, null);
         }
 
         internal int FileToken

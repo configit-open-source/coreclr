@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.Serialization;
@@ -93,8 +93,7 @@ namespace System
                     }
                     else
                     {
-                        Contract.Assert((_invocationList as Object[]) != null, "empty invocation list on multicast delegate");
-                        return InvocationListEquals(d);
+                                                return InvocationListEquals(d);
                     }
                 }
             }
@@ -115,8 +114,7 @@ namespace System
 
         private bool InvocationListEquals(MulticastDelegate d)
         {
-            Contract.Assert(d != null && (_invocationList as Object[]) != null, "bogus delegate in multicast list comparison");
-            Object[] invocationList = _invocationList as Object[];
+                        Object[] invocationList = _invocationList as Object[];
             if (d._invocationCount != _invocationCount)
                 return false;
             int invocationCount = (int)_invocationCount;
@@ -177,8 +175,7 @@ namespace System
         {
             if (_invocationCount != (IntPtr)0)
             {
-                Contract.Assert(!IsUnmanagedFunctionPtr(), "dynamic method and unmanaged fntptr delegate combined");
-                MulticastDelegate d = (MulticastDelegate)_invocationList;
+                                MulticastDelegate d = (MulticastDelegate)_invocationList;
                 d._methodBase = dynamicMethod;
             }
             else
@@ -357,8 +354,7 @@ namespace System
 
         public override sealed Delegate[] GetInvocationList()
         {
-            Contract.Ensures(Contract.Result<Delegate[]>() != null);
-            Delegate[] del;
+                        Delegate[] del;
             Object[] invocationList = _invocationList as Object[];
             if (invocationList == null)
             {

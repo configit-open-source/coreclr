@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security
 {
@@ -216,8 +216,7 @@ namespace System.Security
 
         private static NamedPermissionSet GetOrDeserializeExtendablePermissionSet(ref NamedPermissionSet permissionSet, string permissionSetXml)
         {
-            Contract.Requires(!String.IsNullOrEmpty(permissionSetXml));
-            if (permissionSet == null)
+                        if (permissionSet == null)
             {
             }
 
@@ -226,8 +225,7 @@ namespace System.Security
 
         private static NamedPermissionSet GetOrDeserializePermissionSet(ref NamedPermissionSet permissionSet, string permissionSetXml)
         {
-            Contract.Assert(!String.IsNullOrEmpty(permissionSetXml));
-            return permissionSet.Copy() as NamedPermissionSet;
+                        return permissionSet.Copy() as NamedPermissionSet;
         }
     }
 }

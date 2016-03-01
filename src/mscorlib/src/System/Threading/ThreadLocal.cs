@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace System.Threading
 {
@@ -72,8 +71,7 @@ namespace System.Threading
                 m_idComplement = 0;
                 if (id < 0 || !m_initialized)
                 {
-                    Contract.Assert(id >= 0 || !m_initialized, "expected id >= 0 if initialized");
-                    return;
+                                        return;
                 }
 
                 m_initialized = false;
@@ -305,8 +303,7 @@ namespace System.Threading
 
         private void GrowTable(ref LinkedSlotVolatile[] table, int minLength)
         {
-            Contract.Assert(table.Length < minLength);
-            int newLen = GetNewTableSize(minLength);
+                        int newLen = GetNewTableSize(minLength);
             LinkedSlotVolatile[] newTable = new LinkedSlotVolatile[newLen];
             lock (s_idManager)
             {
@@ -331,8 +328,7 @@ namespace System.Threading
                 return int.MaxValue;
             }
 
-            Contract.Assert(minSize > 0);
-            int newSize = minSize;
+                        int newSize = minSize;
             newSize--;
             newSize |= newSize >> 1;
             newSize |= newSize >> 2;
@@ -423,8 +419,7 @@ namespace System.Threading
             ~FinalizationHelper()
             {
                 LinkedSlotVolatile[] slotArray = SlotArray;
-                Contract.Assert(slotArray != null);
-                for (int i = 0; i < slotArray.Length; i++)
+                                for (int i = 0; i < slotArray.Length; i++)
                 {
                     LinkedSlot linkedSlot = slotArray[i].Value;
                     if (linkedSlot == null)
@@ -445,8 +440,7 @@ namespace System.Threading
                                 linkedSlot.Next.Previous = linkedSlot.Previous;
                             }
 
-                            Contract.Assert(linkedSlot.Previous != null);
-                            linkedSlot.Previous.Next = linkedSlot.Next;
+                                                        linkedSlot.Previous.Next = linkedSlot.Next;
                         }
                     }
                 }

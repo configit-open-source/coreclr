@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -17,9 +17,7 @@ namespace System.IO
         private bool doNotTryExpandShortFileName;
         internal PathHelper(char *charArrayPtr, int length)
         {
-            Contract.Requires(charArrayPtr != null);
-            Contract.Requires(length == Path.MaxPath);
-            this.m_length = 0;
+                                    this.m_length = 0;
             this.m_sb = null;
             this.m_arrayPtr = charArrayPtr;
             this.m_capacity = length;
@@ -79,8 +77,7 @@ namespace System.IO
             [System.Security.SecurityCritical]
             get
             {
-                Contract.Requires(index >= 0 && index < Length);
-                if (useStackAlloc)
+                                if (useStackAlloc)
                 {
                     return m_arrayPtr[index];
                 }
@@ -93,8 +90,7 @@ namespace System.IO
             [System.Security.SecurityCritical]
             set
             {
-                Contract.Requires(index >= 0 && index < Length);
-                if (useStackAlloc)
+                                if (useStackAlloc)
                 {
                     m_arrayPtr[index] = value;
                 }
@@ -135,8 +131,7 @@ namespace System.IO
 
                 if (result >= Path.MaxPath)
                     throw new PathTooLongException(Environment.GetResourceString("IO.PathTooLong"));
-                Contract.Assert(result < Path.MaxPath, "did we accidently remove a PathTooLongException check?");
-                if (result == 0 && m_arrayPtr[0] != '\0')
+                                if (result == 0 && m_arrayPtr[0] != '\0')
                 {
                     __Error.WinIOError();
                 }
@@ -162,8 +157,7 @@ namespace System.IO
 
                 if (result >= m_maxPath)
                     throw new PathTooLongException(Environment.GetResourceString("IO.PathTooLong"));
-                Contract.Assert(result < m_maxPath, "did we accidentally remove a PathTooLongException check?");
-                if (result == 0 && m_sb[0] != '\0')
+                                if (result == 0 && m_sb[0] != '\0')
                 {
                     if (Length >= m_maxPath)
                     {
@@ -308,8 +302,7 @@ namespace System.IO
 
         private unsafe bool OrdinalEqualsStackAlloc(String compareTo)
         {
-            Contract.Requires(useStackAlloc, "Currently no efficient implementation for StringBuilder.OrdinalEquals(String)");
-            if (Length != compareTo.Length)
+                        if (Length != compareTo.Length)
             {
                 return false;
             }
@@ -352,20 +345,17 @@ namespace System.IO
 
         private unsafe char *UnsafeGetArrayPtr()
         {
-            Contract.Requires(useStackAlloc, "This should never be called for PathHelpers wrapping a StringBuilder");
-            return m_arrayPtr;
+                        return m_arrayPtr;
         }
 
         private StringBuilder GetStringBuilder()
         {
-            Contract.Requires(!useStackAlloc, "This should never be called for PathHelpers that wrap a stackalloc'd buffer");
-            return m_sb;
+                        return m_sb;
         }
 
         private unsafe void NullTerminate()
         {
-            Contract.Requires(useStackAlloc, "This should never be called for PathHelpers wrapping a StringBuilder");
-            m_arrayPtr[m_length] = '\0';
+                        m_arrayPtr[m_length] = '\0';
         }
     }
 }

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Threading
 {
@@ -76,8 +76,7 @@ namespace System.Threading
         public bool Signal()
         {
             ThrowIfDisposed();
-            Contract.Assert(m_event != null);
-            if (m_currentCount <= 0)
+                        if (m_currentCount <= 0)
             {
                 throw new InvalidOperationException(Environment.GetResourceString("CountdownEvent_Decrement_BelowZero"));
             }
@@ -104,8 +103,7 @@ namespace System.Threading
             }
 
             ThrowIfDisposed();
-            Contract.Assert(m_event != null);
-            int observedCount;
+                        int observedCount;
             SpinWait spin = new SpinWait();
             while (true)
             {
@@ -129,8 +127,7 @@ namespace System.Threading
                 return true;
             }
 
-            Contract.Assert(m_currentCount >= 0, "latch was decremented below zero");
-            return false;
+                        return false;
         }
 
         public void AddCount()

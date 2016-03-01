@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System
@@ -182,8 +182,7 @@ namespace System
                     argumentName = "sourceBytesToCopy";
                     break;
                 default:
-                    Contract.Assert(false, "The enum value is not defined, please checked ExceptionArgumentName Enum.");
-                    return string.Empty;
+                                        return string.Empty;
             }
 
             return argumentName;
@@ -333,8 +332,7 @@ namespace System
                     resourceName = "Argument_InvalidRegistryViewCheck";
                     break;
                 default:
-                    Contract.Assert(false, "The enum value is not defined, please checked ExceptionArgumentName Enum.");
-                    return string.Empty;
+                                        return string.Empty;
             }
 
             return resourceName;

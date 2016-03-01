@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.InteropServices;
 
@@ -247,14 +247,12 @@ namespace System
             {
                 vt = VarEnum.VT_ERROR;
                 obj = (Object)(((ErrorWrapper)obj).ErrorCode);
-                Contract.Assert(obj != null, "obj != null");
-            }
+                            }
             else if (obj is CurrencyWrapper)
             {
                 vt = VarEnum.VT_CY;
                 obj = (Object)(((CurrencyWrapper)obj).WrappedObject);
-                Contract.Assert(obj != null, "obj != null");
-            }
+                            }
             else if (obj is BStrWrapper)
             {
                 vt = VarEnum.VT_BSTR;
@@ -276,8 +274,7 @@ namespace System
                 throw new ArgumentNullException("pointerType");
             if (!pointerType.IsPointer)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBePointer"), "pointerType");
-            Contract.EndContractBlock();
-            m_objref = pointerType;
+                        m_objref = pointerType;
             m_flags = CV_PTR;
             m_data1 = (int)voidPointer;
             m_data2 = 0;

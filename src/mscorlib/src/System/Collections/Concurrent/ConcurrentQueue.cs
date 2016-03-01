@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.Serialization;
 using System.Threading;
 
@@ -24,8 +23,7 @@ namespace System.Collections.Concurrent
             int index = 0;
             foreach (T element in collection)
             {
-                Contract.Assert(index >= 0 && index < SEGMENT_SIZE);
-                localTail.UnsafeAdd(element);
+                                localTail.UnsafeAdd(element);
                 index++;
                 if (index >= SEGMENT_SIZE)
                 {
@@ -54,8 +52,7 @@ namespace System.Collections.Concurrent
 
         private void OnDeserialized(StreamingContext context)
         {
-            Contract.Assert(m_serializationArray != null);
-            InitializeFromCollection(m_serializationArray);
+                        InitializeFromCollection(m_serializationArray);
             m_serializationArray = null;
         }
 
@@ -343,8 +340,7 @@ namespace System.Collections.Concurrent
                 m_array = new T[SEGMENT_SIZE];
                 m_state = new VolatileBool[SEGMENT_SIZE];
                 m_high = -1;
-                Contract.Assert(index >= 0);
-                m_index = index;
+                                m_index = index;
                 m_source = source;
             }
 
@@ -366,16 +362,14 @@ namespace System.Collections.Concurrent
 
             internal void UnsafeAdd(T value)
             {
-                Contract.Assert(m_high < SEGMENT_SIZE - 1);
-                m_high++;
+                                m_high++;
                 m_array[m_high] = value;
                 m_state[m_high].m_value = true;
             }
 
             internal Segment UnsafeGrow()
             {
-                Contract.Assert(m_high >= SEGMENT_SIZE - 1);
-                Segment newSegment = new Segment(m_index + 1, m_source);
+                                Segment newSegment = new Segment(m_index + 1, m_source);
                 m_next = newSegment;
                 return newSegment;
             }
@@ -384,8 +378,7 @@ namespace System.Collections.Concurrent
             {
                 Segment newSegment = new Segment(m_index + 1, m_source);
                 m_next = newSegment;
-                Contract.Assert(m_source.m_tail == this);
-                m_source.m_tail = m_next;
+                                m_source.m_tail = m_next;
             }
 
             internal bool TryAppend(T value)
@@ -445,8 +438,7 @@ namespace System.Collections.Concurrent
                                 spinLocal.SpinOnce();
                             }
 
-                            Contract.Assert(m_source.m_head == this);
-                            m_source.m_head = m_next;
+                                                        m_source.m_head = m_next;
                         }
 
                         return true;

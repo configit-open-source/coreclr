@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Threading.Tasks;
 
 namespace System.Threading
@@ -24,8 +24,7 @@ namespace System.Threading
             void IThreadPoolWorkItem.ExecuteWorkItem()
             {
                 bool setSuccessfully = TrySetResult(true);
-                Contract.Assert(setSuccessfully, "Should have been able to complete task");
-            }
+                            }
 
             void IThreadPoolWorkItem.MarkAborted(ThreadAbortException tae)
             {
@@ -158,8 +157,7 @@ namespace System.Threading
 
                 if (m_asyncHead != null)
                 {
-                    Contract.Assert(m_asyncTail != null, "tail should not be null if head isn't");
-                    asyncWaitTask = WaitAsync(millisecondsTimeout, cancellationToken);
+                                        asyncWaitTask = WaitAsync(millisecondsTimeout, cancellationToken);
                 }
                 else
                 {
@@ -181,8 +179,7 @@ namespace System.Threading
                         }
                     }
 
-                    Contract.Assert(!waitSuccessful || m_currentCount > 0, "If the wait was successful, there should be count available.");
-                    if (m_currentCount > 0)
+                                        if (m_currentCount > 0)
                     {
                         waitSuccessful = true;
                         m_currentCount--;
@@ -288,8 +285,7 @@ namespace System.Threading
                 }
                 else
                 {
-                    Contract.Assert(m_currentCount == 0, "m_currentCount should never be negative");
-                    var asyncWaiter = CreateAndAddAsyncWaiter();
+                                        var asyncWaiter = CreateAndAddAsyncWaiter();
                     return (millisecondsTimeout == Timeout.Infinite && !cancellationToken.CanBeCanceled) ? asyncWaiter : WaitUntilCountOrTimeoutAsync(asyncWaiter, millisecondsTimeout, cancellationToken);
                 }
             }
@@ -297,18 +293,15 @@ namespace System.Threading
 
         private TaskNode CreateAndAddAsyncWaiter()
         {
-            Contract.Assert(Monitor.IsEntered(m_lockObj), "Requires the lock be held");
-            var task = new TaskNode();
+                        var task = new TaskNode();
             if (m_asyncHead == null)
             {
-                Contract.Assert(m_asyncTail == null, "If head is null, so too should be tail");
-                m_asyncHead = task;
+                                m_asyncHead = task;
                 m_asyncTail = task;
             }
             else
             {
-                Contract.Assert(m_asyncTail != null, "If head is not null, neither should be tail");
-                m_asyncTail.Next = task;
+                                m_asyncTail.Next = task;
                 task.Prev = m_asyncTail;
                 m_asyncTail = task;
             }
@@ -318,9 +311,7 @@ namespace System.Threading
 
         private bool RemoveAsyncWaiter(TaskNode task)
         {
-            Contract.Requires(task != null, "Expected non-null task");
-            Contract.Assert(Monitor.IsEntered(m_lockObj), "Requires the lock be held");
-            bool wasInList = m_asyncHead == task || task.Prev != null;
+                                    bool wasInList = m_asyncHead == task || task.Prev != null;
             if (task.Next != null)
                 task.Next.Prev = task.Prev;
             if (task.Prev != null)
@@ -329,16 +320,13 @@ namespace System.Threading
                 m_asyncHead = task.Next;
             if (m_asyncTail == task)
                 m_asyncTail = task.Prev;
-            Contract.Assert((m_asyncHead == null) == (m_asyncTail == null), "Head is null iff tail is null");
-            task.Next = task.Prev = null;
+                        task.Next = task.Prev = null;
             return wasInList;
         }
 
         private async Task<bool> WaitUntilCountOrTimeoutAsync(TaskNode asyncWaiter, int millisecondsTimeout, CancellationToken cancellationToken)
         {
-            Contract.Assert(asyncWaiter != null, "Waiter should have been constructed");
-            Contract.Assert(Monitor.IsEntered(m_lockObj), "Requires the lock be held");
-            using (var cts = cancellationToken.CanBeCanceled ? CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, default (CancellationToken)) : new CancellationTokenSource())
+                                    using (var cts = cancellationToken.CanBeCanceled ? CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, default (CancellationToken)) : new CancellationTokenSource())
             {
                 var waitCompleted = Task.WhenAny(asyncWaiter, Task.Delay(millisecondsTimeout, cts.Token));
                 if (asyncWaiter == await waitCompleted.ConfigureAwait(false))
@@ -396,8 +384,7 @@ namespace System.Threading
 
                 if (m_asyncHead != null)
                 {
-                    Contract.Assert(m_asyncTail != null, "tail should not be null if head isn't null");
-                    int maxAsyncToRelease = currentCount - waitCount;
+                                        int maxAsyncToRelease = currentCount - waitCount;
                     while (maxAsyncToRelease > 0 && m_asyncHead != null)
                     {
                         --currentCount;
@@ -449,8 +436,7 @@ namespace System.Threading
         private static void CancellationTokenCanceledEventHandler(object obj)
         {
             SemaphoreSlim semaphore = obj as SemaphoreSlim;
-            Contract.Assert(semaphore != null, "Expected a SemaphoreSlim");
-            lock (semaphore.m_lockObj)
+                        lock (semaphore.m_lockObj)
             {
                 Monitor.PulseAll(semaphore.m_lockObj);
             }

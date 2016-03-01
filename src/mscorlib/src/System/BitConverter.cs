@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System
 {
@@ -7,25 +7,19 @@ namespace System
         public static readonly bool IsLittleEndian = true;
         public static byte[] GetBytes(bool value)
         {
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length == 1);
-            byte[] r = new byte[1];
+                                    byte[] r = new byte[1];
             r[0] = (value ? (byte)Boolean.True : (byte)Boolean.False);
             return r;
         }
 
         public static byte[] GetBytes(char value)
         {
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length == 2);
-            return GetBytes((short)value);
+                                    return GetBytes((short)value);
         }
 
         public unsafe static byte[] GetBytes(short value)
         {
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length == 2);
-            byte[] bytes = new byte[2];
+                                    byte[] bytes = new byte[2];
             fixed (byte *b = bytes)
                 *((short *)b) = value;
             return bytes;
@@ -33,9 +27,7 @@ namespace System
 
         public unsafe static byte[] GetBytes(int value)
         {
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length == 4);
-            byte[] bytes = new byte[4];
+                                    byte[] bytes = new byte[4];
             fixed (byte *b = bytes)
                 *((int *)b) = value;
             return bytes;
@@ -43,9 +35,7 @@ namespace System
 
         public unsafe static byte[] GetBytes(long value)
         {
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length == 8);
-            byte[] bytes = new byte[8];
+                                    byte[] bytes = new byte[8];
             fixed (byte *b = bytes)
                 *((long *)b) = value;
             return bytes;
@@ -53,37 +43,27 @@ namespace System
 
         public static byte[] GetBytes(ushort value)
         {
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length == 2);
-            return GetBytes((short)value);
+                                    return GetBytes((short)value);
         }
 
         public static byte[] GetBytes(uint value)
         {
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length == 4);
-            return GetBytes((int)value);
+                                    return GetBytes((int)value);
         }
 
         public static byte[] GetBytes(ulong value)
         {
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length == 8);
-            return GetBytes((long)value);
+                                    return GetBytes((long)value);
         }
 
         public unsafe static byte[] GetBytes(float value)
         {
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length == 4);
-            return GetBytes(*(int *)&value);
+                                    return GetBytes(*(int *)&value);
         }
 
         public unsafe static byte[] GetBytes(double value)
         {
-            Contract.Ensures(Contract.Result<byte[]>() != null);
-            Contract.Ensures(Contract.Result<byte[]>().Length == 8);
-            return GetBytes(*(long *)&value);
+                                    return GetBytes(*(long *)&value);
         }
 
         public static char ToChar(byte[] value, int startIndex)
@@ -103,8 +83,7 @@ namespace System
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
             }
 
-            Contract.EndContractBlock();
-            return (char)ToInt16(value, startIndex);
+                        return (char)ToInt16(value, startIndex);
         }
 
         public static unsafe short ToInt16(byte[] value, int startIndex)
@@ -124,8 +103,7 @@ namespace System
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
             }
 
-            Contract.EndContractBlock();
-            fixed (byte *pbyte = &value[startIndex])
+                        fixed (byte *pbyte = &value[startIndex])
             {
                 if (startIndex % 2 == 0)
                 {
@@ -162,8 +140,7 @@ namespace System
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
             }
 
-            Contract.EndContractBlock();
-            fixed (byte *pbyte = &value[startIndex])
+                        fixed (byte *pbyte = &value[startIndex])
             {
                 if (startIndex % 4 == 0)
                 {
@@ -200,8 +177,7 @@ namespace System
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
             }
 
-            Contract.EndContractBlock();
-            fixed (byte *pbyte = &value[startIndex])
+                        fixed (byte *pbyte = &value[startIndex])
             {
                 if (startIndex % 8 == 0)
                 {
@@ -233,8 +209,7 @@ namespace System
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.startIndex, ExceptionResource.ArgumentOutOfRange_Index);
             if (startIndex > value.Length - 2)
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
-            Contract.EndContractBlock();
-            return (ushort)ToInt16(value, startIndex);
+                        return (ushort)ToInt16(value, startIndex);
         }
 
         public static uint ToUInt32(byte[] value, int startIndex)
@@ -245,8 +220,7 @@ namespace System
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.startIndex, ExceptionResource.ArgumentOutOfRange_Index);
             if (startIndex > value.Length - 4)
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
-            Contract.EndContractBlock();
-            return (uint)ToInt32(value, startIndex);
+                        return (uint)ToInt32(value, startIndex);
         }
 
         public static ulong ToUInt64(byte[] value, int startIndex)
@@ -257,8 +231,7 @@ namespace System
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.startIndex, ExceptionResource.ArgumentOutOfRange_Index);
             if (startIndex > value.Length - 8)
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
-            Contract.EndContractBlock();
-            return (ulong)ToInt64(value, startIndex);
+                        return (ulong)ToInt64(value, startIndex);
         }
 
         unsafe public static float ToSingle(byte[] value, int startIndex)
@@ -269,8 +242,7 @@ namespace System
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.startIndex, ExceptionResource.ArgumentOutOfRange_Index);
             if (startIndex > value.Length - 4)
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
-            Contract.EndContractBlock();
-            int val = ToInt32(value, startIndex);
+                        int val = ToInt32(value, startIndex);
             return *(float *)&val;
         }
 
@@ -282,15 +254,13 @@ namespace System
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.startIndex, ExceptionResource.ArgumentOutOfRange_Index);
             if (startIndex > value.Length - 8)
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
-            Contract.EndContractBlock();
-            long val = ToInt64(value, startIndex);
+                        long val = ToInt64(value, startIndex);
             return *(double *)&val;
         }
 
         private static char GetHexValue(int i)
         {
-            Contract.Assert(i >= 0 && i < 16, "i is out of range.");
-            if (i < 10)
+                        if (i < 10)
             {
                 return (char)(i + '0');
             }
@@ -320,8 +290,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Arg_ArrayPlusOffTooSmall"));
             }
 
-            Contract.EndContractBlock();
-            if (length == 0)
+                        if (length == 0)
             {
                 return string.Empty;
             }
@@ -350,18 +319,14 @@ namespace System
         {
             if (value == null)
                 throw new ArgumentNullException("value");
-            Contract.Ensures(Contract.Result<String>() != null);
-            Contract.EndContractBlock();
-            return ToString(value, 0, value.Length);
+                                    return ToString(value, 0, value.Length);
         }
 
         public static String ToString(byte[] value, int startIndex)
         {
             if (value == null)
                 throw new ArgumentNullException("value");
-            Contract.Ensures(Contract.Result<String>() != null);
-            Contract.EndContractBlock();
-            return ToString(value, startIndex, value.Length - startIndex);
+                                    return ToString(value, startIndex, value.Length - startIndex);
         }
 
         public static bool ToBoolean(byte[] value, int startIndex)
@@ -372,8 +337,7 @@ namespace System
                 throw new ArgumentOutOfRangeException("startIndex", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (startIndex > value.Length - 1)
                 throw new ArgumentOutOfRangeException("startIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            return (value[startIndex] == 0) ? false : true;
+                        return (value[startIndex] == 0) ? false : true;
         }
 
         public static unsafe long DoubleToInt64Bits(double value)

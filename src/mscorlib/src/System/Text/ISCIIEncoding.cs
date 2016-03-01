@@ -1,5 +1,4 @@
-using System.Diagnostics.Contracts;
-using System.Globalization;
+
 using System.Runtime.Serialization;
 
 namespace System.Text
@@ -32,23 +31,20 @@ namespace System.Text
         public ISCIIEncoding(int codePage): base (codePage)
         {
             defaultCodePage = codePage - 57000;
-            Contract.Assert(defaultCodePage >= CodeDevanagari && defaultCodePage <= CodePunjabi, "[ISCIIEncoding] Code page (" + codePage + " isn't supported by ISCIIEncoding!");
-            if (defaultCodePage < CodeDevanagari || defaultCodePage > CodePunjabi)
+                        if (defaultCodePage < CodeDevanagari || defaultCodePage > CodePunjabi)
                 throw new ArgumentException(Environment.GetResourceString("Argument_CodepageNotSupported", codePage), "codePage");
         }
 
         internal ISCIIEncoding(SerializationInfo info, StreamingContext context): base (0)
         {
-            Contract.Assert(false, "Didn't expect to make it to ISCIIEncoding serialization constructor");
-            throw new ArgumentException(Environment.GetResourceString("Arg_ExecutionEngineException"));
+                        throw new ArgumentException(Environment.GetResourceString("Arg_ExecutionEngineException"));
         }
 
         public override int GetMaxByteCount(int charCount)
         {
             if (charCount < 0)
                 throw new ArgumentOutOfRangeException("charCount", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            long byteCount = (long)charCount + 1;
+                        long byteCount = (long)charCount + 1;
             if (EncoderFallback.MaxCharCount > 1)
                 byteCount *= EncoderFallback.MaxCharCount;
             byteCount *= 4;
@@ -61,8 +57,7 @@ namespace System.Text
         {
             if (byteCount < 0)
                 throw new ArgumentOutOfRangeException("byteCount", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            long charCount = ((long)byteCount + 1);
+                        long charCount = ((long)byteCount + 1);
             if (DecoderFallback.MaxCharCount > 1)
                 charCount *= DecoderFallback.MaxCharCount;
             if (charCount > 0x7fffffff)
@@ -77,10 +72,7 @@ namespace System.Text
 
         internal override unsafe int GetBytes(char *chars, int charCount, byte *bytes, int byteCount, EncoderNLS baseEncoder)
         {
-            Contract.Assert(chars != null, "[ISCIIEncoding.GetBytes]chars!=null");
-            Contract.Assert(charCount >= 0, "[ISCIIEncoding.GetBytes]charCount >=0");
-            Contract.Assert(byteCount >= 0, "[ISCIIEncoding.GetBytes]byteCount >=0");
-            ISCIIEncoder encoder = (ISCIIEncoder)baseEncoder;
+                                                ISCIIEncoder encoder = (ISCIIEncoder)baseEncoder;
             Encoding.EncodingByteBuffer buffer = new Encoding.EncodingByteBuffer(this, encoder, bytes, byteCount, chars, charCount);
             int currentCodePage = this.defaultCodePage;
             bool bLastVirama = false;
@@ -141,22 +133,19 @@ namespace System.Text
                     continue;
                 }
 
-                Contract.Assert(indicScript != 0, "[ISCIIEncoding.GetBytes]expected an indic script value");
-                if (indicScript != currentCodePage)
+                                if (indicScript != currentCodePage)
                 {
                     if (!buffer.AddByte(ControlATR, (byte)(indicScript | ControlCodePageStart)))
                         break;
                     currentCodePage = indicScript;
-                    Contract.Assert(currentCodePage >= CodeDevanagari && currentCodePage <= CodePunjabi, "[ISCIIEncoding.GetBytes]Code page (" + currentCodePage + " shouldn't appear in ISCII from Unicode table!");
-                }
+                                    }
 
                 if (!buffer.AddByte(byteIndic, indicTwoBytes != 0 ? 1 : 0))
                     break;
                 bLastVirama = (byteIndic == Virama);
                 if (indicTwoBytes != 0)
                 {
-                    Contract.Assert((indicTwoBytes >> 12) > 0 && (indicTwoBytes >> 12) <= 3, "[ISCIIEncoding.GetBytes]Expected indicTwoBytes from 1-3, not " + (indicTwoBytes >> 12));
-                    if (!buffer.AddByte(SecondIndicByte[indicTwoBytes >> 12]))
+                                        if (!buffer.AddByte(SecondIndicByte[indicTwoBytes >> 12]))
                         break;
                 }
             }
@@ -192,10 +181,7 @@ namespace System.Text
 
         internal override unsafe int GetChars(byte *bytes, int byteCount, char *chars, int charCount, DecoderNLS baseDecoder)
         {
-            Contract.Assert(bytes != null, "[ISCIIEncoding.GetChars]bytes is null");
-            Contract.Assert(byteCount >= 0, "[ISCIIEncoding.GetChars]byteCount is negative");
-            Contract.Assert(charCount >= 0, "[ISCIIEncoding.GetChars]charCount is negative");
-            ISCIIDecoder decoder = (ISCIIDecoder)baseDecoder;
+                                                ISCIIDecoder decoder = (ISCIIDecoder)baseDecoder;
             Encoding.EncodingCharBuffer buffer = new Encoding.EncodingCharBuffer(this, decoder, chars, charCount, bytes, byteCount);
             int currentCodePage = this.defaultCodePage;
             bool bLastATR = false;
@@ -215,8 +201,7 @@ namespace System.Text
 
             bool bLastSpecial = bLastVirama | bLastATR | bLastDevenagariStressAbbr | (cLastCharForNextNukta != '\0');
             int currentCodePageIndex = -1;
-            Contract.Assert(currentCodePage >= CodeDevanagari && currentCodePage <= CodePunjabi, "[ISCIIEncoding.GetChars]Decoder code page must be >= Devanagari and <= Punjabi, not " + currentCodePage);
-            if (currentCodePage >= CodeDevanagari && currentCodePage <= CodePunjabi)
+                        if (currentCodePage >= CodeDevanagari && currentCodePage <= CodePunjabi)
             {
                 currentCodePageIndex = IndicMappingIndex[currentCodePage];
             }
@@ -227,8 +212,7 @@ namespace System.Text
                 if (bLastSpecial)
                 {
                     bLastSpecial = false;
-                    Contract.Assert(((bLastVirama ? 1 : 0) + (bLastATR ? 1 : 0) + (bLastDevenagariStressAbbr ? 1 : 0) + ((cLastCharForNextNukta > 0) ? 1 : 0)) == 1, String.Format(CultureInfo.InvariantCulture, "[ISCIIEncoding.GetChars]Special cases require 1 and only 1 special case flag: LastATR {0} Dev. {1} Nukta {2}", bLastATR, bLastDevenagariStressAbbr, cLastCharForNextNukta));
-                    if (bLastATR)
+                                        if (bLastATR)
                     {
                         if (b >= (0x40 | CodeDevanagari) && b <= (0x40 | CodePunjabi))
                         {
@@ -267,11 +251,7 @@ namespace System.Text
                         if (!buffer.Fallback(ControlATR))
                             break;
                         bLastATR = false;
-                        Contract.Assert(bLastVirama == false, "[ISCIIEncoding.GetChars] Expected no bLastVirama in bLastATR mode");
-                        Contract.Assert(bLastDevenagariStressAbbr == false, "[ISCIIEncoding.GetChars] Expected no bLastDevenagariStressAbbr in bLastATR mode");
-                        Contract.Assert(cLastCharForNextNukta == (char)0, "[ISCIIEncoding.GetChars] Expected no cLastCharForNextNukta in bLastATR mode");
-                        Contract.Assert(cLastCharForNoNextNukta == (char)0, "[ISCIIEncoding.GetChars] Expected no cLastCharForNoNextNukta in bLastATR mode");
-                    }
+                                                                                                                    }
                     else if (bLastVirama)
                     {
                         if (b == Virama)
@@ -291,11 +271,7 @@ namespace System.Text
                         }
 
                         bLastVirama = false;
-                        Contract.Assert(bLastATR == false, "[ISCIIEncoding.GetChars] Expected no bLastATR in bLastVirama mode");
-                        Contract.Assert(bLastDevenagariStressAbbr == false, "[ISCIIEncoding.GetChars] Expected no bLastDevenagariStressAbbr in bLastVirama mode");
-                        Contract.Assert(cLastCharForNextNukta == (char)0, "[ISCIIEncoding.GetChars] Expected no cLastCharForNextNukta in bLastVirama mode");
-                        Contract.Assert(cLastCharForNoNextNukta == (char)0, "[ISCIIEncoding.GetChars] Expected no cLastCharForNoNextNukta in bLastVirama mode");
-                    }
+                                                                                                                    }
                     else if (bLastDevenagariStressAbbr)
                     {
                         if (b == 0xb8)
@@ -317,15 +293,10 @@ namespace System.Text
                         if (!buffer.Fallback(DevenagariExt))
                             break;
                         bLastDevenagariStressAbbr = false;
-                        Contract.Assert(bLastATR == false, "[ISCIIEncoding.GetChars] Expected no bLastATR in bLastDevenagariStressAbbr mode");
-                        Contract.Assert(bLastVirama == false, "[ISCIIEncoding.GetChars] Expected no bLastVirama in bLastDevenagariStressAbbr mode");
-                        Contract.Assert(cLastCharForNextNukta == (char)0, "[ISCIIEncoding.GetChars] Expected no cLastCharForNextNukta in bLastDevenagariStressAbbr mode");
-                        Contract.Assert(cLastCharForNoNextNukta == (char)0, "[ISCIIEncoding.GetChars] Expected no cLastCharForNoNextNukta in bLastDevenagariStressAbbr mode");
-                    }
+                                                                                                                    }
                     else
                     {
-                        Contract.Assert(cLastCharForNextNukta > 0 && cLastCharForNoNextNukta > 0, "[ISCIIEncoding.GetChars]No other special case found, but cLastCharFor(No)NextNukta variable(s) aren't set.");
-                        if (b == Nukta)
+                                                if (b == Nukta)
                         {
                             if (!buffer.AddChar(cLastCharForNextNukta))
                                 break;
@@ -336,14 +307,10 @@ namespace System.Text
                         if (!buffer.AddChar(cLastCharForNoNextNukta))
                             break;
                         cLastCharForNextNukta = cLastCharForNoNextNukta = '\0';
-                        Contract.Assert(bLastATR == false, "[ISCIIEncoding.GetChars] Expected no bLastATR in cLastCharForNextNukta mode");
-                        Contract.Assert(bLastVirama == false, "[ISCIIEncoding.GetChars] Expected no bLastVirama in cLastCharForNextNukta mode");
-                        Contract.Assert(bLastDevenagariStressAbbr == false, "[ISCIIEncoding.GetChars] Expected no bLastDevenagariStressAbbr in cLastCharForNextNukta mode");
-                    }
+                                                                                            }
                 }
 
-                Contract.Assert(!bLastSpecial && !bLastDevenagariStressAbbr && !bLastVirama && !bLastATR && cLastCharForNextNukta == '\0', "[ISCIIEncoding.GetChars]No special state for last code point should exist at this point.");
-                if (b < MultiByteBegin)
+                                if (b < MultiByteBegin)
                 {
                     if (!buffer.AddChar((char)b))
                         break;
@@ -356,8 +323,7 @@ namespace System.Text
                     continue;
                 }
 
-                Contract.Assert(currentCodePageIndex != -1, "[ISCIIEncoding.GetChars]Expected valid currentCodePageIndex != -1");
-                char ch = IndicMapping[currentCodePageIndex, 0, b - MultiByteBegin];
+                                char ch = IndicMapping[currentCodePageIndex, 0, b - MultiByteBegin];
                 char cAlt = IndicMapping[currentCodePageIndex, 1, b - MultiByteBegin];
                 if (cAlt == 0 || b == Nukta)
                 {
@@ -391,8 +357,7 @@ namespace System.Text
                     continue;
                 }
 
-                Contract.Assert(currentCodePage == CodeDevanagari && b == DevenagariExt, String.Format(CultureInfo.InvariantCulture, "[ISCIIEncoding.GetChars] Devenagari special case must {0} not {1} or in Devanagari code page {2} not {3}.", DevenagariExt, b, CodeDevanagari, currentCodePage));
-                bLastDevenagariStressAbbr = bLastSpecial = true;
+                                bLastDevenagariStressAbbr = bLastSpecial = true;
             }
 
             if (decoder == null || decoder.MustFlush)
@@ -424,8 +389,7 @@ namespace System.Text
             {
                 if (!decoder.MustFlush || cLastCharForNoNextNukta != '\0' || bLastATR || bLastDevenagariStressAbbr)
                 {
-                    Contract.Assert(!decoder.MustFlush || !decoder.m_throwOnOverflow, "[ISCIIEncoding.GetChars]Expected no state or not converting or not flushing");
-                    decoder.currentCodePage = currentCodePage;
+                                        decoder.currentCodePage = currentCodePage;
                     decoder.bLastVirama = bLastVirama;
                     decoder.bLastATR = bLastATR;
                     decoder.bLastDevenagariStressAbbr = bLastDevenagariStressAbbr;

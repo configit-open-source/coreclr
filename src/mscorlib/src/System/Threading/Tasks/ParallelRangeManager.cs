@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Threading.Tasks
 {
@@ -80,8 +80,7 @@ namespace System.Threading.Tasks
             long nFromInclusiveLocal;
             long nToExclusiveLocal;
             bool bRetVal = FindNewWork(out nFromInclusiveLocal, out nToExclusiveLocal);
-            Contract.Assert((nFromInclusiveLocal <= Int32.MaxValue) && (nFromInclusiveLocal >= Int32.MinValue) && (nToExclusiveLocal <= Int32.MaxValue) && (nToExclusiveLocal >= Int32.MinValue));
-            nFromInclusiveLocal32 = (int)nFromInclusiveLocal;
+                        nFromInclusiveLocal32 = (int)nFromInclusiveLocal;
             nToExclusiveLocal32 = (int)nToExclusiveLocal;
             return bRetVal;
         }
@@ -106,8 +105,7 @@ namespace System.Threading.Tasks
                 uRangeSize = (ulong)nStep;
             }
 
-            Contract.Assert((uSpan / uRangeSize) < Int32.MaxValue);
-            int nNumRanges = (int)(uSpan / uRangeSize);
+                        int nNumRanges = (int)(uSpan / uRangeSize);
             if (uSpan % uRangeSize != 0)
             {
                 nNumRanges++;
@@ -124,8 +122,7 @@ namespace System.Threading.Tasks
                 nCurrentIndex += nRangeSize;
                 if (nCurrentIndex < nCurrentIndex - nRangeSize || nCurrentIndex > nToExclusive)
                 {
-                    Contract.Assert(i == nNumRanges - 1);
-                    nCurrentIndex = nToExclusive;
+                                        nCurrentIndex = nToExclusive;
                 }
 
                 m_indexRanges[i].m_nToExclusive = nCurrentIndex;
@@ -134,8 +131,7 @@ namespace System.Threading.Tasks
 
         internal RangeWorker RegisterNewWorker()
         {
-            Contract.Assert(m_indexRanges != null && m_indexRanges.Length != 0);
-            int nInitialRange = (Interlocked.Increment(ref m_nCurrentIndexRangeToAssign) - 1) % m_indexRanges.Length;
+                        int nInitialRange = (Interlocked.Increment(ref m_nCurrentIndexRangeToAssign) - 1) % m_indexRanges.Length;
             return new RangeWorker(m_indexRanges, nInitialRange, m_nStep);
         }
     }

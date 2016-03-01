@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Security.Util;
 using System.Text;
 
@@ -25,8 +25,7 @@ namespace System
                 throw new ArgumentNullException("version");
             if (publicKeyToken == null)
                 throw new ArgumentNullException("publicKeyToken");
-            Contract.EndContractBlock();
-            m_publicKeyToken = new byte[publicKeyToken.Length];
+                        m_publicKeyToken = new byte[publicKeyToken.Length];
             Array.Copy(publicKeyToken, 0, m_publicKeyToken, 0, publicKeyToken.Length);
             m_name = name;
             m_version = version;

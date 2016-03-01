@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Cryptography
 {
@@ -125,8 +125,7 @@ namespace System.Security.Cryptography
             {
                 if (value == null)
                     throw new ArgumentNullException("value");
-                Contract.EndContractBlock();
-                if (value.Length != BlockSizeValue / 8)
+                                if (value.Length != BlockSizeValue / 8)
                     throw new CryptographicException(Environment.GetResourceString("Cryptography_InvalidIVSize"));
                 IVValue = (byte[])value.Clone();
             }
@@ -145,8 +144,7 @@ namespace System.Security.Cryptography
             {
                 if (value == null)
                     throw new ArgumentNullException("value");
-                Contract.EndContractBlock();
-                if (!ValidKeySize(value.Length * 8))
+                                if (!ValidKeySize(value.Length * 8))
                     throw new CryptographicException(Environment.GetResourceString("Cryptography_InvalidKeySize"));
                 KeyValue = (byte[])value.Clone();
                 KeySizeValue = value.Length * 8;

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System
 {
@@ -10,8 +10,7 @@ namespace System
         {
             if ((platforms & ~Platforms.All) != 0)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidFlag"), "platforms");
-            Contract.EndContractBlock();
-            m_platforms = platforms;
+                        m_platforms = platforms;
         }
 
         public Platforms Platforms

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Threading.Tasks
 {
@@ -13,10 +12,8 @@ namespace System.Threading.Tasks
         private static readonly ParameterizedThreadStart s_longRunningThreadWork = new ParameterizedThreadStart(LongRunningThreadWork);
         private static void LongRunningThreadWork(object obj)
         {
-            Contract.Requires(obj != null, "TaskScheduler.LongRunningThreadWork: obj is null");
-            Task t = obj as Task;
-            Contract.Assert(t != null, "TaskScheduler.LongRunningThreadWork: t is null");
-            t.ExecuteEntry(false);
+                        Task t = obj as Task;
+                        t.ExecuteEntry(false);
         }
 
         protected internal override void QueueTask(Task task)

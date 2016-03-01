@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -49,8 +49,7 @@ namespace System.Security.Cryptography
         {
             if (dwKeySize < 0)
                 throw new ArgumentOutOfRangeException("dwKeySize", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            _parameters = Utils.SaveCspParameters(CspAlgorithmType.Rsa, parameters, s_UseMachineKeyStore, ref _randomKeyContainer);
+                        _parameters = Utils.SaveCspParameters(CspAlgorithmType.Rsa, parameters, s_UseMachineKeyStore, ref _randomKeyContainer);
             LegalKeySizesValue = new KeySizes[]{new KeySizes(384, 16384, 8)};
             _dwKeySize = useDefaultKeySize ? 1024 : dwKeySize;
             if (!_randomKeyContainer)
@@ -285,8 +284,7 @@ namespace System.Security.Cryptography
         {
             if (rgbHash == null)
                 throw new ArgumentNullException("rgbHash");
-            Contract.EndContractBlock();
-            if (PublicOnly)
+                        if (PublicOnly)
                 throw new CryptographicException(Environment.GetResourceString("Cryptography_CSP_NoPrivateKey"));
             int calgHash = X509Utils.NameOrOidToAlgId(str, OidGroup.HashAlgorithm);
             return SignHash(rgbHash, calgHash);
@@ -294,8 +292,7 @@ namespace System.Security.Cryptography
 
         internal byte[] SignHash(byte[] rgbHash, int calgHash)
         {
-            Contract.Requires(rgbHash != null);
-            GetKeyPair();
+                        GetKeyPair();
             if (!CspKeyContainerInfo.RandomlyGenerated)
             {
                 if (!CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
@@ -316,16 +313,13 @@ namespace System.Security.Cryptography
                 throw new ArgumentNullException("rgbHash");
             if (rgbSignature == null)
                 throw new ArgumentNullException("rgbSignature");
-            Contract.EndContractBlock();
-            int calgHash = X509Utils.NameOrOidToAlgId(str, OidGroup.HashAlgorithm);
+                        int calgHash = X509Utils.NameOrOidToAlgId(str, OidGroup.HashAlgorithm);
             return VerifyHash(rgbHash, calgHash, rgbSignature);
         }
 
         internal bool VerifyHash(byte[] rgbHash, int calgHash, byte[] rgbSignature)
         {
-            Contract.Requires(rgbHash != null);
-            Contract.Requires(rgbSignature != null);
-            GetKeyPair();
+                                    GetKeyPair();
             return Utils.VerifySign(_safeKeyHandle, Constants.CALG_RSA_SIGN, calgHash, rgbHash, rgbSignature);
         }
 
@@ -333,8 +327,7 @@ namespace System.Security.Cryptography
         {
             if (rgb == null)
                 throw new ArgumentNullException("rgb");
-            Contract.EndContractBlock();
-            GetKeyPair();
+                        GetKeyPair();
             byte[] encryptedKey = null;
             EncryptKey(_safeKeyHandle, rgb, rgb.Length, fOAEP, JitHelpers.GetObjectHandleOnStack(ref encryptedKey));
             return encryptedKey;
@@ -344,8 +337,7 @@ namespace System.Security.Cryptography
         {
             if (rgb == null)
                 throw new ArgumentNullException("rgb");
-            Contract.EndContractBlock();
-            GetKeyPair();
+                        GetKeyPair();
             if (rgb.Length > (KeySize / 8))
                 throw new CryptographicException(Environment.GetResourceString("Cryptography_Padding_DecDataTooBig", KeySize / 8));
             if (!CspKeyContainerInfo.RandomlyGenerated)
@@ -406,8 +398,7 @@ namespace System.Security.Cryptography
         {
             if (keyBlob == null)
                 throw new ArgumentNullException("keyBlob");
-            Contract.EndContractBlock();
-            if (keyBlob[0] != Constants.PUBLICKEYBLOB)
+                        if (keyBlob[0] != Constants.PUBLICKEYBLOB)
                 return false;
             if (keyBlob[11] != 0x31 || keyBlob[10] != 0x41 || keyBlob[9] != 0x53 || keyBlob[8] != 0x52)
                 return false;

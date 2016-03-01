@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Text
@@ -10,8 +10,7 @@ namespace System.Text
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            this.realEncoding = (Encoding)info.GetValue("m_encoding", typeof (Encoding));
+                        this.realEncoding = (Encoding)info.GetValue("m_encoding", typeof (Encoding));
         }
 
         public Object GetRealObject(StreamingContext context)

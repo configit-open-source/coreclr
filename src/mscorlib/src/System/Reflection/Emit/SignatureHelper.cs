@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -222,9 +222,7 @@ namespace System.Reflection.Emit
 
         private void AddOneArgTypeHelper(Type clsArgument, Type[] requiredCustomModifiers, Type[] optionalCustomModifiers)
         {
-            Contract.Requires(clsArgument != null);
-            Contract.Requires((optionalCustomModifiers == null && requiredCustomModifiers == null) || !clsArgument.ContainsGenericParameters);
-            if (optionalCustomModifiers != null)
+                                    if (optionalCustomModifiers != null)
             {
                 for (int i = 0; i < optionalCustomModifiers.Length; i++)
                 {
@@ -237,8 +235,7 @@ namespace System.Reflection.Emit
                         throw new ArgumentException(Environment.GetResourceString("Argument_GenericsInvalid"), "optionalCustomModifiers");
                     AddElementType(CorElementType.CModOpt);
                     int token = m_module.GetTypeToken(t).Token;
-                    Contract.Assert(!MetadataToken.IsNullToken(token));
-                    AddToken(token);
+                                        AddToken(token);
                 }
             }
 
@@ -255,8 +252,7 @@ namespace System.Reflection.Emit
                         throw new ArgumentException(Environment.GetResourceString("Argument_GenericsInvalid"), "requiredCustomModifiers");
                     AddElementType(CorElementType.CModReqd);
                     int token = m_module.GetTypeToken(t).Token;
-                    Contract.Assert(!MetadataToken.IsNullToken(token));
-                    AddToken(token);
+                                        AddToken(token);
                 }
             }
 

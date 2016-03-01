@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Text
@@ -46,8 +46,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (bytes.Length - index < count)
                 throw new ArgumentOutOfRangeException("bytes", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
-            Contract.EndContractBlock();
-            if (bytes.Length == 0)
+                        if (bytes.Length == 0)
                 bytes = new byte[1];
             fixed (byte *pBytes = bytes)
                 return GetCharCount(pBytes + index, count, flush);
@@ -59,8 +58,7 @@ namespace System.Text
                 throw new ArgumentNullException("bytes", Environment.GetResourceString("ArgumentNull_Array"));
             if (count < 0)
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            this.m_mustFlush = flush;
+                        this.m_mustFlush = flush;
             this.m_throwOnOverflow = true;
             return m_encoding.GetCharCount(bytes, count, this);
         }
@@ -80,8 +78,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("bytes", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
             if (charIndex < 0 || charIndex > chars.Length)
                 throw new ArgumentOutOfRangeException("charIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            if (bytes.Length == 0)
+                        if (bytes.Length == 0)
                 bytes = new byte[1];
             int charCount = chars.Length - charIndex;
             if (chars.Length == 0)
@@ -97,8 +94,7 @@ namespace System.Text
                 throw new ArgumentNullException((chars == null ? "chars" : "bytes"), Environment.GetResourceString("ArgumentNull_Array"));
             if (byteCount < 0 || charCount < 0)
                 throw new ArgumentOutOfRangeException((byteCount < 0 ? "byteCount" : "charCount"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            m_mustFlush = flush;
+                        m_mustFlush = flush;
             m_throwOnOverflow = true;
             return m_encoding.GetChars(bytes, byteCount, chars, charCount, this);
         }
@@ -115,8 +111,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("bytes", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
             if (chars.Length - charIndex < charCount)
                 throw new ArgumentOutOfRangeException("chars", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
-            Contract.EndContractBlock();
-            if (bytes.Length == 0)
+                        if (bytes.Length == 0)
                 bytes = new byte[1];
             if (chars.Length == 0)
                 chars = new char[1];
@@ -135,8 +130,7 @@ namespace System.Text
                 throw new ArgumentNullException(chars == null ? "chars" : "bytes", Environment.GetResourceString("ArgumentNull_Array"));
             if (byteCount < 0 || charCount < 0)
                 throw new ArgumentOutOfRangeException((byteCount < 0 ? "byteCount" : "charCount"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            this.m_mustFlush = flush;
+                        this.m_mustFlush = flush;
             this.m_throwOnOverflow = false;
             this.m_bytesUsed = 0;
             charsUsed = this.m_encoding.GetChars(bytes, byteCount, chars, charCount, this);

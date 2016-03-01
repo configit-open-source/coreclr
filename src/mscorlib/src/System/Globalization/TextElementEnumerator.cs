@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Runtime.Serialization;
 
 namespace System.Globalization
@@ -15,10 +14,7 @@ namespace System.Globalization
         private int charLen;
         internal TextElementEnumerator(String str, int startIndex, int strLen)
         {
-            Contract.Assert(str != null, "TextElementEnumerator(): str != null");
-            Contract.Assert(startIndex >= 0 && strLen >= 0, "TextElementEnumerator(): startIndex >= 0 && strLen >= 0");
-            Contract.Assert(strLen >= startIndex, "TextElementEnumerator(): strLen >= startIndex");
-            this.str = str;
+                                                this.str = str;
             this.startIndex = startIndex;
             this.strLen = strLen;
             Reset();

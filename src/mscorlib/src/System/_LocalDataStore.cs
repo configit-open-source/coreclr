@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -137,14 +137,12 @@ namespace System
                 if (slotIdx >= m_DataTable.Length)
                 {
                     int capacity = m_Manager.GetSlotTableLength();
-                    Contract.Assert(capacity >= m_DataTable.Length, "LocalDataStore corrupted: capacity >= m_DataTable.Length");
-                    LocalDataStoreElement[] NewDataTable = new LocalDataStoreElement[capacity];
+                                        LocalDataStoreElement[] NewDataTable = new LocalDataStoreElement[capacity];
                     Array.Copy(m_DataTable, NewDataTable, m_DataTable.Length);
                     m_DataTable = NewDataTable;
                 }
 
-                Contract.Assert(slotIdx < m_DataTable.Length, "LocalDataStore corrupted: slotIdx < m_DataTable.Length");
-                if (m_DataTable[slotIdx] == null)
+                                if (m_DataTable[slotIdx] == null)
                     m_DataTable[slotIdx] = new LocalDataStoreElement(slot.Cookie);
                 return m_DataTable[slotIdx];
             }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 
 namespace System.Security
 {
@@ -178,8 +177,7 @@ namespace System.Security
 
         internal bool CheckDemandNoThrow(CodeAccessPermission demand)
         {
-            Contract.Assert(m_permSetTriples == null && m_firstPermSetTriple != null, "More than one PermissionSetTriple encountered in AD PermissionListSet");
-            PermissionToken permToken = null;
+                        PermissionToken permToken = null;
             if (demand != null)
                 permToken = PermissionToken.GetToken(demand);
             return m_firstPermSetTriple.CheckDemandNoThrow(demand, permToken);
@@ -187,8 +185,7 @@ namespace System.Security
 
         internal bool CheckSetDemandNoThrow(PermissionSet pSet)
         {
-            Contract.Assert(m_permSetTriples == null && m_firstPermSetTriple != null, "More than one PermissionSetTriple encountered in AD PermissionListSet");
-            return m_firstPermSetTriple.CheckSetDemandNoThrow(pSet);
+                        return m_firstPermSetTriple.CheckSetDemandNoThrow(pSet);
         }
 
         internal bool CheckDemand(CodeAccessPermission demand, PermissionToken permToken, RuntimeMethodHandleInternal rmh)
@@ -242,8 +239,7 @@ namespace System.Security
 
         private bool CheckFlags(int flags)
         {
-            Contract.Assert(flags != 0, "Invalid permission flag demand");
-            bool check = true;
+                        bool check = true;
             if (m_permSetTriples != null)
             {
                 for (int i = 0; i < m_permSetTriples.Count && check && flags != 0; i++)

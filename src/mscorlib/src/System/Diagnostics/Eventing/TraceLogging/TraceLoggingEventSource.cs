@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -24,8 +23,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("eventSourceName");
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         public unsafe void Write(string eventName)
         {
@@ -34,8 +32,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("eventName");
             }
 
-            Contract.EndContractBlock();
-            if (!this.IsEnabled())
+                        if (!this.IsEnabled())
             {
                 return;
             }
@@ -51,8 +48,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("eventName");
             }
 
-            Contract.EndContractBlock();
-            if (!this.IsEnabled())
+                        if (!this.IsEnabled())
             {
                 return;
             }

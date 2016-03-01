@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 using System.Security.Permissions;
 using System.Security.Policy;
@@ -63,8 +63,7 @@ namespace System.Security
 
         private static void ThrowSecurityException(Object assemblyOrString, PermissionSet granted, PermissionSet refused, RuntimeMethodHandleInternal rmh, SecurityAction action, Object demand, IPermission permThatFailed)
         {
-            Contract.Assert((assemblyOrString == null || assemblyOrString is RuntimeAssembly || assemblyOrString is String), "Must pass in an Assembly object or String object here");
-            if (assemblyOrString == null || assemblyOrString is RuntimeAssembly)
+                        if (assemblyOrString == null || assemblyOrString is RuntimeAssembly)
                 ThrowSecurityException((RuntimeAssembly)assemblyOrString, granted, refused, rmh, action, demand, permThatFailed);
             else
             {
@@ -75,14 +74,12 @@ namespace System.Security
 
         internal static void CheckSetHelper(Object notUsed, PermissionSet grants, PermissionSet refused, PermissionSet demands, RuntimeMethodHandleInternal rmh, RuntimeAssembly asm, SecurityAction action)
         {
-            Contract.Assert(notUsed == null, "Should not reach here with a non-null first arg which is the CompressedStack");
-            CheckSetHelper(grants, refused, demands, rmh, (Object)asm, action, true);
+                        CheckSetHelper(grants, refused, demands, rmh, (Object)asm, action, true);
         }
 
         internal static bool CheckSetHelper(PermissionSet grants, PermissionSet refused, PermissionSet demands, RuntimeMethodHandleInternal rmh, Object assemblyOrString, SecurityAction action, bool throwException)
         {
-            Contract.Assert(demands != null, "Should not reach here with a null demand set");
-            IPermission permThatFailed = null;
+                        IPermission permThatFailed = null;
             if (grants != null)
                 grants.CheckDecoded(demands);
             if (refused != null)
@@ -128,14 +125,12 @@ namespace System.Security
 
         internal static void CheckHelper(Object notUsed, PermissionSet grantedSet, PermissionSet refusedSet, CodeAccessPermission demand, PermissionToken permToken, RuntimeMethodHandleInternal rmh, RuntimeAssembly asm, SecurityAction action)
         {
-            Contract.Assert(notUsed == null, "Should not reach here with a non-null first arg which is the CompressedStack");
-            CheckHelper(grantedSet, refusedSet, demand, permToken, rmh, (Object)asm, action, true);
+                        CheckHelper(grantedSet, refusedSet, demand, permToken, rmh, (Object)asm, action, true);
         }
 
         internal static bool CheckHelper(PermissionSet grantedSet, PermissionSet refusedSet, CodeAccessPermission demand, PermissionToken permToken, RuntimeMethodHandleInternal rmh, Object assemblyOrString, SecurityAction action, bool throwException)
         {
-            Contract.Assert(demand != null, "Should not reach here with a null demand");
-            if (permToken == null)
+                        if (permToken == null)
                 permToken = PermissionToken.GetToken(demand);
             if (grantedSet != null)
                 grantedSet.CheckDecoded(permToken.m_index);
@@ -153,8 +148,7 @@ namespace System.Security
                 }
                 else if (!grantedSet.IsUnrestricted())
                 {
-                    Contract.Assert(demand != null, "demand != null");
-                    CodeAccessPermission grantedPerm = (CodeAccessPermission)grantedSet.GetPermission(permToken);
+                                        CodeAccessPermission grantedPerm = (CodeAccessPermission)grantedSet.GetPermission(permToken);
                     if (!demand.CheckDemand(grantedPerm))
                     {
                         if (throwException)

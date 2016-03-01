@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System.Runtime.Serialization
@@ -16,8 +16,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
+                        return System.Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
         }
 
         public Object Convert(Object value, TypeCode typeCode)
@@ -27,8 +26,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ChangeType(value, typeCode, CultureInfo.InvariantCulture);
+                        return System.Convert.ChangeType(value, typeCode, CultureInfo.InvariantCulture);
         }
 
         public bool ToBoolean(Object value)
@@ -38,8 +36,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToBoolean(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToBoolean(value, CultureInfo.InvariantCulture);
         }
 
         public char ToChar(Object value)
@@ -49,8 +46,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToChar(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToChar(value, CultureInfo.InvariantCulture);
         }
 
         public sbyte ToSByte(Object value)
@@ -60,8 +56,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToSByte(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToSByte(value, CultureInfo.InvariantCulture);
         }
 
         public byte ToByte(Object value)
@@ -71,8 +66,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToByte(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToByte(value, CultureInfo.InvariantCulture);
         }
 
         public short ToInt16(Object value)
@@ -82,8 +76,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToInt16(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToInt16(value, CultureInfo.InvariantCulture);
         }
 
         public ushort ToUInt16(Object value)
@@ -93,8 +86,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToUInt16(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToUInt16(value, CultureInfo.InvariantCulture);
         }
 
         public int ToInt32(Object value)
@@ -104,8 +96,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToInt32(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToInt32(value, CultureInfo.InvariantCulture);
         }
 
         public uint ToUInt32(Object value)
@@ -115,8 +106,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToUInt32(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToUInt32(value, CultureInfo.InvariantCulture);
         }
 
         public long ToInt64(Object value)
@@ -126,8 +116,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToInt64(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToInt64(value, CultureInfo.InvariantCulture);
         }
 
         public ulong ToUInt64(Object value)
@@ -137,8 +126,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToUInt64(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToUInt64(value, CultureInfo.InvariantCulture);
         }
 
         public float ToSingle(Object value)
@@ -148,8 +136,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToSingle(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToSingle(value, CultureInfo.InvariantCulture);
         }
 
         public double ToDouble(Object value)
@@ -159,8 +146,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToDouble(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToDouble(value, CultureInfo.InvariantCulture);
         }
 
         public Decimal ToDecimal(Object value)
@@ -170,8 +156,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToDecimal(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToDecimal(value, CultureInfo.InvariantCulture);
         }
 
         public DateTime ToDateTime(Object value)
@@ -181,8 +166,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToDateTime(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToDateTime(value, CultureInfo.InvariantCulture);
         }
 
         public String ToString(Object value)
@@ -192,8 +176,7 @@ namespace System.Runtime.Serialization
                 throw new ArgumentNullException("value");
             }
 
-            Contract.EndContractBlock();
-            return System.Convert.ToString(value, CultureInfo.InvariantCulture);
+                        return System.Convert.ToString(value, CultureInfo.InvariantCulture);
         }
     }
 }

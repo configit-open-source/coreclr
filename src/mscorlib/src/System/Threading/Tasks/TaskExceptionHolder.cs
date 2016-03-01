@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.Runtime.ExceptionServices;
 
 namespace System.Threading.Tasks
@@ -16,8 +15,7 @@ namespace System.Threading.Tasks
         private volatile bool m_isHandled;
         internal TaskExceptionHolder(Task task)
         {
-            Contract.Requires(task != null, "Expected a non-null task.");
-            m_task = task;
+                        m_task = task;
             EnsureADUnloadCallbackRegistered();
         }
 
@@ -88,9 +86,7 @@ namespace System.Threading.Tasks
 
         internal void Add(object exceptionObject, bool representsCancellation)
         {
-            Contract.Requires(exceptionObject != null, "TaskExceptionHolder.Add(): Expected a non-null exceptionObject");
-            Contract.Requires(exceptionObject is Exception || exceptionObject is IEnumerable<Exception> || exceptionObject is ExceptionDispatchInfo || exceptionObject is IEnumerable<ExceptionDispatchInfo>, "TaskExceptionHolder.Add(): Expected Exception, IEnumerable<Exception>, ExceptionDispatchInfo, or IEnumerable<ExceptionDispatchInfo>");
-            if (representsCancellation)
+                                    if (representsCancellation)
                 SetCancellationException(exceptionObject);
             else
                 AddFaultException(exceptionObject);
@@ -98,10 +94,7 @@ namespace System.Threading.Tasks
 
         private void SetCancellationException(object exceptionObject)
         {
-            Contract.Requires(exceptionObject != null, "Expected exceptionObject to be non-null.");
-            Contract.Assert(m_cancellationException == null, "Expected SetCancellationException to be called only once.");
-            Contract.Assert(m_faultExceptions == null, "Expected SetCancellationException to be called before any faults were added.");
-            var oce = exceptionObject as OperationCanceledException;
+                                                var oce = exceptionObject as OperationCanceledException;
             if (oce != null)
             {
                 m_cancellationException = ExceptionDispatchInfo.Capture(oce);
@@ -109,8 +102,7 @@ namespace System.Threading.Tasks
             else
             {
                 var edi = exceptionObject as ExceptionDispatchInfo;
-                Contract.Assert(edi != null && edi.SourceException is OperationCanceledException, "Expected an OCE or an EDI that contained an OCE");
-                m_cancellationException = edi;
+                                m_cancellationException = edi;
             }
 
             MarkAsHandled(false);
@@ -118,13 +110,11 @@ namespace System.Threading.Tasks
 
         private void AddFaultException(object exceptionObject)
         {
-            Contract.Requires(exceptionObject != null, "AddFaultException(): Expected a non-null exceptionObject");
-            var exceptions = m_faultExceptions;
+                        var exceptions = m_faultExceptions;
             if (exceptions == null)
                 m_faultExceptions = exceptions = new List<ExceptionDispatchInfo>(1);
-            else
-                Contract.Assert(exceptions.Count > 0, "Expected existing exceptions list to have > 0 exceptions.");
-            var exception = exceptionObject as Exception;
+            
+                            var exception = exceptionObject as Exception;
             if (exception != null)
             {
                 exceptions.Add(ExceptionDispatchInfo.Capture(exception));
@@ -144,24 +134,20 @@ namespace System.Threading.Tasks
                         int numExceptions = 0;
                         foreach (var exc in exColl)
                         {
-                            Contract.Assert(exc != null, "No exceptions should be null");
-                            numExceptions++;
+                                                        numExceptions++;
                             exceptions.Add(ExceptionDispatchInfo.Capture(exc));
                         }
 
-                        Contract.Assert(numExceptions > 0, "Collection should contain at least one exception.");
-                    }
+                                            }
                     else
                     {
                         var ediColl = exceptionObject as IEnumerable<ExceptionDispatchInfo>;
                         if (ediColl != null)
                         {
                             exceptions.AddRange(ediColl);
-                            Contract.Assert(exceptions.Count > 0, "There should be at least one dispatch info.");
-                            foreach (var tmp in exceptions)
+                                                        foreach (var tmp in exceptions)
                             {
-                                Contract.Assert(tmp != null, "No dispatch infos should be null");
-                            }
+                                                            }
                         }
                         else
                         {
@@ -211,9 +197,7 @@ namespace System.Threading.Tasks
         internal AggregateException CreateExceptionObject(bool calledFromFinalizer, Exception includeThisException)
         {
             var exceptions = m_faultExceptions;
-            Contract.Assert(exceptions != null, "Expected an initialized list.");
-            Contract.Assert(exceptions.Count > 0, "Expected at least one exception.");
-            MarkAsHandled(calledFromFinalizer);
+                                    MarkAsHandled(calledFromFinalizer);
             if (includeThisException == null)
                 return new AggregateException(exceptions);
             Exception[] combinedExceptions = new Exception[exceptions.Count + 1];
@@ -229,17 +213,14 @@ namespace System.Threading.Tasks
         internal ReadOnlyCollection<ExceptionDispatchInfo> GetExceptionDispatchInfos()
         {
             var exceptions = m_faultExceptions;
-            Contract.Assert(exceptions != null, "Expected an initialized list.");
-            Contract.Assert(exceptions.Count > 0, "Expected at least one exception.");
-            MarkAsHandled(false);
+                                    MarkAsHandled(false);
             return new ReadOnlyCollection<ExceptionDispatchInfo>(exceptions);
         }
 
         internal ExceptionDispatchInfo GetCancellationExceptionDispatchInfo()
         {
             var edi = m_cancellationException;
-            Contract.Assert(edi == null || edi.SourceException is OperationCanceledException, "Expected the EDI to be for an OperationCanceledException");
-            return edi;
+                        return edi;
         }
     }
 }

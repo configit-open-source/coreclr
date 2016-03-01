@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -10,8 +9,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private IterableToEnumerableAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal IEnumerator<T> GetEnumerator_Stub<T>()
         {
@@ -41,8 +39,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private BindableIterableToEnumerableAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         private sealed class NonGenericToGenericIterator : IIterator<object>
         {
@@ -94,8 +91,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         private bool m_isInitialized;
         internal IteratorToEnumeratorAdapter(IIterator<T> iterator)
         {
-            Contract.Requires(iterator != null);
-            m_iterator = iterator;
+                        m_iterator = iterator;
             m_hadCurrent = true;
             m_isInitialized = false;
         }

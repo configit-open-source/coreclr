@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 using System.Runtime.Serialization;
 
@@ -105,21 +105,19 @@ namespace System
 
         public DateTime UtcDateTime
         {
-            [Pure]
+            
             get
             {
-                Contract.Ensures(Contract.Result<DateTime>().Kind == DateTimeKind.Utc);
-                return DateTime.SpecifyKind(m_dateTime, DateTimeKind.Utc);
+                                return DateTime.SpecifyKind(m_dateTime, DateTimeKind.Utc);
             }
         }
 
         public DateTime LocalDateTime
         {
-            [Pure]
+            
             get
             {
-                Contract.Ensures(Contract.Result<DateTime>().Kind == DateTimeKind.Local);
-                return UtcDateTime.ToLocalTime();
+                                return UtcDateTime.ToLocalTime();
             }
         }
 
@@ -148,9 +146,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 1);
-                Contract.Ensures(Contract.Result<int>() <= 31);
-                return ClockDateTime.Day;
+                                                return ClockDateTime.Day;
             }
         }
 
@@ -158,9 +154,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<DayOfWeek>() >= DayOfWeek.Sunday);
-                Contract.Ensures(Contract.Result<DayOfWeek>() <= DayOfWeek.Saturday);
-                return ClockDateTime.DayOfWeek;
+                                                return ClockDateTime.DayOfWeek;
             }
         }
 
@@ -168,9 +162,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 1);
-                Contract.Ensures(Contract.Result<int>() <= 366);
-                return ClockDateTime.DayOfYear;
+                                                return ClockDateTime.DayOfYear;
             }
         }
 
@@ -178,9 +170,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                Contract.Ensures(Contract.Result<int>() < 24);
-                return ClockDateTime.Hour;
+                                                return ClockDateTime.Hour;
             }
         }
 
@@ -188,9 +178,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                Contract.Ensures(Contract.Result<int>() < 1000);
-                return ClockDateTime.Millisecond;
+                                                return ClockDateTime.Millisecond;
             }
         }
 
@@ -198,9 +186,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                Contract.Ensures(Contract.Result<int>() < 60);
-                return ClockDateTime.Minute;
+                                                return ClockDateTime.Minute;
             }
         }
 
@@ -208,8 +194,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 1);
-                return ClockDateTime.Month;
+                                return ClockDateTime.Month;
             }
         }
 
@@ -225,9 +210,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                Contract.Ensures(Contract.Result<int>() < 60);
-                return ClockDateTime.Second;
+                                                return ClockDateTime.Second;
             }
         }
 
@@ -259,8 +242,7 @@ namespace System
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 1 && Contract.Result<int>() <= 9999);
-                return ClockDateTime.Year;
+                                return ClockDateTime.Year;
             }
         }
 
@@ -482,26 +464,22 @@ namespace System
 
         public override String ToString()
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return DateTimeFormat.Format(ClockDateTime, null, DateTimeFormatInfo.CurrentInfo, Offset);
+                        return DateTimeFormat.Format(ClockDateTime, null, DateTimeFormatInfo.CurrentInfo, Offset);
         }
 
         public String ToString(String format)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return DateTimeFormat.Format(ClockDateTime, format, DateTimeFormatInfo.CurrentInfo, Offset);
+                        return DateTimeFormat.Format(ClockDateTime, format, DateTimeFormatInfo.CurrentInfo, Offset);
         }
 
         public String ToString(IFormatProvider formatProvider)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return DateTimeFormat.Format(ClockDateTime, null, DateTimeFormatInfo.GetInstance(formatProvider), Offset);
+                        return DateTimeFormat.Format(ClockDateTime, null, DateTimeFormatInfo.GetInstance(formatProvider), Offset);
         }
 
         public String ToString(String format, IFormatProvider formatProvider)
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            return DateTimeFormat.Format(ClockDateTime, format, DateTimeFormatInfo.GetInstance(formatProvider), Offset);
+                        return DateTimeFormat.Format(ClockDateTime, format, DateTimeFormatInfo.GetInstance(formatProvider), Offset);
         }
 
         public DateTimeOffset ToUniversalTime()
@@ -566,8 +544,7 @@ namespace System
 
         private static DateTime ValidateDate(DateTime dateTime, TimeSpan offset)
         {
-            Contract.Assert(offset.Ticks >= MinOffset && offset.Ticks <= MaxOffset, "Offset not validated.");
-            Int64 utcTicks = dateTime.Ticks - offset.Ticks;
+                        Int64 utcTicks = dateTime.Ticks - offset.Ticks;
             if (utcTicks < DateTime.MinTicks || utcTicks > DateTime.MaxTicks)
             {
                 throw new ArgumentOutOfRangeException("offset", Environment.GetResourceString("Argument_UTCOutOfRange"));
@@ -593,8 +570,7 @@ namespace System
                 throw new ArgumentException(Environment.GetResourceString("Argument_DateTimeOffsetInvalidDateTimeStyles"), parameterName);
             }
 
-            Contract.EndContractBlock();
-            style &= ~DateTimeStyles.RoundtripKind;
+                        style &= ~DateTimeStyles.RoundtripKind;
             style &= ~DateTimeStyles.AssumeLocal;
             return style;
         }

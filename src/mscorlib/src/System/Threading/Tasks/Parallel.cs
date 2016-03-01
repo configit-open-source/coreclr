@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Threading.Tasks
 {
@@ -439,9 +438,7 @@ namespace System.Threading.Tasks
 
         private static ParallelLoopResult ForWorker<TLocal>(int fromInclusive, int toExclusive, ParallelOptions parallelOptions, Action<int> body, Action<int, ParallelLoopState> bodyWithState, Func<int, ParallelLoopState, TLocal, TLocal> bodyWithLocal, Func<TLocal> localInit, Action<TLocal> localFinally)
         {
-            Contract.Assert(((body == null ? 0 : 1) + (bodyWithState == null ? 0 : 1) + (bodyWithLocal == null ? 0 : 1)) == 1, "expected exactly one body function to be supplied");
-            Contract.Assert(bodyWithLocal != null || (localInit == null && localFinally == null), "thread local functions should only be supplied for loops w/ thread local bodies");
-            ParallelLoopResult result = new ParallelLoopResult();
+                                    ParallelLoopResult result = new ParallelLoopResult();
             if (toExclusive <= fromInclusive)
             {
                 result.m_completed = true;
@@ -512,13 +509,11 @@ namespace System.Threading.Tasks
                         ParallelLoopState32 state = null;
                         if (bodyWithState != null)
                         {
-                            Contract.Assert(sharedPStateFlags != null);
-                            state = new ParallelLoopState32(sharedPStateFlags);
+                                                        state = new ParallelLoopState32(sharedPStateFlags);
                         }
                         else if (bodyWithLocal != null)
                         {
-                            Contract.Assert(sharedPStateFlags != null);
-                            state = new ParallelLoopState32(sharedPStateFlags);
+                                                        state = new ParallelLoopState32(sharedPStateFlags);
                             if (localInit != null)
                             {
                                 localValue = localInit();
@@ -639,9 +634,7 @@ namespace System.Threading.Tasks
 
         private static ParallelLoopResult ForWorker64<TLocal>(long fromInclusive, long toExclusive, ParallelOptions parallelOptions, Action<long> body, Action<long, ParallelLoopState> bodyWithState, Func<long, ParallelLoopState, TLocal, TLocal> bodyWithLocal, Func<TLocal> localInit, Action<TLocal> localFinally)
         {
-            Contract.Assert(((body == null ? 0 : 1) + (bodyWithState == null ? 0 : 1) + (bodyWithLocal == null ? 0 : 1)) == 1, "expected exactly one body function to be supplied");
-            Contract.Assert(bodyWithLocal != null || (localInit == null && localFinally == null), "thread local functions should only be supplied for loops w/ thread local bodies");
-            ParallelLoopResult result = new ParallelLoopResult();
+                                    ParallelLoopResult result = new ParallelLoopResult();
             if (toExclusive <= fromInclusive)
             {
                 result.m_completed = true;
@@ -712,13 +705,11 @@ namespace System.Threading.Tasks
                         ParallelLoopState64 state = null;
                         if (bodyWithState != null)
                         {
-                            Contract.Assert(sharedPStateFlags != null);
-                            state = new ParallelLoopState64(sharedPStateFlags);
+                                                        state = new ParallelLoopState64(sharedPStateFlags);
                         }
                         else if (bodyWithLocal != null)
                         {
-                            Contract.Assert(sharedPStateFlags != null);
-                            state = new ParallelLoopState64(sharedPStateFlags);
+                                                        state = new ParallelLoopState64(sharedPStateFlags);
                             if (localInit != null)
                             {
                                 localValue = localInit();
@@ -1054,9 +1045,7 @@ namespace System.Threading.Tasks
 
         private static ParallelLoopResult ForEachWorker<TSource, TLocal>(IEnumerable<TSource> source, ParallelOptions parallelOptions, Action<TSource> body, Action<TSource, ParallelLoopState> bodyWithState, Action<TSource, ParallelLoopState, long> bodyWithStateAndIndex, Func<TSource, ParallelLoopState, TLocal, TLocal> bodyWithStateAndLocal, Func<TSource, ParallelLoopState, long, TLocal, TLocal> bodyWithEverything, Func<TLocal> localInit, Action<TLocal> localFinally)
         {
-            Contract.Assert(((body == null ? 0 : 1) + (bodyWithState == null ? 0 : 1) + (bodyWithStateAndIndex == null ? 0 : 1) + (bodyWithStateAndLocal == null ? 0 : 1) + (bodyWithEverything == null ? 0 : 1)) == 1, "expected exactly one body function to be supplied");
-            Contract.Assert((bodyWithStateAndLocal != null) || (bodyWithEverything != null) || (localInit == null && localFinally == null), "thread local functions should only be supplied for loops w/ thread local bodies");
-            if (parallelOptions.CancellationToken.IsCancellationRequested)
+                                    if (parallelOptions.CancellationToken.IsCancellationRequested)
             {
                 throw new OperationCanceledException(parallelOptions.CancellationToken);
             }
@@ -1078,9 +1067,7 @@ namespace System.Threading.Tasks
 
         private static ParallelLoopResult ForEachWorker<TSource, TLocal>(TSource[] array, ParallelOptions parallelOptions, Action<TSource> body, Action<TSource, ParallelLoopState> bodyWithState, Action<TSource, ParallelLoopState, long> bodyWithStateAndIndex, Func<TSource, ParallelLoopState, TLocal, TLocal> bodyWithStateAndLocal, Func<TSource, ParallelLoopState, long, TLocal, TLocal> bodyWithEverything, Func<TLocal> localInit, Action<TLocal> localFinally)
         {
-            Contract.Assert(array != null);
-            Contract.Assert(parallelOptions != null, "ForEachWorker(array): parallelOptions is null");
-            int from = array.GetLowerBound(0);
+                                    int from = array.GetLowerBound(0);
             int to = array.GetUpperBound(0) + 1;
             if (body != null)
             {
@@ -1106,9 +1093,7 @@ namespace System.Threading.Tasks
 
         private static ParallelLoopResult ForEachWorker<TSource, TLocal>(IList<TSource> list, ParallelOptions parallelOptions, Action<TSource> body, Action<TSource, ParallelLoopState> bodyWithState, Action<TSource, ParallelLoopState, long> bodyWithStateAndIndex, Func<TSource, ParallelLoopState, TLocal, TLocal> bodyWithStateAndLocal, Func<TSource, ParallelLoopState, long, TLocal, TLocal> bodyWithEverything, Func<TLocal> localInit, Action<TLocal> localFinally)
         {
-            Contract.Assert(list != null);
-            Contract.Assert(parallelOptions != null, "ForEachWorker(list): parallelOptions is null");
-            if (body != null)
+                                    if (body != null)
             {
                 return ForWorker<object>(0, list.Count, parallelOptions, (i) => body(list[i]), null, null, null, null);
             }
@@ -1367,11 +1352,8 @@ namespace System.Threading.Tasks
 
         private static ParallelLoopResult PartitionerForEachWorker<TSource, TLocal>(Partitioner<TSource> source, ParallelOptions parallelOptions, Action<TSource> simpleBody, Action<TSource, ParallelLoopState> bodyWithState, Action<TSource, ParallelLoopState, long> bodyWithStateAndIndex, Func<TSource, ParallelLoopState, TLocal, TLocal> bodyWithStateAndLocal, Func<TSource, ParallelLoopState, long, TLocal, TLocal> bodyWithEverything, Func<TLocal> localInit, Action<TLocal> localFinally)
         {
-            Contract.Assert(((simpleBody == null ? 0 : 1) + (bodyWithState == null ? 0 : 1) + (bodyWithStateAndIndex == null ? 0 : 1) + (bodyWithStateAndLocal == null ? 0 : 1) + (bodyWithEverything == null ? 0 : 1)) == 1, "PartitionForEach: expected exactly one body function to be supplied");
-            Contract.Assert((bodyWithStateAndLocal != null) || (bodyWithEverything != null) || (localInit == null && localFinally == null), "PartitionForEach: thread local functions should only be supplied for loops w/ thread local bodies");
-            OrderablePartitioner<TSource> orderedSource = source as OrderablePartitioner<TSource>;
-            Contract.Assert((orderedSource != null) || (bodyWithStateAndIndex == null && bodyWithEverything == null), "PartitionForEach: bodies with indices are only allowable for OrderablePartitioner");
-            if (!source.SupportsDynamicPartitions)
+                                    OrderablePartitioner<TSource> orderedSource = source as OrderablePartitioner<TSource>;
+                        if (!source.SupportsDynamicPartitions)
             {
                 throw new InvalidOperationException(Environment.GetResourceString("Parallel_ForEach_PartitionerNotDynamic"));
             }
@@ -1520,8 +1502,7 @@ namespace System.Threading.Tasks
                             else if (bodyWithStateAndLocal != null)
                                 localValue = bodyWithStateAndLocal(t, state, localValue);
                             else
-                                Contract.Assert(false, "PartitionerForEach: illegal body type in Partitioner handler");
-                            if (sharedPStateFlags.LoopStateFlags != ParallelLoopStateFlags.PLS_NONE)
+                                                            if (sharedPStateFlags.LoopStateFlags != ParallelLoopStateFlags.PLS_NONE)
                                 break;
                             if (!bIsRootTask && loopTimer.LimitExceeded())
                             {
@@ -1654,8 +1635,7 @@ namespace System.Threading.Tasks
 
             public bool LimitExceeded()
             {
-                Contract.Assert(m_timeLimit != 0, "Probably the default initializer for LoopTimer was used somewhere");
-                return (Environment.TickCount > m_timeLimit);
+                                return (Environment.TickCount > m_timeLimit);
             }
 
             const int s_BaseNotifyPeriodMS = 100;

@@ -1,5 +1,4 @@
-using System.Diagnostics.Contracts;
-using System.Globalization;
+
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.Versioning
@@ -110,8 +109,7 @@ namespace System.Runtime.Versioning
             [FriendAccessAllowed]
             get
             {
-                Contract.Ensures(Contract.Result<TargetFrameworkId>() > TargetFrameworkId.NotYetChecked);
-                if (s_AppWasBuiltForFramework == TargetFrameworkId.NotYetChecked)
+                                if (s_AppWasBuiltForFramework == TargetFrameworkId.NotYetChecked)
                     ReadTargetFrameworkId();
                 return s_AppWasBuiltForFramework;
             }
@@ -122,11 +120,9 @@ namespace System.Runtime.Versioning
             [FriendAccessAllowed]
             get
             {
-                Contract.Ensures(Contract.Result<int>() > 0 || s_AppWasBuiltForFramework == TargetFrameworkId.Unspecified);
-                if (s_AppWasBuiltForFramework == TargetFrameworkId.NotYetChecked)
+                                if (s_AppWasBuiltForFramework == TargetFrameworkId.NotYetChecked)
                     ReadTargetFrameworkId();
-                Contract.Assert(s_AppWasBuiltForFramework != TargetFrameworkId.Unrecognized);
-                return s_AppWasBuiltForVersion;
+                                return s_AppWasBuiltForVersion;
             }
         }
 
@@ -159,8 +155,7 @@ namespace System.Runtime.Versioning
 
             private void AddQuirksForFramework(TargetFrameworkId builtAgainstFramework, int buildAgainstVersion)
             {
-                Contract.Requires(buildAgainstVersion > 0 || builtAgainstFramework == TargetFrameworkId.Unspecified);
-                switch (builtAgainstFramework)
+                                switch (builtAgainstFramework)
                 {
                     case TargetFrameworkId.NetFramework:
                     case TargetFrameworkId.NetCore:
@@ -212,19 +207,16 @@ namespace System.Runtime.Versioning
                         break;
                     case TargetFrameworkId.NotYetChecked:
                     case TargetFrameworkId.Unrecognized:
-                        Contract.Assert(false, "Bad framework kind");
-                        break;
+                                                break;
                     default:
-                        Contract.Assert(false, "Error: we introduced a new Target Framework but did not update our binary compatibility map");
-                        break;
+                                                break;
                 }
             }
         }
 
         private static bool ParseTargetFrameworkMonikerIntoEnum(String targetFrameworkMoniker, out TargetFrameworkId targetFramework, out int targetFrameworkVersion)
         {
-            Contract.Requires(!String.IsNullOrEmpty(targetFrameworkMoniker));
-            targetFramework = TargetFrameworkId.NotYetChecked;
+                        targetFramework = TargetFrameworkId.NotYetChecked;
             targetFrameworkVersion = 0;
             String identifier = null;
             String profile = null;
@@ -275,21 +267,18 @@ namespace System.Runtime.Versioning
                         }
                         else if (profile.StartsWith("WindowsPhone", StringComparison.Ordinal))
                         {
-                            Contract.Assert(false, "This is a phone app, but we can't tell what version this is!");
-                            targetFramework = TargetFrameworkId.Unrecognized;
+                                                        targetFramework = TargetFrameworkId.Unrecognized;
                             targetFrameworkVersion = 70100;
                         }
                         else
                         {
-                            Contract.Assert(false, String.Format(CultureInfo.InvariantCulture, "Unrecognized Silverlight profile \"{0}\".  What is this, an XBox app?", profile));
-                            targetFramework = TargetFrameworkId.Unrecognized;
+                                                        targetFramework = TargetFrameworkId.Unrecognized;
                         }
                     }
 
                     break;
                 default:
-                    Contract.Assert(false, String.Format(CultureInfo.InvariantCulture, "Unrecognized Target Framework Moniker in our Binary Compatibility class.  Framework name: \"{0}\"", targetFrameworkMoniker));
-                    targetFramework = TargetFrameworkId.Unrecognized;
+                                        targetFramework = TargetFrameworkId.Unrecognized;
                     break;
             }
 
@@ -308,8 +297,7 @@ namespace System.Runtime.Versioning
                 throw new ArgumentException(Environment.GetResourceString("Argument_StringZeroLength"), "frameworkName");
             }
 
-            Contract.EndContractBlock();
-            String[] components = frameworkName.Split(c_componentSeparator);
+                        String[] components = frameworkName.Split(c_componentSeparator);
             version = 0;
             if (components.Length < 2 || components.Length > 3)
             {
@@ -370,8 +358,7 @@ namespace System.Runtime.Versioning
 
         private static bool IsAppUnderSL81CompatMode()
         {
-            Contract.Assert(s_AppWasBuiltForFramework == TargetFrameworkId.NotYetChecked);
-            if (CompatibilitySwitches.IsAppSilverlight81)
+                        if (CompatibilitySwitches.IsAppSilverlight81)
             {
                 s_AppWasBuiltForFramework = TargetFrameworkId.Phone;
                 s_AppWasBuiltForVersion = 80100;

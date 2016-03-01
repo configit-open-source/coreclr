@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Threading;
 
 namespace System
@@ -38,8 +38,7 @@ namespace System
 
         public void Paused()
         {
-            Contract.Assert(!isPaused);
-            if (ResumeEvent == null)
+                        if (ResumeEvent == null)
                 ResumeEvent = new ManualResetEvent(false);
             else
                 ResumeEvent.Reset();
@@ -49,8 +48,7 @@ namespace System
 
         public void Resuming()
         {
-            Contract.Assert(isPaused);
-            isPaused = false;
+                        isPaused = false;
             ResumeEvent.Set();
         }
 

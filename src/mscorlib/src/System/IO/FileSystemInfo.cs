@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 
@@ -23,8 +23,7 @@ namespace System.IO
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            FullPath = Path.GetFullPathInternal(info.GetString("FullPath"));
+                        FullPath = Path.GetFullPathInternal(info.GetString("FullPath"));
             OriginalPath = info.GetString("OriginalPath");
             _dataInitialised = -1;
         }

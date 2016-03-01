@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -8,15 +7,13 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private MapToDictionaryAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal V Indexer_Get<K, V>(K key)
         {
             if (key == null)
                 throw new ArgumentNullException("key");
-            Contract.EndContractBlock();
-            IMap<K, V> _this = JitHelpers.UnsafeCast<IMap<K, V>>(this);
+                        IMap<K, V> _this = JitHelpers.UnsafeCast<IMap<K, V>>(this);
             return Lookup(_this, key);
         }
 
@@ -24,8 +21,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         {
             if (key == null)
                 throw new ArgumentNullException("key");
-            Contract.EndContractBlock();
-            IMap<K, V> _this = JitHelpers.UnsafeCast<IMap<K, V>>(this);
+                        IMap<K, V> _this = JitHelpers.UnsafeCast<IMap<K, V>>(this);
             Insert(_this, key, value);
         }
 
@@ -57,8 +53,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
                 throw new ArgumentNullException("key");
             if (ContainsKey<K, V>(key))
                 throw new ArgumentException(Environment.GetResourceString("Argument_AddingDuplicate"));
-            Contract.EndContractBlock();
-            IMap<K, V> _this = JitHelpers.UnsafeCast<IMap<K, V>>(this);
+                        IMap<K, V> _this = JitHelpers.UnsafeCast<IMap<K, V>>(this);
             Insert(_this, key, value);
         }
 
@@ -107,8 +102,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
         private static V Lookup<K, V>(IMap<K, V> _this, K key)
         {
-            Contract.Requires(null != key);
-            try
+                        try
             {
                 return _this.Lookup(key);
             }
@@ -122,8 +116,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
         private static bool Insert<K, V>(IMap<K, V> _this, K key, V value)
         {
-            Contract.Requires(null != key);
-            bool replaced = _this.Insert(key, value);
+                        bool replaced = _this.Insert(key, value);
             return replaced;
         }
     }

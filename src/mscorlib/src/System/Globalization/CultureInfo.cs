@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -147,8 +146,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("name", Environment.GetResourceString("ArgumentNull_String"));
             }
 
-            Contract.EndContractBlock();
-            if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8 && (name == "bn" || name == "bn-BD" || name == "bn-IN" || name == "ml" || name == "or"))
+                        if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8 && (name == "bn" || name == "bn-BD" || name == "bn-IN" || name == "ml" || name == "or"))
                 throw new ArgumentException(Environment.GetResourceString("Argument_CultureNotSupported"));
             this.m_cultureData = CultureData.GetCultureData(name, useUserOverride);
             if (this.m_cultureData == null)
@@ -169,14 +167,12 @@ namespace System.Globalization
                 throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("InvalidOperation_SubclassedObject"), obj.GetType(), container.GetType()));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         private bool m_useUserOverride;
         private void OnDeserialized(StreamingContext ctx)
         {
-            Contract.Assert(m_name != null, "[CultureInfo.OnDeserialized] m_name != null");
-            this.m_cultureData = CultureData.GetCultureData(m_name, m_useUserOverride);
+                        this.m_cultureData = CultureData.GetCultureData(m_name, m_useUserOverride);
             if (this.m_cultureData == null)
                 throw new CultureNotFoundException("m_name", m_name, Environment.GetResourceString("Argument_CultureNotSupported"));
             m_isInherited = (this.GetType() != typeof (System.Globalization.CultureInfo));
@@ -218,8 +214,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("cultureName", Environment.GetResourceString("ArgumentNull_String"));
             }
 
-            Contract.EndContractBlock();
-            this.m_cultureData = CultureData.GetCultureData(cultureName, false);
+                        this.m_cultureData = CultureData.GetCultureData(cultureName, false);
             if (this.m_cultureData == null)
                 throw new CultureNotFoundException("cultureName", cultureName, Environment.GetResourceString("Argument_CultureNotSupported"));
             this.m_name = this.m_cultureData.CultureName;
@@ -264,8 +259,7 @@ namespace System.Globalization
 
         internal static bool VerifyCultureName(CultureInfo culture, bool throwException)
         {
-            Contract.Assert(culture != null, "[CultureInfo.VerifyCultureName]culture!=null");
-            if (!culture.m_isInherited)
+                        if (!culture.m_isInherited)
             {
                 return true;
             }
@@ -277,8 +271,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<CultureInfo>() != null);
-                if (AppDomain.IsAppXModel())
+                                if (AppDomain.IsAppXModel())
                 {
                     CultureInfo culture = GetCultureInfoForUserPreferredLanguageInAppX();
                     if (culture != null)
@@ -311,8 +304,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<CultureInfo>() != null);
-                CultureInfo temp = s_userDefaultCulture;
+                                CultureInfo temp = s_userDefaultCulture;
                 if (temp == null)
                 {
                     s_userDefaultCulture = CultureInfo.InvariantCulture;
@@ -328,8 +320,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<CultureInfo>() != null);
-                CultureInfo temp = s_userDefaultUICulture;
+                                CultureInfo temp = s_userDefaultUICulture;
                 if (temp == null)
                 {
                     s_userDefaultUICulture = CultureInfo.InvariantCulture;
@@ -345,8 +336,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<CultureInfo>() != null);
-                if (AppDomain.IsAppXModel())
+                                if (AppDomain.IsAppXModel())
                 {
                     CultureInfo culture = GetCultureInfoForUserPreferredLanguageInAppX();
                     if (culture != null)
@@ -379,8 +369,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<CultureInfo>() != null);
-                CultureInfo temp = s_InstalledUICultureInfo;
+                                CultureInfo temp = s_InstalledUICultureInfo;
                 if (temp == null)
                 {
                     String strDefault = GetSystemDefaultUILanguage();
@@ -445,11 +434,10 @@ namespace System.Globalization
 
         public static CultureInfo InvariantCulture
         {
-            [Pure]
+            
             get
             {
-                Contract.Ensures(Contract.Result<CultureInfo>() != null);
-                return (s_InvariantCultureInfo);
+                                return (s_InvariantCultureInfo);
             }
         }
 
@@ -458,8 +446,7 @@ namespace System.Globalization
             [System.Security.SecuritySafeCritical]
             get
             {
-                Contract.Ensures(Contract.Result<CultureInfo>() != null);
-                if (null == m_parent)
+                                if (null == m_parent)
                 {
                     try
                     {
@@ -487,8 +474,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<String>() != null);
-                if (this.m_nonSortName == null)
+                                if (this.m_nonSortName == null)
                 {
                     this.m_nonSortName = this.m_cultureData.SNAME;
                     if (this.m_nonSortName == null)
@@ -519,9 +505,7 @@ namespace System.Globalization
             [System.Security.SecuritySafeCritical]
             get
             {
-                Contract.Ensures(Contract.Result<String>() != null);
-                Contract.Assert(m_name != null, "[CultureInfo.DisplayName]Always expect m_name to be set");
-                return m_cultureData.SLOCALIZEDDISPLAYNAME;
+                                                return m_cultureData.SLOCALIZEDDISPLAYNAME;
             }
         }
 
@@ -530,8 +514,7 @@ namespace System.Globalization
             [System.Security.SecuritySafeCritical]
             get
             {
-                Contract.Ensures(Contract.Result<String>() != null);
-                return (this.m_cultureData.SNATIVEDISPLAYNAME);
+                                return (this.m_cultureData.SNATIVEDISPLAYNAME);
             }
         }
 
@@ -540,8 +523,7 @@ namespace System.Globalization
             [System.Security.SecuritySafeCritical]
             get
             {
-                Contract.Ensures(Contract.Result<String>() != null);
-                return (this.m_cultureData.SENGDISPLAYNAME);
+                                return (this.m_cultureData.SENGDISPLAYNAME);
             }
         }
 
@@ -550,8 +532,7 @@ namespace System.Globalization
             [System.Security.SecuritySafeCritical]
             get
             {
-                Contract.Ensures(Contract.Result<String>() != null);
-                return (this.m_cultureData.SISO639LANGNAME);
+                                return (this.m_cultureData.SISO639LANGNAME);
             }
         }
 
@@ -559,8 +540,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<CompareInfo>() != null);
-                if (this.compareInfo == null)
+                                if (this.compareInfo == null)
                 {
                     CompareInfo temp = UseUserOverride ? GetCultureInfo(this.m_name).CompareInfo : new CompareInfo(this);
                     if (CompatibilitySwitches.IsCompatibilityBehaviorDefined)
@@ -581,8 +561,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<TextInfo>() != null);
-                if (textInfo == null)
+                                if (textInfo == null)
                 {
                     TextInfo tempTextInfo = new TextInfo(this.m_cultureData);
                     tempTextInfo.SetReadOnlyState(m_isReadOnly);
@@ -620,9 +599,7 @@ namespace System.Globalization
 
         public override String ToString()
         {
-            Contract.Ensures(Contract.Result<String>() != null);
-            Contract.Assert(m_name != null, "[CultureInfo.ToString]Always expect m_name to be set");
-            return m_name;
+                                    return m_name;
         }
 
         public virtual Object GetFormat(Type formatType)
@@ -652,8 +629,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<NumberFormatInfo>() != null);
-                if (numInfo == null)
+                                if (numInfo == null)
                 {
                     NumberFormatInfo temp = new NumberFormatInfo(this.m_cultureData);
                     temp.isReadOnly = m_isReadOnly;
@@ -670,8 +646,7 @@ namespace System.Globalization
                     throw new ArgumentNullException("value", Environment.GetResourceString("ArgumentNull_Obj"));
                 }
 
-                Contract.EndContractBlock();
-                VerifyWritable();
+                                VerifyWritable();
                 numInfo = value;
             }
         }
@@ -680,8 +655,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<DateTimeFormatInfo>() != null);
-                if (dateTimeInfo == null)
+                                if (dateTimeInfo == null)
                 {
                     DateTimeFormatInfo temp = new DateTimeFormatInfo(this.m_cultureData, this.Calendar);
                     temp.m_isReadOnly = m_isReadOnly;
@@ -699,8 +673,7 @@ namespace System.Globalization
                     throw new ArgumentNullException("value", Environment.GetResourceString("ArgumentNull_Obj"));
                 }
 
-                Contract.EndContractBlock();
-                VerifyWritable();
+                                VerifyWritable();
                 dateTimeInfo = value;
             }
         }
@@ -728,8 +701,7 @@ namespace System.Globalization
 
         internal static Calendar GetCalendarInstanceRare(int calType)
         {
-            Contract.Assert(calType != Calendar.CAL_GREGORIAN, "calType!=Calendar.CAL_GREGORIAN");
-            switch (calType)
+                        switch (calType)
             {
                 case Calendar.CAL_GREGORIAN_US:
                 case Calendar.CAL_GREGORIAN_ME_FRENCH:
@@ -770,11 +742,9 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<Calendar>() != null);
-                if (calendar == null)
+                                if (calendar == null)
                 {
-                    Contract.Assert(this.m_cultureData.CalendarIds.Length > 0, "this.m_cultureData.CalendarIds.Length > 0");
-                    Calendar newObj = this.m_cultureData.DefaultCalendar;
+                                        Calendar newObj = this.m_cultureData.DefaultCalendar;
                     System.Threading.Thread.MemoryBarrier();
                     newObj.SetReadOnlyState(m_isReadOnly);
                     calendar = newObj;
@@ -788,8 +758,7 @@ namespace System.Globalization
         {
             get
             {
-                Contract.Ensures(Contract.Result<Calendar[]>() != null);
-                int[] calID = this.m_cultureData.CalendarIds;
+                                int[] calID = this.m_cultureData.CalendarIds;
                 Calendar[] cals = new Calendar[calID.Length];
                 for (int i = 0; i < cals.Length; i++)
                 {
@@ -810,8 +779,7 @@ namespace System.Globalization
 
         public virtual Object Clone()
         {
-            Contract.Ensures(Contract.Result<Object>() != null);
-            CultureInfo ci = (CultureInfo)MemberwiseClone();
+                        CultureInfo ci = (CultureInfo)MemberwiseClone();
             ci.m_isReadOnly = false;
             if (!m_isInherited)
             {
@@ -851,9 +819,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("ci");
             }
 
-            Contract.Ensures(Contract.Result<CultureInfo>() != null);
-            Contract.EndContractBlock();
-            if (ci.IsReadOnly)
+                                    if (ci.IsReadOnly)
             {
                 return (ci);
             }
@@ -909,8 +875,7 @@ namespace System.Globalization
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_ReadOnly"));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         internal bool HasInvariantCultureName
         {
@@ -1000,9 +965,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("name");
             }
 
-            Contract.Ensures(Contract.Result<CultureInfo>() != null);
-            Contract.EndContractBlock();
-            CultureInfo retval = GetCultureInfoHelper(0, name, null);
+                                    CultureInfo retval = GetCultureInfoHelper(0, name, null);
             if (retval == null)
             {
                 throw new CultureNotFoundException("name", name, Environment.GetResourceString("Argument_CultureNotSupported"));
@@ -1023,9 +986,7 @@ namespace System.Globalization
                 throw new ArgumentNullException("altName");
             }
 
-            Contract.Ensures(Contract.Result<CultureInfo>() != null);
-            Contract.EndContractBlock();
-            CultureInfo retval = GetCultureInfoHelper(-1, name, altName);
+                                    CultureInfo retval = GetCultureInfoHelper(-1, name, altName);
             if (retval == null)
             {
                 throw new CultureNotFoundException("name or altName", String.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("Argument_OneOfCulturesNotSupported"), name, altName));
@@ -1055,8 +1016,7 @@ namespace System.Globalization
         internal static extern bool nativeSetThreadLocale(String localeName);
         private static String GetDefaultLocaleName(int localeType)
         {
-            Contract.Assert(localeType == LOCALE_USER_DEFAULT || localeType == LOCALE_SYSTEM_DEFAULT, "[CultureInfo.GetDefaultLocaleName] localeType must be LOCALE_USER_DEFAULT or LOCALE_SYSTEM_DEFAULT");
-            string localeName = null;
+                        string localeName = null;
             if (InternalGetDefaultLocaleName(localeType, JitHelpers.GetStringHandleOnStack(ref localeName)))
             {
                 return localeName;

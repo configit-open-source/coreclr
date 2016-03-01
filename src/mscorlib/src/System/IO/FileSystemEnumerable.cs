@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -13,37 +12,25 @@ namespace System.IO
     {
         internal static IEnumerable<String> CreateFileNameIterator(String path, String originalUserPath, String searchPattern, bool includeFiles, bool includeDirs, SearchOption searchOption, bool checkHost)
         {
-            Contract.Requires(path != null);
-            Contract.Requires(originalUserPath != null);
-            Contract.Requires(searchPattern != null);
-            SearchResultHandler<String> handler = new StringResultHandler(includeFiles, includeDirs);
+                                                SearchResultHandler<String> handler = new StringResultHandler(includeFiles, includeDirs);
             return new FileSystemEnumerableIterator<String>(path, originalUserPath, searchPattern, searchOption, handler, checkHost);
         }
 
         internal static IEnumerable<FileInfo> CreateFileInfoIterator(String path, String originalUserPath, String searchPattern, SearchOption searchOption)
         {
-            Contract.Requires(path != null);
-            Contract.Requires(originalUserPath != null);
-            Contract.Requires(searchPattern != null);
-            SearchResultHandler<FileInfo> handler = new FileInfoResultHandler();
+                                                SearchResultHandler<FileInfo> handler = new FileInfoResultHandler();
             return new FileSystemEnumerableIterator<FileInfo>(path, originalUserPath, searchPattern, searchOption, handler, true);
         }
 
         internal static IEnumerable<DirectoryInfo> CreateDirectoryInfoIterator(String path, String originalUserPath, String searchPattern, SearchOption searchOption)
         {
-            Contract.Requires(path != null);
-            Contract.Requires(originalUserPath != null);
-            Contract.Requires(searchPattern != null);
-            SearchResultHandler<DirectoryInfo> handler = new DirectoryInfoResultHandler();
+                                                SearchResultHandler<DirectoryInfo> handler = new DirectoryInfoResultHandler();
             return new FileSystemEnumerableIterator<DirectoryInfo>(path, originalUserPath, searchPattern, searchOption, handler, true);
         }
 
         internal static IEnumerable<FileSystemInfo> CreateFileSystemInfoIterator(String path, String originalUserPath, String searchPattern, SearchOption searchOption)
         {
-            Contract.Requires(path != null);
-            Contract.Requires(originalUserPath != null);
-            Contract.Requires(searchPattern != null);
-            SearchResultHandler<FileSystemInfo> handler = new FileSystemInfoResultHandler();
+                                                SearchResultHandler<FileSystemInfo> handler = new FileSystemInfoResultHandler();
             return new FileSystemEnumerableIterator<FileSystemInfo>(path, originalUserPath, searchPattern, searchOption, handler, true);
         }
     }
@@ -133,12 +120,7 @@ namespace System.IO
         private bool _checkHost;
         internal FileSystemEnumerableIterator(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler<TSource> resultHandler, bool checkHost)
         {
-            Contract.Requires(path != null);
-            Contract.Requires(originalUserPath != null);
-            Contract.Requires(searchPattern != null);
-            Contract.Requires(searchOption == SearchOption.AllDirectories || searchOption == SearchOption.TopDirectoryOnly);
-            Contract.Requires(resultHandler != null);
-            oldMode = Win32Native.SetErrorMode(Win32Native.SEM_FAILCRITICALERRORS);
+                                                                        oldMode = Win32Native.SetErrorMode(Win32Native.SEM_FAILCRITICALERRORS);
             searchStack = new List<Directory.SearchData>();
             String normalizedSearchPattern = NormalizeSearchPattern(searchPattern);
             if (normalizedSearchPattern.Length == 0)
@@ -180,8 +162,7 @@ namespace System.IO
 
         private void CommonInit()
         {
-            Contract.Assert(searchCriteria != null && searchData != null, "searchCriteria and searchData should be initialized");
-            String searchPath = Path.InternalCombine(searchData.fullPath, searchCriteria);
+                        String searchPath = Path.InternalCombine(searchData.fullPath, searchCriteria);
             Win32Native.WIN32_FIND_DATA data = new Win32Native.WIN32_FIND_DATA();
             _hnd = Win32Native.FindFirstFile(searchPath, data);
             if (_hnd.IsInvalid)
@@ -306,12 +287,10 @@ namespace System.IO
 
                 case STATE_SEARCH_NEXT_DIR:
                 {
-                    Contract.Assert(searchData.searchOption != SearchOption.TopDirectoryOnly, "should not reach this code path if searchOption == TopDirectoryOnly");
-                    while (searchStack.Count > 0)
+                                        while (searchStack.Count > 0)
                     {
                         searchData = searchStack[0];
-                        Contract.Assert((searchData.fullPath != null), "fullpath can't be null!");
-                        searchStack.RemoveAt(0);
+                                                searchStack.RemoveAt(0);
                         AddSearchableDirsToStack(searchData);
                         String searchPath = Path.InternalCombine(searchData.fullPath, searchCriteria);
                         _hnd = Win32Native.FindFirstFile(searchPath, data);
@@ -414,8 +393,7 @@ namespace System.IO
 
         private void AddSearchableDirsToStack(Directory.SearchData localSearchData)
         {
-            Contract.Requires(localSearchData != null);
-            String searchPath = Path.InternalCombine(localSearchData.fullPath, "*");
+                        String searchPath = Path.InternalCombine(localSearchData.fullPath, "*");
             SafeFindHandle hnd = null;
             Win32Native.WIN32_FIND_DATA data = new Win32Native.WIN32_FIND_DATA();
             try
@@ -462,8 +440,7 @@ namespace System.IO
 
         private static String NormalizeSearchPattern(String searchPattern)
         {
-            Contract.Requires(searchPattern != null);
-            String tempSearchPattern = searchPattern.TrimEnd(Path.TrimEndChars);
+                        String tempSearchPattern = searchPattern.TrimEnd(Path.TrimEndChars);
             if (tempSearchPattern.Equals("."))
             {
                 tempSearchPattern = "*";
@@ -475,10 +452,7 @@ namespace System.IO
 
         private static String GetNormalizedSearchCriteria(String fullSearchString, String fullPathMod)
         {
-            Contract.Requires(fullSearchString != null);
-            Contract.Requires(fullPathMod != null);
-            Contract.Requires(fullSearchString.Length >= fullPathMod.Length);
-            String searchCriteria = null;
+                                                String searchCriteria = null;
             char lastChar = fullPathMod[fullPathMod.Length - 1];
             if (Path.IsDirectorySeparator(lastChar))
             {
@@ -486,8 +460,7 @@ namespace System.IO
             }
             else
             {
-                Contract.Assert(fullSearchString.Length > fullPathMod.Length);
-                searchCriteria = fullSearchString.Substring(fullPathMod.Length + 1);
+                                searchCriteria = fullSearchString.Substring(fullPathMod.Length + 1);
             }
 
             return searchCriteria;
@@ -495,9 +468,7 @@ namespace System.IO
 
         private static String GetFullSearchString(String fullPath, String searchPattern)
         {
-            Contract.Requires(fullPath != null);
-            Contract.Requires(searchPattern != null);
-            String tempStr = Path.InternalCombine(fullPath, searchPattern);
+                                    String tempStr = Path.InternalCombine(fullPath, searchPattern);
             char lastChar = tempStr[tempStr.Length - 1];
             if (Path.IsDirectorySeparator(lastChar) || lastChar == Path.VolumeSeparatorChar)
             {
@@ -528,8 +499,7 @@ namespace System.IO
         {
             bool includeFile = _includeFiles && FileSystemEnumerableHelpers.IsFile(result.FindData);
             bool includeDir = _includeDirs && FileSystemEnumerableHelpers.IsDir(result.FindData);
-            Contract.Assert(!(includeFile && includeDir), result.FindData.cFileName + ": current item can't be both file and dir!");
-            return (includeFile || includeDir);
+                        return (includeFile || includeDir);
         }
 
         internal override String CreateObject(SearchResult result)
@@ -581,8 +551,7 @@ namespace System.IO
         {
             bool includeFile = FileSystemEnumerableHelpers.IsFile(result.FindData);
             bool includeDir = FileSystemEnumerableHelpers.IsDir(result.FindData);
-            Contract.Assert(!(includeFile && includeDir), result.FindData.cFileName + ": current item can't be both file and dir!");
-            return (includeDir || includeFile);
+                        return (includeDir || includeFile);
         }
 
         internal override FileSystemInfo CreateObject(SearchResult result)
@@ -601,8 +570,7 @@ namespace System.IO
             }
             else
             {
-                Contract.Assert(isFile);
-                String name = result.FullPath;
+                                String name = result.FullPath;
                 FileSecurityState state = new FileSecurityState(FileSecurityStateAccess.Read, String.Empty, name);
                 state.EnsureState();
                 FileInfo fi = new FileInfo(name, false);
@@ -619,9 +587,7 @@ namespace System.IO
         private Win32Native.WIN32_FIND_DATA findData;
         internal SearchResult(String fullPath, String userPath, Win32Native.WIN32_FIND_DATA findData)
         {
-            Contract.Requires(fullPath != null);
-            Contract.Requires(userPath != null);
-            this.fullPath = fullPath;
+                                    this.fullPath = fullPath;
             this.userPath = userPath;
             this.findData = findData;
         }

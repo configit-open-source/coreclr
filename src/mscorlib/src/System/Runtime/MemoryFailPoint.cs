@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
@@ -60,8 +60,7 @@ namespace System.Runtime
         {
             if (sizeInMegabytes <= 0)
                 throw new ArgumentOutOfRangeException("sizeInMegabytes", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            ulong size = ((ulong)sizeInMegabytes) << 20;
+                        ulong size = ((ulong)sizeInMegabytes) << 20;
             _reservedMemory = size;
             ulong segmentSize = (ulong)(Math.Ceiling((double)size / GCSegmentSize) * GCSegmentSize);
             if (segmentSize >= TopOfMemory)
@@ -133,8 +132,7 @@ namespace System.Runtime
 
                         break;
                     default:
-                        Contract.Assert(false, "Fell through switch statement!");
-                        break;
+                                                break;
                 }
             }
 

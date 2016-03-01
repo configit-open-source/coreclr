@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Text;
 
@@ -16,14 +15,12 @@ namespace System
         internal static String[] fixedNumberFormats = new String[]{"0", "00", "000", "0000", "00000", "000000", "0000000", };
         internal static void FormatDigits(StringBuilder outputBuffer, int value, int len)
         {
-            Contract.Assert(value >= 0, "DateTimeFormat.FormatDigits(): value >= 0");
-            FormatDigits(outputBuffer, value, len, false);
+                        FormatDigits(outputBuffer, value, len, false);
         }
 
         internal unsafe static void FormatDigits(StringBuilder outputBuffer, int value, int len, bool overrideLengthLimit)
         {
-            Contract.Assert(value >= 0, "DateTimeFormat.FormatDigits(): value >= 0");
-            if (!overrideLengthLimit && len > 2)
+                        if (!overrideLengthLimit && len > 2)
             {
                 len = 2;
             }
@@ -66,8 +63,7 @@ namespace System
 
         private static String FormatDayOfWeek(int dayOfWeek, int repeat, DateTimeFormatInfo dtfi)
         {
-            Contract.Assert(dayOfWeek >= 0 && dayOfWeek <= 6, "dayOfWeek >= 0 && dayOfWeek <= 6");
-            if (repeat == 3)
+                        if (repeat == 3)
             {
                 return (dtfi.GetAbbreviatedDayName((DayOfWeek)dayOfWeek));
             }
@@ -77,8 +73,7 @@ namespace System
 
         private static String FormatMonth(int month, int repeatCount, DateTimeFormatInfo dtfi)
         {
-            Contract.Assert(month >= 1 && month <= 12, "month >=1 && month <= 12");
-            if (repeatCount == 3)
+                        if (repeatCount == 3)
             {
                 return (dtfi.GetAbbreviatedMonthName(month));
             }
@@ -88,8 +83,7 @@ namespace System
 
         private static String FormatHebrewMonthName(DateTime time, int month, int repeatCount, DateTimeFormatInfo dtfi)
         {
-            Contract.Assert(repeatCount != 3 || repeatCount != 4, "repeateCount should be 3 or 4");
-            if (dtfi.Calendar.IsLeapYear(dtfi.Calendar.GetYear(time)))
+                        if (dtfi.Calendar.IsLeapYear(dtfi.Calendar.GetYear(time)))
             {
                 return (dtfi.internalGetMonthName(month, MonthNameStyles.LeapYear, (repeatCount == 3)));
             }
@@ -649,8 +643,7 @@ namespace System
 
         internal static String Format(DateTime dateTime, String format, DateTimeFormatInfo dtfi, TimeSpan offset)
         {
-            Contract.Requires(dtfi != null);
-            if (format == null || format.Length == 0)
+                        if (format == null || format.Length == 0)
             {
                 Boolean timeOnlySpecialCase = false;
                 if (dateTime.Ticks < Calendar.TicksPerDay)
@@ -704,8 +697,7 @@ namespace System
 
         internal static String[] GetAllDateTimes(DateTime dateTime, char format, DateTimeFormatInfo dtfi)
         {
-            Contract.Requires(dtfi != null);
-            String[] allFormats = null;
+                        String[] allFormats = null;
             String[] results = null;
             switch (format)
             {

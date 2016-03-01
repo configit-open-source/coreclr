@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -153,10 +152,7 @@ namespace System.Reflection
         private ParameterInfo[] m_parameters;
         internal RuntimePropertyInfo(int tkProperty, RuntimeType declaredType, RuntimeType.RuntimeTypeCache reflectedTypeCache, out bool isPrivate)
         {
-            Contract.Requires(declaredType != null);
-            Contract.Requires(reflectedTypeCache != null);
-            Contract.Assert(!reflectedTypeCache.IsGlobal);
-            MetadataImport scope = declaredType.GetRuntimeModule().MetadataImport;
+                                                MetadataImport scope = declaredType.GetRuntimeModule().MetadataImport;
             m_token = tkProperty;
             m_reflectedTypeCache = reflectedTypeCache;
             m_declaringType = declaredType;
@@ -194,10 +190,7 @@ namespace System.Reflection
 
         internal bool EqualsSig(RuntimePropertyInfo target)
         {
-            Contract.Requires(Name.Equals(target.Name));
-            Contract.Requires(this != target);
-            Contract.Requires(this.ReflectedType == target.ReflectedType);
-            if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
+                                                if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8)
                 return Signature.CompareSigForAppCompat(this.Signature, this.m_declaringType, target.Signature, target.m_declaringType);
             return Signature.CompareSig(this.Signature, target.Signature);
         }
@@ -212,8 +205,7 @@ namespace System.Reflection
 
         internal bool HasMatchingAccessibility(RuntimePropertyInfo target)
         {
-            Contract.Assert(CompatibilitySwitches.IsAppEarlierThanWindowsPhone8);
-            bool match = true;
+                        bool match = true;
             if (!IsMatchingAccessibility(this.GetGetMethod(true), target.GetGetMethod(true)))
             {
                 match = false;
@@ -268,8 +260,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.GetCustomAttributes(this, attributeRuntimeType);
@@ -279,8 +270,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.IsDefined(this, attributeRuntimeType);
@@ -534,8 +524,7 @@ namespace System.Reflection
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            MemberInfoSerializationHolder.GetSerializationInfo(info, Name, ReflectedTypeInternal, ToString(), SerializationToString(), MemberTypes.Property, null);
+                        MemberInfoSerializationHolder.GetSerializationInfo(info, Name, ReflectedTypeInternal, ToString(), SerializationToString(), MemberTypes.Property, null);
         }
 
         internal string SerializationToString()

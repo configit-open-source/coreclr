@@ -1,5 +1,4 @@
-using System.Diagnostics.Contracts;
-using System.Globalization;
+
 using System.Threading;
 
 namespace System.Text
@@ -80,8 +79,7 @@ namespace System.Text
 
         public override bool Fallback(char charUnknown, int index)
         {
-            Contract.Assert(iCount < 1, "[InternalEncoderBestFitFallbackBuffer.Fallback(non surrogate)] Fallback char " + ((int)cBestFit).ToString("X4", CultureInfo.InvariantCulture) + " caused recursive fallback");
-            iCount = iSize = 1;
+                        iCount = iSize = 1;
             cBestFit = TryBestFit(charUnknown);
             if (cBestFit == '\0')
                 cBestFit = '?';
@@ -94,9 +92,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("charUnknownHigh", Environment.GetResourceString("ArgumentOutOfRange_Range", 0xD800, 0xDBFF));
             if (!Char.IsLowSurrogate(charUnknownLow))
                 throw new ArgumentOutOfRangeException("CharUnknownLow", Environment.GetResourceString("ArgumentOutOfRange_Range", 0xDC00, 0xDFFF));
-            Contract.EndContractBlock();
-            Contract.Assert(iCount < 1, "[InternalEncoderBestFitFallbackBuffer.Fallback(surrogate)] Fallback char " + ((int)cBestFit).ToString("X4", CultureInfo.InvariantCulture) + " caused recursive fallback");
-            cBestFit = '?';
+                                    cBestFit = '?';
             iCount = iSize = 2;
             return true;
         }
@@ -149,8 +145,7 @@ namespace System.Text
                 char cTest = oFallback.arrayBestFit[index];
                 if (cTest == cUnknown)
                 {
-                    Contract.Assert(index + 1 < oFallback.arrayBestFit.Length, "[InternalEncoderBestFitFallbackBuffer.TryBestFit]Expected replacement character at end of array");
-                    return oFallback.arrayBestFit[index + 1];
+                                        return oFallback.arrayBestFit[index + 1];
                 }
                 else if (cTest < cUnknown)
                 {
@@ -166,8 +161,7 @@ namespace System.Text
             {
                 if (oFallback.arrayBestFit[index] == cUnknown)
                 {
-                    Contract.Assert(index + 1 < oFallback.arrayBestFit.Length, "[InternalEncoderBestFitFallbackBuffer.TryBestFit]Expected replacement character at end of array");
-                    return oFallback.arrayBestFit[index + 1];
+                                        return oFallback.arrayBestFit[index + 1];
                 }
             }
 

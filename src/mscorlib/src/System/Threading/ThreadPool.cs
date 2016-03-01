@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Diagnostics.Tracing;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
@@ -109,8 +108,7 @@ namespace System.Threading
                         {
                             m_headIndex = m_headIndex & m_mask;
                             m_tailIndex = tail = m_tailIndex & m_mask;
-                            Contract.Assert(m_headIndex <= m_tailIndex);
-                        }
+                                                    }
                     }
                     finally
                     {
@@ -161,8 +159,7 @@ namespace System.Threading
                     IThreadPoolWorkItem unused;
                     if (LocalPop(out unused))
                     {
-                        Contract.Assert(unused == obj);
-                        return true;
+                                                return true;
                     }
 
                     return false;
@@ -313,24 +310,11 @@ namespace System.Threading
                 int i = indexes;
                 upper = (i >> 16) & SixteenBits;
                 lower = i & SixteenBits;
-                Contract.Assert(upper >= lower);
-                Contract.Assert(upper <= nodes.Length);
-                Contract.Assert(lower <= nodes.Length);
-                Contract.Assert(upper >= 0);
-                Contract.Assert(lower >= 0);
-            }
+                                                                                            }
 
             bool CompareExchangeIndexes(ref int prevUpper, int newUpper, ref int prevLower, int newLower)
             {
-                Contract.Assert(newUpper >= newLower);
-                Contract.Assert(newUpper <= nodes.Length);
-                Contract.Assert(newLower <= nodes.Length);
-                Contract.Assert(newUpper >= 0);
-                Contract.Assert(newLower >= 0);
-                Contract.Assert(newUpper >= prevUpper);
-                Contract.Assert(newLower >= prevLower);
-                Contract.Assert(newUpper == prevUpper ^ newLower == prevLower);
-                int oldIndexes = (prevUpper << 16) | (prevLower & SixteenBits);
+                                                                                                                                                int oldIndexes = (prevUpper << 16) | (prevLower & SixteenBits);
                 int newIndexes = (newUpper << 16) | (newLower & SixteenBits);
                 int prevIndexes = Interlocked.CompareExchange(ref indexes, newIndexes, oldIndexes);
                 prevUpper = (prevIndexes >> 16) & SixteenBits;
@@ -340,8 +324,7 @@ namespace System.Threading
 
             public QueueSegment()
             {
-                Contract.Assert(QueueSegmentLength <= SixteenBits);
-                nodes = new IThreadPoolWorkItem[QueueSegmentLength];
+                                nodes = new IThreadPoolWorkItem[QueueSegmentLength];
             }
 
             public bool IsUsedUp()
@@ -353,8 +336,7 @@ namespace System.Threading
 
             public bool TryEnqueue(IThreadPoolWorkItem node)
             {
-                Contract.Assert(null != node);
-                int upper, lower;
+                                int upper, lower;
                 GetIndexes(out upper, out lower);
                 while (true)
                 {
@@ -362,8 +344,7 @@ namespace System.Threading
                         return false;
                     if (CompareExchangeIndexes(ref upper, upper + 1, ref lower, lower))
                     {
-                        Contract.Assert(Volatile.Read(ref nodes[upper]) == null);
-                        Volatile.Write(ref nodes[upper], node);
+                                                Volatile.Write(ref nodes[upper], node);
                         return true;
                     }
                 }
@@ -484,16 +465,14 @@ namespace System.Threading
             missedSteal = false;
             WorkStealingQueue wsq = tl.workStealingQueue;
             if (wsq.LocalPop(out callback))
-                Contract.Assert(null != callback);
-            if (null == callback)
+                            if (null == callback)
             {
                 QueueSegment tail = queueTail;
                 while (true)
                 {
                     if (tail.TryDequeue(out callback))
                     {
-                        Contract.Assert(null != callback);
-                        break;
+                                                break;
                     }
 
                     if (null == tail.Next || !tail.IsUsedUp())
@@ -518,8 +497,7 @@ namespace System.Threading
                     WorkStealingQueue otherQueue = Volatile.Read(ref otherQueues[i % otherQueues.Length]);
                     if (otherQueue != null && otherQueue != wsq && otherQueue.TrySteal(out callback, ref missedSteal))
                     {
-                        Contract.Assert(null != callback);
-                        break;
+                                                break;
                     }
 
                     i++;
@@ -614,8 +592,7 @@ namespace System.Threading
                     workQueue.EnsureThreadRequested();
             }
 
-            Contract.Assert(false);
-            return true;
+                        return true;
         }
     }
 
@@ -649,8 +626,7 @@ namespace System.Threading
                             IThreadPoolWorkItem cb = null;
                             if (workStealingQueue.LocalPop(out cb))
                             {
-                                Contract.Assert(null != cb);
-                                workQueue.Enqueue(cb, true);
+                                                                workQueue.Enqueue(cb, true);
                             }
                             else
                             {
@@ -852,14 +828,12 @@ namespace System.Threading
         volatile int executed;
         ~QueueUserWorkItemCallback()
         {
-            Contract.Assert(executed != 0 || Environment.HasShutdownStarted || AppDomain.CurrentDomain.IsFinalizingForUnload(), "A QueueUserWorkItemCallback was never called!");
-        }
+                    }
 
         void MarkExecuted(bool aborted)
         {
             GC.SuppressFinalize(this);
-            Contract.Assert(0 == Interlocked.Exchange(ref executed, 1) || aborted, "A QueueUserWorkItemCallback was called twice!");
-        }
+                    }
 
         internal QueueUserWorkItemCallback(WaitCallback waitCallback, Object stateObj, ExecutionContext ec)
         {
@@ -893,8 +867,7 @@ namespace System.Threading
         {
             QueueUserWorkItemCallback obj = (QueueUserWorkItemCallback)state;
             WaitCallback wc = obj.callback as WaitCallback;
-            Contract.Assert(null != wc);
-            wc(obj.state);
+                        wc(obj.state);
         }
     }
 
@@ -909,14 +882,12 @@ namespace System.Threading
         private volatile int executed;
         ~QueueUserWorkItemCallbackDefaultContext()
         {
-            Contract.Assert(executed != 0 || Environment.HasShutdownStarted || AppDomain.CurrentDomain.IsFinalizingForUnload(), "A QueueUserWorkItemCallbackDefaultContext was never called!");
-        }
+                    }
 
         void MarkExecuted(bool aborted)
         {
             GC.SuppressFinalize(this);
-            Contract.Assert(0 == Interlocked.Exchange(ref executed, 1) || aborted, "A QueueUserWorkItemCallbackDefaultContext was called twice!");
-        }
+                    }
 
         internal QueueUserWorkItemCallbackDefaultContext(WaitCallback waitCallback, Object stateObj)
         {
@@ -940,8 +911,7 @@ namespace System.Threading
         {
             QueueUserWorkItemCallbackDefaultContext obj = (QueueUserWorkItemCallbackDefaultContext)state;
             WaitCallback wc = obj.callback as WaitCallback;
-            Contract.Assert(null != wc);
-            obj.callback = null;
+                        obj.callback = null;
             wc(obj.state);
         }
     }
@@ -986,8 +956,7 @@ namespace System.Threading
         static internal void PerformWaitOrTimerCallback(Object state, bool timedOut)
         {
             _ThreadPoolWaitOrTimerCallback helper = (_ThreadPoolWaitOrTimerCallback)state;
-            Contract.Assert(helper != null, "Null state passed to PerformWaitOrTimerCallback!");
-            if (helper._executionContext == null)
+                        if (helper._executionContext == null)
             {
                 WaitOrTimerCallback callback = helper._waitOrTimerCallback;
                 callback(helper._state, timedOut);
@@ -1068,8 +1037,7 @@ namespace System.Threading
         {
             if (millisecondsTimeOutInterval < -1)
                 throw new ArgumentOutOfRangeException("millisecondsTimeOutInterval", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return RegisterWaitForSingleObject(waitObject, callBack, state, (UInt32)millisecondsTimeOutInterval, executeOnlyOnce, ref stackMark, true);
         }
 
@@ -1077,8 +1045,7 @@ namespace System.Threading
         {
             if (millisecondsTimeOutInterval < -1)
                 throw new ArgumentOutOfRangeException("millisecondsTimeOutInterval", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return RegisterWaitForSingleObject(waitObject, callBack, state, (UInt32)millisecondsTimeOutInterval, executeOnlyOnce, ref stackMark, false);
         }
 
@@ -1086,8 +1053,7 @@ namespace System.Threading
         {
             if (millisecondsTimeOutInterval < -1)
                 throw new ArgumentOutOfRangeException("millisecondsTimeOutInterval", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return RegisterWaitForSingleObject(waitObject, callBack, state, (UInt32)millisecondsTimeOutInterval, executeOnlyOnce, ref stackMark, true);
         }
 
@@ -1095,8 +1061,7 @@ namespace System.Threading
         {
             if (millisecondsTimeOutInterval < -1)
                 throw new ArgumentOutOfRangeException("millisecondsTimeOutInterval", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
-            Contract.EndContractBlock();
-            StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
+                        StackCrawlMark stackMark = StackCrawlMark.LookForMyCaller;
             return RegisterWaitForSingleObject(waitObject, callBack, state, (UInt32)millisecondsTimeOutInterval, executeOnlyOnce, ref stackMark, false);
         }
 
@@ -1167,8 +1132,7 @@ namespace System.Threading
 
         internal static void UnsafeQueueCustomWorkItem(IThreadPoolWorkItem workItem, bool forceGlobal)
         {
-            Contract.Assert(null != workItem);
-            EnsureVMInitialized();
+                        EnsureVMInitialized();
             try
             {
             }
@@ -1180,8 +1144,7 @@ namespace System.Threading
 
         internal static bool TryPopCustomWorkItem(IThreadPoolWorkItem workItem)
         {
-            Contract.Assert(null != workItem);
-            if (!ThreadPoolGlobals.vmTpInitialized)
+                        if (!ThreadPoolGlobals.vmTpInitialized)
                 return false;
             return ThreadPoolGlobals.workQueue.LocalFindAndPop(workItem);
         }

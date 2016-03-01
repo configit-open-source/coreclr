@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Text
@@ -96,8 +96,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (chars.Length - index < count)
                 throw new ArgumentOutOfRangeException("chars", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
-            Contract.EndContractBlock();
-            if (chars.Length == 0)
+                        if (chars.Length == 0)
                 return 0;
             fixed (char *pChars = chars)
                 return GetByteCount(pChars + index, count, null);
@@ -107,8 +106,7 @@ namespace System.Text
         {
             if (s == null)
                 throw new ArgumentNullException("s");
-            Contract.EndContractBlock();
-            fixed (char *pChars = s)
+                        fixed (char *pChars = s)
                 return GetByteCount(pChars, s.Length, null);
         }
 
@@ -118,8 +116,7 @@ namespace System.Text
                 throw new ArgumentNullException("chars", Environment.GetResourceString("ArgumentNull_Array"));
             if (count < 0)
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetByteCount(chars, count, null);
+                        return GetByteCount(chars, count, null);
         }
 
         public override unsafe int GetBytes(String s, int charIndex, int charCount, byte[] bytes, int byteIndex)
@@ -132,8 +129,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("s", Environment.GetResourceString("ArgumentOutOfRange_IndexCount"));
             if (byteIndex < 0 || byteIndex > bytes.Length)
                 throw new ArgumentOutOfRangeException("byteIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            int byteCount = bytes.Length - byteIndex;
+                        int byteCount = bytes.Length - byteIndex;
             if (bytes.Length == 0)
                 bytes = new byte[1];
             fixed (char *pChars = s)
@@ -151,8 +147,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("chars", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
             if (byteIndex < 0 || byteIndex > bytes.Length)
                 throw new ArgumentOutOfRangeException("byteIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            if (chars.Length == 0)
+                        if (chars.Length == 0)
                 return 0;
             int byteCount = bytes.Length - byteIndex;
             if (bytes.Length == 0)
@@ -168,8 +163,7 @@ namespace System.Text
                 throw new ArgumentNullException(bytes == null ? "bytes" : "chars", Environment.GetResourceString("ArgumentNull_Array"));
             if (charCount < 0 || byteCount < 0)
                 throw new ArgumentOutOfRangeException((charCount < 0 ? "charCount" : "byteCount"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetBytes(chars, charCount, bytes, byteCount, null);
+                        return GetBytes(chars, charCount, bytes, byteCount, null);
         }
 
         public override unsafe int GetCharCount(byte[] bytes, int index, int count)
@@ -180,8 +174,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (bytes.Length - index < count)
                 throw new ArgumentOutOfRangeException("bytes", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
-            Contract.EndContractBlock();
-            if (bytes.Length == 0)
+                        if (bytes.Length == 0)
                 return 0;
             fixed (byte *pBytes = bytes)
                 return GetCharCount(pBytes + index, count, null);
@@ -193,8 +186,7 @@ namespace System.Text
                 throw new ArgumentNullException("bytes", Environment.GetResourceString("ArgumentNull_Array"));
             if (count < 0)
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetCharCount(bytes, count, null);
+                        return GetCharCount(bytes, count, null);
         }
 
         public override unsafe int GetChars(byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex)
@@ -207,8 +199,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("bytes", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
             if (charIndex < 0 || charIndex > chars.Length)
                 throw new ArgumentOutOfRangeException("charIndex", Environment.GetResourceString("ArgumentOutOfRange_Index"));
-            Contract.EndContractBlock();
-            if (bytes.Length == 0)
+                        if (bytes.Length == 0)
                 return 0;
             int charCount = chars.Length - charIndex;
             if (chars.Length == 0)
@@ -224,8 +215,7 @@ namespace System.Text
                 throw new ArgumentNullException(bytes == null ? "bytes" : "chars", Environment.GetResourceString("ArgumentNull_Array"));
             if (charCount < 0 || byteCount < 0)
                 throw new ArgumentOutOfRangeException((charCount < 0 ? "charCount" : "byteCount"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            return GetChars(bytes, byteCount, chars, charCount, null);
+                        return GetChars(bytes, byteCount, chars, charCount, null);
         }
 
         public override unsafe String GetString(byte[] bytes, int index, int count)
@@ -236,8 +226,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException((index < 0 ? "index" : "count"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (bytes.Length - index < count)
                 throw new ArgumentOutOfRangeException("bytes", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
-            Contract.EndContractBlock();
-            if (bytes.Length == 0)
+                        if (bytes.Length == 0)
                 return String.Empty;
             fixed (byte *pBytes = bytes)
                 return String.CreateStringFromEncoding(pBytes + index, count, this);
@@ -245,17 +234,12 @@ namespace System.Text
 
         internal override unsafe int GetByteCount(char *chars, int count, EncoderNLS baseEncoder)
         {
-            Contract.Assert(chars != null, "[UTF7Encoding.GetByteCount]chars!=null");
-            Contract.Assert(count >= 0, "[UTF7Encoding.GetByteCount]count >=0");
-            return GetBytes(chars, count, null, 0, baseEncoder);
+                                    return GetBytes(chars, count, null, 0, baseEncoder);
         }
 
         internal override unsafe int GetBytes(char *chars, int charCount, byte *bytes, int byteCount, EncoderNLS baseEncoder)
         {
-            Contract.Assert(byteCount >= 0, "[UTF7Encoding.GetBytes]byteCount >=0");
-            Contract.Assert(chars != null, "[UTF7Encoding.GetBytes]chars!=null");
-            Contract.Assert(charCount >= 0, "[UTF7Encoding.GetBytes]charCount >=0");
-            UTF7Encoding.Encoder encoder = (UTF7Encoding.Encoder)baseEncoder;
+                                                UTF7Encoding.Encoder encoder = (UTF7Encoding.Encoder)baseEncoder;
             int bits = 0;
             int bitCount = -1;
             Encoding.EncodingByteBuffer buffer = new Encoding.EncodingByteBuffer(this, encoder, bytes, byteCount, chars, charCount);
@@ -356,17 +340,12 @@ namespace System.Text
 
         internal override unsafe int GetCharCount(byte *bytes, int count, DecoderNLS baseDecoder)
         {
-            Contract.Assert(count >= 0, "[UTF7Encoding.GetCharCount]count >=0");
-            Contract.Assert(bytes != null, "[UTF7Encoding.GetCharCount]bytes!=null");
-            return GetChars(bytes, count, null, 0, baseDecoder);
+                                    return GetChars(bytes, count, null, 0, baseDecoder);
         }
 
         internal override unsafe int GetChars(byte *bytes, int byteCount, char *chars, int charCount, DecoderNLS baseDecoder)
         {
-            Contract.Assert(byteCount >= 0, "[UTF7Encoding.GetChars]byteCount >=0");
-            Contract.Assert(bytes != null, "[UTF7Encoding.GetChars]bytes!=null");
-            Contract.Assert(charCount >= 0, "[UTF7Encoding.GetChars]charCount >=0");
-            UTF7Encoding.Decoder decoder = (UTF7Encoding.Decoder)baseDecoder;
+                                                UTF7Encoding.Decoder decoder = (UTF7Encoding.Decoder)baseDecoder;
             Encoding.EncodingCharBuffer buffer = new Encoding.EncodingCharBuffer(this, decoder, chars, charCount, bytes, byteCount);
             int bits = 0;
             int bitCount = -1;
@@ -376,8 +355,7 @@ namespace System.Text
                 bits = decoder.bits;
                 bitCount = decoder.bitCount;
                 firstByte = decoder.firstByte;
-                Contract.Assert(firstByte == false || decoder.bitCount <= 0, "[UTF7Encoding.GetChars]If remembered bits, then first byte flag shouldn't be set");
-            }
+                            }
 
             if (bitCount >= 16)
             {
@@ -490,8 +468,7 @@ namespace System.Text
         {
             if (charCount < 0)
                 throw new ArgumentOutOfRangeException("charCount", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            long byteCount = (long)charCount * 3 + 2;
+                        long byteCount = (long)charCount * 3 + 2;
             if (byteCount > 0x7fffffff)
                 throw new ArgumentOutOfRangeException("charCount", Environment.GetResourceString("ArgumentOutOfRange_GetByteCountOverflow"));
             return (int)byteCount;
@@ -501,8 +478,7 @@ namespace System.Text
         {
             if (byteCount < 0)
                 throw new ArgumentOutOfRangeException("byteCount", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            int charCount = byteCount;
+                        int charCount = byteCount;
             if (charCount == 0)
                 charCount = 1;
             return charCount;
@@ -521,8 +497,7 @@ namespace System.Text
             {
                 if (info == null)
                     throw new ArgumentNullException("info");
-                Contract.EndContractBlock();
-                this.bits = (int)info.GetValue("bits", typeof (int));
+                                this.bits = (int)info.GetValue("bits", typeof (int));
                 this.bitCount = (int)info.GetValue("bitCount", typeof (int));
                 this.firstByte = (bool)info.GetValue("firstByte", typeof (bool));
                 this.m_encoding = (Encoding)info.GetValue("encoding", typeof (Encoding));
@@ -558,8 +533,7 @@ namespace System.Text
             {
                 if (info == null)
                     throw new ArgumentNullException("info");
-                Contract.EndContractBlock();
-                this.bits = (int)info.GetValue("bits", typeof (int));
+                                this.bits = (int)info.GetValue("bits", typeof (int));
                 this.bitCount = (int)info.GetValue("bitCount", typeof (int));
                 this.m_encoding = (Encoding)info.GetValue("encoding", typeof (Encoding));
             }
@@ -628,9 +602,7 @@ namespace System.Text
 
             public override bool Fallback(byte[] bytesUnknown, int index)
             {
-                Contract.Assert(iCount < 0, "[DecoderUTF7FallbackBuffer.Fallback] Can't have recursive fallbacks");
-                Contract.Assert(bytesUnknown.Length == 1, "[DecoderUTF7FallbackBuffer.Fallback] Only possible fallback case should be 1 unknown byte");
-                cFallback = (char)bytesUnknown[0];
+                                                cFallback = (char)bytesUnknown[0];
                 if (cFallback == 0)
                 {
                     return false;
@@ -673,8 +645,7 @@ namespace System.Text
 
             internal unsafe override int InternalFallback(byte[] bytes, byte *pBytes)
             {
-                Contract.Assert(iCount < 0, "[DecoderUTF7FallbackBuffer.InternalFallback] Can't have recursive fallbacks");
-                if (bytes.Length != 1)
+                                if (bytes.Length != 1)
                 {
                     throw new ArgumentException(Environment.GetResourceString("Argument_InvalidCharSequenceNoIndex"));
                 }

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Reflection;
 
 namespace System.Runtime.CompilerServices
@@ -20,9 +20,7 @@ namespace System.Runtime.CompilerServices
 
         internal static DateTime GetRawDateTimeConstant(CustomAttributeData attr)
         {
-            Contract.Requires(attr.Constructor.DeclaringType == typeof (DateTimeConstantAttribute));
-            Contract.Requires(attr.ConstructorArguments.Count == 1);
-            foreach (CustomAttributeNamedArgument namedArgument in attr.NamedArguments)
+                                    foreach (CustomAttributeNamedArgument namedArgument in attr.NamedArguments)
             {
                 if (namedArgument.MemberInfo.Name.Equals("Value"))
                 {

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.StubHelpers;
@@ -11,9 +10,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         static internal ICustomProperty CreateProperty(object target, string propertyName)
         {
-            Contract.Requires(target != null);
-            Contract.Requires(propertyName != null);
-            IGetProxyTarget proxy = target as IGetProxyTarget;
+                                    IGetProxyTarget proxy = target as IGetProxyTarget;
             if (proxy != null)
                 target = proxy.GetTarget();
             PropertyInfo propertyInfo = target.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public);
@@ -25,18 +22,14 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
         static internal unsafe ICustomProperty CreateIndexedProperty(object target, string propertyName, TypeNameNative*pIndexedParamType)
         {
-            Contract.Requires(target != null);
-            Contract.Requires(propertyName != null);
-            Type indexedParamType = null;
+                                    Type indexedParamType = null;
             SystemTypeMarshaler.ConvertToManaged(pIndexedParamType, ref indexedParamType);
             return CreateIndexedProperty(target, propertyName, indexedParamType);
         }
 
         static internal ICustomProperty CreateIndexedProperty(object target, string propertyName, Type indexedParamType)
         {
-            Contract.Requires(target != null);
-            Contract.Requires(propertyName != null);
-            IGetProxyTarget proxy = target as IGetProxyTarget;
+                                    IGetProxyTarget proxy = target as IGetProxyTarget;
             if (proxy != null)
                 target = proxy.GetTarget();
             PropertyInfo propertyInfo = target.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public, null, null, new Type[]{indexedParamType}, null);

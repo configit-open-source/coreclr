@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -53,7 +53,7 @@ namespace System.Security.Cryptography
 
         public override bool CanRead
         {
-            [Pure]
+            
             get
             {
                 return _canRead;
@@ -62,7 +62,7 @@ namespace System.Security.Cryptography
 
         public override bool CanSeek
         {
-            [Pure]
+            
             get
             {
                 return false;
@@ -71,7 +71,7 @@ namespace System.Security.Cryptography
 
         public override bool CanWrite
         {
-            [Pure]
+            
             get
             {
                 return _canWrite;
@@ -173,8 +173,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            int bytesToDeliver = count;
+                        int bytesToDeliver = count;
             int currentOutputIndex = offset;
             if (_OutputBufferIndex != 0)
             {
@@ -297,8 +296,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (this.GetType() != typeof (CryptoStream))
+                        if (this.GetType() != typeof (CryptoStream))
                 return base.ReadAsync(buffer, offset, count, cancellationToken);
             if (cancellationToken.IsCancellationRequested)
                 return Task.FromCancellation<int>(cancellationToken);
@@ -332,11 +330,7 @@ namespace System.Security.Cryptography
 
         private async Task<int> ReadAsyncInternal(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
         {
-            Contract.Requires(CanRead);
-            Contract.Requires(offset >= 0);
-            Contract.Requires(count >= 0);
-            Contract.Requires(buffer.Length - offset >= count);
-            await default (HopToThreadPoolAwaitable);
+                                                            await default (HopToThreadPoolAwaitable);
             var sem = base.EnsureAsyncActiveSemaphoreInitialized();
             await sem.WaitAsync().ConfigureAwait(false);
             try
@@ -469,8 +463,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            int bytesToWrite = count;
+                        int bytesToWrite = count;
             int currentInputIndex = offset;
             if (_InputBufferIndex > 0)
             {
@@ -546,8 +539,7 @@ namespace System.Security.Cryptography
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (buffer.Length - offset < count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
-            Contract.EndContractBlock();
-            if (this.GetType() != typeof (CryptoStream))
+                        if (this.GetType() != typeof (CryptoStream))
                 return base.WriteAsync(buffer, offset, count, cancellationToken);
             if (cancellationToken.IsCancellationRequested)
                 return Task.FromCancellation(cancellationToken);
@@ -556,11 +548,7 @@ namespace System.Security.Cryptography
 
         private async Task WriteAsyncInternal(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
         {
-            Contract.Requires(CanWrite);
-            Contract.Requires(offset >= 0);
-            Contract.Requires(count >= 0);
-            Contract.Requires(buffer.Length - offset >= count);
-            await default (HopToThreadPoolAwaitable);
+                                                            await default (HopToThreadPoolAwaitable);
             var sem = base.EnsureAsyncActiveSemaphoreInitialized();
             await sem.WaitAsync().ConfigureAwait(false);
             try

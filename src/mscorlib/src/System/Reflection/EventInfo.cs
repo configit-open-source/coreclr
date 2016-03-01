@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 
@@ -93,8 +92,7 @@ namespace System.Reflection
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_NoPublicAddMethod"));
             if (addMethod.ReturnType == typeof (System.Runtime.InteropServices.WindowsRuntime.EventRegistrationToken))
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_NotSupportedOnWinRTEvent"));
-            Contract.Assert(addMethod.ReturnType == typeof (void));
-            addMethod.Invoke(target, new object[]{handler});
+                        addMethod.Invoke(target, new object[]{handler});
         }
 
         public virtual void RemoveEventHandler(Object target, Delegate handler)
@@ -103,11 +101,9 @@ namespace System.Reflection
             if (removeMethod == null)
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_NoPublicRemoveMethod"));
             ParameterInfo[] parameters = removeMethod.GetParametersNoCopy();
-            Contract.Assert(parameters != null && parameters.Length == 1);
-            if (parameters[0].ParameterType == typeof (System.Runtime.InteropServices.WindowsRuntime.EventRegistrationToken))
+                        if (parameters[0].ParameterType == typeof (System.Runtime.InteropServices.WindowsRuntime.EventRegistrationToken))
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_NotSupportedOnWinRTEvent"));
-            Contract.Assert(parameters[0].ParameterType.BaseType == typeof (MulticastDelegate));
-            removeMethod.Invoke(target, new object[]{handler});
+                        removeMethod.Invoke(target, new object[]{handler});
         }
 
         public virtual Type EventHandlerType
@@ -166,10 +162,7 @@ namespace System.Reflection
 
         internal RuntimeEventInfo(int tkEvent, RuntimeType declaredType, RuntimeType.RuntimeTypeCache reflectedTypeCache, out bool isPrivate)
         {
-            Contract.Requires(declaredType != null);
-            Contract.Requires(reflectedTypeCache != null);
-            Contract.Assert(!reflectedTypeCache.IsGlobal);
-            MetadataImport scope = declaredType.GetRuntimeModule().MetadataImport;
+                                                MetadataImport scope = declaredType.GetRuntimeModule().MetadataImport;
             m_token = tkEvent;
             m_reflectedTypeCache = reflectedTypeCache;
             m_declaringType = declaredType;
@@ -211,8 +204,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.GetCustomAttributes(this, attributeRuntimeType);
@@ -222,8 +214,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.IsDefined(this, attributeRuntimeType);
@@ -302,8 +293,7 @@ namespace System.Reflection
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            MemberInfoSerializationHolder.GetSerializationInfo(info, Name, ReflectedTypeInternal, null, MemberTypes.Event);
+                        MemberInfoSerializationHolder.GetSerializationInfo(info, Name, ReflectedTypeInternal, null, MemberTypes.Event);
         }
 
         public override MethodInfo[] GetOtherMethods(bool nonPublic)

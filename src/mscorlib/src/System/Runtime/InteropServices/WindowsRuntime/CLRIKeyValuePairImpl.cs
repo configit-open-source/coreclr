@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
 {
@@ -29,15 +28,13 @@ namespace System.Runtime.InteropServices.WindowsRuntime
 
         internal static object BoxHelper(object pair)
         {
-            Contract.Requires(pair != null);
-            KeyValuePair<K, V> unboxedPair = (KeyValuePair<K, V>)pair;
+                        KeyValuePair<K, V> unboxedPair = (KeyValuePair<K, V>)pair;
             return new CLRIKeyValuePairImpl<K, V>(ref unboxedPair);
         }
 
         internal static object UnboxHelper(object wrapper)
         {
-            Contract.Requires(wrapper != null);
-            CLRIKeyValuePairImpl<K, V> reference = (CLRIKeyValuePairImpl<K, V>)wrapper;
+                        CLRIKeyValuePairImpl<K, V> reference = (CLRIKeyValuePairImpl<K, V>)wrapper;
             return reference._pair;
         }
 

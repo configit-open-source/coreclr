@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -8,8 +7,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private IReadOnlyDictionaryToIMapViewAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal V Lookup<K, V>(K key)
         {

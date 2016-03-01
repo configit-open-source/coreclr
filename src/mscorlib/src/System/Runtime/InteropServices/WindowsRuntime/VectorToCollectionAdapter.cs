@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 
 namespace System.Runtime.InteropServices.WindowsRuntime
@@ -7,8 +7,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
     {
         private VectorToCollectionAdapter()
         {
-            Contract.Assert(false, "This class is never instantiated");
-        }
+                    }
 
         internal int Count<T>()
         {
@@ -56,8 +55,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
                 throw new ArgumentException(Environment.GetResourceString("Argument_IndexOutOfArrayBounds"));
             if (array.Length - arrayIndex < Count<T>())
                 throw new ArgumentException(Environment.GetResourceString("Argument_InsufficientSpaceToCopyCollection"));
-            Contract.EndContractBlock();
-            IVector<T> _this = JitHelpers.UnsafeCast<IVector<T>>(this);
+                        IVector<T> _this = JitHelpers.UnsafeCast<IVector<T>>(this);
             int count = Count<T>();
             for (int i = 0; i < count; i++)
             {

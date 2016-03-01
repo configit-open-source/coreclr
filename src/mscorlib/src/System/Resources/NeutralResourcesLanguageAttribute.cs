@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Resources
 {
@@ -10,8 +10,7 @@ namespace System.Resources
         {
             if (cultureName == null)
                 throw new ArgumentNullException("cultureName");
-            Contract.EndContractBlock();
-            _culture = cultureName;
+                        _culture = cultureName;
             _fallbackLoc = UltimateResourceFallbackLocation.MainAssembly;
         }
 
@@ -21,8 +20,7 @@ namespace System.Resources
                 throw new ArgumentNullException("cultureName");
             if (!Enum.IsDefined(typeof (UltimateResourceFallbackLocation), location))
                 throw new ArgumentException(Environment.GetResourceString("Arg_InvalidNeutralResourcesLanguage_FallbackLoc", location));
-            Contract.EndContractBlock();
-            _culture = cultureName;
+                        _culture = cultureName;
             _fallbackLoc = location;
         }
 

@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.Serialization;
 
 namespace System.Text
@@ -27,8 +27,7 @@ namespace System.Text
             {
                 if (value == null)
                     throw new ArgumentNullException("value");
-                Contract.EndContractBlock();
-                if (m_fallbackBuffer != null && m_fallbackBuffer.Remaining > 0)
+                                if (m_fallbackBuffer != null && m_fallbackBuffer.Remaining > 0)
                     throw new ArgumentException(Environment.GetResourceString("Argument_FallbackBufferNotEmpty"), "value");
                 m_fallback = value;
                 m_fallbackBuffer = null;
@@ -80,8 +79,7 @@ namespace System.Text
                 throw new ArgumentNullException("bytes", Environment.GetResourceString("ArgumentNull_Array"));
             if (count < 0)
                 throw new ArgumentOutOfRangeException("count", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            byte[] arrbyte = new byte[count];
+                        byte[] arrbyte = new byte[count];
             int index;
             for (index = 0; index < count; index++)
                 arrbyte[index] = bytes[index];
@@ -100,15 +98,13 @@ namespace System.Text
                 throw new ArgumentNullException(chars == null ? "chars" : "bytes", Environment.GetResourceString("ArgumentNull_Array"));
             if (byteCount < 0 || charCount < 0)
                 throw new ArgumentOutOfRangeException((byteCount < 0 ? "byteCount" : "charCount"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            byte[] arrByte = new byte[byteCount];
+                        byte[] arrByte = new byte[byteCount];
             int index;
             for (index = 0; index < byteCount; index++)
                 arrByte[index] = bytes[index];
             char[] arrChar = new char[charCount];
             int result = GetChars(arrByte, 0, byteCount, arrChar, 0, flush);
-            Contract.Assert(result <= charCount, "Returned more chars than we have space for");
-            if (result < charCount)
+                        if (result < charCount)
                 charCount = result;
             for (index = 0; index < charCount; index++)
                 chars[index] = arrChar[index];
@@ -127,8 +123,7 @@ namespace System.Text
                 throw new ArgumentOutOfRangeException("bytes", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
             if (chars.Length - charIndex < charCount)
                 throw new ArgumentOutOfRangeException("chars", Environment.GetResourceString("ArgumentOutOfRange_IndexCountBuffer"));
-            Contract.EndContractBlock();
-            bytesUsed = byteCount;
+                        bytesUsed = byteCount;
             while (bytesUsed > 0)
             {
                 if (GetCharCount(bytes, byteIndex, bytesUsed, flush) <= charCount)
@@ -151,8 +146,7 @@ namespace System.Text
                 throw new ArgumentNullException(chars == null ? "chars" : "bytes", Environment.GetResourceString("ArgumentNull_Array"));
             if (byteCount < 0 || charCount < 0)
                 throw new ArgumentOutOfRangeException((byteCount < 0 ? "byteCount" : "charCount"), Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-            Contract.EndContractBlock();
-            bytesUsed = byteCount;
+                        bytesUsed = byteCount;
             while (bytesUsed > 0)
             {
                 if (GetCharCount(bytes, bytesUsed, flush) <= charCount)

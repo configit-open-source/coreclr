@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Collections
 {
@@ -19,8 +19,7 @@ namespace System.Collections
                 throw new ArgumentOutOfRangeException("length", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             }
 
-            Contract.EndContractBlock();
-            m_array = new int[GetArrayLength(length, BitsPerInt32)];
+                        m_array = new int[GetArrayLength(length, BitsPerInt32)];
             m_length = length;
             int fillValue = defaultValue ? unchecked (((int)0xffffffff)) : 0;
             for (int i = 0; i < m_array.Length; i++)
@@ -38,8 +37,7 @@ namespace System.Collections
                 throw new ArgumentNullException("bytes");
             }
 
-            Contract.EndContractBlock();
-            if (bytes.Length > Int32.MaxValue / BitsPerByte)
+                        if (bytes.Length > Int32.MaxValue / BitsPerByte)
             {
                 throw new ArgumentException(Environment.GetResourceString("Argument_ArrayTooLarge", BitsPerByte), "bytes");
             }
@@ -54,9 +52,7 @@ namespace System.Collections
                 j += 4;
             }
 
-            Contract.Assert(bytes.Length - j >= 0, "BitArray byteLength problem");
-            Contract.Assert(bytes.Length - j < 4, "BitArray byteLength problem #2");
-            switch (bytes.Length - j)
+                                    switch (bytes.Length - j)
             {
                 case 3:
                     m_array[i] = ((bytes[j + 2] & 0xff) << 16);
@@ -79,8 +75,7 @@ namespace System.Collections
                 throw new ArgumentNullException("values");
             }
 
-            Contract.EndContractBlock();
-            m_array = new int[GetArrayLength(values.Length, BitsPerInt32)];
+                        m_array = new int[GetArrayLength(values.Length, BitsPerInt32)];
             m_length = values.Length;
             for (int i = 0; i < values.Length; i++)
             {
@@ -98,8 +93,7 @@ namespace System.Collections
                 throw new ArgumentNullException("values");
             }
 
-            Contract.EndContractBlock();
-            if (values.Length > Int32.MaxValue / BitsPerInt32)
+                        if (values.Length > Int32.MaxValue / BitsPerInt32)
             {
                 throw new ArgumentException(Environment.GetResourceString("Argument_ArrayTooLarge", BitsPerInt32), "values");
             }
@@ -117,8 +111,7 @@ namespace System.Collections
                 throw new ArgumentNullException("bits");
             }
 
-            Contract.EndContractBlock();
-            int arrayLength = GetArrayLength(bits.m_length, BitsPerInt32);
+                        int arrayLength = GetArrayLength(bits.m_length, BitsPerInt32);
             m_array = new int[arrayLength];
             m_length = bits.m_length;
             Array.Copy(bits.m_array, m_array, arrayLength);
@@ -145,8 +138,7 @@ namespace System.Collections
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
             }
 
-            Contract.EndContractBlock();
-            return (m_array[index / 32] & (1 << (index % 32))) != 0;
+                        return (m_array[index / 32] & (1 << (index % 32))) != 0;
         }
 
         public void Set(int index, bool value)
@@ -156,8 +148,7 @@ namespace System.Collections
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_Index"));
             }
 
-            Contract.EndContractBlock();
-            if (value)
+                        if (value)
             {
                 m_array[index / 32] |= (1 << (index % 32));
             }
@@ -187,8 +178,7 @@ namespace System.Collections
                 throw new ArgumentNullException("value");
             if (Length != value.Length)
                 throw new ArgumentException(Environment.GetResourceString("Arg_ArrayLengthsDiffer"));
-            Contract.EndContractBlock();
-            int ints = GetArrayLength(m_length, BitsPerInt32);
+                        int ints = GetArrayLength(m_length, BitsPerInt32);
             for (int i = 0; i < ints; i++)
             {
                 m_array[i] &= value.m_array[i];
@@ -204,8 +194,7 @@ namespace System.Collections
                 throw new ArgumentNullException("value");
             if (Length != value.Length)
                 throw new ArgumentException(Environment.GetResourceString("Arg_ArrayLengthsDiffer"));
-            Contract.EndContractBlock();
-            int ints = GetArrayLength(m_length, BitsPerInt32);
+                        int ints = GetArrayLength(m_length, BitsPerInt32);
             for (int i = 0; i < ints; i++)
             {
                 m_array[i] |= value.m_array[i];
@@ -221,8 +210,7 @@ namespace System.Collections
                 throw new ArgumentNullException("value");
             if (Length != value.Length)
                 throw new ArgumentException(Environment.GetResourceString("Arg_ArrayLengthsDiffer"));
-            Contract.EndContractBlock();
-            int ints = GetArrayLength(m_length, BitsPerInt32);
+                        int ints = GetArrayLength(m_length, BitsPerInt32);
             for (int i = 0; i < ints; i++)
             {
                 m_array[i] ^= value.m_array[i];
@@ -248,8 +236,7 @@ namespace System.Collections
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                return m_length;
+                                return m_length;
             }
 
             set
@@ -259,8 +246,7 @@ namespace System.Collections
                     throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
                 }
 
-                Contract.EndContractBlock();
-                int newints = GetArrayLength(value, BitsPerInt32);
+                                int newints = GetArrayLength(value, BitsPerInt32);
                 if (newints > m_array.Length || newints + _ShrinkThreshold < m_array.Length)
                 {
                     int[] newarray = new int[newints];
@@ -293,8 +279,7 @@ namespace System.Collections
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Rank != 1)
                 throw new ArgumentException(Environment.GetResourceString("Arg_RankMultiDimNotSupported"));
-            Contract.EndContractBlock();
-            if (array is int[])
+                        if (array is int[])
             {
                 Array.Copy(m_array, 0, array, index, GetArrayLength(m_length, BitsPerInt32));
             }
@@ -323,16 +308,13 @@ namespace System.Collections
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                return m_length;
+                                return m_length;
             }
         }
 
         public Object Clone()
         {
-            Contract.Ensures(Contract.Result<Object>() != null);
-            Contract.Ensures(((BitArray)Contract.Result<Object>()).Length == this.Length);
-            return new BitArray(this);
+                                    return new BitArray(this);
         }
 
         public Object SyncRoot
@@ -374,8 +356,7 @@ namespace System.Collections
         private const int BitsPerByte = 8;
         private static int GetArrayLength(int n, int div)
         {
-            Contract.Assert(div > 0, "GetArrayLength: div arg must be greater than 0");
-            return n > 0 ? (((n - 1) / div) + 1) : 0;
+                        return n > 0 ? (((n - 1) / div) + 1) : 0;
         }
 
         private class BitArrayEnumeratorSimple : IEnumerator, ICloneable

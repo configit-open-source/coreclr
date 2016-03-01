@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Text;
 
 namespace System
@@ -1232,8 +1231,7 @@ namespace System
                     return Tuple.CombineHashCodes(comparer.GetHashCode(m_Item1), comparer.GetHashCode(m_Item2), comparer.GetHashCode(m_Item3), comparer.GetHashCode(m_Item4), comparer.GetHashCode(m_Item5), comparer.GetHashCode(m_Item6), comparer.GetHashCode(m_Item7), t.GetHashCode(comparer));
             }
 
-            Contract.Assert(false, "Missed all cases for computing Tuple hash code");
-            return -1;
+                        return -1;
         }
 
         Int32 ITuple.GetHashCode(IEqualityComparer comparer)

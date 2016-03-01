@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -94,8 +94,7 @@ namespace System.Security
                 throw new ArgumentOutOfRangeException("length", Environment.GetResourceString("ArgumentOutOfRange_Length"));
             }
 
-            Contract.EndContractBlock();
-            InitializeSecureString(value, length);
+                        InitializeSecureString(value, length);
         }
 
         public int Length
@@ -163,8 +162,7 @@ namespace System.Security
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_IndexString"));
             }
 
-            Contract.EndContractBlock();
-            EnsureNotDisposed();
+                        EnsureNotDisposed();
             EnsureNotReadOnly();
             EnsureCapacity(m_length + 1);
             unsafe
@@ -256,9 +254,7 @@ namespace System.Security
                 throw new ArgumentOutOfRangeException("index", Environment.GetResourceString("ArgumentOutOfRange_IndexString"));
             }
 
-            Contract.EndContractBlock();
-            Contract.Assert(index <= Int32.MaxValue / sizeof (char));
-            EnsureNotDisposed();
+                                    EnsureNotDisposed();
             EnsureNotReadOnly();
             RuntimeHelpers.PrepareConstrainedRegions();
             try
@@ -282,8 +278,7 @@ namespace System.Security
             [System.Security.SecurityCritical]
             get
             {
-                Contract.Assert(m_buffer != null, "Buffer is not initialized!");
-                return m_buffer.Length;
+                                return m_buffer.Length;
             }
         }
 
@@ -304,8 +299,7 @@ namespace System.Security
                 throw new NotSupportedException(Environment.GetResourceString("Arg_PlatformSecureString"));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         private void EnsureCapacity(int capacity)
         {
@@ -314,8 +308,7 @@ namespace System.Security
                 throw new ArgumentOutOfRangeException("capacity", Environment.GetResourceString("ArgumentOutOfRange_Capacity"));
             }
 
-            Contract.EndContractBlock();
-            if (capacity <= m_buffer.Length)
+                        if (capacity <= m_buffer.Length)
             {
                 return;
             }
@@ -338,8 +331,7 @@ namespace System.Security
                 throw new ObjectDisposedException(null);
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         private void EnsureNotReadOnly()
         {
@@ -348,13 +340,11 @@ namespace System.Security
                 throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_ReadOnly"));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
 
         private static uint GetAlignedSize(int size)
         {
-            Contract.Assert(size >= 0, "size must be non-negative");
-            uint alignedSize = ((uint)size / BlockSize) * BlockSize;
+                        uint alignedSize = ((uint)size / BlockSize) * BlockSize;
             if ((size % BlockSize != 0) || size == 0)
             {
                 alignedSize += BlockSize;
@@ -406,9 +396,7 @@ namespace System.Security
 
         private void ProtectMemory()
         {
-            Contract.Assert(!m_buffer.IsInvalid && m_buffer.Length != 0, "Invalid buffer!");
-            Contract.Assert(m_buffer.Length % BlockSize == 0, "buffer length must be multiple of blocksize!");
-            if (m_length == 0 || m_encrypted)
+                                    if (m_length == 0 || m_encrypted)
             {
                 return;
             }
@@ -616,9 +604,7 @@ namespace System.Security
 
         private void UnProtectMemory()
         {
-            Contract.Assert(!m_buffer.IsInvalid && m_buffer.Length != 0, "Invalid buffer!");
-            Contract.Assert(m_buffer.Length % BlockSize == 0, "buffer length must be multiple of blocksize!");
-            if (m_length == 0)
+                                    if (m_length == 0)
             {
                 return;
             }
@@ -696,8 +682,7 @@ namespace System.Security
             {
                 source.AcquirePointer(ref sourcePtr);
                 target.AcquirePointer(ref targetPtr);
-                Contract.Assert(Win32Native.SysStringLen((IntPtr)targetPtr) >= Win32Native.SysStringLen((IntPtr)sourcePtr), "Target buffer is not large enough!");
-                Buffer.Memcpy(targetPtr, sourcePtr, (int)Win32Native.SysStringLen((IntPtr)sourcePtr) * 2);
+                                Buffer.Memcpy(targetPtr, sourcePtr, (int)Win32Native.SysStringLen((IntPtr)sourcePtr) * 2);
             }
             finally
             {

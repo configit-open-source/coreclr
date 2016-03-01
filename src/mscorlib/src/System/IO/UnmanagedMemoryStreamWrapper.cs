@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,7 +15,7 @@ namespace System.IO
 
         public override bool CanRead
         {
-            [Pure]
+            
             get
             {
                 return _unmanagedStream.CanRead;
@@ -25,7 +24,7 @@ namespace System.IO
 
         public override bool CanSeek
         {
-            [Pure]
+            
             get
             {
                 return _unmanagedStream.CanSeek;
@@ -34,7 +33,7 @@ namespace System.IO
 
         public override bool CanWrite
         {
-            [Pure]
+            
             get
             {
                 return _unmanagedStream.CanWrite;
@@ -145,8 +144,7 @@ namespace System.IO
         {
             if (stream == null)
                 throw new ArgumentNullException("stream", Environment.GetResourceString("ArgumentNull_Stream"));
-            Contract.EndContractBlock();
-            if (!_unmanagedStream._isOpen)
+                        if (!_unmanagedStream._isOpen)
                 __Error.StreamIsClosed();
             if (!CanRead)
                 __Error.ReadNotSupported();
@@ -173,8 +171,7 @@ namespace System.IO
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_UnreadableStream"));
             if (!destination.CanWrite)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_UnwritableStream"));
-            Contract.EndContractBlock();
-            return _unmanagedStream.CopyToAsync(destination, bufferSize, cancellationToken);
+                        return _unmanagedStream.CopyToAsync(destination, bufferSize, cancellationToken);
         }
 
         public override Task FlushAsync(CancellationToken cancellationToken)

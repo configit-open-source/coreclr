@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Globalization;
 
 namespace System.Reflection.Emit
@@ -95,8 +95,7 @@ namespace System.Reflection.Emit
         {
             if (rank <= 0)
                 throw new IndexOutOfRangeException();
-            Contract.EndContractBlock();
-            string szrank = "";
+                        string szrank = "";
             if (rank == 1)
             {
                 szrank = "*";

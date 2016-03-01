@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.ConstrainedExecution;
 
 namespace System.Threading
@@ -22,8 +22,7 @@ namespace System.Threading
             if (!enableThreadOwnerTracking)
             {
                 m_owner |= LOCK_ID_DISABLE_MASK;
-                Contract.Assert(!IsThreadOwnerTrackingEnabled, "property should be false by now");
-            }
+                            }
         }
 
         public void Enter(ref bool lockTaken)
@@ -116,8 +115,7 @@ namespace System.Threading
                     if ((observedOwner & LOCK_ANONYMOUS_OWNED) == LOCK_UNOWNED)
                     {
                         int newOwner = (observedOwner & WAITERS_MASK) == 0 ? observedOwner | 1 : (observedOwner - 2) | 1;
-                        Contract.Assert((newOwner & WAITERS_MASK) >= 0);
-                        if (Interlocked.CompareExchange(ref m_owner, newOwner, observedOwner, ref lockTaken) == observedOwner)
+                                                if (Interlocked.CompareExchange(ref m_owner, newOwner, observedOwner, ref lockTaken) == observedOwner)
                         {
                             return;
                         }
@@ -138,8 +136,7 @@ namespace System.Threading
                 if ((observedOwner & LOCK_ANONYMOUS_OWNED) == LOCK_UNOWNED)
                 {
                     int newOwner = (observedOwner & WAITERS_MASK) == 0 ? observedOwner | 1 : (observedOwner - 2) | 1;
-                    Contract.Assert((newOwner & WAITERS_MASK) >= 0);
-                    if (Interlocked.CompareExchange(ref m_owner, newOwner, observedOwner, ref lockTaken) == observedOwner)
+                                        if (Interlocked.CompareExchange(ref m_owner, newOwner, observedOwner, ref lockTaken) == observedOwner)
                     {
                         return;
                     }
@@ -181,8 +178,7 @@ namespace System.Threading
                     return;
                 if (Interlocked.CompareExchange(ref m_owner, observedOwner - 2, observedOwner) == observedOwner)
                 {
-                    Contract.Assert(!IsThreadOwnerTrackingEnabled);
-                    break;
+                                        break;
                 }
 
                 spinner.SpinOnce();
@@ -191,8 +187,7 @@ namespace System.Threading
 
         private void ContinueTryEnterWithThreadTracking(int millisecondsTimeout, uint startTime, ref bool lockTaken)
         {
-            Contract.Assert(IsThreadOwnerTrackingEnabled);
-            int lockUnowned = 0;
+                        int lockUnowned = 0;
             int m_newOwner = Thread.CurrentThread.ManagedThreadId;
             if (m_owner == m_newOwner)
             {

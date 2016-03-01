@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
@@ -134,8 +134,7 @@ namespace System.Collections
                 throw new ArgumentOutOfRangeException("capacity", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (!(loadFactor >= 0.1f && loadFactor <= 1.0f))
                 throw new ArgumentOutOfRangeException("loadFactor", Environment.GetResourceString("ArgumentOutOfRange_HashtableLoadFactor", .1, 1.0));
-            Contract.EndContractBlock();
-            this.loadFactor = 0.72f * loadFactor;
+                        this.loadFactor = 0.72f * loadFactor;
             double rawsize = capacity / this.loadFactor;
             if (rawsize > Int32.MaxValue)
                 throw new ArgumentException(Environment.GetResourceString("Arg_HTCapacityOverflow"));
@@ -143,8 +142,7 @@ namespace System.Collections
             buckets = new bucket[hashsize];
             loadsize = (int)(this.loadFactor * hashsize);
             isWriterInProgress = false;
-            Contract.Assert(loadsize < hashsize, "Invalid hashtable loadsize!");
-        }
+                    }
 
         public Hashtable(int capacity, float loadFactor, IHashCodeProvider hcp, IComparer comparer): this (capacity, loadFactor)
         {
@@ -199,8 +197,7 @@ namespace System.Collections
         {
             if (d == null)
                 throw new ArgumentNullException("d", Environment.GetResourceString("ArgumentNull_Dictionary"));
-            Contract.EndContractBlock();
-            IDictionaryEnumerator e = d.GetEnumerator();
+                        IDictionaryEnumerator e = d.GetEnumerator();
             while (e.MoveNext())
                 Add(e.Key, e.Value);
         }
@@ -209,8 +206,7 @@ namespace System.Collections
         {
             if (d == null)
                 throw new ArgumentNullException("d", Environment.GetResourceString("ArgumentNull_Dictionary"));
-            Contract.EndContractBlock();
-            IDictionaryEnumerator e = d.GetEnumerator();
+                        IDictionaryEnumerator e = d.GetEnumerator();
             while (e.MoveNext())
                 Add(e.Key, e.Value);
         }
@@ -235,8 +231,7 @@ namespace System.Collections
 
         public virtual void Clear()
         {
-            Contract.Assert(!isWriterInProgress, "Race condition detected in usages of Hashtable - multiple threads appear to be writing to a Hashtable instance simultaneously!  Don't do that - use Hashtable.Synchronized.");
-            if (count == 0 && occupancy == 0)
+                        if (count == 0 && occupancy == 0)
                 return;
             isWriterInProgress = true;
             for (int i = 0; i < buckets.Length; i++)
@@ -285,8 +280,7 @@ namespace System.Collections
                 throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
             }
 
-            Contract.EndContractBlock();
-            uint seed;
+                        uint seed;
             uint incr;
             bucket[] lbuckets = buckets;
             uint hashcode = InitHash(key, lbuckets.Length, out seed, out incr);
@@ -334,9 +328,7 @@ namespace System.Collections
 
         private void CopyKeys(Array array, int arrayIndex)
         {
-            Contract.Requires(array != null);
-            Contract.Requires(array.Rank == 1);
-            bucket[] lbuckets = buckets;
+                                    bucket[] lbuckets = buckets;
             for (int i = lbuckets.Length; --i >= 0;)
             {
                 Object keyv = lbuckets[i].key;
@@ -349,9 +341,7 @@ namespace System.Collections
 
         private void CopyEntries(Array array, int arrayIndex)
         {
-            Contract.Requires(array != null);
-            Contract.Requires(array.Rank == 1);
-            bucket[] lbuckets = buckets;
+                                    bucket[] lbuckets = buckets;
             for (int i = lbuckets.Length; --i >= 0;)
             {
                 Object keyv = lbuckets[i].key;
@@ -373,8 +363,7 @@ namespace System.Collections
                 throw new ArgumentOutOfRangeException("arrayIndex", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
             if (array.Length - arrayIndex < Count)
                 throw new ArgumentException(Environment.GetResourceString("Arg_ArrayPlusOffTooSmall"));
-            Contract.EndContractBlock();
-            CopyEntries(array, arrayIndex);
+                        CopyEntries(array, arrayIndex);
         }
 
         internal virtual KeyValuePairs[] ToKeyValuePairsArray()
@@ -396,9 +385,7 @@ namespace System.Collections
 
         private void CopyValues(Array array, int arrayIndex)
         {
-            Contract.Requires(array != null);
-            Contract.Requires(array.Rank == 1);
-            bucket[] lbuckets = buckets;
+                                    bucket[] lbuckets = buckets;
             for (int i = lbuckets.Length; --i >= 0;)
             {
                 Object keyv = lbuckets[i].key;
@@ -418,8 +405,7 @@ namespace System.Collections
                     throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
                 }
 
-                Contract.EndContractBlock();
-                uint seed;
+                                uint seed;
                 uint incr;
                 bucket[] lbuckets = buckets;
                 uint hashcode = InitHash(key, lbuckets.Length, out seed, out incr);
@@ -495,8 +481,7 @@ namespace System.Collections
             loadsize = (int)(loadFactor * newsize);
             UpdateVersion();
             isWriterInProgress = false;
-            Contract.Assert(loadsize < newsize, "Our current implementaion means this is not possible.");
-            return;
+                        return;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -542,8 +527,7 @@ namespace System.Collections
 
         protected virtual bool KeyEquals(Object item, Object key)
         {
-            Contract.Assert(key != null, "key can't be null here!");
-            if (Object.ReferenceEquals(buckets, item))
+                        if (Object.ReferenceEquals(buckets, item))
             {
                 return false;
             }
@@ -582,8 +566,7 @@ namespace System.Collections
                 throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
             }
 
-            Contract.EndContractBlock();
-            if (count >= loadsize)
+                        if (count >= loadsize)
             {
                 expand();
             }
@@ -654,14 +637,12 @@ namespace System.Collections
                 return;
             }
 
-            Contract.Assert(false, "hash table insert failed!  Load factor too high, or our double hashing function is incorrect.");
-            throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_HashInsertFailed"));
+                        throw new InvalidOperationException(Environment.GetResourceString("InvalidOperation_HashInsertFailed"));
         }
 
         private void putEntry(bucket[] newBuckets, Object key, Object nvalue, int hashcode)
         {
-            Contract.Assert(hashcode >= 0, "hashcode >= 0");
-            uint seed = (uint)hashcode;
+                        uint seed = (uint)hashcode;
             uint incr = (uint)(1 + ((seed * HashPrime) % ((uint)newBuckets.Length - 1)));
             int bucketNumber = (int)(seed % (uint)newBuckets.Length);
             do
@@ -692,9 +673,7 @@ namespace System.Collections
                 throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
             }
 
-            Contract.EndContractBlock();
-            Contract.Assert(!isWriterInProgress, "Race condition detected in usages of Hashtable - multiple threads appear to be writing to a Hashtable instance simultaneously!  Don't do that - use Hashtable.Synchronized.");
-            uint seed;
+                                    uint seed;
             uint incr;
             uint hashcode = InitHash(key, buckets.Length, out seed, out incr);
             int ntry = 0;
@@ -753,8 +732,7 @@ namespace System.Collections
         {
             if (table == null)
                 throw new ArgumentNullException("table");
-            Contract.EndContractBlock();
-            return new SyncHashtable(table);
+                        return new SyncHashtable(table);
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -764,8 +742,7 @@ namespace System.Collections
                 throw new ArgumentNullException("info");
             }
 
-            Contract.EndContractBlock();
-            lock (SyncRoot)
+                        lock (SyncRoot)
             {
                 int oldVersion = version;
                 info.AddValue(LoadFactorName, loadFactor);
@@ -899,8 +876,7 @@ namespace System.Collections
                     throw new ArgumentException(Environment.GetResourceString("Arg_RankMultiDimNotSupported"));
                 if (arrayIndex < 0)
                     throw new ArgumentOutOfRangeException("arrayIndex", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-                Contract.EndContractBlock();
-                if (array.Length - arrayIndex < _hashtable.count)
+                                if (array.Length - arrayIndex < _hashtable.count)
                     throw new ArgumentException(Environment.GetResourceString("Arg_ArrayPlusOffTooSmall"));
                 _hashtable.CopyKeys(array, arrayIndex);
             }
@@ -951,8 +927,7 @@ namespace System.Collections
                     throw new ArgumentException(Environment.GetResourceString("Arg_RankMultiDimNotSupported"));
                 if (arrayIndex < 0)
                     throw new ArgumentOutOfRangeException("arrayIndex", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegNum"));
-                Contract.EndContractBlock();
-                if (array.Length - arrayIndex < _hashtable.count)
+                                if (array.Length - arrayIndex < _hashtable.count)
                     throw new ArgumentException(Environment.GetResourceString("Arg_ArrayPlusOffTooSmall"));
                 _hashtable.CopyValues(array, arrayIndex);
             }
@@ -1011,8 +986,7 @@ namespace System.Collections
                     throw new ArgumentNullException("info");
                 }
 
-                Contract.EndContractBlock();
-                lock (_table.SyncRoot)
+                                lock (_table.SyncRoot)
                 {
                     info.AddValue("ParentTable", _table, typeof (Hashtable));
                 }
@@ -1102,8 +1076,7 @@ namespace System.Collections
                     throw new ArgumentNullException("key", Environment.GetResourceString("ArgumentNull_Key"));
                 }
 
-                Contract.EndContractBlock();
-                return _table.ContainsKey(key);
+                                return _table.ContainsKey(key);
             }
 
             public override bool ContainsValue(Object key)
@@ -1294,8 +1267,7 @@ namespace System.Collections
                     throw new ArgumentNullException("hashtable");
                 }
 
-                Contract.EndContractBlock();
-                this.hashtable = hashtable;
+                                this.hashtable = hashtable;
             }
 
             public KeyValuePairs[] Items
@@ -1349,8 +1321,7 @@ namespace System.Collections
         {
             if (min < 0)
                 throw new ArgumentException(Environment.GetResourceString("Arg_HTCapacityOverflow"));
-            Contract.EndContractBlock();
-            for (int i = 0; i < primes.Length; i++)
+                        for (int i = 0; i < primes.Length; i++)
             {
                 int prime = primes[i];
                 if (prime >= min)
@@ -1376,8 +1347,7 @@ namespace System.Collections
             int newSize = 2 * oldSize;
             if ((uint)newSize > MaxPrimeArrayLength && MaxPrimeArrayLength > oldSize)
             {
-                Contract.Assert(MaxPrimeArrayLength == GetPrime(MaxPrimeArrayLength), "Invalid MaxPrimeArrayLength");
-                return MaxPrimeArrayLength;
+                                return MaxPrimeArrayLength;
             }
 
             return GetPrime(newSize);
@@ -1391,8 +1361,7 @@ namespace System.Collections
 
         public static IEqualityComparer GetRandomizedEqualityComparer(object comparer)
         {
-            Contract.Assert(comparer == null || comparer == System.Collections.Generic.EqualityComparer<string>.Default || comparer is IWellKnownStringEqualityComparer);
-            if (comparer == null)
+                        if (comparer == null)
             {
                 return new System.Collections.Generic.RandomizedObjectEqualityComparer();
             }
@@ -1408,8 +1377,7 @@ namespace System.Collections
                 return cmp.GetRandomizedEqualityComparer();
             }
 
-            Contract.Assert(false, "Missing case in GetRandomizedEqualityComparer!");
-            return null;
+                        return null;
         }
 
         public static object GetEqualityComparerForSerialization(object comparer)
@@ -1443,8 +1411,7 @@ namespace System.Collections
                     if (data == null)
                     {
                         data = new byte[bufferSize];
-                        Contract.Assert(bufferSize % 8 == 0, "We increment our current index by 8, so our buffer size must be a multiple of 8");
-                        rng = RandomNumberGenerator.Create();
+                                                rng = RandomNumberGenerator.Create();
                     }
 
                     rng.GetBytes(data);

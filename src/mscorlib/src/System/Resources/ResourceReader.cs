@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -41,8 +40,7 @@ namespace System.Resources
 
         internal static bool CanCache(ResourceTypeCode value)
         {
-            Contract.Assert(value >= 0, "negative ResourceTypeCode.  What?");
-            return value <= ResourceTypeCode.LastPrimitive;
+                        return value <= ResourceTypeCode.LastPrimitive;
         }
     }
 
@@ -84,8 +82,7 @@ namespace System.Resources
                 throw new ArgumentNullException("stream");
             if (!stream.CanRead)
                 throw new ArgumentException(Environment.GetResourceString("Argument_StreamNotReadable"));
-            Contract.EndContractBlock();
-            _resCache = new Dictionary<String, ResourceLocator>(FastResourceComparer.Default);
+                        _resCache = new Dictionary<String, ResourceLocator>(FastResourceComparer.Default);
             _store = new BinaryReader(stream, Encoding.UTF8);
             _ums = stream as UnmanagedMemoryStream;
             BCLDebug.Log("RESMGRFILEFORMAT", "ResourceReader .ctor(Stream).  UnmanagedMemoryStream: " + (_ums != null));
@@ -94,10 +91,7 @@ namespace System.Resources
 
         internal ResourceReader(Stream stream, Dictionary<String, ResourceLocator> resCache)
         {
-            Contract.Requires(stream != null, "Need a stream!");
-            Contract.Requires(stream.CanRead, "Stream should be readable!");
-            Contract.Requires(resCache != null, "Need a Dictionary!");
-            _resCache = resCache;
+                                                _resCache = resCache;
             _store = new BinaryReader(stream, Encoding.UTF8);
             _ums = stream as UnmanagedMemoryStream;
             BCLDebug.Log("RESMGRFILEFORMAT", "ResourceReader .ctor(Stream, Hashtable).  UnmanagedMemoryStream: " + (_ums != null));
@@ -160,9 +154,7 @@ namespace System.Resources
 
         private unsafe int GetNameHash(int index)
         {
-            Contract.Assert(index >= 0 && index < _numResources, "Bad index into hash array.  index: " + index);
-            Contract.Assert((_ums == null && _nameHashes != null && _nameHashesPtr == null) || (_ums != null && _nameHashes == null && _nameHashesPtr != null), "Internal state mangled.");
-            if (_ums == null)
+                                    if (_ums == null)
                 return _nameHashes[index];
             else
                 return ReadUnalignedI4(&_nameHashesPtr[index]);
@@ -170,9 +162,7 @@ namespace System.Resources
 
         private unsafe int GetNamePosition(int index)
         {
-            Contract.Assert(index >= 0 && index < _numResources, "Bad index into name position array.  index: " + index);
-            Contract.Assert((_ums == null && _namePositions != null && _namePositionsPtr == null) || (_ums != null && _namePositions == null && _namePositionsPtr != null), "Internal state mangled.");
-            int r;
+                                    int r;
             if (_ums == null)
                 r = _namePositions[index];
             else
@@ -204,8 +194,7 @@ namespace System.Resources
 
         internal int FindPosForResource(String name)
         {
-            Contract.Assert(_store != null, "ResourceReader is closed!");
-            int hash = FastResourceComparer.HashFunction(name);
+                        int hash = FastResourceComparer.HashFunction(name);
             BCLDebug.Log("RESMGRFILEFORMAT", "FindPosForResource for " + name + "  hash: " + hash.ToString("x", CultureInfo.InvariantCulture));
             int lo = 0;
             int hi = _numResources - 1;
@@ -277,8 +266,7 @@ namespace System.Resources
 
         private unsafe bool CompareStringEqualsName(String name)
         {
-            Contract.Assert(_store != null, "ResourceReader is closed!");
-            int byteLen = _store.Read7BitEncodedInt();
+                        int byteLen = _store.Read7BitEncodedInt();
             if (byteLen < 0)
             {
                 throw new BadImageFormatException(Environment.GetResourceString("BadImageFormat_NegativeStringLength"));
@@ -313,8 +301,7 @@ namespace System.Resources
 
         private unsafe String AllocateStringForNameIndex(int index, out int dataOffset)
         {
-            Contract.Assert(_store != null, "ResourceReader is closed!");
-            byte[] bytes;
+                        byte[] bytes;
             int byteLen;
             long nameVA = GetNamePosition(index);
             lock (this)
@@ -365,8 +352,7 @@ namespace System.Resources
 
         private Object GetValueForNameIndex(int index)
         {
-            Contract.Assert(_store != null, "ResourceReader is closed!");
-            long nameVA = GetNamePosition(index);
+                        long nameVA = GetNamePosition(index);
             lock (this)
             {
                 _store.BaseStream.Seek(nameVA + _nameSectionOffset, SeekOrigin.Begin);
@@ -388,8 +374,7 @@ namespace System.Resources
 
         internal String LoadString(int pos)
         {
-            Contract.Assert(_store != null, "ResourceReader is closed!");
-            _store.BaseStream.Seek(_dataSectionOffset + pos, SeekOrigin.Begin);
+                        _store.BaseStream.Seek(_dataSectionOffset + pos, SeekOrigin.Begin);
             String s = null;
             int typeIndex = _store.Read7BitEncodedInt();
             if (_version == 1)
@@ -443,9 +428,7 @@ namespace System.Resources
 
         internal Object LoadObjectV1(int pos)
         {
-            Contract.Assert(_store != null, "ResourceReader is closed!");
-            Contract.Assert(_version == 1, ".resources file was not a V1 .resources file!");
-            try
+                                    try
             {
                 return _LoadObjectV1(pos);
             }
@@ -510,9 +493,7 @@ namespace System.Resources
 
         internal Object LoadObjectV2(int pos, out ResourceTypeCode typeCode)
         {
-            Contract.Assert(_store != null, "ResourceReader is closed!");
-            Contract.Assert(_version >= 2, ".resources file was not a V2 (or higher) .resources file!");
-            try
+                                    try
             {
                 return _LoadObjectV2(pos, out typeCode);
             }
@@ -594,8 +575,7 @@ namespace System.Resources
 
                     byte[] bytes = new byte[len];
                     int r = _ums.Read(bytes, 0, len);
-                    Contract.Assert(r == len, "ResourceReader needs to use a blocking read here.  (Call _store.ReadBytes(len)?)");
-                    return bytes;
+                                        return bytes;
                 }
 
                 case ResourceTypeCode.Stream:
@@ -637,8 +617,7 @@ namespace System.Resources
 
         private void ReadResources()
         {
-            Contract.Assert(_store != null, "ResourceReader is closed!");
-            try
+                        try
             {
                 _ReadResources();
             }
@@ -813,16 +792,14 @@ namespace System.Resources
                 }
             }
 
-            Contract.Assert(_typeTable[typeIndex] != null, "Should have found a type!");
-            return _typeTable[typeIndex];
+                        return _typeTable[typeIndex];
         }
 
         public void GetResourceData(String resourceName, out String resourceType, out byte[] resourceData)
         {
             if (resourceName == null)
                 throw new ArgumentNullException("resourceName");
-            Contract.EndContractBlock();
-            if (_resCache == null)
+                        if (_resCache == null)
                 throw new InvalidOperationException(Environment.GetResourceString("ResourceReaderIsClosed"));
             int[] sortedDataPositions = new int[_numResources];
             int dataPos = FindPosForResource(resourceName);
@@ -854,11 +831,9 @@ namespace System.Resources
 
                 Array.Sort(sortedDataPositions);
                 int index = Array.BinarySearch(sortedDataPositions, dataPos);
-                Contract.Assert(index >= 0 && index < _numResources, "Couldn't find data position within sorted data positions array!");
-                long nextData = (index < _numResources - 1) ? sortedDataPositions[index + 1] + _dataSectionOffset : _store.BaseStream.Length;
+                                long nextData = (index < _numResources - 1) ? sortedDataPositions[index + 1] + _dataSectionOffset : _store.BaseStream.Length;
                 int len = (int)(nextData - (dataPos + _dataSectionOffset));
-                Contract.Assert(len >= 0 && len <= (int)_store.BaseStream.Length - dataPos + _dataSectionOffset, "Length was negative or outside the bounds of the file!");
-                _store.BaseStream.Position = _dataSectionOffset + dataPos;
+                                _store.BaseStream.Position = _dataSectionOffset + dataPos;
                 ResourceTypeCode typeCode = (ResourceTypeCode)_store.Read7BitEncodedInt();
                 if (typeCode < 0 || typeCode >= ResourceTypeCode.StartOfUserTypes + _typeTable.Length)
                 {
@@ -876,17 +851,14 @@ namespace System.Resources
 
         private String TypeNameFromTypeCode(ResourceTypeCode typeCode)
         {
-            Contract.Requires(typeCode >= 0, "can't be negative");
-            if (typeCode < ResourceTypeCode.StartOfUserTypes)
+                        if (typeCode < ResourceTypeCode.StartOfUserTypes)
             {
-                Contract.Assert(!String.Equals(typeCode.ToString(), "LastPrimitive"), "Change ResourceTypeCode metadata order so LastPrimitive isn't what Enum.ToString prefers.");
-                return "ResourceTypeCode." + typeCode.ToString();
+                                return "ResourceTypeCode." + typeCode.ToString();
             }
             else
             {
                 int typeIndex = typeCode - ResourceTypeCode.StartOfUserTypes;
-                Contract.Assert(typeIndex >= 0 && typeIndex < _typeTable.Length, "TypeCode is broken or corrupted!");
-                long oldPos = _store.BaseStream.Position;
+                                long oldPos = _store.BaseStream.Position;
                 try
                 {
                     _store.BaseStream.Position = _typeNamePositions[typeIndex];

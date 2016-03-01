@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 
 namespace System.Security.Permissions
 {
@@ -158,7 +158,6 @@ namespace System.Security.Permissions
                 throw new ArgumentException(Environment.GetResourceString("Arg_EnumIllegalVal", (int)access));
             }
 
-            Contract.EndContractBlock();
-        }
+                    }
     }
 }

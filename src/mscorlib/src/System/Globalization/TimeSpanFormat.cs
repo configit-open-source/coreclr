@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Text;
 
 namespace System.Globalization
@@ -129,8 +129,7 @@ namespace System.Globalization
 
         internal static String FormatCustomized(TimeSpan value, String format, DateTimeFormatInfo dtfi)
         {
-            Contract.Assert(dtfi != null, "dtfi == null");
-            int day = (int)(value._ticks / TimeSpan.TicksPerDay);
+                        int day = (int)(value._ticks / TimeSpan.TicksPerDay);
             long time = value._ticks % TimeSpan.TicksPerDay;
             if (value._ticks < 0)
             {
@@ -348,8 +347,7 @@ namespace System.Globalization
                         case '\"':
                             if (inQuote && (quote == format[i]))
                             {
-                                Contract.Assert(field >= 0 && field <= 5, "field >= 0 && field <= 5");
-                                if (field >= 0 && field <= 5)
+                                                                if (field >= 0 && field <= 5)
                                 {
                                     literals[field] = sb.ToString();
                                     sb.Length = 0;
@@ -371,8 +369,7 @@ namespace System.Globalization
 
                             break;
                         case '%':
-                            Contract.Assert(false, "Unexpected special token '%', Bug in DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                            goto default;
+                                                        goto default;
                         case '\\':
                             if (!inQuote)
                             {
@@ -384,8 +381,7 @@ namespace System.Globalization
                         case 'd':
                             if (!inQuote)
                             {
-                                Contract.Assert((field == 0 && sb.Length == 0) || field == 1, "field == 0 || field == 1, Bug in DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                                field = 1;
+                                                                field = 1;
                                 dd++;
                             }
 
@@ -393,8 +389,7 @@ namespace System.Globalization
                         case 'h':
                             if (!inQuote)
                             {
-                                Contract.Assert((field == 1 && sb.Length == 0) || field == 2, "field == 1 || field == 2, Bug in DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                                field = 2;
+                                                                field = 2;
                                 hh++;
                             }
 
@@ -402,8 +397,7 @@ namespace System.Globalization
                         case 'm':
                             if (!inQuote)
                             {
-                                Contract.Assert((field == 2 && sb.Length == 0) || field == 3, "field == 2 || field == 3, Bug in DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                                field = 3;
+                                                                field = 3;
                                 mm++;
                             }
 
@@ -411,8 +405,7 @@ namespace System.Globalization
                         case 's':
                             if (!inQuote)
                             {
-                                Contract.Assert((field == 3 && sb.Length == 0) || field == 4, "field == 3 || field == 4, Bug in DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                                field = 4;
+                                                                field = 4;
                                 ss++;
                             }
 
@@ -421,8 +414,7 @@ namespace System.Globalization
                         case 'F':
                             if (!inQuote)
                             {
-                                Contract.Assert((field == 4 && sb.Length == 0) || field == 5, "field == 4 || field == 5, Bug in DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                                field = 5;
+                                                                field = 5;
                                 ff++;
                             }
 
@@ -433,14 +425,8 @@ namespace System.Globalization
                     }
                 }
 
-                Contract.Assert(field == 5);
-                AppCompatLiteral = MinuteSecondSep + SecondFractionSep;
-                Contract.Assert(0 < dd && dd < 3, "0 < dd && dd < 3, Bug in System.Globalization.DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                Contract.Assert(0 < hh && hh < 3, "0 < hh && hh < 3, Bug in System.Globalization.DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                Contract.Assert(0 < mm && mm < 3, "0 < mm && mm < 3, Bug in System.Globalization.DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                Contract.Assert(0 < ss && ss < 3, "0 < ss && ss < 3, Bug in System.Globalization.DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                Contract.Assert(0 < ff && ff < 8, "0 < ff && ff < 8, Bug in System.Globalization.DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
-                if (useInvariantFieldLengths)
+                                AppCompatLiteral = MinuteSecondSep + SecondFractionSep;
+                                                                                                if (useInvariantFieldLengths)
                 {
                     dd = 2;
                     hh = 2;

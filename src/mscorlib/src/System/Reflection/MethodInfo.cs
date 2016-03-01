@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -177,10 +176,7 @@ namespace System.Reflection
 
         internal RuntimeMethodInfo(RuntimeMethodHandleInternal handle, RuntimeType declaringType, RuntimeType.RuntimeTypeCache reflectedTypeCache, MethodAttributes methodAttributes, BindingFlags bindingFlags, object keepalive)
         {
-            Contract.Ensures(!m_handle.IsNull());
-            Contract.Assert(!handle.IsNullHandle());
-            Contract.Assert(methodAttributes == RuntimeMethodHandle.GetAttributes(handle));
-            m_bindingFlags = bindingFlags;
+                                                m_bindingFlags = bindingFlags;
             m_declaringType = declaringType;
             m_keepalive = keepalive;
             m_handle = handle.Value;
@@ -332,8 +328,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.GetCustomAttributes(this, attributeRuntimeType, inherit);
@@ -343,8 +338,7 @@ namespace System.Reflection
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
-            Contract.EndContractBlock();
-            RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
+                        RuntimeType attributeRuntimeType = attributeType.UnderlyingSystemType as RuntimeType;
             if (attributeRuntimeType == null)
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeType"), "attributeType");
             return CustomAttribute.IsDefined(this, attributeRuntimeType, inherit);
@@ -636,8 +630,7 @@ namespace System.Reflection
             [System.Security.SecuritySafeCritical]
             get
             {
-                Contract.Ensures(m_returnParameter != null);
-                FetchReturnParameter();
+                                FetchReturnParameter();
                 return m_returnParameter as ParameterInfo;
             }
         }
@@ -679,8 +672,7 @@ namespace System.Reflection
         {
             if (delegateType == null)
                 throw new ArgumentNullException("delegateType");
-            Contract.EndContractBlock();
-            RuntimeType rtType = delegateType as RuntimeType;
+                        RuntimeType rtType = delegateType as RuntimeType;
             if (rtType == null)
                 throw new ArgumentException(Environment.GetResourceString("Argument_MustBeRuntimeType"), "delegateType");
             if (!rtType.IsDelegate())
@@ -698,8 +690,7 @@ namespace System.Reflection
         {
             if (methodInstantiation == null)
                 throw new ArgumentNullException("methodInstantiation");
-            Contract.EndContractBlock();
-            RuntimeType[] methodInstantionRuntimeType = new RuntimeType[methodInstantiation.Length];
+                        RuntimeType[] methodInstantionRuntimeType = new RuntimeType[methodInstantiation.Length];
             if (!IsGenericMethodDefinition)
                 throw new InvalidOperationException(Environment.GetResourceString("Arg_NotGenericMethodDefinition", this));
             for (int i = 0; i < methodInstantiation.Length; i++)
@@ -756,8 +747,7 @@ namespace System.Reflection
         {
             if (!IsGenericMethod)
                 throw new InvalidOperationException();
-            Contract.EndContractBlock();
-            return RuntimeType.GetMethodBase(m_declaringType, RuntimeMethodHandle.StripMethodInstantiation(this)) as MethodInfo;
+                        return RuntimeType.GetMethodBase(m_declaringType, RuntimeMethodHandle.StripMethodInstantiation(this)) as MethodInfo;
         }
 
         public override bool IsGenericMethod
@@ -799,8 +789,7 @@ namespace System.Reflection
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            Contract.EndContractBlock();
-            if (m_reflectedTypeCache.IsGlobal)
+                        if (m_reflectedTypeCache.IsGlobal)
                 throw new NotSupportedException(Environment.GetResourceString("NotSupported_GlobalMethodSerialization"));
             MemberInfoSerializationHolder.GetSerializationInfo(info, Name, ReflectedTypeInternal, ToString(), SerializationToString(), MemberTypes.Method, IsGenericMethod & !IsGenericMethodDefinition ? GetGenericArguments() : null);
         }

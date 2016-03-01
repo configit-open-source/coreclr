@@ -1,4 +1,4 @@
-using System.Diagnostics.Contracts;
+
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,8 +19,7 @@ namespace System.Diagnostics.Tracing
                     return;
             }
 
-            Contract.Assert((options & EventActivityOptions.Disable) == 0);
-            var currentActivity = m_current.Value;
+                        var currentActivity = m_current.Value;
             var fullActivityName = NormalizeActivityName(providerName, activityName, task);
             var etwLog = TplEtwProvider.Log;
             if (etwLog.Debug)
@@ -110,8 +109,7 @@ namespace System.Diagnostics.Tracing
                     else
                     {
                         orphan.m_stopped = 1;
-                        Contract.Assert(orphan.m_stopped != 0);
-                    }
+                                            }
 
                     orphan = orphan.m_creator;
                 }
@@ -341,9 +339,7 @@ namespace System.Diagnostics.Tracing
 
             private static unsafe void WriteNibble(ref byte *ptr, byte *endPtr, uint value)
             {
-                Contract.Assert(0 <= value && value < 16);
-                Contract.Assert(ptr < endPtr);
-                if (*ptr != 0)
+                                                if (*ptr != 0)
                     *ptr++ |= (byte)value;
                 else
                     *ptr = (byte)(value << 4);
