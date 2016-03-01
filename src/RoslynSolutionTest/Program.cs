@@ -11,14 +11,16 @@ using Microsoft.CodeAnalysis.MSBuild;
 namespace RoslynSolutionTest {
     class Program {
         public static Solution RemoveAttributes( Solution solution ) {
+            var removeAttributesVisitor = new RemoveAttributesVisitor( new[] { "Flags" } );
+            var removeTriviaVisitor = new TriviaRemover();
+
             foreach ( var doc in solution.Projects.SelectMany( p => p.Documents ).Where( d => d.SupportsSyntaxTree ) ) {
                 var tree = doc.GetSyntaxTreeAsync().Result;
 
-                var newDoc = doc.WithSyntaxRoot( new RemoveAttributesVisitor( new[] { "Flags" } ).Visit( tree.GetRoot() ) );
+                var newDoc = doc.WithSyntaxRoot( removeAttributesVisitor.Visit( removeTriviaVisitor.Visit( tree.GetRoot() ) ).NormalizeWhitespace() );
                 File.WriteAllText( newDoc.FilePath, newDoc.GetTextAsync().Result.ToString() );
 
                 solution = newDoc.Project.Solution;
-
             }
 
             return solution;
