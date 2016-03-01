@@ -9,7 +9,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace RoslynSolutionTest {
+
     internal class RemoveAttributesVisitor: CSharpSyntaxRewriter {
+
+        public override bool VisitIntoStructuredTrivia => false;
 
         private readonly HashSet<string> _keepAttrs = new HashSet<string>();
 
@@ -25,10 +28,14 @@ namespace RoslynSolutionTest {
             Func<T, SyntaxList<AttributeListSyntax>> attributeLists,
             Func<T, SyntaxList<AttributeListSyntax>, T> withAttributes ) where T : SyntaxNode {
             if ( !attributeLists( node ).Any() ) {
+                // TODO: Temp to avoid messing up some cases of #if / #endif
+                //return node.WithTrailingTrivia( node.GetTrailingTrivia().Add( SyntaxFactory.CarriageReturnLineFeed ) );
                 return node;
             }
 
-            var leadingTrivia = attributeLists( node ).SelectMany( al => al.GetLeadingTrivia().Add( SyntaxFactory.CarriageReturnLineFeed ) );
+            //var leadingTrivia = attributeLists( node ).SelectMany( al =>
+            //SyntaxFactory.TriviaList( SyntaxFactory.CarriageReturnLineFeed ).AddRange(
+            //    al.GetLeadingTrivia().Add( SyntaxFactory.CarriageReturnLineFeed ) ) );
 
             var attrLists = attributeLists( node ).Select( attrList =>
                 SyntaxFactory.AttributeList( new SeparatedSyntaxList<AttributeSyntax>().AddRange(
@@ -36,9 +43,16 @@ namespace RoslynSolutionTest {
 
             node = withAttributes( node, new SyntaxList<AttributeListSyntax>().AddRange( attrLists.Where( al => al.Attributes.Any() ) ) );
 
-            var updatedTrivia = SyntaxFactory.TriviaList( leadingTrivia ).AddRange( node.GetLeadingTrivia() );
+            //var updatedTrivia = SyntaxFactory.TriviaList( leadingTrivia ).AddRange( node.GetLeadingTrivia() );
 
-            return node.WithLeadingTrivia( updatedTrivia );
+            //// TODO: Temp to avoid messing up some cases of #if / #endif
+            //var clearAttributesAndMoveTrivia = node.WithLeadingTrivia( updatedTrivia ).WithTrailingTrivia( node.GetTrailingTrivia().Add( SyntaxFactory.CarriageReturnLineFeed ) );
+            //return clearAttributesAndMoveTrivia;
+            return node;
+        }
+
+        public override SyntaxNode Visit( SyntaxNode node ) {
+            return base.Visit( node.WithoutTrivia().NormalizeWhitespace() );
         }
 
         public override SyntaxNode VisitAttributeList( AttributeListSyntax node ) {
@@ -91,14 +105,17 @@ namespace RoslynSolutionTest {
         }
 
         public override SyntaxNode VisitEnumMemberDeclaration( EnumMemberDeclarationSyntax node ) {
+            //Console.WriteLine( "Visit: " + node.ToFullString() );
             return ClearAttributesAndMoveTrivia( node, n => n.AttributeLists, ( n, a ) => n.WithAttributeLists( a ) );
         }
 
         public override SyntaxNode VisitEnumDeclaration( EnumDeclarationSyntax node ) {
             var enumDecl = ClearAttributesAndMoveTrivia( node, n => n.AttributeLists, ( n, a ) => n.WithAttributeLists( a ) );
 
-            return enumDecl.WithMembers( new SeparatedSyntaxList<EnumMemberDeclarationSyntax>().AddRange( 
-                enumDecl.Members.Select( m => (EnumMemberDeclarationSyntax) Visit( m ) ) ) );
+            var result = enumDecl.WithMembers( new SeparatedSyntaxList<EnumMemberDeclarationSyntax>().AddRange(
+                enumDecl.Members.Select( m => (EnumMemberDeclarationSyntax) VisitEnumMemberDeclaration( m ) ) ) );
+
+            return result;
         }
 
         public override SyntaxNode VisitClassDeclaration( ClassDeclarationSyntax node ) {
