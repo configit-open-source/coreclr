@@ -77,7 +77,6 @@
   <ItemGroup>
     <Compile Include="Common\PinnableBufferCache.cs" />
     <Compile Include="Common\Preprocessed\AssemblyRefs.g.cs" />
-    <Compile Include="src\GlobalSuppressions.cs" />
     <Compile Include="src\Microsoft\Win32\OAVariantLib.cs" />
     <Compile Include="src\Microsoft\Win32\Registry.cs" />
     <Compile Include="src\Microsoft\Win32\RegistryKey.cs" />
@@ -95,7 +94,6 @@
     <Compile Include="src\Microsoft\Win32\SafeHandles\Win32SafeHandles.cs" />
     <Compile Include="src\Microsoft\Win32\UnsafeNativeMethods.cs" />
     <Compile Include="src\Microsoft\Win32\Win32Native.cs" />
-    <Compile Include="src\mscorlib.Friends.cs" />
     <Compile Include="src\System\AccessViolationException.cs" />
     <Compile Include="src\System\Action.cs" />
     <Compile Include="src\System\Activator.cs" />
@@ -1206,5 +1204,5 @@
   </ItemGroup> -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.Targets" />
   <!-- <Import Project="GenerateSplitStringResources.targets"/> -->
-  <Import Project="GenerateCompilerResponseFile.targets" />
+  <!--<Import Project="GenerateCompilerResponseFile.targets" />-->
 </Project>
