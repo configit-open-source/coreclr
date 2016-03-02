@@ -1,48 +1,13 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
-
-/*=============================================================================
-**
-**
-**
-** Purpose: This enumeration represents characters returned from a keyboard.
-**          The list is derived from a list of Windows virtual key codes,
-**          and is very similar to the Windows Forms Keys class.
-**
-**
-=============================================================================*/
-
-namespace System {
-
-    [Serializable]
+namespace System
+{
     public enum ConsoleKey
     {
-        Backspace  = 0x8,
+        Backspace = 0x8,
         Tab = 0x9,
-        // 0xA,  // Reserved
-        // 0xB,  // Reserved
         Clear = 0xC,
         Enter = 0xD,
-        // 0E-0F,  // Undefined
-        // SHIFT = 0x10,
-        // CONTROL = 0x11,
-        // Alt = 0x12,
         Pause = 0x13,
-        // CAPSLOCK = 0x14,
-        // Kana = 0x15,  // Ime Mode
-        // Hangul = 0x15,  // Ime Mode
-        // 0x16,  // Undefined
-        // Junja = 0x17,  // Ime Mode
-        // Final = 0x18,  // Ime Mode
-        // Hanja = 0x19,  // Ime Mode
-        // Kanji = 0x19,  // Ime Mode
-        // 0x1A,  // Undefined
         Escape = 0x1B,
-        // Convert = 0x1C,  // Ime Mode
-        // NonConvert = 0x1D,  // Ime Mode
-        // Accept = 0x1E,  // Ime Mode
-        // ModeChange = 0x1F,  // Ime Mode
         Spacebar = 0x20,
         PageUp = 0x21,
         PageDown = 0x22,
@@ -59,7 +24,7 @@ namespace System {
         Insert = 0x2D,
         Delete = 0x2E,
         Help = 0x2F,
-        D0 = 0x30,  // 0 through 9
+        D0 = 0x30,
         D1 = 0x31,
         D2 = 0x32,
         D3 = 0x33,
@@ -69,7 +34,6 @@ namespace System {
         D7 = 0x37,
         D8 = 0x38,
         D9 = 0x39,
-        // 3A-40 ,  // Undefined
         A = 0x41,
         B = 0x42,
         C = 0x43,
@@ -96,11 +60,10 @@ namespace System {
         X = 0x58,
         Y = 0x59,
         Z = 0x5A,
-        LeftWindows = 0x5B,  // Microsoft Natural keyboard
-        RightWindows = 0x5C,  // Microsoft Natural keyboard
-        Applications = 0x5D,  // Microsoft Natural keyboard
-        // 5E ,  // Reserved
-        Sleep = 0x5F,  // Computer Sleep Key
+        LeftWindows = 0x5B,
+        RightWindows = 0x5C,
+        Applications = 0x5D,
+        Sleep = 0x5F,
         NumPad0 = 0x60,
         NumPad1 = 0x61,
         NumPad2 = 0x62,
@@ -141,67 +104,47 @@ namespace System {
         F22 = 0x85,
         F23 = 0x86,
         F24 = 0x87,
-        // 88-8F,  // Undefined
-        // NumberLock = 0x90,
-        // ScrollLock = 0x91,
-        // 0x92,  // OEM Specific
-        // 97-9F ,  // Undefined
-        // LeftShift = 0xA0,
-        // RightShift = 0xA1,
-        // LeftControl = 0xA2,
-        // RightControl = 0xA3,
-        // LeftAlt = 0xA4,
-        // RightAlt = 0xA5,
-        BrowserBack = 0xA6,  // Windows 2000/XP
-        BrowserForward = 0xA7,  // Windows 2000/XP
-        BrowserRefresh = 0xA8,  // Windows 2000/XP
-        BrowserStop = 0xA9,  // Windows 2000/XP
-        BrowserSearch = 0xAA,  // Windows 2000/XP
-        BrowserFavorites = 0xAB,  // Windows 2000/XP
-        BrowserHome = 0xAC,  // Windows 2000/XP
-        VolumeMute = 0xAD,  // Windows 2000/XP
-        VolumeDown = 0xAE,  // Windows 2000/XP
-        VolumeUp = 0xAF,  // Windows 2000/XP
-        MediaNext = 0xB0,  // Windows 2000/XP
-        MediaPrevious = 0xB1,  // Windows 2000/XP
-        MediaStop = 0xB2,  // Windows 2000/XP
-        MediaPlay = 0xB3,  // Windows 2000/XP
-        LaunchMail = 0xB4,  // Windows 2000/XP
-        LaunchMediaSelect = 0xB5,  // Windows 2000/XP
-        LaunchApp1 = 0xB6,  // Windows 2000/XP
-        LaunchApp2 = 0xB7,  // Windows 2000/XP
-        // B8-B9,  // Reserved
-        Oem1 = 0xBA,  // Misc characters, varies by keyboard. For US standard, ;:
-        OemPlus = 0xBB,  // Misc characters, varies by keyboard. For US standard, +
-        OemComma = 0xBC,  // Misc characters, varies by keyboard. For US standard, ,
-        OemMinus = 0xBD,  // Misc characters, varies by keyboard. For US standard, -
-        OemPeriod = 0xBE,  // Misc characters, varies by keyboard. For US standard, .
-        Oem2 = 0xBF,  // Misc characters, varies by keyboard. For US standard, /?
-        Oem3 = 0xC0,  // Misc characters, varies by keyboard. For US standard, `~
-        // 0xC1,  // Reserved
-        // D8-DA,  // Unassigned
-        Oem4 = 0xDB,  // Misc characters, varies by keyboard. For US standard, [{
-        Oem5 = 0xDC,  // Misc characters, varies by keyboard. For US standard, \|
-        Oem6 = 0xDD,  // Misc characters, varies by keyboard. For US standard, ]}
-        Oem7 = 0xDE,  // Misc characters, varies by keyboard. For US standard,
-        Oem8 = 0xDF,  // Used for miscellaneous characters; it can vary by keyboard
-        // 0xE0,  // Reserved
-        // 0xE1,  // OEM specific
-        Oem102 = 0xE2,  // Win2K/XP: Either angle or backslash on RT 102-key keyboard
-        // 0xE3,  // OEM specific
-        Process = 0xE5,  // Windows: IME Process Key
-        // 0xE6,  // OEM specific
-        Packet = 0xE7,  // Win2K/XP: Used to pass Unicode chars as if keystrokes
-        // 0xE8,  // Unassigned
-        // 0xE9,  // OEM specific
+        BrowserBack = 0xA6,
+        BrowserForward = 0xA7,
+        BrowserRefresh = 0xA8,
+        BrowserStop = 0xA9,
+        BrowserSearch = 0xAA,
+        BrowserFavorites = 0xAB,
+        BrowserHome = 0xAC,
+        VolumeMute = 0xAD,
+        VolumeDown = 0xAE,
+        VolumeUp = 0xAF,
+        MediaNext = 0xB0,
+        MediaPrevious = 0xB1,
+        MediaStop = 0xB2,
+        MediaPlay = 0xB3,
+        LaunchMail = 0xB4,
+        LaunchMediaSelect = 0xB5,
+        LaunchApp1 = 0xB6,
+        LaunchApp2 = 0xB7,
+        Oem1 = 0xBA,
+        OemPlus = 0xBB,
+        OemComma = 0xBC,
+        OemMinus = 0xBD,
+        OemPeriod = 0xBE,
+        Oem2 = 0xBF,
+        Oem3 = 0xC0,
+        Oem4 = 0xDB,
+        Oem5 = 0xDC,
+        Oem6 = 0xDD,
+        Oem7 = 0xDE,
+        Oem8 = 0xDF,
+        Oem102 = 0xE2,
+        Process = 0xE5,
+        Packet = 0xE7,
         Attention = 0xF6,
         CrSel = 0xF7,
         ExSel = 0xF8,
         EraseEndOfFile = 0xF9,
         Play = 0xFA,
         Zoom = 0xFB,
-        NoName = 0xFC,  // Reserved
+        NoName = 0xFC,
         Pa1 = 0xFD,
-        OemClear = 0xFE,
+        OemClear = 0xFE
     }
 }

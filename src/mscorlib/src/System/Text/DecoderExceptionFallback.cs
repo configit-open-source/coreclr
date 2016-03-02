@@ -1,17 +1,10 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace System.Text
 {
-    using System;
-    using System.Runtime.Serialization;
-    using System.Globalization;
-
-    [Serializable]
     public sealed class DecoderExceptionFallback : DecoderFallback
     {
-        // Construction
         public DecoderExceptionFallback()
         {
         }
@@ -21,7 +14,6 @@ namespace System.Text
             return new DecoderExceptionFallbackBuffer();
         }
 
-        // Maximum number of characters that this instance of this fallback could return
         public override int MaxCharCount
         {
             get
@@ -37,6 +29,7 @@ namespace System.Text
             {
                 return (true);
             }
+
             return (false);
         }
 
@@ -45,7 +38,6 @@ namespace System.Text
             return 879;
         }
     }
-
 
     public sealed class DecoderExceptionFallbackBuffer : DecoderFallbackBuffer
     {
@@ -62,11 +54,9 @@ namespace System.Text
 
         public override bool MovePrevious()
         {
-            // Exception fallback doesn't have anywhere to back up to.
             return false;
         }
 
-        // Exceptions are always empty
         public override int Remaining
         {
             get
@@ -77,9 +67,7 @@ namespace System.Text
 
         private void Throw(byte[] bytesUnknown, int index)
         {
-            // Create a string representation of our bytes.            
             StringBuilder strBytes = new StringBuilder(bytesUnknown.Length * 3);
-
             int i;
             for (i = 0; i < bytesUnknown.Length && i < 20; i++)
             {
@@ -87,50 +75,37 @@ namespace System.Text
                 strBytes.Append(bytesUnknown[i].ToString("X2", CultureInfo.InvariantCulture));
                 strBytes.Append("]");
             }
-            
-            // In case the string's really long
+
             if (i == 20)
                 strBytes.Append(" ...");
-
-            // Known index
-            throw new DecoderFallbackException(
-                Environment.GetResourceString("Argument_InvalidCodePageBytesIndex",
-                   strBytes, index), bytesUnknown, index);           
+            throw new DecoderFallbackException(Environment.GetResourceString("Argument_InvalidCodePageBytesIndex", strBytes, index), bytesUnknown, index);
         }
-
     }
 
-    // Exception for decoding unknown byte sequences.
-    [Serializable]
     public sealed class DecoderFallbackException : ArgumentException
     {
-        byte[]    bytesUnknown = null;
-        int       index = 0;
-
-        public DecoderFallbackException()
-            : base(Environment.GetResourceString("Arg_ArgumentException"))
+        byte[] bytesUnknown = null;
+        int index = 0;
+        public DecoderFallbackException(): base (Environment.GetResourceString("Arg_ArgumentException"))
         {
             SetErrorCode(__HResults.COR_E_ARGUMENT);
         }
 
-        public DecoderFallbackException(String message)
-            : base(message)
+        public DecoderFallbackException(String message): base (message)
         {
             SetErrorCode(__HResults.COR_E_ARGUMENT);
         }
 
-        public DecoderFallbackException(String message, Exception innerException)
-            : base(message, innerException)
+        public DecoderFallbackException(String message, Exception innerException): base (message, innerException)
         {
             SetErrorCode(__HResults.COR_E_ARGUMENT);
         }
 
-        internal DecoderFallbackException(SerializationInfo info, StreamingContext context) : base(info, context)
+        internal DecoderFallbackException(SerializationInfo info, StreamingContext context): base (info, context)
         {
         }
 
-        public DecoderFallbackException(
-            String message, byte[] bytesUnknown, int index) : base(message)
+        public DecoderFallbackException(String message, byte[] bytesUnknown, int index): base (message)
         {
             this.bytesUnknown = bytesUnknown;
             this.index = index;

@@ -6,7 +6,7 @@
 
 namespace System.Runtime.InteropServices
 {    
-    public  static partial class Marshal
+    public static partial class Marshal
     {
         [System.Security.SecurityCriticalAttribute]
         public static int AddRef(System.IntPtr pUnk)

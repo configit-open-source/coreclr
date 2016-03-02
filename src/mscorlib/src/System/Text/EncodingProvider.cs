@@ -1,21 +1,13 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
-
 namespace System.Text
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-
-    [System.Runtime.InteropServices.ComVisible(true)]
     public abstract class EncodingProvider
     {
-        public EncodingProvider() { }
+        public EncodingProvider()
+        {
+        }
+
         public abstract Encoding GetEncoding(string name);
         public abstract Encoding GetEncoding(int codepage);
-
-        // GetEncoding should return either valid encoding or null. shouldn't throw any exception except on null name
         public virtual Encoding GetEncoding(string name, EncoderFallback encoderFallback, DecoderFallback decoderFallback)
         {
             Encoding enc = GetEncoding(name);
@@ -46,12 +38,11 @@ namespace System.Text
         {
             if (provider == null)
                 throw new ArgumentNullException("provider");
-
             lock (s_InternalSyncObject)
             {
                 if (s_providers == null)
                 {
-                    s_providers = new EncodingProvider[1] { provider };
+                    s_providers = new EncodingProvider[1]{provider};
                     return;
                 }
 
@@ -71,7 +62,6 @@ namespace System.Text
         {
             if (s_providers == null)
                 return null;
-
             var providers = s_providers;
             foreach (EncodingProvider provider in providers)
             {
@@ -87,7 +77,6 @@ namespace System.Text
         {
             if (s_providers == null)
                 return null;
-
             var providers = s_providers;
             foreach (EncodingProvider provider in providers)
             {
@@ -103,7 +92,6 @@ namespace System.Text
         {
             if (s_providers == null)
                 return null;
-
             var providers = s_providers;
             foreach (EncodingProvider provider in providers)
             {
@@ -119,7 +107,6 @@ namespace System.Text
         {
             if (s_providers == null)
                 return null;
-
             var providers = s_providers;
             foreach (EncodingProvider provider in providers)
             {

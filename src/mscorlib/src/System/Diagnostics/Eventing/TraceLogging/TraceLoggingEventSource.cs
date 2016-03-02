@@ -1,112 +1,30 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
-
-// This program uses code hyperlinks available as part of the HyperAddin Visual Studio plug-in.
-// It is available from http://www.codeplex.com/hyperAddin 
-
-#define FEATURE_MANAGED_ETW
-
-#if !ES_BUILD_STANDALONE
-#define FEATURE_ACTIVITYSAMPLING
-#endif
-
-#if ES_BUILD_STANDALONE
-#define FEATURE_MANAGED_ETW_CHANNELS
-// #define FEATURE_ADVANCED_MANAGED_ETW_CHANNELS
-#endif
-
-#if ES_BUILD_STANDALONE
-using Environment = Microsoft.Diagnostics.Tracing.Internal.Environment;
-using EventDescriptor = Microsoft.Diagnostics.Tracing.EventDescriptor;
-#endif
-
-using System;
-using System.Runtime.InteropServices;
-using System.Security;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
-#if !ES_BUILD_AGAINST_DOTNET_V35
-using Contract = System.Diagnostics.Contracts.Contract;
-using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
-#else
-using Contract = Microsoft.Diagnostics.Contracts.Internal.Contract;
-using System.Collections.Generic;
-using System.Text;
-#endif
 
-#if ES_BUILD_STANDALONE
-namespace Microsoft.Diagnostics.Tracing
-#else
 namespace System.Diagnostics.Tracing
-#endif
 {
     public partial class EventSource
     {
         private byte[] providerMetadata;
+        public EventSource(string eventSourceName): this (eventSourceName, EventSourceSettings.EtwSelfDescribingEventFormat)
+        {
+        }
 
-        /// <summary>
-        /// Construct an EventSource with a given name for non-contract based events (e.g. those using the Write() API).
-        /// </summary>
-        /// <param name="eventSourceName">
-        /// The name of the event source. Must not be null.
-        /// </param>
-        public EventSource(
-            string eventSourceName)
-            : this(eventSourceName, EventSourceSettings.EtwSelfDescribingEventFormat)
-        { }
+        public EventSource(string eventSourceName, EventSourceSettings config): this (eventSourceName, config, null)
+        {
+        }
 
-        /// <summary>
-        /// Construct an EventSource with a given name for non-contract based events (e.g. those using the Write() API).
-        /// </summary>
-        /// <param name="eventSourceName">
-        /// The name of the event source. Must not be null.
-        /// </param>
-        /// <param name="config">
-        /// Configuration options for the EventSource as a whole. 
-        /// </param>
-        public EventSource(
-            string eventSourceName,
-            EventSourceSettings config)
-            : this(eventSourceName, config, null) { }
-
-        /// <summary>
-        /// Construct an EventSource with a given name for non-contract based events (e.g. those using the Write() API).
-        /// 
-        /// Also specify a list of key-value pairs called traits (you must pass an even number of strings).   
-        /// The first string is the key and the second is the value.   These are not interpreted by EventSource
-        /// itself but may be interprated the listeners.  Can be fetched with GetTrait(string).   
-        /// </summary>
-        /// <param name="eventSourceName">
-        /// The name of the event source. Must not be null.
-        /// </param>
-        /// <param name="config">
-        /// Configuration options for the EventSource as a whole. 
-        /// </param>
-        /// <param name="traits">A collection of key-value strings (must be an even number).</param>
-        public EventSource(
-            string eventSourceName,
-            EventSourceSettings config,
-            params string[] traits)
-            : this(
-                eventSourceName == null ? new Guid() : GenerateGuidFromName(eventSourceName.ToUpperInvariant()),
-                eventSourceName,
-                config, traits)
+        public EventSource(string eventSourceName, EventSourceSettings config, params string[] traits): this (eventSourceName == null ? new Guid() : GenerateGuidFromName(eventSourceName.ToUpperInvariant()), eventSourceName, config, traits)
         {
             if (eventSourceName == null)
             {
                 throw new ArgumentNullException("eventSourceName");
             }
-            Contract.EndContractBlock();
-        }
 
-        /// <summary>
-        /// Writes an event with no fields and default options.
-        /// (Native API: EventWriteTransfer)
-        /// </summary>
-        /// <param name="eventName">The name of the event. Must not be null.</param>
-        [SecuritySafeCritical]
+                    }
+
         public unsafe void Write(string eventName)
         {
             if (eventName == null)
@@ -114,9 +32,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("eventName");
             }
 
-            Contract.EndContractBlock();
-
-            if (!this.IsEnabled())
+                        if (!this.IsEnabled())
             {
                 return;
             }
@@ -125,16 +41,6 @@ namespace System.Diagnostics.Tracing
             this.WriteImpl(eventName, ref options, null, null, null, SimpleEventTypes<EmptyStruct>.Instance);
         }
 
-        /// <summary>
-        /// Writes an event with no fields.
-        /// (Native API: EventWriteTransfer)
-        /// </summary>
-        /// <param name="eventName">The name of the event. Must not be null.</param>
-        /// <param name="options">
-        /// Options for the event, such as the level, keywords, and opcode. Unset
-        /// options will be set to default values.
-        /// </param>
-        [SecuritySafeCritical]
         public unsafe void Write(string eventName, EventSourceOptions options)
         {
             if (eventName == null)
@@ -142,9 +48,7 @@ namespace System.Diagnostics.Tracing
                 throw new ArgumentNullException("eventName");
             }
 
-            Contract.EndContractBlock();
-
-            if (!this.IsEnabled())
+                        if (!this.IsEnabled())
             {
                 return;
             }
@@ -152,29 +56,7 @@ namespace System.Diagnostics.Tracing
             this.WriteImpl(eventName, ref options, null, null, null, SimpleEventTypes<EmptyStruct>.Instance);
         }
 
-        /// <summary>
-        /// Writes an event.
-        /// (Native API: EventWriteTransfer)
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type that defines the event and its payload. This must be an
-        /// anonymous type or a type with an [EventData] attribute.
-        /// </typeparam>
-        /// <param name="eventName">
-        /// The name for the event. If null, the event name is automatically
-        /// determined based on T, either from the Name property of T's EventData
-        /// attribute or from typeof(T).Name.
-        /// </param>
-        /// <param name="data">
-        /// The object containing the event payload data. The type T must be
-        /// an anonymous type or a type with an [EventData] attribute. The
-        /// public instance properties of data will be written recursively to
-        /// create the fields of the event.
-        /// </param>
-        [SecuritySafeCritical]
-        public unsafe void Write<T>(
-            string eventName,
-            T data)
+        public unsafe void Write<T>(string eventName, T data)
         {
             if (!this.IsEnabled())
             {
@@ -185,34 +67,7 @@ namespace System.Diagnostics.Tracing
             this.WriteImpl(eventName, ref options, data, null, null, SimpleEventTypes<T>.Instance);
         }
 
-        /// <summary>
-        /// Writes an event.
-        /// (Native API: EventWriteTransfer)
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type that defines the event and its payload. This must be an
-        /// anonymous type or a type with an [EventData] attribute.
-        /// </typeparam>
-        /// <param name="eventName">
-        /// The name for the event. If null, the event name is automatically
-        /// determined based on T, either from the Name property of T's EventData
-        /// attribute or from typeof(T).Name.
-        /// </param>
-        /// <param name="options">
-        /// Options for the event, such as the level, keywords, and opcode. Unset
-        /// options will be set to default values.
-        /// </param>
-        /// <param name="data">
-        /// The object containing the event payload data. The type T must be
-        /// an anonymous type or a type with an [EventData] attribute. The
-        /// public instance properties of data will be written recursively to
-        /// create the fields of the event.
-        /// </param>
-        [SecuritySafeCritical]
-        public unsafe void Write<T>(
-            string eventName,
-            EventSourceOptions options,
-            T data)
+        public unsafe void Write<T>(string eventName, EventSourceOptions options, T data)
         {
             if (!this.IsEnabled())
             {
@@ -222,36 +77,7 @@ namespace System.Diagnostics.Tracing
             this.WriteImpl(eventName, ref options, data, null, null, SimpleEventTypes<T>.Instance);
         }
 
-        /// <summary>
-        /// Writes an event.
-        /// This overload is for use with extension methods that wish to efficiently
-        /// forward the options or data parameter without performing an extra copy.
-        /// (Native API: EventWriteTransfer)
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type that defines the event and its payload. This must be an
-        /// anonymous type or a type with an [EventData] attribute.
-        /// </typeparam>
-        /// <param name="eventName">
-        /// The name for the event. If null, the event name is automatically
-        /// determined based on T, either from the Name property of T's EventData
-        /// attribute or from typeof(T).Name.
-        /// </param>
-        /// <param name="options">
-        /// Options for the event, such as the level, keywords, and opcode. Unset
-        /// options will be set to default values.
-        /// </param>
-        /// <param name="data">
-        /// The object containing the event payload data. The type T must be
-        /// an anonymous type or a type with an [EventData] attribute. The
-        /// public instance properties of data will be written recursively to
-        /// create the fields of the event.
-        /// </param>
-        [SecuritySafeCritical]
-        public unsafe void Write<T>(
-            string eventName,
-            ref EventSourceOptions options,
-            ref T data)
+        public unsafe void Write<T>(string eventName, ref EventSourceOptions options, ref T data)
         {
             if (!this.IsEnabled())
             {
@@ -261,281 +87,85 @@ namespace System.Diagnostics.Tracing
             this.WriteImpl(eventName, ref options, data, null, null, SimpleEventTypes<T>.Instance);
         }
 
-        /// <summary>
-        /// Writes an event.
-        /// This overload is meant for clients that need to manipuate the activityId
-        /// and related ActivityId for the event.  
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type that defines the event and its payload. This must be an
-        /// anonymous type or a type with an [EventData] attribute.
-        /// </typeparam>
-        /// <param name="eventName">
-        /// The name for the event. If null, the event name is automatically
-        /// determined based on T, either from the Name property of T's EventData
-        /// attribute or from typeof(T).Name.
-        /// </param>
-        /// <param name="options">
-        /// Options for the event, such as the level, keywords, and opcode. Unset
-        /// options will be set to default values.
-        /// </param>
-        /// <param name="activityId">
-        /// The GUID of the activity associated with this event.
-        /// </param>
-        /// <param name="relatedActivityId">
-        /// The GUID of another activity that is related to this activity, or Guid.Empty
-        /// if there is no related activity. Most commonly, the Start operation of a
-        /// new activity specifies a parent activity as its related activity.
-        /// </param>
-        /// <param name="data">
-        /// The object containing the event payload data. The type T must be
-        /// an anonymous type or a type with an [EventData] attribute. The
-        /// public instance properties of data will be written recursively to
-        /// create the fields of the event.
-        /// </param>
-        [SecuritySafeCritical]
-        public unsafe void Write<T>(
-            string eventName,
-            ref EventSourceOptions options,
-            ref Guid activityId,
-            ref Guid relatedActivityId,
-            ref T data)
+        public unsafe void Write<T>(string eventName, ref EventSourceOptions options, ref Guid activityId, ref Guid relatedActivityId, ref T data)
         {
             if (!this.IsEnabled())
             {
                 return;
             }
 
-            fixed (Guid* pActivity = &activityId, pRelated = &relatedActivityId)
+            fixed (Guid*pActivity = &activityId, pRelated = &relatedActivityId)
             {
-                this.WriteImpl(
-                    eventName,
-                    ref options,
-                    data,
-                    pActivity,
-                    relatedActivityId == Guid.Empty ? null : pRelated,
-                    SimpleEventTypes<T>.Instance);
+                this.WriteImpl(eventName, ref options, data, pActivity, relatedActivityId == Guid.Empty ? null : pRelated, SimpleEventTypes<T>.Instance);
             }
         }
 
-        /// <summary>
-        /// Writes an extended event, where the values of the event are the
-        /// combined properties of any number of values. This method is
-        /// intended for use in advanced logging scenarios that support a
-        /// dynamic set of event context providers.
-        /// This method does a quick check on whether this event is enabled.
-        /// </summary>
-        /// <param name="eventName">
-        /// The name for the event. If null, the name from eventTypes is used.
-        /// (Note that providing the event name via the name parameter is slightly
-        /// less efficient than using the name from eventTypes.)
-        /// </param>
-        /// <param name="options">
-        /// Optional overrides for the event, such as the level, keyword, opcode,
-        /// activityId, and relatedActivityId. Any settings not specified by options
-        /// are obtained from eventTypes.
-        /// </param>
-        /// <param name="eventTypes">
-        /// Information about the event and the types of the values in the event.
-        /// Must not be null. Note that the eventTypes object should be created once and
-        /// saved. It should not be recreated for each event.
-        /// </param>
-        /// <param name="activityID">
-        /// A pointer to the activity ID GUID to log 
-        /// </param>
-        /// <param name="childActivityID">
-        /// A pointer to the child activity ID to log (can be null) </param>
-        /// <param name="values">
-        /// The values to include in the event. Must not be null. The number and types of
-        /// the values must match the number and types of the fields described by the
-        /// eventTypes parameter.
-        /// </param>
-        [SecuritySafeCritical]
-        private unsafe void WriteMultiMerge(
-            string eventName,
-            ref EventSourceOptions options,
-            TraceLoggingEventTypes eventTypes,
-             Guid* activityID,
-             Guid* childActivityID,
-            params object[] values)
+        private unsafe void WriteMultiMerge(string eventName, ref EventSourceOptions options, TraceLoggingEventTypes eventTypes, Guid*activityID, Guid*childActivityID, params object[] values)
         {
             if (!this.IsEnabled())
             {
                 return;
             }
-            byte level = (options.valuesSet & EventSourceOptions.levelSet) != 0
-                ? options.level
-                : eventTypes.level;
-            EventKeywords keywords = (options.valuesSet & EventSourceOptions.keywordsSet) != 0
-                ? options.keywords
-                : eventTypes.keywords;
 
+            byte level = (options.valuesSet & EventSourceOptions.levelSet) != 0 ? options.level : eventTypes.level;
+            EventKeywords keywords = (options.valuesSet & EventSourceOptions.keywordsSet) != 0 ? options.keywords : eventTypes.keywords;
             if (this.IsEnabled((EventLevel)level, keywords))
             {
                 WriteMultiMergeInner(eventName, ref options, eventTypes, activityID, childActivityID, values);
             }
         }
 
-        /// <summary>
-        /// Writes an extended event, where the values of the event are the
-        /// combined properties of any number of values. This method is
-        /// intended for use in advanced logging scenarios that support a
-        /// dynamic set of event context providers.
-        /// Attention: This API does not check whether the event is enabled or not. 
-        /// Please use WriteMultiMerge to avoid spending CPU cycles for events that are 
-        /// not enabled.
-        /// </summary>
-        /// <param name="eventName">
-        /// The name for the event. If null, the name from eventTypes is used.
-        /// (Note that providing the event name via the name parameter is slightly
-        /// less efficient than using the name from eventTypes.)
-        /// </param>
-        /// <param name="options">
-        /// Optional overrides for the event, such as the level, keyword, opcode,
-        /// activityId, and relatedActivityId. Any settings not specified by options
-        /// are obtained from eventTypes.
-        /// </param>
-        /// <param name="eventTypes">
-        /// Information about the event and the types of the values in the event.
-        /// Must not be null. Note that the eventTypes object should be created once and
-        /// saved. It should not be recreated for each event.
-        /// </param>
-        /// <param name="activityID">
-        /// A pointer to the activity ID GUID to log 
-        /// </param>
-        /// <param name="childActivityID">
-        /// A pointer to the child activity ID to log (can be null)
-        /// </param>
-        /// <param name="values">
-        /// The values to include in the event. Must not be null. The number and types of
-        /// the values must match the number and types of the fields described by the
-        /// eventTypes parameter.
-        /// </param>
-        [SecuritySafeCritical]
-        private unsafe void WriteMultiMergeInner(
-            string eventName,
-            ref EventSourceOptions options,
-            TraceLoggingEventTypes eventTypes,
-            Guid* activityID,
-            Guid* childActivityID,
-            params object[] values)
+        private unsafe void WriteMultiMergeInner(string eventName, ref EventSourceOptions options, TraceLoggingEventTypes eventTypes, Guid*activityID, Guid*childActivityID, params object[] values)
         {
             int identity = 0;
-            byte level = (options.valuesSet & EventSourceOptions.levelSet) != 0
-                ? options.level
-                : eventTypes.level;
-            byte opcode = (options.valuesSet & EventSourceOptions.opcodeSet) != 0
-                ? options.opcode
-                : eventTypes.opcode;
-            EventTags tags = (options.valuesSet & EventSourceOptions.tagsSet) != 0
-                ? options.tags
-                : eventTypes.Tags;
-            EventKeywords keywords = (options.valuesSet & EventSourceOptions.keywordsSet) != 0
-                ? options.keywords
-                : eventTypes.keywords;
-
+            byte level = (options.valuesSet & EventSourceOptions.levelSet) != 0 ? options.level : eventTypes.level;
+            byte opcode = (options.valuesSet & EventSourceOptions.opcodeSet) != 0 ? options.opcode : eventTypes.opcode;
+            EventTags tags = (options.valuesSet & EventSourceOptions.tagsSet) != 0 ? options.tags : eventTypes.Tags;
+            EventKeywords keywords = (options.valuesSet & EventSourceOptions.keywordsSet) != 0 ? options.keywords : eventTypes.keywords;
             var nameInfo = eventTypes.GetNameInfo(eventName ?? eventTypes.Name, tags);
             if (nameInfo == null)
             {
                 return;
             }
+
             identity = nameInfo.identity;
             EventDescriptor descriptor = new EventDescriptor(identity, level, opcode, (long)keywords);
-
             var pinCount = eventTypes.pinCount;
             var scratch = stackalloc byte[eventTypes.scratchSize];
             var descriptors = stackalloc EventData[eventTypes.dataCount + 3];
             var pins = stackalloc GCHandle[pinCount];
-
-            fixed (byte*
-                pMetadata0 = this.providerMetadata,
-                pMetadata1 = nameInfo.nameMetadata,
-                pMetadata2 = eventTypes.typeMetadata)
+            fixed (byte *pMetadata0 = this.providerMetadata, pMetadata1 = nameInfo.nameMetadata, pMetadata2 = eventTypes.typeMetadata)
             {
                 descriptors[0].SetMetadata(pMetadata0, this.providerMetadata.Length, 2);
                 descriptors[1].SetMetadata(pMetadata1, nameInfo.nameMetadata.Length, 1);
                 descriptors[2].SetMetadata(pMetadata2, eventTypes.typeMetadata.Length, 1);
-
-#if (!ES_BUILD_PCL && !PROJECTN)
                 System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegions();
-#endif
                 try
                 {
-                    DataCollector.ThreadInstance.Enable(
-                        scratch,
-                        eventTypes.scratchSize,
-                        descriptors + 3,
-                        eventTypes.dataCount,
-                        pins,
-                        pinCount);
-
+                    DataCollector.ThreadInstance.Enable(scratch, eventTypes.scratchSize, descriptors + 3, eventTypes.dataCount, pins, pinCount);
                     for (int i = 0; i < eventTypes.typeInfos.Length; i++)
                     {
                         var info = eventTypes.typeInfos[i];
                         info.WriteData(TraceLoggingDataCollector.Instance, info.PropertyValueFactory(values[i]));
                     }
 
-                    this.WriteEventRaw(
-                        eventName,
-                        ref descriptor,
-                        activityID,
-                        childActivityID,
-                        (int)(DataCollector.ThreadInstance.Finish() - descriptors),
-                        (IntPtr)descriptors);
+                    this.WriteEventRaw(eventName, ref descriptor, activityID, childActivityID, (int)(DataCollector.ThreadInstance.Finish() - descriptors), (IntPtr)descriptors);
                 }
                 finally
                 {
                     this.WriteCleanup(pins, pinCount);
                 }
             }
-
         }
 
-        /// <summary>
-        /// Writes an extended event, where the values of the event have already
-        /// been serialized in "data".
-        /// </summary>
-        /// <param name="eventName">
-        /// The name for the event. If null, the name from eventTypes is used.
-        /// (Note that providing the event name via the name parameter is slightly
-        /// less efficient than using the name from eventTypes.)
-        /// </param>
-        /// <param name="options">
-        /// Optional overrides for the event, such as the level, keyword, opcode,
-        /// activityId, and relatedActivityId. Any settings not specified by options
-        /// are obtained from eventTypes.
-        /// </param>
-        /// <param name="eventTypes">
-        /// Information about the event and the types of the values in the event.
-        /// Must not be null. Note that the eventTypes object should be created once and
-        /// saved. It should not be recreated for each event.
-        /// </param>
-        /// <param name="activityID">
-        /// A pointer to the activity ID GUID to log 
-        /// </param>
-        /// <param name="childActivityID">
-        /// A pointer to the child activity ID to log (can be null)
-        /// </param> 
-        /// <param name="data">
-        /// The previously serialized values to include in the event. Must not be null.
-        /// The number and types of the values must match the number and types of the 
-        /// fields described by the eventTypes parameter.
-        /// </param>
-        [SecuritySafeCritical]
-        internal unsafe void WriteMultiMerge(
-            string eventName,
-            ref EventSourceOptions options,
-            TraceLoggingEventTypes eventTypes,
-            Guid* activityID,
-            Guid* childActivityID,
-            EventData* data)
+        internal unsafe void WriteMultiMerge(string eventName, ref EventSourceOptions options, TraceLoggingEventTypes eventTypes, Guid*activityID, Guid*childActivityID, EventData*data)
         {
             if (!this.IsEnabled())
             {
                 return;
             }
 
-            fixed (EventSourceOptions* pOptions = &options)
+            fixed (EventSourceOptions*pOptions = &options)
             {
                 EventDescriptor descriptor;
                 var nameInfo = this.UpdateDescriptor(eventName, eventTypes, ref options, out descriptor);
@@ -544,71 +174,44 @@ namespace System.Diagnostics.Tracing
                     return;
                 }
 
-                // We make a descriptor for each EventData, and because we morph strings to counted strings
-                // we may have 2 for each arg, so we allocate enough for this.  
                 var descriptors = stackalloc EventData[eventTypes.dataCount + eventTypes.typeInfos.Length * 2 + 3];
-
-                fixed (byte*
-                    pMetadata0 = this.providerMetadata,
-                    pMetadata1 = nameInfo.nameMetadata,
-                    pMetadata2 = eventTypes.typeMetadata)
+                fixed (byte *pMetadata0 = this.providerMetadata, pMetadata1 = nameInfo.nameMetadata, pMetadata2 = eventTypes.typeMetadata)
                 {
                     descriptors[0].SetMetadata(pMetadata0, this.providerMetadata.Length, 2);
                     descriptors[1].SetMetadata(pMetadata1, nameInfo.nameMetadata.Length, 1);
                     descriptors[2].SetMetadata(pMetadata2, eventTypes.typeMetadata.Length, 1);
                     int numDescrs = 3;
-
                     for (int i = 0; i < eventTypes.typeInfos.Length; i++)
                     {
-                        // Until M3, we need to morph strings to a counted representation
-                        // When TDH supports null terminated strings, we can remove this.  
-                        if (eventTypes.typeInfos[i].DataType == typeof(string))
+                        if (eventTypes.typeInfos[i].DataType == typeof (string))
                         {
-                            // Write out the size of the string 
                             descriptors[numDescrs].m_Ptr = (long)&descriptors[numDescrs + 1].m_Size;
                             descriptors[numDescrs].m_Size = 2;
                             numDescrs++;
-
                             descriptors[numDescrs].m_Ptr = data[i].m_Ptr;
-                            descriptors[numDescrs].m_Size = data[i].m_Size - 2;   // Remove the null terminator
+                            descriptors[numDescrs].m_Size = data[i].m_Size - 2;
                             numDescrs++;
                         }
                         else
                         {
                             descriptors[numDescrs].m_Ptr = data[i].m_Ptr;
                             descriptors[numDescrs].m_Size = data[i].m_Size;
-
-                            // old conventions for bool is 4 bytes, but meta-data assumes 1.  
-                            if (data[i].m_Size == 4 && eventTypes.typeInfos[i].DataType == typeof(bool))
+                            if (data[i].m_Size == 4 && eventTypes.typeInfos[i].DataType == typeof (bool))
                                 descriptors[numDescrs].m_Size = 1;
-
                             numDescrs++;
                         }
                     }
 
-                    this.WriteEventRaw(
-                        eventName,
-                        ref descriptor,
-                        activityID,
-                        childActivityID,
-                        numDescrs,
-                        (IntPtr)descriptors);
+                    this.WriteEventRaw(eventName, ref descriptor, activityID, childActivityID, numDescrs, (IntPtr)descriptors);
                 }
             }
         }
 
-        [SecuritySafeCritical]
-        private unsafe void WriteImpl(
-            string eventName,
-            ref EventSourceOptions options,
-            object data,
-            Guid* pActivityId,
-            Guid* pRelatedActivityId,
-            TraceLoggingEventTypes eventTypes)
+        private unsafe void WriteImpl(string eventName, ref EventSourceOptions options, object data, Guid*pActivityId, Guid*pRelatedActivityId, TraceLoggingEventTypes eventTypes)
         {
             try
             {
-                fixed (EventSourceOptions* pOptions = &options)
+                fixed (EventSourceOptions*pOptions = &options)
                 {
                     EventDescriptor descriptor;
                     options.Opcode = options.IsOpcodeSet ? options.Opcode : GetOpcodeWithDefault(options.Opcode, eventName);
@@ -622,25 +225,16 @@ namespace System.Diagnostics.Tracing
                     var scratch = stackalloc byte[eventTypes.scratchSize];
                     var descriptors = stackalloc EventData[eventTypes.dataCount + 3];
                     var pins = stackalloc GCHandle[pinCount];
-
-                    fixed (byte*
-                        pMetadata0 = this.providerMetadata,
-                        pMetadata1 = nameInfo.nameMetadata,
-                        pMetadata2 = eventTypes.typeMetadata)
+                    fixed (byte *pMetadata0 = this.providerMetadata, pMetadata1 = nameInfo.nameMetadata, pMetadata2 = eventTypes.typeMetadata)
                     {
                         descriptors[0].SetMetadata(pMetadata0, this.providerMetadata.Length, 2);
                         descriptors[1].SetMetadata(pMetadata1, nameInfo.nameMetadata.Length, 1);
                         descriptors[2].SetMetadata(pMetadata2, eventTypes.typeMetadata.Length, 1);
-
-#if (!ES_BUILD_PCL && !PROJECTN)
                         System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegions();
-#endif
                         EventOpcode opcode = (EventOpcode)descriptor.Opcode;
-
                         Guid activityId = Guid.Empty;
                         Guid relatedActivityId = Guid.Empty;
-                        if (pActivityId == null && pRelatedActivityId == null &&
-                           ((options.ActivityOptions & EventActivityOptions.Disable) == 0))
+                        if (pActivityId == null && pRelatedActivityId == null && ((options.ActivityOptions & EventActivityOptions.Disable) == 0))
                         {
                             if (opcode == EventOpcode.Start)
                             {
@@ -650,6 +244,7 @@ namespace System.Diagnostics.Tracing
                             {
                                 m_activityTracker.OnStop(m_name, eventName, 0, ref activityId);
                             }
+
                             if (activityId != Guid.Empty)
                                 pActivityId = &activityId;
                             if (relatedActivityId != Guid.Empty)
@@ -658,32 +253,15 @@ namespace System.Diagnostics.Tracing
 
                         try
                         {
-                            DataCollector.ThreadInstance.Enable(
-                                scratch,
-                                eventTypes.scratchSize,
-                                descriptors + 3,
-                                eventTypes.dataCount,
-                                pins,
-                                pinCount);
-
+                            DataCollector.ThreadInstance.Enable(scratch, eventTypes.scratchSize, descriptors + 3, eventTypes.dataCount, pins, pinCount);
                             var info = eventTypes.typeInfos[0];
                             info.WriteData(TraceLoggingDataCollector.Instance, info.PropertyValueFactory(data));
-
-                            this.WriteEventRaw(
-                                eventName,
-                                ref descriptor,
-                                pActivityId,
-                                pRelatedActivityId,
-                                (int)(DataCollector.ThreadInstance.Finish() - descriptors),
-                                (IntPtr)descriptors);
-
-                            // TODO enable filtering for listeners.
+                            this.WriteEventRaw(eventName, ref descriptor, pActivityId, pRelatedActivityId, (int)(DataCollector.ThreadInstance.Finish() - descriptors), (IntPtr)descriptors);
                             if (m_Dispatchers != null)
                             {
                                 var eventData = (EventPayload)(eventTypes.typeInfos[0].GetData(data));
                                 WriteToAllListeners(eventName, ref descriptor, nameInfo.tags, pActivityId, eventData);
                             }
-
                         }
                         catch (Exception ex)
                         {
@@ -708,21 +286,17 @@ namespace System.Diagnostics.Tracing
             }
         }
 
-        [SecurityCritical]
-        private unsafe void WriteToAllListeners(string eventName, ref EventDescriptor eventDescriptor, EventTags tags, Guid* pActivityId, EventPayload payload)
+        private unsafe void WriteToAllListeners(string eventName, ref EventDescriptor eventDescriptor, EventTags tags, Guid*pActivityId, EventPayload payload)
         {
             EventWrittenEventArgs eventCallbackArgs = new EventWrittenEventArgs(this);
             eventCallbackArgs.EventName = eventName;
-            eventCallbackArgs.m_level = (EventLevel) eventDescriptor.Level;
-            eventCallbackArgs.m_keywords = (EventKeywords) eventDescriptor.Keywords;
-            eventCallbackArgs.m_opcode = (EventOpcode) eventDescriptor.Opcode;
+            eventCallbackArgs.m_level = (EventLevel)eventDescriptor.Level;
+            eventCallbackArgs.m_keywords = (EventKeywords)eventDescriptor.Keywords;
+            eventCallbackArgs.m_opcode = (EventOpcode)eventDescriptor.Opcode;
             eventCallbackArgs.m_tags = tags;
-
-            // Self described events do not have an id attached. We mark it internally with -1.
             eventCallbackArgs.EventId = -1;
             if (pActivityId != null)
                 eventCallbackArgs.RelatedActivityId = *pActivityId;
-
             if (payload != null)
             {
                 eventCallbackArgs.Payload = new ReadOnlyCollection<object>((IList<object>)payload.Values);
@@ -732,17 +306,9 @@ namespace System.Diagnostics.Tracing
             DispatchToAllListeners(-1, pActivityId, eventCallbackArgs);
         }
 
-#if (!ES_BUILD_PCL && !PROJECTN)
-        [System.Runtime.ConstrainedExecution.ReliabilityContract(
-            System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState,
-            System.Runtime.ConstrainedExecution.Cer.Success)]
-#endif
-        [SecurityCritical]
-        [NonEvent]
-        private unsafe void WriteCleanup(GCHandle* pPins, int cPins)
+        private unsafe void WriteCleanup(GCHandle*pPins, int cPins)
         {
             DataCollector.ThreadInstance.Disable();
-
             for (int i = 0; i != cPins; i++)
             {
                 if (IntPtr.Zero != (IntPtr)pPins[i])
@@ -774,16 +340,18 @@ namespace System.Diagnostics.Tracing
                                 throw new ArgumentException(Resources.GetResourceString("UnknownEtwTrait", etwTrait), "traits");
                             }
                         }
+
                         string value = m_traits[i + 1];
                         int lenPos = traitMetaData.Count;
-                        traitMetaData.Add(0);                                           // Emit size (to be filled in later) 
                         traitMetaData.Add(0);
-                        traitMetaData.Add(traitNum);                                    // Emit Trait number
-                        var valueLen = AddValueToMetaData(traitMetaData, value) + 3;    // Emit the value bytes +3 accounts for 3 bytes we emited above.  
-                        traitMetaData[lenPos] = unchecked((byte)valueLen);              // Fill in size
-                        traitMetaData[lenPos + 1] = unchecked((byte)(valueLen >> 8));
+                        traitMetaData.Add(0);
+                        traitMetaData.Add(traitNum);
+                        var valueLen = AddValueToMetaData(traitMetaData, value) + 3;
+                        traitMetaData[lenPos] = unchecked ((byte)valueLen);
+                        traitMetaData[lenPos + 1] = unchecked ((byte)(valueLen >> 8));
                     }
                 }
+
                 providerMetadata = Statics.MetadataForString(this.Name, 0, traitMetaData.Count, 0);
                 int startPos = providerMetadata.Length - traitMetaData.Count;
                 foreach (var b in traitMetaData)
@@ -797,10 +365,8 @@ namespace System.Diagnostics.Tracing
         {
             if (value.Length == 0)
                 return 0;
-
             int startPos = metaData.Count;
             char firstChar = value[0];
-
             if (firstChar == '@')
                 metaData.AddRange(Encoding.UTF8.GetBytes(value.Substring(1)));
             else if (firstChar == '{')
@@ -809,18 +375,19 @@ namespace System.Diagnostics.Tracing
             {
                 for (int i = 1; i < value.Length; i++)
                 {
-                    if (value[i] != ' ')        // Skip spaces between bytes.  
+                    if (value[i] != ' ')
                     {
                         if (!(i + 1 < value.Length))
                         {
                             throw new ArgumentException(Resources.GetResourceString("EvenHexDigits"), "traits");
                         }
+
                         metaData.Add((byte)(HexDigit(value[i]) * 16 + HexDigit(value[i + 1])));
                         i++;
                     }
                 }
             }
-            else if ('A' <= firstChar || ' ' == firstChar)  // Is it alphabetic or space (excludes digits and most punctuation). 
+            else if ('A' <= firstChar || ' ' == firstChar)
             {
                 metaData.AddRange(Encoding.UTF8.GetBytes(value));
             }
@@ -832,48 +399,34 @@ namespace System.Diagnostics.Tracing
             return metaData.Count - startPos;
         }
 
-        /// <summary>
-        /// Returns a value 0-15 if 'c' is a hexadecimal digit.   If  it throws an argument exception.  
-        /// </summary>
         private static int HexDigit(char c)
         {
             if ('0' <= c && c <= '9')
             {
                 return (c - '0');
             }
+
             if ('a' <= c)
             {
-                c = unchecked((char)(c - ('a' - 'A')));        // Convert to lower case
+                c = unchecked ((char)(c - ('a' - 'A')));
             }
+
             if ('A' <= c && c <= 'F')
             {
                 return (c - 'A' + 10);
             }
-            
+
             throw new ArgumentException(Resources.GetResourceString("BadHexDigit", c), "traits");
         }
 
-        private NameInfo UpdateDescriptor(
-            string name,
-            TraceLoggingEventTypes eventInfo,
-            ref EventSourceOptions options,
-            out EventDescriptor descriptor)
+        private NameInfo UpdateDescriptor(string name, TraceLoggingEventTypes eventInfo, ref EventSourceOptions options, out EventDescriptor descriptor)
         {
             NameInfo nameInfo = null;
             int identity = 0;
-            byte level = (options.valuesSet & EventSourceOptions.levelSet) != 0
-                ? options.level
-                : eventInfo.level;
-            byte opcode = (options.valuesSet & EventSourceOptions.opcodeSet) != 0
-                ? options.opcode
-                : eventInfo.opcode;
-            EventTags tags = (options.valuesSet & EventSourceOptions.tagsSet) != 0
-                ? options.tags
-                : eventInfo.Tags;
-            EventKeywords keywords = (options.valuesSet & EventSourceOptions.keywordsSet) != 0
-                ? options.keywords
-                : eventInfo.keywords;
-
+            byte level = (options.valuesSet & EventSourceOptions.levelSet) != 0 ? options.level : eventInfo.level;
+            byte opcode = (options.valuesSet & EventSourceOptions.opcodeSet) != 0 ? options.opcode : eventInfo.opcode;
+            EventTags tags = (options.valuesSet & EventSourceOptions.tagsSet) != 0 ? options.tags : eventInfo.Tags;
+            EventKeywords keywords = (options.valuesSet & EventSourceOptions.keywordsSet) != 0 ? options.keywords : eventInfo.keywords;
             if (this.IsEnabled((EventLevel)level, keywords))
             {
                 nameInfo = eventInfo.GetNameInfo(name ?? eventInfo.Name, tags);

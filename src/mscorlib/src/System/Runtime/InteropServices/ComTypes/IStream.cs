@@ -1,22 +1,5 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
-
-/*=============================================================================
-**
-**
-**
-** Purpose: IStream interface definition.
-**
-**
-=============================================================================*/
-
 namespace System.Runtime.InteropServices.ComTypes
 {
-    using System;
-
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)]
-
     public struct STATSTG
     {
         public String pwcsName;
@@ -32,16 +15,10 @@ namespace System.Runtime.InteropServices.ComTypes
         public int reserved;
     }
 
-    [Guid("0000000c-0000-0000-C000-000000000046")]
-    [InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
-    [ComImport]
     public interface IStream
     {
-        // ISequentialStream portion
         void Read([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] Byte[] pv, int cb, IntPtr pcbRead);
         void Write([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] Byte[] pv, int cb, IntPtr pcbWritten);
-
-        // IStream portion
         void Seek(Int64 dlibMove, int dwOrigin, IntPtr plibNewPosition);
         void SetSize(Int64 libNewSize);
         void CopyTo(IStream pstm, Int64 cb, IntPtr pcbRead, IntPtr pcbWritten);

@@ -1,28 +1,15 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
-
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 
-
-namespace System.Runtime.InteropServices.WindowsRuntime {
-    [Serializable]
-    [DebuggerDisplay("Count = {Count}")]
+namespace System.Runtime.InteropServices.WindowsRuntime
+{
     internal sealed class DictionaryValueCollection<TKey, TValue> : ICollection<TValue>
     {
         private readonly IDictionary<TKey, TValue> dictionary;
-
         public DictionaryValueCollection(IDictionary<TKey, TValue> dictionary)
         {
             if (dictionary == null)
                 throw new ArgumentNullException("dictionary");
-
             this.dictionary = dictionary;
         }
 
@@ -36,7 +23,6 @@ namespace System.Runtime.InteropServices.WindowsRuntime {
                 throw new ArgumentException(Environment.GetResourceString("Arg_IndexOutOfRangeException"));
             if (array.Length - index < dictionary.Count)
                 throw new ArgumentException(Environment.GetResourceString("Argument_InsufficientSpaceToCopyCollection"));
-
             int i = index;
             foreach (KeyValuePair<TKey, TValue> mapping in dictionary)
             {
@@ -44,12 +30,20 @@ namespace System.Runtime.InteropServices.WindowsRuntime {
             }
         }
 
-        public int Count {
-            get { return dictionary.Count; }
+        public int Count
+        {
+            get
+            {
+                return dictionary.Count;
+            }
         }
 
-        bool ICollection<TValue>.IsReadOnly {
-            get { return true; }
+        bool ICollection<TValue>.IsReadOnly
+        {
+            get
+            {
+                return true;
+            }
         }
 
         void ICollection<TValue>.Add(TValue item)
@@ -85,20 +79,16 @@ namespace System.Runtime.InteropServices.WindowsRuntime {
         {
             return new DictionaryValueEnumerator<TKey, TValue>(dictionary);
         }
-    }  // public class DictionaryValueCollection<TKey, TValue>
+    }
 
-
-    [Serializable]
     internal sealed class DictionaryValueEnumerator<TKey, TValue> : IEnumerator<TValue>
     {
         private readonly IDictionary<TKey, TValue> dictionary;
         private IEnumerator<KeyValuePair<TKey, TValue>> enumeration;
-
         public DictionaryValueEnumerator(IDictionary<TKey, TValue> dictionary)
         {
             if (dictionary == null)
                 throw new ArgumentNullException("dictionary");
-
             this.dictionary = dictionary;
             this.enumeration = dictionary.GetEnumerator();
         }
@@ -113,19 +103,25 @@ namespace System.Runtime.InteropServices.WindowsRuntime {
             return enumeration.MoveNext();
         }
 
-        Object IEnumerator.Current {
-            get { return ((IEnumerator<TValue>)this).Current; }
+        Object IEnumerator.Current
+        {
+            get
+            {
+                return ((IEnumerator<TValue>)this).Current;
+            }
         }
 
-        public TValue Current {
-            get { return enumeration.Current.Value; }
+        public TValue Current
+        {
+            get
+            {
+                return enumeration.Current.Value;
+            }
         }
 
         public void Reset()
         {
             enumeration = dictionary.GetEnumerator();
         }
-    }  // class DictionaryValueEnumerator<TKey, TValue>
+    }
 }
-
-// DictionaryValueCollection.cs

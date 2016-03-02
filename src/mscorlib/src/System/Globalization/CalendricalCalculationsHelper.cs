@@ -1,42 +1,33 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the LICENSE file in the project root for more information.
+
 
 namespace System.Globalization
 {
-    using System;
-    using System.Diagnostics.Contracts;
-
     internal class CalendricalCalculationsHelper
     {
-        const double FullCircleOfArc = 360.0; // 360.0;
+        const double FullCircleOfArc = 360.0;
         const int HalfCircleOfArc = 180;
-        const double TwelveHours = 0.5; // half a day
+        const double TwelveHours = 0.5;
         const double Noon2000Jan01 = 730120.5;
         internal const double MeanTropicalYearInDays = 365.242189;
         const double MeanSpeedOfSun = MeanTropicalYearInDays / FullCircleOfArc;
         const double LongitudeSpring = 0.0;
         const double TwoDegreesAfterSpring = 2.0;
-        const int SecondsPerDay = 24 * 60 * 60; // 24 hours * 60 minutes * 60 seconds
-
+        const int SecondsPerDay = 24 * 60 * 60;
         const int DaysInUniformLengthCentury = 36525;
         const int SecondsPerMinute = 60;
         const int MinutesPerDegree = 60;
-
         static long StartOf1810 = GetNumberOfDays(new DateTime(1810, 1, 1));
         static long StartOf1900Century = GetNumberOfDays(new DateTime(1900, 1, 1));
-
-        static double[] Coefficients1900to1987   = new double[] { -0.00002, 0.000297, 0.025184, -0.181133, 0.553040, -0.861938, 0.677066, -0.212591 };
-        static double[] Coefficients1800to1899   = new double[] { -0.000009, 0.003844, 0.083563, 0.865736, 4.867575, 15.845535, 31.332267, 38.291999, 28.316289, 11.636204, 2.043794 };
-        static double[] Coefficients1700to1799   = new double[] { 8.118780842, -0.005092142, 0.003336121, -0.0000266484 };
-        static double[] Coefficients1620to1699   = new double[] { 196.58333, -4.0675, 0.0219167 };
-        static double[] LambdaCoefficients       = new double[] { 280.46645, 36000.76983, 0.0003032 };
-        static double[] AnomalyCoefficients      = new double[] { 357.52910, 35999.05030, -0.0001559, -0.00000048 };
-        static double[] EccentricityCoefficients = new double[] { 0.016708617, -0.000042037, -0.0000001236 };
-        static double[] Coefficients             = new double[] { Angle(23, 26, 21.448), Angle(0, 0, -46.8150), Angle(0, 0, -0.00059), Angle(0, 0, 0.001813) };
-        static double[] CoefficientsA            = new double[] { 124.90, -1934.134, 0.002063 };
-        static double[] CoefficientsB            = new double[] { 201.11, 72001.5377, 0.00057 };
-
+        static double[] Coefficients1900to1987 = new double[]{-0.00002, 0.000297, 0.025184, -0.181133, 0.553040, -0.861938, 0.677066, -0.212591};
+        static double[] Coefficients1800to1899 = new double[]{-0.000009, 0.003844, 0.083563, 0.865736, 4.867575, 15.845535, 31.332267, 38.291999, 28.316289, 11.636204, 2.043794};
+        static double[] Coefficients1700to1799 = new double[]{8.118780842, -0.005092142, 0.003336121, -0.0000266484};
+        static double[] Coefficients1620to1699 = new double[]{196.58333, -4.0675, 0.0219167};
+        static double[] LambdaCoefficients = new double[]{280.46645, 36000.76983, 0.0003032};
+        static double[] AnomalyCoefficients = new double[]{357.52910, 35999.05030, -0.0001559, -0.00000048};
+        static double[] EccentricityCoefficients = new double[]{0.016708617, -0.000042037, -0.0000001236};
+        static double[] Coefficients = new double[]{Angle(23, 26, 21.448), Angle(0, 0, -46.8150), Angle(0, 0, -0.00059), Angle(0, 0, 0.001813)};
+        static double[] CoefficientsA = new double[]{124.90, -1934.134, 0.002063};
+        static double[] CoefficientsB = new double[]{201.11, 72001.5377, 0.00057};
         static double RadiansFromDegrees(double degree)
         {
             return degree * Math.PI / 180;
@@ -51,6 +42,7 @@ namespace System.Globalization
         {
             return Math.Cos(RadiansFromDegrees(degree));
         }
+
         static double TanOfDegree(double degree)
         {
             return Math.Tan(RadiansFromDegrees(degree));
@@ -86,7 +78,7 @@ namespace System.Globalization
             Year1620to1699
         }
 
-        struct EphemerisCorrectionAlgorithmMap 
+        struct EphemerisCorrectionAlgorithmMap
         {
             public EphemerisCorrectionAlgorithmMap(int year, CorrectionAlgorithm algorithm)
             {
@@ -96,20 +88,10 @@ namespace System.Globalization
 
             internal int _lowestYear;
             internal CorrectionAlgorithm _algorithm;
-        };
+        }
 
-        static EphemerisCorrectionAlgorithmMap[] EphemerisCorrectionTable = new EphemerisCorrectionAlgorithmMap[] 
-        {
-            // lowest year that starts algorithm, algorithm to use
-            new EphemerisCorrectionAlgorithmMap(2020, CorrectionAlgorithm.Default),
-            new EphemerisCorrectionAlgorithmMap(1988, CorrectionAlgorithm.Year1988to2019),
-            new EphemerisCorrectionAlgorithmMap(1900, CorrectionAlgorithm.Year1900to1987),
-            new EphemerisCorrectionAlgorithmMap(1800, CorrectionAlgorithm.Year1800to1899),
-            new EphemerisCorrectionAlgorithmMap(1700, CorrectionAlgorithm.Year1700to1799),
-            new EphemerisCorrectionAlgorithmMap(1620, CorrectionAlgorithm.Year1620to1699),
-            new EphemerisCorrectionAlgorithmMap(int.MinValue, CorrectionAlgorithm.Default) // default must be last
-        };
-
+        ;
+        static EphemerisCorrectionAlgorithmMap[] EphemerisCorrectionTable = new EphemerisCorrectionAlgorithmMap[]{new EphemerisCorrectionAlgorithmMap(2020, CorrectionAlgorithm.Default), new EphemerisCorrectionAlgorithmMap(1988, CorrectionAlgorithm.Year1988to2019), new EphemerisCorrectionAlgorithmMap(1900, CorrectionAlgorithm.Year1900to1987), new EphemerisCorrectionAlgorithmMap(1800, CorrectionAlgorithm.Year1800to1899), new EphemerisCorrectionAlgorithmMap(1700, CorrectionAlgorithm.Year1700to1799), new EphemerisCorrectionAlgorithmMap(1620, CorrectionAlgorithm.Year1620to1699), new EphemerisCorrectionAlgorithmMap(int.MinValue, CorrectionAlgorithm.Default)};
         static double Reminder(double divisor, double dividend)
         {
             double whole = Math.Floor(divisor / dividend);
@@ -123,6 +105,7 @@ namespace System.Globalization
             {
                 longitude += FullCircleOfArc;
             }
+
             return longitude;
         }
 
@@ -135,7 +118,7 @@ namespace System.Globalization
         {
             double sum = coefficients[0];
             double indeterminateRaised = 1;
-            for (int i=1; i<coefficients.Length; i++)
+            for (int i = 1; i < coefficients.Length; i++)
             {
                 indeterminateRaised *= indeterminate;
                 sum += (coefficients[i] * indeterminateRaised);
@@ -147,14 +130,12 @@ namespace System.Globalization
         static double CenturiesFrom1900(int gregorianYear)
         {
             long july1stOfYear = GetNumberOfDays(new DateTime(gregorianYear, 7, 1));
-            return (double) (july1stOfYear - StartOf1900Century) / DaysInUniformLengthCentury;
+            return (double)(july1stOfYear - StartOf1900Century) / DaysInUniformLengthCentury;
         }
 
-        // the following formulas defines a polynomial function which gives us the amount that the earth is slowing down for specific year ranges
         static double DefaultEphemerisCorrection(int gregorianYear)
         {
-            Contract.Assert(gregorianYear < 1620 || 2020 <= gregorianYear);
-            long january1stOfYear = GetNumberOfDays(new DateTime(gregorianYear, 1, 1));
+                        long january1stOfYear = GetNumberOfDays(new DateTime(gregorianYear, 1, 1));
             double daysSinceStartOf1810 = january1stOfYear - StartOf1810;
             double x = TwelveHours + daysSinceStartOf1810;
             return ((Math.Pow(x, 2) / 41048480) - 15) / SecondsPerDay;
@@ -162,39 +143,33 @@ namespace System.Globalization
 
         static double EphemerisCorrection1988to2019(int gregorianYear)
         {
-            Contract.Assert(1988 <= gregorianYear && gregorianYear <= 2019);
-            return (double)(gregorianYear - 1933) / SecondsPerDay;
+                        return (double)(gregorianYear - 1933) / SecondsPerDay;
         }
 
         static double EphemerisCorrection1900to1987(int gregorianYear)
         {
-            Contract.Assert(1900 <= gregorianYear && gregorianYear <= 1987);
-            double centuriesFrom1900 = CenturiesFrom1900(gregorianYear);
+                        double centuriesFrom1900 = CenturiesFrom1900(gregorianYear);
             return PolynomialSum(Coefficients1900to1987, centuriesFrom1900);
         }
 
         static double EphemerisCorrection1800to1899(int gregorianYear)
         {
-            Contract.Assert(1800 <= gregorianYear && gregorianYear <= 1899);
-            double centuriesFrom1900 = CenturiesFrom1900(gregorianYear);
+                        double centuriesFrom1900 = CenturiesFrom1900(gregorianYear);
             return PolynomialSum(Coefficients1800to1899, centuriesFrom1900);
         }
 
         static double EphemerisCorrection1700to1799(int gregorianYear)
         {
-            Contract.Assert(1700 <= gregorianYear && gregorianYear <= 1799);
-            double yearsSince1700 = gregorianYear - 1700;
+                        double yearsSince1700 = gregorianYear - 1700;
             return PolynomialSum(Coefficients1700to1799, yearsSince1700) / SecondsPerDay;
         }
 
         static double EphemerisCorrection1620to1699(int gregorianYear)
         {
-            Contract.Assert(1620 <= gregorianYear && gregorianYear <= 1699);
-            double yearsSince1600 = gregorianYear - 1600;
+                        double yearsSince1600 = gregorianYear - 1600;
             return PolynomialSum(Coefficients1620to1699, yearsSince1600) / SecondsPerDay;
         }
 
-        // ephemeris-correction: correction to account for the slowing down of the rotation of the earth
         static double EphemerisCorrection(double time)
         {
             int year = GetGregorianYear(time);
@@ -204,20 +179,25 @@ namespace System.Globalization
                 {
                     switch (map._algorithm)
                     {
-                        case CorrectionAlgorithm.Default: return DefaultEphemerisCorrection(year);
-                        case CorrectionAlgorithm.Year1988to2019: return EphemerisCorrection1988to2019(year);
-                        case CorrectionAlgorithm.Year1900to1987: return EphemerisCorrection1900to1987(year);
-                        case CorrectionAlgorithm.Year1800to1899: return EphemerisCorrection1800to1899(year);
-                        case CorrectionAlgorithm.Year1700to1799: return EphemerisCorrection1700to1799(year);
-                        case CorrectionAlgorithm.Year1620to1699: return EphemerisCorrection1620to1699(year);
+                        case CorrectionAlgorithm.Default:
+                            return DefaultEphemerisCorrection(year);
+                        case CorrectionAlgorithm.Year1988to2019:
+                            return EphemerisCorrection1988to2019(year);
+                        case CorrectionAlgorithm.Year1900to1987:
+                            return EphemerisCorrection1900to1987(year);
+                        case CorrectionAlgorithm.Year1800to1899:
+                            return EphemerisCorrection1800to1899(year);
+                        case CorrectionAlgorithm.Year1700to1799:
+                            return EphemerisCorrection1700to1799(year);
+                        case CorrectionAlgorithm.Year1620to1699:
+                            return EphemerisCorrection1620to1699(year);
                     }
 
-                    break; // break the loop and assert eventually 
+                    break;
                 }
             }
 
-            Contract.Assert(false, "Not expected to come here");
-            return DefaultEphemerisCorrection(year);
+                        return DefaultEphemerisCorrection(year);
         }
 
         static public double JulianCenturies(double moment)
@@ -236,47 +216,30 @@ namespace System.Globalization
             return (IsNegative(value) == IsNegative(sign)) ? value : -value;
         }
 
-        // equation-of-time; approximate the difference between apparent solar time and mean solar time
-        // formal definition is EOT = GHA - GMHA
-        // GHA is the Greenwich Hour Angle of the apparent (actual) Sun
-        // GMHA is the Greenwich Mean Hour Angle of the mean (fictitious) Sun
-        // http://www.esrl.noaa.gov/gmd/grad/solcalc/
-        // http://en.wikipedia.org/wiki/Equation_of_time
         static double EquationOfTime(double time)
         {
             double julianCenturies = JulianCenturies(time);
             double lambda = PolynomialSum(LambdaCoefficients, julianCenturies);
             double anomaly = PolynomialSum(AnomalyCoefficients, julianCenturies);
             double eccentricity = PolynomialSum(EccentricityCoefficients, julianCenturies);
-
             double epsilon = Obliquity(julianCenturies);
             double tanHalfEpsilon = TanOfDegree(epsilon / 2);
             double y = tanHalfEpsilon * tanHalfEpsilon;
-
-            double dividend = ((y * SinOfDegree(2 * lambda))
-                - (2 * eccentricity * SinOfDegree(anomaly))
-                + (4 * eccentricity * y * SinOfDegree(anomaly) * CosOfDegree(2 * lambda))
-                - (0.5 * Math.Pow(y, 2) * SinOfDegree(4 * lambda))
-                - (1.25 * Math.Pow(eccentricity, 2) * SinOfDegree(2 * anomaly)));
+            double dividend = ((y * SinOfDegree(2 * lambda)) - (2 * eccentricity * SinOfDegree(anomaly)) + (4 * eccentricity * y * SinOfDegree(anomaly) * CosOfDegree(2 * lambda)) - (0.5 * Math.Pow(y, 2) * SinOfDegree(4 * lambda)) - (1.25 * Math.Pow(eccentricity, 2) * SinOfDegree(2 * anomaly)));
             double divisor = 2 * Math.PI;
             double equation = dividend / divisor;
-
-            // approximation of equation of time is not valid for dates that are many millennia in the past or future
-            // thus limited to a half day
             return CopySign(Math.Min(Math.Abs(equation), TwelveHours), equation);
         }
 
         static double AsLocalTime(double apparentMidday, double longitude)
         {
-            // slightly inaccurate since equation of time takes mean time not apparent time as its argument, but the difference is negligible
             double universalTime = apparentMidday - AsDayFraction(longitude);
             return apparentMidday - EquationOfTime(universalTime);
         }
 
-        // midday
         static public double Midday(double date, double longitude)
         {
-            return AsLocalTime(date+TwelveHours, longitude) - AsDayFraction(longitude);
+            return AsLocalTime(date + TwelveHours, longitude) - AsDayFraction(longitude);
         }
 
         static double InitLongitude(double longitude)
@@ -284,10 +247,9 @@ namespace System.Globalization
             return NormalizeLongitude(longitude + HalfCircleOfArc) - HalfCircleOfArc;
         }
 
-        // midday-in-tehran
         static public double MiddayAtPersianObservationSite(double date)
         {
-            return Midday(date, InitLongitude(52.5)); // 52.5 degrees east - longitude of UTC+3:30 which defines Iranian Standard Time
+            return Midday(date, InitLongitude(52.5));
         }
 
         static double PeriodicTerm(double julianCenturies, int x, double y, double z)
@@ -365,10 +327,7 @@ namespace System.Globalization
         static public double Compute(double time)
         {
             double julianCenturies = JulianCenturies(time);
-            double lambda = 282.7771834
-                + (36000.76953744 * julianCenturies)
-                + (0.000005729577951308232 * SumLongSequenceOfPeriodicTerms(julianCenturies));
-
+            double lambda = 282.7771834 + (36000.76953744 * julianCenturies) + (0.000005729577951308232 * SumLongSequenceOfPeriodicTerms(julianCenturies));
             double longitude = lambda + Aberration(julianCenturies) + Nutation(julianCenturies);
             return InitLongitude(longitude);
         }
@@ -385,29 +344,24 @@ namespace System.Globalization
             return Math.Min(time, timeSunLastAtLongitude - (MeanSpeedOfSun * longitudeErrorDelta));
         }
 
-        // persian-new-year-on-or-before
-        //  number of days is the absolute date. The absolute date is the number of days from January 1st, 1 A.D.
-        //  1/1/0001 is absolute date 1.
         internal static long PersianNewYearOnOrBefore(long numberOfDays)
         {
-            double date = (double) numberOfDays;
-
+            double date = (double)numberOfDays;
             double approx = EstimatePrior(LongitudeSpring, MiddayAtPersianObservationSite(date));
-            long lowerBoundNewYearDay = (long) Math.Floor(approx) - 1;
-            long upperBoundNewYearDay = lowerBoundNewYearDay + 3; // estimate is generally within a day of the actual occurrance (at the limits, the error expands, since the calculations rely on the mean tropical year which changes...)
+            long lowerBoundNewYearDay = (long)Math.Floor(approx) - 1;
+            long upperBoundNewYearDay = lowerBoundNewYearDay + 3;
             long day = lowerBoundNewYearDay;
             for (; day != upperBoundNewYearDay; ++day)
             {
-                double midday = MiddayAtPersianObservationSite((double) day);
+                double midday = MiddayAtPersianObservationSite((double)day);
                 double l = Compute(midday);
                 if ((LongitudeSpring <= l) && (l <= TwoDegreesAfterSpring))
                 {
                     break;
                 }
             }
-            Contract.Assert(day != upperBoundNewYearDay);
 
-            return day - 1;
+                        return day - 1;
         }
     }
 }

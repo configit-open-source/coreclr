@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+
 #if ES_BUILD_PCL
     using System.Threading.Tasks;
 #endif
