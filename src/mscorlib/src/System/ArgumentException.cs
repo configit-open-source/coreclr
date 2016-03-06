@@ -33,11 +33,6 @@ namespace System
             SetErrorCode(__HResults.COR_E_ARGUMENT);
         }
 
-        protected ArgumentException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            m_paramName = info.GetString("ParamName");
-        }
-
         public override String Message
         {
             get
@@ -59,17 +54,6 @@ namespace System
             {
                 return m_paramName;
             }
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-                        base.GetObjectData(info, context);
-            info.AddValue("ParamName", m_paramName, typeof (String));
         }
     }
 }

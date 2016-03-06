@@ -32,24 +32,6 @@ namespace System.Globalization
             m_invalidCultureName = invalidCultureName;
         }
 
-        protected CultureNotFoundException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            m_invalidCultureName = (string)info.GetValue("InvalidCultureName", typeof (string));
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-                        base.GetObjectData(info, context);
-            Nullable<int> invalidCultureId = null;
-            info.AddValue("InvalidCultureId", invalidCultureId, typeof (Nullable<int>));
-            info.AddValue("InvalidCultureName", m_invalidCultureName, typeof (string));
-        }
-
         public virtual string InvalidCultureName
         {
             get

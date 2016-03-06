@@ -18,9 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_OVERFLOW);
         }
-
-        protected OverflowException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

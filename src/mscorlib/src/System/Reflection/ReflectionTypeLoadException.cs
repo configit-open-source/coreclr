@@ -31,12 +31,6 @@ namespace System.Reflection
             SetErrorCode(__HResults.COR_E_REFLECTIONTYPELOAD);
         }
 
-        internal ReflectionTypeLoadException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            _classes = (Type[])(info.GetValue("Types", typeof (Type[])));
-            _exceptions = (Exception[])(info.GetValue("Exceptions", typeof (Exception[])));
-        }
-
         public Type[] Types
         {
             get
@@ -51,18 +45,6 @@ namespace System.Reflection
             {
                 return _exceptions;
             }
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-                        base.GetObjectData(info, context);
-            info.AddValue("Types", _classes, typeof (Type[]));
-            info.AddValue("Exceptions", _exceptions, typeof (Exception[]));
         }
     }
 }

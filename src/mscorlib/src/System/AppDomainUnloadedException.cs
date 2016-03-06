@@ -13,14 +13,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_APPDOMAINUNLOADED);
         }
-
-        public AppDomainUnloadedException(String message, Exception innerException): base (message, innerException)
-        {
-            SetErrorCode(__HResults.COR_E_APPDOMAINUNLOADED);
-        }
-
-        protected AppDomainUnloadedException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

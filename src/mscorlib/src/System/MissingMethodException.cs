@@ -19,10 +19,6 @@ namespace System
             SetErrorCode(__HResults.COR_E_MISSINGMETHOD);
         }
 
-        protected MissingMethodException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         public override String Message
         {
             [System.Security.SecuritySafeCritical]

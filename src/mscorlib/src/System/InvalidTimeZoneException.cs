@@ -12,10 +12,6 @@ namespace System
         {
         }
 
-        protected InvalidTimeZoneException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         public InvalidTimeZoneException()
         {
         }

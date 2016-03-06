@@ -1153,7 +1153,6 @@ namespace System.StubHelpers
         static internal Exception GetHRExceptionObject(int hr)
         {
             Exception ex = InternalGetHRExceptionObject(hr);
-            ex.InternalPreserveStackTrace();
             return ex;
         }
 
@@ -1161,14 +1160,12 @@ namespace System.StubHelpers
         static internal Exception GetCOMHRExceptionObject(int hr, IntPtr pCPCMD, object pThis)
         {
             Exception ex = InternalGetCOMHRExceptionObject(hr, pCPCMD, pThis, false);
-            ex.InternalPreserveStackTrace();
             return ex;
         }
 
         static internal Exception GetCOMHRExceptionObject_WinRT(int hr, IntPtr pCPCMD, object pThis)
         {
             Exception ex = InternalGetCOMHRExceptionObject(hr, pCPCMD, pThis, true);
-            ex.InternalPreserveStackTrace();
             return ex;
         }
 

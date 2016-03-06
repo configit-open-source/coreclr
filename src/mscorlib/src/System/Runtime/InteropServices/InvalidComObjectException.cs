@@ -19,8 +19,5 @@ namespace System.Runtime.InteropServices
             SetErrorCode(__HResults.COR_E_INVALIDCOMOBJECT);
         }
 
-        protected InvalidComObjectException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

@@ -34,9 +34,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_DUPLICATEWAITOBJECT);
         }
-
-        protected DuplicateWaitObjectException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

@@ -29,9 +29,5 @@ namespace System.Security
         {
             SetErrorCode(__HResults.CORSEC_E_XMLSYNTAX);
         }
-
-        internal XmlSyntaxException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

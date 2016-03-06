@@ -18,9 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_FIELDACCESS);
         }
-
-        protected FieldAccessException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

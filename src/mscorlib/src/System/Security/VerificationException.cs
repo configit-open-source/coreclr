@@ -18,9 +18,5 @@ namespace System.Security
         {
             SetErrorCode(__HResults.COR_E_VERIFICATION);
         }
-
-        protected VerificationException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

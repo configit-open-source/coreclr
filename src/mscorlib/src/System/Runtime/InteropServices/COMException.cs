@@ -37,10 +37,6 @@ namespace System.Runtime.InteropServices
             SetErrorCode(hresult);
         }
 
-        protected COMException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         public override String ToString()
         {
             String message = Message;

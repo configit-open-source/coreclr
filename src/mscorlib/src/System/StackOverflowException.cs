@@ -18,9 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_STACKOVERFLOW);
         }
-
-        internal StackOverflowException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

@@ -18,9 +18,5 @@ namespace System.Threading
         {
             SetErrorCode(__HResults.COR_E_WAITHANDLECANNOTBEOPENED);
         }
-
-        protected WaitHandleCannotBeOpenedException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

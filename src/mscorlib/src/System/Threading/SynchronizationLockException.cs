@@ -18,9 +18,5 @@ namespace System.Threading
         {
             SetErrorCode(__HResults.COR_E_SYNCHRONIZATIONLOCK);
         }
-
-        protected SynchronizationLockException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

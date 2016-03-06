@@ -96,35 +96,6 @@ namespace System
             m_innerExceptions = new ReadOnlyCollection<Exception>(exceptionsCopy);
         }
 
-        protected AggregateException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-            Exception[] innerExceptions = info.GetValue("InnerExceptions", typeof (Exception[])) as Exception[];
-            if (innerExceptions == null)
-            {
-                throw new SerializationException(Environment.GetResourceString("AggregateException_DeserializationFailure"));
-            }
-
-            m_innerExceptions = new ReadOnlyCollection<Exception>(innerExceptions);
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-            base.GetObjectData(info, context);
-            Exception[] innerExceptions = new Exception[m_innerExceptions.Count];
-            m_innerExceptions.CopyTo(innerExceptions, 0);
-            info.AddValue("InnerExceptions", innerExceptions, typeof (Exception[]));
-        }
-
         public override Exception GetBaseException()
         {
             Exception back = this;

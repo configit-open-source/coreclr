@@ -4,7 +4,7 @@ namespace System.Threading
 {
     public class ThreadInterruptedException : SystemException
     {
-        public ThreadInterruptedException(): base (GetMessageFromNativeResources(ExceptionMessageKind.ThreadInterrupted))
+        public ThreadInterruptedException(): base (null)
         {
             SetErrorCode(__HResults.COR_E_THREADINTERRUPTED);
         }
@@ -17,10 +17,6 @@ namespace System.Threading
         public ThreadInterruptedException(String message, Exception innerException): base (message, innerException)
         {
             SetErrorCode(__HResults.COR_E_THREADINTERRUPTED);
-        }
-
-        protected ThreadInterruptedException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
         }
     }
 }

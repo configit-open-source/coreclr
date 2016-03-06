@@ -29,14 +29,6 @@ namespace System.Security
             m_demanded = HostProtectionResource.None;
         }
 
-        protected HostProtectionException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            if (info == null)
-                throw new ArgumentNullException("info");
-                        m_protected = (HostProtectionResource)info.GetValue(ProtectedResourcesName, typeof (HostProtectionResource));
-            m_demanded = (HostProtectionResource)info.GetValue(DemandedResourcesName, typeof (HostProtectionResource));
-        }
-
         public HostProtectionException(string message, HostProtectionResource protectedResources, HostProtectionResource demandedResources): base (message)
         {
             SetErrorCode(__HResults.COR_E_HOSTPROTECTION);
@@ -88,15 +80,6 @@ namespace System.Security
             sb.Append(protectedResStrValue);
             sb.Append(ToStringHelper("HostProtection_DemandedResources", DemandedResources));
             return sb.ToString();
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-                throw new ArgumentNullException("info");
-                        base.GetObjectData(info, context);
-            info.AddValue(ProtectedResourcesName, ProtectedResources, typeof (HostProtectionResource));
-            info.AddValue(DemandedResourcesName, DemandedResources, typeof (HostProtectionResource));
         }
     }
 }

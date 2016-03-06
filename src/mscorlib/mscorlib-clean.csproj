@@ -812,7 +812,6 @@
     <Compile Include="src\System\Runtime\InteropServices\WindowsRuntime\WindowsRuntimeMarshal.cs" />
     <Compile Include="src\System\Runtime\InteropServices\WindowsRuntime\WindowsRuntimeMetadata.cs" />
     <Compile Include="src\System\Runtime\Loader\AssemblyLoadContext.cs" />
-    <Compile Include="src\System\Runtime\MemoryFailPoint.cs" />
     <Compile Include="src\System\Runtime\ProfileOptimization.cs" />
     <Compile Include="src\System\Runtime\Reliability\CriticalFinalizerObject.cs" />
     <Compile Include="src\System\Runtime\Reliability\PrePrepareMethodAttribute.cs" />

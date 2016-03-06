@@ -24,10 +24,6 @@ namespace System.Runtime.InteropServices
             SetErrorCode(errorCode);
         }
 
-        protected ExternalException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         public virtual int ErrorCode
         {
             get

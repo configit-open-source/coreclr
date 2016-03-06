@@ -12,10 +12,6 @@ namespace System.Threading
         {
         }
 
-        protected LockRecursionException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         public LockRecursionException(string message, Exception innerException): base (message, innerException)
         {
         }

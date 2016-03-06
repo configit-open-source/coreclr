@@ -18,9 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.E_NOTIMPL);
         }
-
-        protected NotImplementedException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

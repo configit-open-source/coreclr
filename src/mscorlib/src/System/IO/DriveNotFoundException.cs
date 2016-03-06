@@ -19,8 +19,5 @@ namespace System.IO
             SetErrorCode(__HResults.COR_E_DIRECTORYNOTFOUND);
         }
 
-        protected DriveNotFoundException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

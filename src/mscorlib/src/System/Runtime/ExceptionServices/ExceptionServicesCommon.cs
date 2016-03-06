@@ -10,15 +10,7 @@ namespace System.Runtime.ExceptionServices
         private Object m_WatsonBuckets;
         private ExceptionDispatchInfo(Exception exception)
         {
-            m_Exception = exception;
-            m_remoteStackTrace = exception.RemoteStackTrace;
-            object stackTrace;
-            object dynamicMethods;
-            m_Exception.GetStackTracesDeepCopy(out stackTrace, out dynamicMethods);
-            m_stackTrace = stackTrace;
-            m_dynamicMethods = dynamicMethods;
-            m_IPForWatsonBuckets = exception.IPForWatsonBuckets;
-            m_WatsonBuckets = exception.WatsonBuckets;
+         
         }
 
         internal UIntPtr IPForWatsonBuckets
@@ -81,7 +73,6 @@ namespace System.Runtime.ExceptionServices
 
         public void Throw()
         {
-            m_Exception.RestoreExceptionDispatchInfo(this);
             throw m_Exception;
         }
     }

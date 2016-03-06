@@ -18,9 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_APPLICATION);
         }
-
-        protected ApplicationException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

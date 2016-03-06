@@ -18,9 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_MEMBERACCESS);
         }
-
-        protected MemberAccessException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

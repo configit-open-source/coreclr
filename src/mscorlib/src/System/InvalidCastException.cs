@@ -19,10 +19,6 @@ namespace System
             SetErrorCode(__HResults.COR_E_INVALIDCAST);
         }
 
-        protected InvalidCastException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         public InvalidCastException(String message, int errorCode): base (message)
         {
             SetErrorCode(errorCode);

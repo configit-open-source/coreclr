@@ -19,9 +19,5 @@ namespace System.IO.IsolatedStorage
         {
             SetErrorCode(__HResults.COR_E_ISOSTORE);
         }
-
-        protected IsolatedStorageException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

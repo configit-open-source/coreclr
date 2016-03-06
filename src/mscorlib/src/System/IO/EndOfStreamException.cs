@@ -18,9 +18,5 @@ namespace System.IO
         {
             SetErrorCode(__HResults.COR_E_ENDOFSTREAM);
         }
-
-        protected EndOfStreamException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

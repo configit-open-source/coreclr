@@ -23,9 +23,5 @@ namespace System.Reflection
         {
             SetErrorCode(__HResults.COR_E_TARGETINVOCATION);
         }
-
-        internal TargetInvocationException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

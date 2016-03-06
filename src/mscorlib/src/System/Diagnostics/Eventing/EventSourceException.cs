@@ -16,10 +16,6 @@ namespace System.Diagnostics.Tracing
         {
         }
 
-        protected EventSourceException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         internal EventSourceException(Exception innerException): base (Resources.GetResourceString("EventSource_ListenerWriteFailure"), innerException)
         {
         }

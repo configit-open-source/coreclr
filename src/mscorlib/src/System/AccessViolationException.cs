@@ -18,13 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.E_POINTER);
         }
-
-        protected AccessViolationException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
-        private IntPtr _ip;
-        private IntPtr _target;
-        private int _accessType;
     }
 }

@@ -22,10 +22,6 @@ namespace System.Threading.Tasks
             m_canceledTask = task;
         }
 
-        protected TaskCanceledException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         public Task Task
         {
             get

@@ -30,9 +30,5 @@ namespace System.IO
         {
             SetErrorCode(__HResults.COR_E_IO);
         }
-
-        protected IOException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

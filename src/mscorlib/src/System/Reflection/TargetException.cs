@@ -18,9 +18,5 @@ namespace System.Reflection
         {
             SetErrorCode(__HResults.COR_E_TARGET);
         }
-
-        protected TargetException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

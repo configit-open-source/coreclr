@@ -19,10 +19,6 @@ namespace System
             SetErrorCode(__HResults.COR_E_MISSINGFIELD);
         }
 
-        protected MissingFieldException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         public override String Message
         {
             [System.Security.SecuritySafeCritical]

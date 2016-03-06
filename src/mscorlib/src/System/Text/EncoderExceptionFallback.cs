@@ -106,10 +106,6 @@ namespace System.Text
             SetErrorCode(__HResults.COR_E_ARGUMENT);
         }
 
-        internal EncoderFallbackException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         internal EncoderFallbackException(String message, char charUnknown, int index): base (message)
         {
             this.charUnknown = charUnknown;

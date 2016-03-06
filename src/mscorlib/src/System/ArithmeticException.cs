@@ -18,9 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_ARITHMETIC);
         }
-
-        protected ArithmeticException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

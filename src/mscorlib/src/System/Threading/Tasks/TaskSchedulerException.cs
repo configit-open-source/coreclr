@@ -19,9 +19,5 @@ namespace System.Threading.Tasks
         public TaskSchedulerException(string message, Exception innerException): base (message, innerException)
         {
         }
-
-        protected TaskSchedulerException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

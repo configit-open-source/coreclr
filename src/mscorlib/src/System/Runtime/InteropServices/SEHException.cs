@@ -19,10 +19,6 @@ namespace System.Runtime.InteropServices
             SetErrorCode(__HResults.E_FAIL);
         }
 
-        protected SEHException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         public virtual bool CanResume()
         {
             return false;

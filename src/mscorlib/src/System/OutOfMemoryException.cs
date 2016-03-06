@@ -4,7 +4,7 @@ namespace System
 {
     public class OutOfMemoryException : SystemException
     {
-        public OutOfMemoryException(): base (GetMessageFromNativeResources(ExceptionMessageKind.OutOfMemory))
+        public OutOfMemoryException(): base (null)
         {
             SetErrorCode(__HResults.COR_E_OUTOFMEMORY);
         }
@@ -17,10 +17,6 @@ namespace System
         public OutOfMemoryException(String message, Exception innerException): base (message, innerException)
         {
             SetErrorCode(__HResults.COR_E_OUTOFMEMORY);
-        }
-
-        protected OutOfMemoryException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
         }
     }
 }

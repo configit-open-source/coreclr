@@ -48,9 +48,5 @@ namespace System
         {
             CancellationToken = token;
         }
-
-        protected OperationCanceledException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

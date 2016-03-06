@@ -18,9 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_NOTSUPPORTED);
         }
-
-        protected NotSupportedException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

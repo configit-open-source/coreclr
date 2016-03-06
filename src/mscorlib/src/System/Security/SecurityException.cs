@@ -50,27 +50,5 @@ namespace System.Security
         {
             return base.ToString();
         }
-
-        private bool CanAccessSensitiveInfo()
-        {
-            bool retVal = false;
-            try
-            {
-                new SecurityPermission(SecurityPermissionFlag.ControlEvidence | SecurityPermissionFlag.ControlPolicy).Demand();
-                retVal = true;
-            }
-            catch (SecurityException)
-            {
-            }
-
-            return retVal;
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-                throw new ArgumentNullException("info");
-                        base.GetObjectData(info, context);
-        }
     }
 }

@@ -45,11 +45,7 @@ namespace System.Threading
             if (handle != null)
                 m_Mutex = handle as Mutex;
         }
-
-        protected AbandonedMutexException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
+    
         public Mutex Mutex
         {
             get

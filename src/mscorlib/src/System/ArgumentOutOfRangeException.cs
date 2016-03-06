@@ -67,21 +67,5 @@ namespace System
                 return m_actualValue;
             }
         }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-                        base.GetObjectData(info, context);
-            info.AddValue("ActualValue", m_actualValue, typeof (Object));
-        }
-
-        protected ArgumentOutOfRangeException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            m_actualValue = info.GetValue("ActualValue", typeof (Object));
-        }
     }
 }

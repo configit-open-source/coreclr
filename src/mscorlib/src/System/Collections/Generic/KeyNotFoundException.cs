@@ -18,9 +18,5 @@ namespace System.Collections.Generic
         {
             SetErrorCode(System.__HResults.COR_E_KEYNOTFOUND);
         }
-
-        protected KeyNotFoundException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

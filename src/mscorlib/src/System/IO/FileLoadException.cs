@@ -58,21 +58,6 @@ namespace System.IO
             }
         }
 
-        public override System.Collections.IDictionary Data
-        {
-            [System.Security.SecuritySafeCritical]
-            get
-            {
-                var _data = base.Data;
-                if (CompatibilitySwitches.IsAppEarlierThanWindowsPhone8 && !_data.Contains("HResult"))
-                {
-                    _data.Add("HResult", HResult);
-                }
-
-                return _data;
-            }
-        }
-
         public override String ToString()
         {
             String s = GetType().FullName + ": " + Message;
@@ -83,19 +68,6 @@ namespace System.IO
             if (StackTrace != null)
                 s += Environment.NewLine + StackTrace;
             return s;
-        }
-
-        protected FileLoadException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            _fileName = info.GetString("FileLoad_FileName");
-            try
-            {
-                _fusionLog = info.GetString("FileLoad_FusionLog");
-            }
-            catch
-            {
-                _fusionLog = null;
-            }
         }
 
         private FileLoadException(String fileName, String fusionLog, int hResult): base (null)

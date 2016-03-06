@@ -18,9 +18,5 @@ namespace System.Threading
         {
             SetErrorCode(__HResults.COR_E_THREADSTATE);
         }
-
-        protected ThreadStateException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

@@ -48,16 +48,5 @@ namespace System
                 return objectName;
             }
         }
-
-        protected ObjectDisposedException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            objectName = info.GetString("ObjectName");
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue("ObjectName", ObjectName, typeof (String));
-        }
     }
 }

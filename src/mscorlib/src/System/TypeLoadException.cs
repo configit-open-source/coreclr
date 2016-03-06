@@ -24,32 +24,13 @@ namespace System
 
         public override String Message
         {
-            [System.Security.SecuritySafeCritical]
             get
             {
-                SetMessageField();
                 return _message;
             }
         }
 
-        private void SetMessageField()
-        {
-            if (_message == null)
-            {
-                if ((ClassName == null) && (ResourceId == 0))
-                    _message = Environment.GetResourceString("Arg_TypeLoadException");
-                else
-                {
-                    if (AssemblyName == null)
-                        AssemblyName = Environment.GetResourceString("IO_UnknownFileName");
-                    if (ClassName == null)
-                        ClassName = Environment.GetResourceString("IO_UnknownFileName");
-                    String format = null;
-                    GetTypeLoadExceptionMessage(ResourceId, JitHelpers.GetStringHandleOnStack(ref format));
-                    _message = String.Format(CultureInfo.CurrentCulture, format, ClassName, AssemblyName, MessageArg);
-                }
-            }
-        }
+
 
         public String TypeName
         {
@@ -59,38 +40,6 @@ namespace System
                     return String.Empty;
                 return ClassName;
             }
-        }
-
-        private TypeLoadException(String className, String assemblyName, String messageArg, int resourceId): base (null)
-        {
-            SetErrorCode(__HResults.COR_E_TYPELOAD);
-            ClassName = className;
-            AssemblyName = assemblyName;
-            MessageArg = messageArg;
-            ResourceId = resourceId;
-            SetMessageField();
-        }
-
-        protected TypeLoadException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            if (info == null)
-                throw new ArgumentNullException("info");
-                        ClassName = info.GetString("TypeLoadClassName");
-            AssemblyName = info.GetString("TypeLoadAssemblyName");
-            MessageArg = info.GetString("TypeLoadMessageArg");
-            ResourceId = info.GetInt32("TypeLoadResourceID");
-        }
-
-        private static extern void GetTypeLoadExceptionMessage(int resourceId, StringHandleOnStack retString);
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-                throw new ArgumentNullException("info");
-                        base.GetObjectData(info, context);
-            info.AddValue("TypeLoadClassName", ClassName, typeof (String));
-            info.AddValue("TypeLoadAssemblyName", AssemblyName, typeof (String));
-            info.AddValue("TypeLoadMessageArg", MessageArg, typeof (String));
-            info.AddValue("TypeLoadResourceID", ResourceId);
         }
 
         private String ClassName;

@@ -4,7 +4,7 @@ namespace System
 {
     public sealed class InsufficientMemoryException : OutOfMemoryException
     {
-        public InsufficientMemoryException(): base (GetMessageFromNativeResources(ExceptionMessageKind.OutOfMemory))
+        public InsufficientMemoryException(): base (null)
         {
             SetErrorCode(__HResults.COR_E_INSUFFICIENTMEMORY);
         }
@@ -19,8 +19,5 @@ namespace System
             SetErrorCode(__HResults.COR_E_INSUFFICIENTMEMORY);
         }
 
-        private InsufficientMemoryException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

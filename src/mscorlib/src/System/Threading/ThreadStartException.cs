@@ -13,9 +13,5 @@ namespace System.Threading
         {
             SetErrorCode(__HResults.COR_E_THREADSTART);
         }
-
-        internal ThreadStartException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

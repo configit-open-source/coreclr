@@ -19,8 +19,5 @@ namespace System
             SetErrorCode(__HResults.COR_E_TIMEOUT);
         }
 
-        protected TimeoutException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

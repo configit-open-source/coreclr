@@ -21,11 +21,6 @@ namespace System
             SetErrorCode(__HResults.COR_E_TYPEINITIALIZATION);
         }
 
-        internal TypeInitializationException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            _typeName = info.GetString("TypeName");
-        }
-
         public String TypeName
         {
             get
@@ -37,12 +32,6 @@ namespace System
 
                 return _typeName;
             }
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue("TypeName", TypeName, typeof (String));
         }
     }
 }

@@ -15,9 +15,5 @@ namespace System.Threading
         public SemaphoreFullException(String message, Exception innerException): base (message, innerException)
         {
         }
-
-        protected SemaphoreFullException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

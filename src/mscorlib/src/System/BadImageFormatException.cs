@@ -74,19 +74,6 @@ namespace System
             return s;
         }
 
-        protected BadImageFormatException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            _fileName = info.GetString("BadImageFormat_FileName");
-            try
-            {
-                _fusionLog = info.GetString("BadImageFormat_FusionLog");
-            }
-            catch
-            {
-                _fusionLog = null;
-            }
-        }
-
         private BadImageFormatException(String fileName, String fusionLog, int hResult): base (null)
         {
             SetErrorCode(hResult);

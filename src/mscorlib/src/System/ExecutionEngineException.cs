@@ -18,9 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_EXECUTIONENGINE);
         }
-
-        internal ExecutionEngineException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
     }
 }

@@ -19,10 +19,6 @@ namespace System.Security.Policy
             HResult = __HResults.CORSEC_E_POLICY_EXCEPTION;
         }
 
-        protected PolicyException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         internal PolicyException(String message, int hresult): base (message)
         {
             HResult = hresult;

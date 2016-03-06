@@ -573,8 +573,7 @@ namespace System.Resources
                             catch (Exception e)
                             {
                                 bUsingSatelliteAssembliesUnderAppX = true;
-                                if (e.IsTransient)
-                                    throw;
+
                             }
                         }
 

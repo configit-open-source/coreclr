@@ -20,12 +20,6 @@ namespace System
             SetErrorCode(__HResults.COR_E_MISSINGMEMBER);
         }
 
-        protected MissingMemberException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            ClassName = (String)info.GetString("MMClassName");
-            MemberName = (String)info.GetString("MMMemberName");
-            Signature = (byte[])info.GetValue("MMSignature", typeof (byte[]));
-        }
 
         public override String Message
         {
@@ -55,19 +49,6 @@ namespace System
         {
             ClassName = className;
             MemberName = memberName;
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-                        base.GetObjectData(info, context);
-            info.AddValue("MMClassName", ClassName, typeof (String));
-            info.AddValue("MMMemberName", MemberName, typeof (String));
-            info.AddValue("MMSignature", Signature, typeof (byte[]));
         }
 
         protected String ClassName;

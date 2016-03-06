@@ -72,26 +72,5 @@ namespace System.IO
                 s += Environment.NewLine + StackTrace;
             return s;
         }
-
-        protected FileNotFoundException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            _fileName = info.GetString("FileNotFound_FileName");
-            try
-            {
-                _fusionLog = info.GetString("FileNotFound_FusionLog");
-            }
-            catch
-            {
-                _fusionLog = null;
-            }
-        }
-
-        private FileNotFoundException(String fileName, String fusionLog, int hResult): base (null)
-        {
-            SetErrorCode(hResult);
-            _fileName = fileName;
-            _fusionLog = fusionLog;
-            SetMessageField();
-        }
     }
 }

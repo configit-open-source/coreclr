@@ -41,11 +41,6 @@ namespace System
             SetErrorCode(__HResults.COR_E_NOTFINITENUMBER);
         }
 
-        protected NotFiniteNumberException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            _offendingNumber = info.GetInt32("OffendingNumber");
-        }
-
         public double OffendingNumber
         {
             get
@@ -54,15 +49,5 @@ namespace System
             }
         }
 
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-                        base.GetObjectData(info, context);
-            info.AddValue("OffendingNumber", _offendingNumber, typeof (Int32));
-        }
     }
 }

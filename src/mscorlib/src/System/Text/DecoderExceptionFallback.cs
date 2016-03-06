@@ -101,10 +101,6 @@ namespace System.Text
             SetErrorCode(__HResults.COR_E_ARGUMENT);
         }
 
-        internal DecoderFallbackException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-        }
-
         public DecoderFallbackException(String message, byte[] bytesUnknown, int index): base (message)
         {
             this.bytesUnknown = bytesUnknown;

@@ -18,10 +18,5 @@ namespace System
         {
             SetErrorCode(__HResults.COR_E_TYPEACCESS);
         }
-
-        protected TypeAccessException(SerializationInfo info, StreamingContext context): base (info, context)
-        {
-            SetErrorCode(__HResults.COR_E_TYPEACCESS);
-        }
     }
 }
