@@ -46,28 +46,10 @@ namespace System.Security {
     
         [System.Diagnostics.Conditional( "_DEBUG" )]
         private static void DEBUG_WRITE(String str) {
-        #if _DEBUG
-            if (debug) Console.WriteLine(str);
-        #endif
+        
          }
 
-        [System.Diagnostics.Conditional( "_DEBUG" )]
-        private static void DEBUG_COND_WRITE(bool exp, String str)
-        {
-        #if _DEBUG
-            if (debug && (exp)) Console.WriteLine(str);
-        #endif
-        }
-
-        [System.Diagnostics.Conditional( "_DEBUG" )]
-        private static void DEBUG_PRINTSTACK(Exception e)
-        {
-        #if _DEBUG
-            if (debug) Console.WriteLine((e).StackTrace);
-        #endif
-        }
-    
-        // These members are accessed from EE using their hardcoded offset.
+      // These members are accessed from EE using their hardcoded offset.
         // Please update the PermissionSetObject in object.h if you make any changes 
         // to the fields here. !dumpobj will show the field layout
 

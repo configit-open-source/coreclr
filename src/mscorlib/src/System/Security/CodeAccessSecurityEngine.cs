@@ -60,23 +60,7 @@ namespace System.Security {
         [System.Diagnostics.Conditional( "_DEBUG" )]
         private static void DEBUG_OUT( String str )
         {
-#if _DEBUG        
-            if (debug)
-            {
-#if !FEATURE_CORECLR
-                if (to_file)
-                {
-                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                    sb.Append( str );
-                    sb.Append ((char)13) ;
-                    sb.Append ((char)10) ;
-                    PolicyManager.DebugOut( file, sb.ToString() );
-                }
-                else
-#endif                    
-                    Console.WriteLine( str );
-             }
-#endif             
+
         }
         
 #if _DEBUG 

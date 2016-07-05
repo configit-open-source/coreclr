@@ -1047,20 +1047,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         [SecurityCritical]
         internal static unsafe string HStringToString(IntPtr hstring)
         {
-            Contract.Requires(Environment.IsWinRTSupported);
-
-            // There is no difference between a null and empty HSTRING
-            if (hstring == IntPtr.Zero)
-            {
-                return String.Empty;
-            }
-
-            unsafe
-            {
-                uint length;
-                char* rawBuffer = UnsafeNativeMethods.WindowsGetStringRawBuffer(hstring, &length);
-                return new String(rawBuffer, 0, checked((int)length));
-            }
+            throw new NotImplementedException();
         }
 
         internal static Exception GetExceptionForHR(int hresult, Exception innerException, string messageResource)
@@ -1137,65 +1124,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         [SecuritySafeCritical]
         internal static bool ReportUnhandledError(Exception e)
         {
-            // Only report to the WinRT global exception handler in modern apps
-            if (!AppDomain.IsAppXModel())
-            {
-                return false;
-            }
-
-            // If we don't have the capability to report to the global error handler, early out
-            if (!s_haveBlueErrorApis)
-            {
-                return false;
-            }
-
-            if (e != null)
-            {
-                IntPtr exceptionIUnknown = IntPtr.Zero;
-                IntPtr exceptionIErrorInfo = IntPtr.Zero;
-                try
-                {
-                    // Get an IErrorInfo for the current exception and originate it as a langauge error in order to have
-                    // Windows generate an IRestrictedErrorInfo corresponding to the exception object.  We can then
-                    // notify the global error handler that this IRestrictedErrorInfo instance represents an exception that
-                    // went unhandled in managed code.
-                    //
-                    // Note that we need to get an IUnknown for the exception object and then QI for IErrorInfo since Exception
-                    // doesn't implement IErrorInfo in managed code - only its CCW does.
-                    exceptionIUnknown = Marshal.GetIUnknownForObject(e);
-                    if (exceptionIUnknown != IntPtr.Zero)
-                    {
-                        Marshal.QueryInterface(exceptionIUnknown, ref s_iidIErrorInfo, out exceptionIErrorInfo);
-                        if (exceptionIErrorInfo != IntPtr.Zero)
-                        {
-                            if (RoOriginateLanguageException(Marshal.GetHRForException_WinRT(e), e.Message, exceptionIErrorInfo))
-                            {
-                                IRestrictedErrorInfo restrictedError = UnsafeNativeMethods.GetRestrictedErrorInfo();
-                                if (restrictedError != null)
-                                {
-                                    RoReportUnhandledError(restrictedError);
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                }
-                finally
-                {
-                    if (exceptionIErrorInfo != IntPtr.Zero)
-                    {
-                        Marshal.Release(exceptionIErrorInfo);
-                    }
-
-                    if (exceptionIUnknown != IntPtr.Zero)
-                    {
-                        Marshal.Release(exceptionIUnknown);
-                    }
-                }
-            }
-
-            // If we got here, then some step of the marshaling failed, which means the GEH was not invoked
-            return false;
+            throw new NotImplementedException();
         }
 
 #if FEATURE_COMINTEROP_WINRT_MANAGED_ACTIVATION
@@ -1271,22 +1200,7 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         [SecurityCritical]
         public static IActivationFactory GetActivationFactory(Type type)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
-
-            if (type.IsWindowsRuntimeObject && type.IsImport)
-            {
-                return (IActivationFactory)Marshal.GetNativeActivationFactory(type);
-            }
-            else
-            {
-#if FEATURE_COMINTEROP_WINRT_MANAGED_ACTIVATION
-                return GetManagedActivationFactory(type);
-#else 
-                // Managed factories are not supported so as to minimize public surface (and test effort)
-                throw new NotSupportedException();
-#endif
-            }
+            throw new NotImplementedException();
         }
 
         // HSTRING marshaling methods:
@@ -1294,9 +1208,6 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         [SecurityCritical]
         public static IntPtr StringToHString(String s)
         {
-            if (!Environment.IsWinRTSupported)
-                throw new PlatformNotSupportedException(Environment.GetResourceString("PlatformNotSupported_WinRT"));
-
             if (s == null)
                 throw new ArgumentNullException("s");
 
@@ -1312,24 +1223,13 @@ namespace System.Runtime.InteropServices.WindowsRuntime
         [SecurityCritical]
         public static String PtrToStringHString(IntPtr ptr)
         {
-            if (!Environment.IsWinRTSupported)
-            {
-                throw new PlatformNotSupportedException(Environment.GetResourceString("PlatformNotSupported_WinRT"));
-            }
-
-            return HStringToString(ptr);
+          throw new NotImplementedException();
         }
 
         [SecurityCritical]
         public static void FreeHString(IntPtr ptr)
         {
-            if (!Environment.IsWinRTSupported)
-                throw new PlatformNotSupportedException(Environment.GetResourceString("PlatformNotSupported_WinRT"));
-
-            if (ptr != IntPtr.Zero)
-            {
-                UnsafeNativeMethods.WindowsDeleteString(ptr);
-            }
+           throw new NotImplementedException();
         }
     }
 }

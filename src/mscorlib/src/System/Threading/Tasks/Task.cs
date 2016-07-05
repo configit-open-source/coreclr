@@ -1972,49 +1972,7 @@ namespace System.Threading.Tasks
         /// <param name="representsCancellation">Whether the exceptionObject is an OperationCanceledException representing cancellation.</param>
         internal void AddException(object exceptionObject, bool representsCancellation)
         {
-            Contract.Requires(exceptionObject != null, "Task.AddException: Expected a non-null exception object");
-
-#if DEBUG
-            var eoAsException = exceptionObject as Exception;
-            var eoAsEnumerableException = exceptionObject as IEnumerable<Exception>;
-            var eoAsEdi = exceptionObject as ExceptionDispatchInfo;
-            var eoAsEnumerableEdi = exceptionObject as IEnumerable<ExceptionDispatchInfo>;
-
-            Contract.Assert(
-                eoAsException != null || eoAsEnumerableException != null || eoAsEdi != null || eoAsEnumerableEdi != null,
-                "Task.AddException: Expected an Exception, ExceptionDispatchInfo, or an IEnumerable<> of one of those");
-
-            var eoAsOce = exceptionObject as OperationCanceledException;
-
-            Contract.Assert(
-                !representsCancellation ||
-                eoAsOce != null ||
-                (eoAsEdi != null && eoAsEdi.SourceException is OperationCanceledException),
-                "representsCancellation should be true only if an OCE was provided.");
-#endif
-
-            //
-            // WARNING: A great deal of care went into ensuring that
-            // AddException() and GetExceptions() are never called
-            // simultaneously.  See comment at start of GetExceptions().
-            //
-
-            // Lazily initialize the holder, ensuring only one thread wins.
-            var props = EnsureContingentPropertiesInitialized();
-            if (props.m_exceptionsHolder == null)
-            {
-                TaskExceptionHolder holder = new TaskExceptionHolder(this);
-                if (Interlocked.CompareExchange(ref props.m_exceptionsHolder, holder, null) != null)
-                {
-                    // If someone else already set the value, suppress finalization.
-                    holder.MarkAsHandled(false);
-                }
-            }
-
-            lock (props)
-            {
-                props.m_exceptionsHolder.Add(exceptionObject, representsCancellation);
-            }
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -6103,66 +6061,7 @@ namespace System.Threading.Tasks
 
             public void Invoke(Task completedTask)
             {
-                if (AsyncCausalityTracer.LoggingOn)
-                    AsyncCausalityTracer.TraceOperationRelation(CausalityTraceLevel.Important, this.Id, CausalityRelation.Join);
-
-                // Decrement the count, and only continue to complete the promise if we're the last one.
-                if (Interlocked.Decrement(ref m_count) == 0)
-                {
-                    // Set up some accounting variables
-                    List<ExceptionDispatchInfo> observedExceptions = null;
-                    Task canceledTask = null;
-
-                    // Loop through antecedents:
-                    //   If any one of them faults, the result will be faulted
-                    //   If none fault, but at least one is canceled, the result will be canceled
-                    //   If none fault or are canceled, then result will be RanToCompletion
-                    for (int i = 0; i < m_tasks.Length; i++)
-                    {
-                        var task = m_tasks[i];
-                        Contract.Assert(task != null, "Constituent task in WhenAll should never be null");
-
-                        if (task.IsFaulted)
-                        {
-                            if (observedExceptions == null) observedExceptions = new List<ExceptionDispatchInfo>();
-                            observedExceptions.AddRange(task.GetExceptionDispatchInfos());
-                        }
-                        else if (task.IsCanceled)
-                        {
-                            if (canceledTask == null) canceledTask = task; // use the first task that's canceled
-                        }
-
-                        // Regardless of completion state, if the task has its debug bit set, transfer it to the
-                        // WhenAll task.  We must do this before we complete the task.
-                        if (task.IsWaitNotificationEnabled) this.SetNotificationForWaitCompletion(enabled: true);
-                        else m_tasks[i] = null; // avoid holding onto tasks unnecessarily
-                    }
-
-                    if (observedExceptions != null)
-                    {
-                        Contract.Assert(observedExceptions.Count > 0, "Expected at least one exception");
-
-                        //We don't need to TraceOperationCompleted here because TrySetException will call Finish and we'll log it there
-
-                        TrySetException(observedExceptions);
-                    }
-                    else if (canceledTask != null)
-                    {
-                        
-                    }
-                    else
-                    {
-                        if (AsyncCausalityTracer.LoggingOn)
-                            AsyncCausalityTracer.TraceOperationCompletion(CausalityTraceLevel.Required, this.Id, AsyncCausalityStatus.Completed);
-
-                        if (Task.s_asyncDebuggingEnabled)
-                        {
-                            RemoveFromActiveTasks(this.Id);
-                        }
-                        TrySetResult(default(VoidTaskResult));
-                    }
-                }
-                Contract.Assert(m_count >= 0, "Count should never go below 0");
+                
             }
 
             public bool InvokeMayRunArbitraryCode { get { return true; } }
@@ -6349,72 +6248,7 @@ namespace System.Threading.Tasks
 
             public void Invoke(Task ignored)
             {
-                if (AsyncCausalityTracer.LoggingOn)
-                    AsyncCausalityTracer.TraceOperationRelation(CausalityTraceLevel.Important, this.Id, CausalityRelation.Join);
-
-                // Decrement the count, and only continue to complete the promise if we're the last one.
-                if (Interlocked.Decrement(ref m_count) == 0)
-                {
-                    // Set up some accounting variables
-                    T[] results = new T[m_tasks.Length];
-                    List<ExceptionDispatchInfo> observedExceptions = null;
-                    Task canceledTask = null;
-
-                    // Loop through antecedents:
-                    //   If any one of them faults, the result will be faulted
-                    //   If none fault, but at least one is canceled, the result will be canceled
-                    //   If none fault or are canceled, then result will be RanToCompletion
-                    for (int i = 0; i < m_tasks.Length; i++)
-                    {
-                        Task<T> task = m_tasks[i];
-                        Contract.Assert(task != null, "Constituent task in WhenAll should never be null");
-
-                        if (task.IsFaulted)
-                        {
-                            if (observedExceptions == null) observedExceptions = new List<ExceptionDispatchInfo>();
-                            observedExceptions.AddRange(task.GetExceptionDispatchInfos());
-                        }
-                        else if (task.IsCanceled)
-                        {
-                            if (canceledTask == null) canceledTask = task; // use the first task that's canceled
-                        }
-                        else
-                        {
-                            Contract.Assert(task.Status == TaskStatus.RanToCompletion);
-                            results[i] = task.GetResultCore(waitCompletionNotification: false); // avoid Result, which would triggering debug notification
-                        }
-
-                        // Regardless of completion state, if the task has its debug bit set, transfer it to the
-                        // WhenAll task.  We must do this before we complete the task.
-                        if (task.IsWaitNotificationEnabled) this.SetNotificationForWaitCompletion(enabled: true);
-                        else m_tasks[i] = null; // avoid holding onto tasks unnecessarily
-                    }
-
-                    if (observedExceptions != null)
-                    {
-                        Contract.Assert(observedExceptions.Count > 0, "Expected at least one exception");
-
-                        //We don't need to TraceOperationCompleted here because TrySetException will call Finish and we'll log it there
-
-                        TrySetException(observedExceptions);
-                    }
-                    else if (canceledTask != null)
-                    {
-                        
-                    }
-                    else
-                    {
-                        if (AsyncCausalityTracer.LoggingOn)
-                            AsyncCausalityTracer.TraceOperationCompletion(CausalityTraceLevel.Required, this.Id, AsyncCausalityStatus.Completed);
-
-                        if (Task.s_asyncDebuggingEnabled)
-                        {
-                            RemoveFromActiveTasks(this.Id);
-                        }
-                        TrySetResult(results);
-                    }
-                }
-                Contract.Assert(m_count >= 0, "Count should never go below 0");
+                
             }
 
             public bool InvokeMayRunArbitraryCode { get { return true; } }
@@ -7259,49 +7093,7 @@ namespace System.Threading.Tasks
         /// <returns>true if the transfer was successful; otherwise, false.</returns>
         private bool TrySetFromTask(Task task, bool lookForOce)
         {
-            Contract.Requires(task != null && task.IsCompleted, "TrySetFromTask: Expected task to have completed.");
-
-            if (AsyncCausalityTracer.LoggingOn)
-                AsyncCausalityTracer.TraceOperationRelation(CausalityTraceLevel.Important, this.Id, CausalityRelation.Join);
-
-            bool result = false;
-            switch (task.Status)
-            {
-                case TaskStatus.Canceled:
-                    result = TrySetCanceled(task.CancellationToken, task.GetCancellationExceptionDispatchInfo());
-                    break;
-
-                case TaskStatus.Faulted:
-                    var edis = task.GetExceptionDispatchInfos();
-                    ExceptionDispatchInfo oceEdi;
-                    OperationCanceledException oce;
-                    if (lookForOce && edis.Count > 0 &&
-                        (oceEdi = edis[0]) != null &&
-                        (oce = oceEdi.SourceException as OperationCanceledException) != null)
-                    {
-                        result = TrySetCanceled(oce.CancellationToken, oceEdi);
-                    }
-                    else
-                    {
-                        result = TrySetException(edis);
-                    }
-                    break;
-
-                case TaskStatus.RanToCompletion:
-                    var taskTResult = task as Task<TResult>;
-
-                    if (AsyncCausalityTracer.LoggingOn)
-                        AsyncCausalityTracer.TraceOperationCompletion(CausalityTraceLevel.Required, this.Id, AsyncCausalityStatus.Completed);
-
-                    if (Task.s_asyncDebuggingEnabled)
-                    {
-                        RemoveFromActiveTasks(this.Id);
-                    }
-
-                    result = TrySetResult(taskTResult != null ? taskTResult.Result : default(TResult));
-                    break;
-            }
-            return result;
+            throw new NotImplementedException();
         }
 
         /// <summary>

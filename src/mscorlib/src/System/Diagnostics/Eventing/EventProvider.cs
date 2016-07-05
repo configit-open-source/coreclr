@@ -427,96 +427,7 @@ namespace System.Diagnostics.Tracing
         [System.Security.SecurityCritical]
         private unsafe void GetSessionInfo(Action<int, long> action)
         {
-            // We wish the EventSource package to be legal for Windows Store applications.   
-            // Currently EnumerateTraceGuidsEx is not an allowed API, so we avoid its use here
-            // and use the information in the registry instead.  This means that ETW controllers
-            // that do not publish their intent to the registry (basically all controllers EXCEPT 
-            // TraceEventSesion) will not work properly 
-
-            // However the framework version of EventSource DOES have ES_SESSION_INFO defined and thus
-            // does not have this issue.  
-#if ES_SESSION_INFO
-            int buffSize = 256;     // An initial guess that probably works most of the time.  
-            byte* buffer;
-            for (; ; )
-            {
-                var space = stackalloc byte[buffSize];
-                buffer = space;
-                var hr = 0;
-
-                fixed (Guid* provider = &m_providerId)
-                {
-                    hr = UnsafeNativeMethods.ManifestEtw.EnumerateTraceGuidsEx(UnsafeNativeMethods.ManifestEtw.TRACE_QUERY_INFO_CLASS.TraceGuidQueryInfo,
-                        provider, sizeof(Guid), buffer, buffSize, ref buffSize);
-                }
-                if (hr == 0)
-                    break;
-                if (hr != 122 /* ERROR_INSUFFICIENT_BUFFER */)
-                    return;
-            }
-
-            var providerInfos = (UnsafeNativeMethods.ManifestEtw.TRACE_GUID_INFO*)buffer;
-            var providerInstance = (UnsafeNativeMethods.ManifestEtw.TRACE_PROVIDER_INSTANCE_INFO*)&providerInfos[1];
-            int processId = unchecked((int)Win32Native.GetCurrentProcessId());
-            // iterate over the instances of the EventProvider in all processes
-            for (int i = 0; i < providerInfos->InstanceCount; i++)
-            {
-                if (providerInstance->Pid == processId)
-                {
-                    var enabledInfos = (UnsafeNativeMethods.ManifestEtw.TRACE_ENABLE_INFO*)&providerInstance[1];
-                    // iterate over the list of active ETW sessions "listening" to the current provider
-                    for (int j = 0; j < providerInstance->EnableCount; j++)
-                        action(enabledInfos[j].LoggerId, enabledInfos[j].MatchAllKeyword);
-                }
-                if (providerInstance->NextOffset == 0)
-                    break;
-                Contract.Assert(0 <= providerInstance->NextOffset && providerInstance->NextOffset < buffSize);
-                var structBase = (byte*)providerInstance;
-                providerInstance = (UnsafeNativeMethods.ManifestEtw.TRACE_PROVIDER_INSTANCE_INFO*)&structBase[providerInstance->NextOffset];
-            }
-#else 
-#if !ES_BUILD_PCL && !FEATURE_PAL  // TODO command arguments don't work on PCL builds...
-            // Determine our session from what is in the registry.  
-            string regKey = @"\Microsoft\Windows\CurrentVersion\Winevt\Publishers\{" + m_providerId + "}";
-            if (System.Runtime.InteropServices.Marshal.SizeOf(typeof(IntPtr)) == 8)
-                regKey = @"Software" + @"\Wow6432Node" + regKey;
-            else
-                regKey = @"Software" + regKey;
-
-            var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(regKey);
-            if (key != null)
-            {
-                foreach (string valueName in key.GetValueNames())
-                {
-                    if (valueName.StartsWith("ControllerData_Session_"))
-                    {
-                        string strId = valueName.Substring(23);      // strip of the ControllerData_Session_
-                        int etwSessionId;
-                        if (int.TryParse(strId, out etwSessionId))
-                        {
-                            // we need to assert this permission for partial trust scenarios
-                            (new RegistryPermission(RegistryPermissionAccess.Read, regKey)).Assert();
-                            var data = key.GetValue(valueName) as byte[];
-                            if (data != null)
-                            {
-                                var dataAsString = System.Text.Encoding.UTF8.GetString(data);
-                                int keywordIdx = dataAsString.IndexOf("EtwSessionKeyword");
-                                if (0 <= keywordIdx)
-                                {
-                                    int startIdx = keywordIdx + 18;
-                                    int endIdx = dataAsString.IndexOf('\0', startIdx);
-                                    string keywordBitString = dataAsString.Substring(startIdx, endIdx-startIdx);
-                                    int keywordBit;
-                                    if (0 < endIdx && int.TryParse(keywordBitString, out keywordBit))
-                                        action(etwSessionId, 1L << keywordBit);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-#endif
-#endif
+          throw new NotImplementedException();
         }
 
         /// <summary>
@@ -548,43 +459,7 @@ namespace System.Diagnostics.Tracing
         private unsafe bool GetDataFromController(int etwSessionId,
                 UnsafeNativeMethods.ManifestEtw.EVENT_FILTER_DESCRIPTOR* filterData, out ControllerCommand command, out byte[] data, out int dataStart)
         {
-            data = null;
-            dataStart = 0;
-            if (filterData == null)
-            {
-#if !ES_BUILD_PCL && !FEATURE_PAL
-                string regKey = @"\Microsoft\Windows\CurrentVersion\Winevt\Publishers\{" + m_providerId + "}";
-                if (System.Runtime.InteropServices.Marshal.SizeOf(typeof(IntPtr)) == 8)
-                    regKey = @"HKEY_LOCAL_MACHINE\Software" + @"\Wow6432Node" + regKey;
-                else
-                    regKey = @"HKEY_LOCAL_MACHINE\Software" + regKey;
-
-                string valueName = "ControllerData_Session_" + etwSessionId.ToString(CultureInfo.InvariantCulture);
-
-                // we need to assert this permission for partial trust scenarios
-                (new RegistryPermission(RegistryPermissionAccess.Read, regKey)).Assert();
-                data = Microsoft.Win32.Registry.GetValue(regKey, valueName, null) as byte[];
-                if (data != null)
-                {
-                    // We only used the persisted data from the registry for updates.   
-                    command = ControllerCommand.Update;
-                    return true;
-                }
-#endif
-            }
-            else
-            {
-                if (filterData->Ptr != 0 && 0 < filterData->Size && filterData->Size <= 1024)
-                {
-                    data = new byte[filterData->Size];
-                    Marshal.Copy((IntPtr)filterData->Ptr, data, 0, data.Length);
-                }
-                command = (ControllerCommand)filterData->Type;
-                return true;
-            }
-
-            command = ControllerCommand.Update;
-            return false;
+            throw new NotImplementedException();
         }
 
         /// <summary>

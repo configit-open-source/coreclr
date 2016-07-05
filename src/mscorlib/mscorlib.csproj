@@ -78,8 +78,6 @@
     <Compile Include="Common\PinnableBufferCache.cs" />
     <Compile Include="Common\Preprocessed\AssemblyRefs.g.cs" />
     <Compile Include="src\Microsoft\Win32\OAVariantLib.cs" />
-    <Compile Include="src\Microsoft\Win32\Registry.cs" />
-    <Compile Include="src\Microsoft\Win32\RegistryKey.cs" />
     <Compile Include="src\Microsoft\Win32\RegistryOptions.cs" />
     <Compile Include="src\Microsoft\Win32\RegistryValueKind.cs" />
     <Compile Include="src\Microsoft\Win32\RegistryView.cs" />
