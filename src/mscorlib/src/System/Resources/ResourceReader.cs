@@ -937,10 +937,6 @@ namespace System.Resources {
                 throw new BadImageFormatException(Environment.GetResourceString("BadImageFormat_ResourcesHeaderCorrupted"));
             }
             BCLDebug.Log("RESMGRFILEFORMAT", "ReadResources: Expecting " + _numResources + " resources.");
-#if _DEBUG      
-            if (ResourceManager.DEBUG >= 4)
-                Console.WriteLine("ResourceReader::ReadResources - Reading in "+_numResources+" resources");
-#endif
 
             // Read type positions into type positions array.
             // But delay initialize the type table.
@@ -956,11 +952,6 @@ namespace System.Resources {
                 // Skip over the Strings in the file.  Don't create types.
                 SkipString();
             }
-
-#if _DEBUG
-                if (ResourceManager.DEBUG >= 5)
-                    Console.WriteLine("ResourceReader::ReadResources - Reading in "+numTypes+" type table entries");
-#endif
 
             // Prepare to read in the array of name hashes
             //  Note that the name hashes array is aligned to 8 bytes so 

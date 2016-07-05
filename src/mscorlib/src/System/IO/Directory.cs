@@ -1016,23 +1016,7 @@ namespace System.IO {
         [System.Security.SecurityCritical]
         private static string NewGetCurrentDirectory()
         {
-            using (StringBuffer buffer = new StringBuffer(PathInternal.MaxShortPath))
-            {
-                uint result = 0;
-                while ((result = Win32Native.GetCurrentDirectoryW(buffer.CharCapacity, buffer.GetHandle())) > buffer.CharCapacity)
-                {
-                    // Reported size is greater than the buffer size. Increase the capacity.
-                    // The size returned includes the null only if more space is needed (this case).
-                    buffer.EnsureCharCapacity(result);
-                }
-
-                if (result == 0)
-                    __Error.WinIOError();
-
-                buffer.Length = result;
-
-                return buffer.ToString();
-            }
+            throw new NotImplementedException();
         }
 
         #if FEATURE_CORECLR

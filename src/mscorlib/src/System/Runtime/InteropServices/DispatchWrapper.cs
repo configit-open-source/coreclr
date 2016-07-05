@@ -27,15 +27,7 @@ namespace System.Runtime.InteropServices {
 #pragma warning restore 618
         public DispatchWrapper(Object obj)
         {
-            if (obj != null)
-            {
-                // Make sure this guy has an IDispatch
-                IntPtr pdisp = Marshal.GetIDispatchForObject(obj);
-
-                // If we got here without throwing an exception, the QI for IDispatch succeeded.
-                Marshal.Release(pdisp);
-            }
-            m_WrappedObject = obj;
+            throw new NotImplementedException();
         }
 
         public Object WrappedObject 

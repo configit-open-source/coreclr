@@ -156,41 +156,7 @@ namespace System.Runtime.CompilerServices
         /// <summary>Throws an exception to handle a task that completed in a state other than RanToCompletion.</summary>
         private static void ThrowForNonSuccess(Task task)
         {
-            Contract.Requires(task.IsCompleted, "Task must have been completed by now.");
-            Contract.Requires(task.Status != TaskStatus.RanToCompletion, "Task should not be completed successfully.");
-
-            // Handle whether the task has been canceled or faulted
-            switch (task.Status)
-            {
-                // If the task completed in a canceled state, throw an OperationCanceledException.
-                // This will either be the OCE that actually caused the task to cancel, or it will be a new
-                // TaskCanceledException. TCE derives from OCE, and by throwing it we automatically pick up the
-                // completed task's CancellationToken if it has one, including that CT in the OCE.
-                case TaskStatus.Canceled:
-                    var oceEdi = task.GetCancellationExceptionDispatchInfo();
-                    if (oceEdi != null)
-                    {
-                        oceEdi.Throw();
-                        Contract.Assert(false, "Throw() should have thrown");
-                    }
-                    throw new TaskCanceledException(task);
-
-                // If the task faulted, throw its first exception,
-                // even if it contained more than one.
-                case TaskStatus.Faulted:
-                    var edis = task.GetExceptionDispatchInfos();
-                    if (edis.Count > 0)
-                    {
-                        edis[0].Throw();
-                        Contract.Assert(false, "Throw() should have thrown");
-                        break; // Necessary to compile: non-reachable, but compiler can't determine that
-                    }
-                    else
-                    {
-                        Contract.Assert(false, "There should be exceptions if we're Faulted.");
-                        throw task.Exception;
-                    }
-            }
+            throw new NotImplementedException();
         }
 
         /// <summary>Schedules the continuation onto the <see cref="System.Threading.Tasks.Task"/> associated with this <see cref="TaskAwaiter"/>.</summary>

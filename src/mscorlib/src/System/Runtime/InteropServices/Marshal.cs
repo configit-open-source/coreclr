@@ -30,7 +30,6 @@ namespace System.Runtime.InteropServices
     using Win32Native = Microsoft.Win32.Win32Native;
     using Microsoft.Win32.SafeHandles;
     using System.Diagnostics.Contracts;
-    using System.Runtime.InteropServices.ComTypes;
 
     [Serializable]
     public enum CustomQueryInterfaceMode

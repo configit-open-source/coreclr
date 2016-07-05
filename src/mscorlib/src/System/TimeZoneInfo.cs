@@ -2115,59 +2115,7 @@ namespace System {
         [System.Security.SecuritySafeCritical]  // auto-generated
         static private TimeZoneInfo GetLocalTimeZone(CachedData cachedData) {
 
-
-#if FEATURE_WIN32_REGISTRY
-            String id = null;
-
-            //
-            // Try using the "kernel32!GetDynamicTimeZoneInformation" API to get the "id"
-            //
-            Win32Native.DynamicTimeZoneInformation dynamicTimeZoneInformation =
-                new Win32Native.DynamicTimeZoneInformation();
-
-            // call kernel32!GetDynamicTimeZoneInformation...
-            long result = UnsafeNativeMethods.GetDynamicTimeZoneInformation(out dynamicTimeZoneInformation);
-            if (result == Win32Native.TIME_ZONE_ID_INVALID) {
-                // return a dummy entry
-                return CreateCustomTimeZone(c_localId, TimeSpan.Zero, c_localId, c_localId);
-            }
-
-            Win32Native.TimeZoneInformation timeZoneInformation = 
-                new Win32Native.TimeZoneInformation(dynamicTimeZoneInformation);
-
-            Boolean dstDisabled = dynamicTimeZoneInformation.DynamicDaylightTimeDisabled;
-
-            // check to see if we can use the key name returned from the API call
-            if (!String.IsNullOrEmpty(dynamicTimeZoneInformation.TimeZoneKeyName)) {
-                TimeZoneInfo zone;
-                Exception ex;
-                    
-                if (TryGetTimeZone(dynamicTimeZoneInformation.TimeZoneKeyName, dstDisabled, out zone, out ex, cachedData) == TimeZoneInfoResult.Success) {
-                    // successfully loaded the time zone from the registry
-                    return zone;
-                }
-            }
-
-            // the key name was not returned or it pointed to a bogus entry - search for the entry ourselves                
-            id = FindIdFromTimeZoneInformation(timeZoneInformation, out dstDisabled);
-
-            if (id != null) {
-                TimeZoneInfo zone;
-                Exception ex;
-                if (TryGetTimeZone(id, dstDisabled, out zone, out ex, cachedData) == TimeZoneInfoResult.Success) {
-                    // successfully loaded the time zone from the registry
-                    return zone;
-                }
-            }
-
-            // We could not find the data in the registry.  Fall back to using
-            // the data from the Win32 API
-            return GetLocalTimeZoneFromWin32Data(timeZoneInformation, dstDisabled);
-            
-#elif PLATFORM_UNIX // FEATURE_WIN32_REGISTRY
-            // Without Registry support, create the TimeZoneInfo from a TZ file
-            return GetLocalTimeZoneFromTzFile();
-#endif // FEATURE_WIN32_REGISTRY
+            throw new NotImplementedException();
         }
 
 
@@ -2621,6 +2569,8 @@ namespace System {
             else {
                 throw new TimeZoneNotFoundException(Environment.GetResourceString("TimeZoneNotFound_MissingData", id), e);
             }
+
+            throw new NotImplementedException();
         }
 
         private static bool IsValidSystemTimeZoneId(string id)
@@ -2675,31 +2625,8 @@ namespace System {
         }
 
         // DateTime.Now fast path that avoids allocating an historically accurate TimeZoneInfo.Local and just creates a 1-year (current year) accurate time zone
-        static internal TimeSpan GetDateTimeNowUtcOffsetFromUtc(DateTime time, out Boolean isAmbiguousLocalDst) {
-            Boolean isDaylightSavings = false;
-#if FEATURE_WIN32_REGISTRY
-            isAmbiguousLocalDst = false;
-            TimeSpan baseOffset;
-            int timeYear = time.Year;
 
-            OffsetAndRule match = s_cachedData.GetOneYearLocalFromUtc(timeYear);
-            baseOffset = match.offset;
-
-            if (match.rule != null) {
-                baseOffset = baseOffset + match.rule.BaseUtcOffsetDelta;
-                if (match.rule.HasDaylightSaving) {
-                    isDaylightSavings = GetIsDaylightSavingsFromUtc(time, timeYear, match.offset, match.rule, out isAmbiguousLocalDst, TimeZoneInfo.Local);
-                    baseOffset += (isDaylightSavings ? match.rule.DaylightDelta : TimeSpan.Zero /* FUTURE: rule.StandardDelta */);
-                }
-            }                
-            return baseOffset;          
-#elif PLATFORM_UNIX
-            // Use the standard code path for the Macintosh since there isn't a faster way of handling current-year-only time zones
-            return GetUtcOffsetFromUtc(time, TimeZoneInfo.Local, out isDaylightSavings, out isAmbiguousLocalDst);
-#endif // FEATURE_WIN32_REGISTRY
-        }
-
-        static internal TimeSpan GetUtcOffsetFromUtc(DateTime time, TimeZoneInfo zone, out Boolean isDaylightSavings, out Boolean isAmbiguousLocalDst) {
+      static internal TimeSpan GetUtcOffsetFromUtc(DateTime time, TimeZoneInfo zone, out Boolean isDaylightSavings, out Boolean isAmbiguousLocalDst) {
             isDaylightSavings = false;
             isAmbiguousLocalDst = false;
             TimeSpan baseOffset = zone.BaseUtcOffset;
@@ -3525,39 +3452,7 @@ namespace System {
 
         private static TimeZoneInfoResult TryGetTimeZoneFromLocalMachine(string id, bool dstDisabled, out TimeZoneInfo value, out Exception e, CachedData cachedData)
         {
-            TimeZoneInfoResult result;
-            TimeZoneInfo match;
-
-#if FEATURE_WIN32_REGISTRY
-            result = TryGetTimeZoneByRegistryKey(id, out match, out e);
-#elif PLATFORM_UNIX
-            result = TryGetTimeZoneByFile(id, out match, out e);
-#endif // FEATURE_WIN32_REGISTRY
-
-            if (result == TimeZoneInfoResult.Success)
-            {
-                if (cachedData.m_systemTimeZones == null)
-                    cachedData.m_systemTimeZones = new Dictionary<string, TimeZoneInfo>();
-
-                cachedData.m_systemTimeZones.Add(id, match);
-
-                if (dstDisabled && match.m_supportsDaylightSavingTime)
-                {
-                    // we found a cache hit but we want a time zone without DST and this one has DST data
-                    value = CreateCustomTimeZone(match.m_id, match.m_baseUtcOffset, match.m_displayName, match.m_standardDisplayName);
-                }
-                else
-                {
-                    value = new TimeZoneInfo(match.m_id, match.m_baseUtcOffset, match.m_displayName, match.m_standardDisplayName,
-                                          match.m_daylightDisplayName, match.m_adjustmentRules, false);
-                }
-            }
-            else
-            {
-                value = null;
-            }
-
-            return result;
+            throw new NotImplementedException();
         }
 
 #if PLATFORM_UNIX

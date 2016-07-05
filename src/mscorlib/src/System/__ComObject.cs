@@ -18,8 +18,6 @@ namespace System {
     using System.Collections;
     using System.Threading;
     using System.Runtime.InteropServices;
-    using System.Runtime.InteropServices.WindowsRuntime;
-    using System.Runtime.CompilerServices;
     using System.Reflection;
     using System.Security.Permissions;
 
@@ -41,29 +39,14 @@ namespace System {
         //====================================================================
         public override string ToString()
         {
-            //
-            // Only do the IStringable cast when running under AppX for better compat
-            // Otherwise we could do a IStringable cast in classic apps which could introduce
-            // a thread transition which would lead to deadlock
-            //
-            if (AppDomain.IsAppXModel())
-            {
-                // Check whether the type implements IStringable.
-                IStringable stringableType = this as IStringable;
-                if (stringableType != null)
-                {
-                    return stringableType.ToString();
-                }                   
-            }
-                
+               
             return base.ToString();
         }
         
         [System.Security.SecurityCritical]  // auto-generated
         internal IntPtr GetIUnknown(out bool fIsURTAggregated)
         {
-            fIsURTAggregated = !GetType().IsDefined(typeof(ComImportAttribute), false);
-            return System.Runtime.InteropServices.Marshal.GetIUnknownForObject(this);
+            throw new NotImplementedException();
         }
 
         //====================================================================
@@ -121,33 +104,7 @@ namespace System {
         [System.Security.SecurityCritical]  // auto-generated
         internal void ReleaseAllData()
         {
-            // Synchronize access to the map.
-            lock(this)
-            {
-
-                // If the map hasn't been allocated, then there is nothing to do.
-                if (m_ObjectToDataMap != null)
-                {
-                    foreach (Object o in m_ObjectToDataMap.Values)
-                    {
-                        // Note: the value could be an object[]
-                        // We are fine for now as object[] doesn't implement IDisposable nor derive from __ComObject
-                        
-                        // If the object implements IDisposable, then call Dispose on it.
-                        IDisposable DisposableObj = o as IDisposable;
-                        if (DisposableObj != null)
-                            DisposableObj.Dispose();
-
-                        // If the object is a derived from __ComObject, then call Marshal.ReleaseComObject on it.
-                        __ComObject ComObj = o as __ComObject;
-                        if (ComObj != null)
-                            Marshal.ReleaseComObject(ComObj);
-                    }
-
-                    // Set the map to null to indicate it has been cleaned up.
-                    m_ObjectToDataMap = null;
-                }
-            }
+          throw new NotImplementedException();
         }
 
         //====================================================================
@@ -170,13 +127,13 @@ namespace System {
         [System.Security.SecurityCritical]  // auto-generated
         internal int ReleaseSelf()
         {
-            return Marshal.InternalReleaseComObject(this);
+            throw new NotImplementedException();
         }
 
         [System.Security.SecurityCritical]  // auto-generated
         internal void FinalReleaseSelf()
         {
-            Marshal.InternalFinalReleaseComObject(this);
+          throw new NotImplementedException();
         }
 
         [System.Security.SecurityCritical]  // auto-generated

@@ -150,12 +150,6 @@ namespace System.Diagnostics {
                 
                 // first send it to the debugger
                 Debugger.Log ((int) level, logswitch.strName, message);
-    
-                // Send to the console device
-                if (m_fConsoleDeviceEnabled)
-                {
-                    Console.Write(message);                
-                }   
             }
         }
     
