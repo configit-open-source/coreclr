@@ -665,9 +665,7 @@
     <Compile Include="src\System\Runtime\InteropServices\CallingConvention.cs" />
     <Compile Include="src\System\Runtime\InteropServices\CharSet.cs" />
     <Compile Include="src\System\Runtime\InteropServices\ComEventsHelper.cs" />
-    <Compile Include="src\System\Runtime\InteropServices\ComEventsInfo.cs" />
     <Compile Include="src\System\Runtime\InteropServices\ComEventsMethod.cs" />
-    <Compile Include="src\System\Runtime\InteropServices\ComEventsSink.cs" />
     <Compile Include="src\System\Runtime\InteropServices\COMException.cs" />
     <Compile Include="src\System\Runtime\InteropServices\ComMemberType.cs" />
     <Compile Include="src\System\Runtime\InteropServices\ComTypes\IBindCtx.cs" />

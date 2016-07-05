@@ -145,7 +145,7 @@ namespace System {
 
 #if !FEATURE_CORECLR
         [NonSerialized]
-        internal AppDomainSortingSetupInfo _AppDomainSortingSetupInfo;
+        internal object _AppDomainSortingSetupInfo;
 #endif
 
         [OptionalField(VersionAdded = 5)] // This was added in .NET FX v4.5
@@ -159,66 +159,7 @@ namespace System {
         [SecuritySafeCritical]
         internal AppDomainSetup(AppDomainSetup copy, bool copyDomainBoundData)
         {
-            string[] mine = Value;
-            if(copy != null) {
-                string[] other = copy.Value;
-                int mineSize = _Entries.Length;
-                int otherSize = other.Length;
-                int size = (otherSize < mineSize) ? otherSize : mineSize;
-
-                for (int i = 0; i < size; i++)
-                    mine[i] = other[i];
-
-                if (size < mineSize)
-                {
-                    // This case can happen when the copy is a deserialized version of
-                    // an AppDomainSetup object serialized by Everett.
-                    for (int i = size; i < mineSize; i++)
-                        mine[i] = null;
-                }
-
-                _LoaderOptimization = copy._LoaderOptimization;
-
-                _AppDomainInitializerArguments = copy.AppDomainInitializerArguments;
-#if FEATURE_CLICKONCE
-                _ActivationArguments = copy.ActivationArguments;
-#endif
-                _ApplicationTrust = copy._ApplicationTrust;
-                if (copyDomainBoundData)
-                    _AppDomainInitializer = copy.AppDomainInitializer;
-                else
-                    _AppDomainInitializer = null;
-
-                _ConfigurationBytes = copy.GetConfigurationBytes();
-#if FEATURE_COMINTEROP
-                _DisableInterfaceCache = copy._DisableInterfaceCache;
-#endif // FEATURE_COMINTEROP
-                _AppDomainManagerAssembly = copy.AppDomainManagerAssembly;
-                _AppDomainManagerType = copy.AppDomainManagerType;
-#if FEATURE_APTCA
-                _AptcaVisibleAssemblies = copy.PartialTrustVisibleAssemblies;
-#endif
-
-                if (copy._CompatFlags != null)
-                {
-                    SetCompatibilitySwitches(copy._CompatFlags.Keys);
-                }
-
-#if !FEATURE_CORECLR
-                if(copy._AppDomainSortingSetupInfo != null)
-                {
-                    _AppDomainSortingSetupInfo = new AppDomainSortingSetupInfo(copy._AppDomainSortingSetupInfo);
-                }
-#endif
-                _TargetFrameworkName = copy._TargetFrameworkName;
-
-#if FEATURE_RANDOMIZED_STRING_HASHING
-                _UseRandomizedStringHashing = copy._UseRandomizedStringHashing;
-#endif
-
-            }
-            else 
-                _LoaderOptimization = LoaderOptimization.NotSpecified;
+            
         }
 
         public AppDomainSetup()
@@ -605,54 +546,6 @@ namespace System {
         public void SetCompatibilitySwitches(IEnumerable<String> switches)
         {
 
-#if !FEATURE_CORECLR
-            if(_AppDomainSortingSetupInfo != null)
-            {
-                _AppDomainSortingSetupInfo._useV2LegacySorting = false;
-                _AppDomainSortingSetupInfo._useV4LegacySorting = false;
-            }
-#endif
-
-#if FEATURE_RANDOMIZED_STRING_HASHING
-            _UseRandomizedStringHashing = false;
-#endif
-            if (switches != null)
-            {
-                _CompatFlags = new Dictionary<string, object>();
-                foreach (String str in switches) 
-                {
-#if !FEATURE_CORECLR
-                    if(StringComparer.OrdinalIgnoreCase.Equals("NetFx40_Legacy20SortingBehavior", str)) {
-                        if(_AppDomainSortingSetupInfo == null)
-                        {
-                            _AppDomainSortingSetupInfo = new AppDomainSortingSetupInfo();
-                        }
-                        _AppDomainSortingSetupInfo._useV2LegacySorting = true;
-                    }
-
-                    if(StringComparer.OrdinalIgnoreCase.Equals("NetFx45_Legacy40SortingBehavior", str)) {
-                        if(_AppDomainSortingSetupInfo == null)
-                        {
-                            _AppDomainSortingSetupInfo = new AppDomainSortingSetupInfo();
-                        }
-                        _AppDomainSortingSetupInfo._useV4LegacySorting = true;
-                    }
-#endif
-
-#if FEATURE_RANDOMIZED_STRING_HASHING
-                    if(StringComparer.OrdinalIgnoreCase.Equals("UseRandomizedStringHashAlgorithm", str)) {
-                        _UseRandomizedStringHashing = true;
-                    }
-#endif
-
-                    _CompatFlags.Add(str, null);
-                }
-            }
-            else
-            {
-                _CompatFlags = null;
-            }
-
         }
 
         // A target Framework moniker, in a format parsible by the FrameworkName class.
@@ -675,67 +568,7 @@ namespace System {
         [SecurityCritical]
         public void SetNativeFunction(string functionName, int functionVersion, IntPtr functionPointer) 
         {
-            if(functionName == null) 
-            {
-                throw new ArgumentNullException("functionName");
-            }
-
-            if(functionPointer == IntPtr.Zero)
-            {
-                throw new ArgumentNullException("functionPointer");
-            }
-
-            if(String.IsNullOrWhiteSpace(functionName))
-            {
-                throw new ArgumentException(Environment.GetResourceString("Argument_NPMSInvalidName"), "functionName");
-            }
-
-            Contract.EndContractBlock();
-
-            if(functionVersion < 1)
-            {
-                throw new ArgumentException(Environment.GetResourceString("ArgumentException_MinSortingVersion", 1, functionName));
-            }
-
-            if(_AppDomainSortingSetupInfo == null)
-            {
-                _AppDomainSortingSetupInfo = new AppDomainSortingSetupInfo();
-            }
-
-            if(String.Equals(functionName, "IsNLSDefinedString", StringComparison.OrdinalIgnoreCase))
-            {
-                _AppDomainSortingSetupInfo._pfnIsNLSDefinedString = functionPointer;
-            }
-
-            if (String.Equals(functionName, "CompareStringEx", StringComparison.OrdinalIgnoreCase))
-            {
-                _AppDomainSortingSetupInfo._pfnCompareStringEx = functionPointer;
-            }
-
-            if (String.Equals(functionName, "LCMapStringEx", StringComparison.OrdinalIgnoreCase))
-            {
-                _AppDomainSortingSetupInfo._pfnLCMapStringEx = functionPointer;
-            }
-
-            if (String.Equals(functionName, "FindNLSStringEx", StringComparison.OrdinalIgnoreCase))
-            {
-                _AppDomainSortingSetupInfo._pfnFindNLSStringEx = functionPointer;
-            }
-
-            if (String.Equals(functionName, "CompareStringOrdinal", StringComparison.OrdinalIgnoreCase))
-            {
-                _AppDomainSortingSetupInfo._pfnCompareStringOrdinal = functionPointer;
-            }
-
-            if (String.Equals(functionName, "GetNLSVersionEx", StringComparison.OrdinalIgnoreCase))
-            {
-                _AppDomainSortingSetupInfo._pfnGetNLSVersionEx = functionPointer;
-            }
-
-            if (String.Equals(functionName, "FindStringOrdinal", StringComparison.OrdinalIgnoreCase))
-            {
-                _AppDomainSortingSetupInfo._pfnFindStringOrdinal = functionPointer;
-            }
+           
         }
 #endif
 

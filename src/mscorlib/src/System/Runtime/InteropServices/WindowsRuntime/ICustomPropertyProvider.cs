@@ -4,11 +4,8 @@
 
 //
 
-using System;
-using System.StubHelpers;
 using System.Reflection;
 using System.Diagnostics.Contracts;
-using System.Runtime.InteropServices;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -46,22 +43,6 @@ namespace System.Runtime.InteropServices.WindowsRuntime
                 return new CustomPropertyImpl(propertyInfo);
         }
 
-        //
-        // Creates a ICustomProperty implementation for Jupiter
-        // Called from ICustomPropertyProvider_GetIndexedProperty from within runtime
-        //               
-        [System.Security.SecurityCritical]
-        static internal unsafe ICustomProperty CreateIndexedProperty(object target, string propertyName, TypeNameNative *pIndexedParamType)
-        {
-            Contract.Requires(target != null);
-            Contract.Requires(propertyName != null);
-
-            Type indexedParamType = null;
-            SystemTypeMarshaler.ConvertToManaged(pIndexedParamType, ref indexedParamType);
-
-            return CreateIndexedProperty(target, propertyName, indexedParamType);        
-        }
-
         static internal ICustomProperty CreateIndexedProperty(object target, string propertyName, Type indexedParamType)
         {
             Contract.Requires(target != null);
@@ -86,16 +67,6 @@ namespace System.Runtime.InteropServices.WindowsRuntime
             else
                 return new CustomPropertyImpl(propertyInfo);
         }
-
-        [System.Security.SecurityCritical]
-        static internal unsafe void GetType(object target, TypeNameNative *pIndexedParamType)
-        {            
-            IGetProxyTarget proxy = target as IGetProxyTarget;
-            if (proxy != null) 
-                target = proxy.GetTarget();
-
-            SystemTypeMarshaler.ConvertToNative(target.GetType(), pIndexedParamType);
-        }        
     }
 
     [Flags]

@@ -26,9 +26,6 @@ namespace System.Reflection
     using System.Runtime.Versioning;
     using Microsoft.Win32;
     using System.Diagnostics.Contracts;
-#if !FEATURE_CORECLR
-    using Microsoft.Runtime.Hosting;
-#endif
 
 #if FEATURE_CORECLR
     // Dummy type to avoid ifdefs in signature definitions
@@ -133,41 +130,7 @@ namespace System.Reflection
         private unsafe byte[] ComputePublicKey()
         {
             byte[] publicKey = null;
-
-            // Make sure pbPublicKey is not leaked with async exceptions
-            RuntimeHelpers.PrepareConstrainedRegions();
-            try {
-            }
-            finally
-            {
-                IntPtr pbPublicKey = IntPtr.Zero;
-                int cbPublicKey = 0;
-
-                try
-                {
-                    bool result;
-                    if (_keyPairExported)
-                    {
-                        result = StrongNameHelpers.StrongNameGetPublicKey(null, _keyPairArray, _keyPairArray.Length,
-                            out pbPublicKey, out cbPublicKey);
-                    }
-                    else
-                    {
-                        result = StrongNameHelpers.StrongNameGetPublicKey(_keyPairContainer, null, 0,
-                            out pbPublicKey, out cbPublicKey);
-                    }
-                    if (!result)
-                        throw new ArgumentException(Environment.GetResourceString("Argument_StrongNameGetPublicKey"));
-
-                    publicKey = new byte[cbPublicKey];
-                    Buffer.Memcpy(publicKey, 0, (byte*)(pbPublicKey.ToPointer()), 0, cbPublicKey);
-                }
-                finally
-                {
-                    if (pbPublicKey != IntPtr.Zero)
-                        StrongNameHelpers.StrongNameFreeBuffer(pbPublicKey);
-                }
-            }
+      
             return publicKey;
         }
 

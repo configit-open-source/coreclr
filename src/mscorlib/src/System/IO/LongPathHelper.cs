@@ -219,49 +219,15 @@ namespace System.IO
         }
 
         [System.Security.SecurityCritical]
-        unsafe internal static string GetLongPathName(StringBuffer path)
+        internal static string GetLongPathName(StringBuffer path)
         {
-            using (StringBuffer outputBuffer = new StringBuffer(path.Length))
-            {
-                uint result = 0;
-                while ((result = Win32Native.GetLongPathNameW(path.GetHandle(), outputBuffer.GetHandle(), outputBuffer.CharCapacity)) > outputBuffer.CharCapacity)
-                {
-                    // Reported size (which does not include the null) is greater than the buffer size. Increase the capacity.
-                    outputBuffer.EnsureCharCapacity(result);
-                }
-
-                if (result == 0)
-                {
-                    // Failure, get the error and throw
-                    GetErrorAndThrow(path.ToString());
-                }
-
-                outputBuffer.Length = result;
-                return outputBuffer.ToString();
-            }
+           return null;
         }
 
         [System.Security.SecurityCritical]
         unsafe internal static string GetLongPathName(string path)
         {
-            using (StringBuffer outputBuffer = new StringBuffer((uint)path.Length))
-            {
-                uint result = 0;
-                while ((result = Win32Native.GetLongPathNameW(path, outputBuffer.GetHandle(), outputBuffer.CharCapacity)) > outputBuffer.CharCapacity)
-                {
-                    // Reported size (which does not include the null) is greater than the buffer size. Increase the capacity.
-                    outputBuffer.EnsureCharCapacity(result);
-                }
-
-                if (result == 0)
-                {
-                    // Failure, get the error and throw
-                    GetErrorAndThrow(path);
-                }
-
-                outputBuffer.Length = result;
-                return outputBuffer.ToString();
-            }
+          return null;
         }
 
         [System.Security.SecurityCritical]

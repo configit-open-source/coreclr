@@ -14,8 +14,6 @@ namespace System.Reflection.Emit {
     using System.Security;
     using System.Diagnostics;
     using CultureInfo = System.Globalization.CultureInfo;
-#if !FEATURE_CORECLR
-    using ResourceWriter = System.Resources.ResourceWriter;
 #else // FEATURE_CORECLR
     using IResourceWriter = System.Resources.IResourceWriter;
 #endif // !FEATURE_CORECLR

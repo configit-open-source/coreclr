@@ -117,25 +117,7 @@ namespace System.Runtime.InteropServices {
         /// <param name="d">delegate to invoke when specifed COM event is fired</param>
         [System.Security.SecurityCritical]
         public static void Combine(object rcw, Guid iid, int dispid, System.Delegate d) {
-
-            rcw = UnwrapIfTransparentProxy(rcw);
-
-            lock (rcw) {
-                ComEventsInfo eventsInfo = ComEventsInfo.FromObject(rcw);
-
-                ComEventsSink sink = eventsInfo.FindSink(ref iid);
-                if (sink == null) {
-                    sink = eventsInfo.AddSink(ref iid);
-                }
-
-
-                ComEventsMethod method = sink.FindMethod(dispid);
-                if (method == null) {
-                    method = sink.AddMethod(dispid);
-                }
-
-                method.AddDelegate(d);
-            }
+      
         }
 
         /// <summary>
@@ -148,39 +130,7 @@ namespace System.Runtime.InteropServices {
         /// <returns></returns>
         [System.Security.SecurityCritical]
         public static Delegate Remove(object rcw, Guid iid, int dispid, System.Delegate d) {
-
-            rcw = UnwrapIfTransparentProxy(rcw);
-
-            lock (rcw) {
-
-                ComEventsInfo eventsInfo = ComEventsInfo.Find(rcw);
-                if (eventsInfo == null)
-                    return null;
-                ComEventsSink sink = eventsInfo.FindSink(ref iid);
-                if (sink == null)
-                    return null;
-                ComEventsMethod method = sink.FindMethod(dispid);
-                if (method == null)
-                    return null;
-
-                method.RemoveDelegate(d);
-
-                if (method.Empty) {
-                    // removed the last event handler for this dispid - need to remove dispid handler
-                    method = sink.RemoveMethod(method);
-                }
-                if (method == null) {
-                    // removed last dispid handler for this sink - need to remove the sink
-                    sink = eventsInfo.RemoveSink(sink);
-                }
-                if (sink == null) {
-                    // removed last sink for this rcw - need to remove all traces of event info
-                    Marshal.SetComObjectData(rcw, typeof(ComEventsInfo), null);
-                    GC.SuppressFinalize(eventsInfo);
-                }
-
-                return d;
-            }
+          return null;
         }
 
         [System.Security.SecurityCritical]

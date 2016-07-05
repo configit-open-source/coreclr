@@ -20,7 +20,6 @@ namespace System.Threading
     using System.Collections;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Runtime.ExceptionServices;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
 #if FEATURE_REMOTING
@@ -740,7 +739,6 @@ namespace System.Threading
         }
 
         [SecurityCritical]
-        [HandleProcessCorruptedStateExceptions]
         internal static void OnAsyncLocalContextChanged(ExecutionContext previous, ExecutionContext current)
         {
             List<IAsyncLocal> previousLocalChangeNotifications = (previous == null) ? null : previous._localChangeNotifications;
@@ -939,7 +937,6 @@ namespace System.Threading
         // a DynamicSecurityMethod.
         [SecurityCritical]
         [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "Reviewed for thread safety")]
-        [HandleProcessCorruptedStateExceptions]
         internal static void RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, bool preserveSyncCtx)
         {
             Contract.Assert(executionContext != null);

@@ -10,16 +10,13 @@
 //
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Runtime.ExceptionServices;
 using System.Runtime.Serialization;
 using System.Security;
 using System.Text;
-using System.Threading;
 
 namespace System
 {
@@ -169,86 +166,8 @@ namespace System
 
             m_innerExceptions = new ReadOnlyCollection<Exception>(exceptionsCopy);
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AggregateException"/> class with
-        /// references to the inner exception dispatch info objects that represent the cause of this exception.
-        /// </summary>
-        /// <param name="innerExceptionInfos">
-        /// Information about the exceptions that are the cause of the current exception.
-        /// </param>
-        /// <exception cref="T:System.ArgumentNullException">The <paramref name="innerExceptionInfos"/> argument
-        /// is null.</exception>
-        /// <exception cref="T:System.ArgumentException">An element of <paramref name="innerExceptionInfos"/> is
-        /// null.</exception>
-        internal AggregateException(IEnumerable<ExceptionDispatchInfo> innerExceptionInfos) :
-            this(Environment.GetResourceString("AggregateException_ctor_DefaultMessage"), innerExceptionInfos)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AggregateException"/> class with a specified error
-        /// message and references to the inner exception dispatch info objects that represent the cause of 
-        /// this exception.
-        /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="innerExceptionInfos">
-        /// Information about the exceptions that are the cause of the current exception.
-        /// </param>
-        /// <exception cref="T:System.ArgumentNullException">The <paramref name="innerExceptionInfos"/> argument
-        /// is null.</exception>
-        /// <exception cref="T:System.ArgumentException">An element of <paramref name="innerExceptionInfos"/> is
-        /// null.</exception>
-        internal AggregateException(string message, IEnumerable<ExceptionDispatchInfo> innerExceptionInfos)
-            // If it's already an IList, pass that along (a defensive copy will be made in the delegated ctor).  If it's null, just pass along
-            // null typed correctly.  Otherwise, create an IList from the enumerable and pass that along. 
-            : this(message, innerExceptionInfos as IList<ExceptionDispatchInfo> ?? 
-                                (innerExceptionInfos == null ? 
-                                    (List<ExceptionDispatchInfo>)null : 
-                                    new List<ExceptionDispatchInfo>(innerExceptionInfos)))
-        {
-        }
-
-        /// <summary>
-        /// Allocates a new aggregate exception with the specified message and list of inner 
-        /// exception dispatch info objects.
-        /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="innerExceptionInfos">
-        /// Information about the exceptions that are the cause of the current exception.
-        /// </param>
-        /// <exception cref="T:System.ArgumentNullException">The <paramref name="innerExceptionInfos"/> argument
-        /// is null.</exception>
-        /// <exception cref="T:System.ArgumentException">An element of <paramref name="innerExceptionInfos"/> is
-        /// null.</exception>
-        private AggregateException(string message, IList<ExceptionDispatchInfo> innerExceptionInfos)
-            : base(message, innerExceptionInfos != null && innerExceptionInfos.Count > 0 && innerExceptionInfos[0] != null ?
-                                innerExceptionInfos[0].SourceException : null)
-        {
-            if (innerExceptionInfos == null)
-            {
-                throw new ArgumentNullException("innerExceptionInfos");
-            }
-
-            // Copy exceptions to our internal array and validate them. We must copy them,
-            // because we're going to put them into a ReadOnlyCollection which simply reuses
-            // the list passed in to it. We don't want callers subsequently mutating.
-            Exception[] exceptionsCopy = new Exception[innerExceptionInfos.Count];
-
-            for (int i = 0; i < exceptionsCopy.Length; i++)
-            {
-                var edi = innerExceptionInfos[i];
-                if (edi != null) exceptionsCopy[i] = edi.SourceException;
-
-                if (exceptionsCopy[i] == null)
-                {
-                    throw new ArgumentException(Environment.GetResourceString("AggregateException_ctor_InnerExceptionNull"));
-                }
-            }
-
-            m_innerExceptions = new ReadOnlyCollection<Exception>(exceptionsCopy);
-        }
-
+    
+    
         /// <summary>
         /// Initializes a new instance of the <see cref="AggregateException"/> class with serialized data.
         /// </summary>
