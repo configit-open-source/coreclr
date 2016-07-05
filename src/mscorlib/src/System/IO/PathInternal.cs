@@ -1,12 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.Win32;
-using System;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Security;
 using System.Text;
 
 namespace System.IO
@@ -244,24 +239,6 @@ namespace System.IO
         }
 
         /// <summary>
-        /// Returns true if the path uses any of the DOS device path syntaxes. ("\\.\", "\\?\", or "\??\")
-        /// </summary>
-        internal static bool IsDevice(StringBuffer path)
-        {
-            // If the path begins with any two separators it will be recognized and normalized and prepped with
-            // "\??\" for internal usage correctly. "\??\" is recognized and handled, "/??/" is not.
-            return IsExtended(path)
-                ||
-                (
-                    path.Length >= DevicePrefixLength
-                    && IsDirectorySeparator(path[0])
-                    && IsDirectorySeparator(path[1])
-                    && (path[2] == '.' || path[2] == '?')
-                    && IsDirectorySeparator(path[3])
-                );
-        }
-
-        /// <summary>
         /// Returns true if the path uses the canonical form of extended syntax ("\\?\" or "\??\"). If the
         /// path matches exactly (cannot use alternate directory separators) Windows will skip normalization
         /// and path length checks.
@@ -293,21 +270,6 @@ namespace System.IO
                 && path[3] == '\\';
         }
 
-        /// <summary>
-        /// Returns true if the path uses the canonical form of extended syntax ("\\?\" or "\??\"). If the
-        /// path matches exactly (cannot use alternate directory separators) Windows will skip normalization
-        /// and path length checks.
-        /// </summary>
-        internal static bool IsExtended(StringBuffer path)
-        {
-            // While paths like "//?/C:/" will work, they're treated the same as "\\.\" paths.
-            // Skipping of normalization will *only* occur if back slashes ('\') are used.
-            return path.Length >= DevicePrefixLength
-                && path[0] == '\\'
-                && (path[1] == '\\' || path[1] == '?')
-                && path[2] == '?'
-                && path[3] == '\\';
-        }
 
         /// <summary>
         /// Returns true if the path uses the extended UNC syntax (\\?\UNC\ or \??\UNC\)
@@ -403,23 +365,11 @@ namespace System.IO
         /// Gets the length of the root of the path (drive, share, etc.).
         /// </summary>
         [System.Security.SecuritySafeCritical]
-        internal unsafe static int GetRootLength(string path)
+        internal static int GetRootLength(string path)
         {
-            fixed (char* value = path)
-            {
-                return (int)GetRootLength(value, (ulong)path.Length);
-            }
+          return -1;
         }
 
-        /// <summary>
-        /// Gets the length of the root of the path (drive, share, etc.).
-        /// </summary>
-        [System.Security.SecuritySafeCritical]
-        internal unsafe static uint GetRootLength(StringBuffer path)
-        {
-            if (path.Length == 0) return 0;
-            return GetRootLength(path.CharPointer, path.Length);
-        }
 
         [System.Security.SecurityCritical]
         private unsafe static uint GetRootLength(char* path, ulong pathLength)
@@ -528,49 +478,7 @@ namespace System.IO
 #endif // !PLATFORM_UNIX
         }
 
-        /// <summary>
-        /// Returns true if the path specified is relative to the current drive or working directory.
-        /// Returns false if the path is fixed to a specific drive or UNC path.  This method does no
-        /// validation of the path (URIs will be returned as relative as a result).
-        /// </summary>
-        /// <remarks>
-        /// Handles paths that use the alternate directory separator.  It is a frequent mistake to
-        /// assume that rooted paths (Path.IsPathRooted) are not relative.  This isn't the case.
-        /// "C:a" is drive relative- meaning that it will be resolved against the current directory
-        /// for C: (rooted, but relative). "C:\a" is rooted and not relative (the current directory
-        /// will not be used to modify the path).
-        /// </remarks>
-        internal static bool IsPartiallyQualified(StringBuffer path)
-        {
-#if PLATFORM_UNIX
-            return !(path.Length >= 1 && path[0] == Path.DirectorySeparatorChar);
-#else
-            if (path.Length < 2)
-            {
-                // It isn't fixed, it must be relative.  There is no way to specify a fixed
-                // path with one character (or less).
-                return true;
-            }
-
-            if (IsDirectorySeparator(path[0]))
-            {
-                // There is no valid way to specify a relative path with two initial slashes or
-                // \? as ? isn't valid for drive relative paths and \??\ is equivalent to \\?\
-                return !(path[1] == '?' || IsDirectorySeparator(path[1]));
-            }
-
-            // The only way to specify a fixed path that doesn't begin with two slashes
-            // is the drive, colon, slash format- i.e. C:\
-            return !((path.Length >= 3)
-                && (path[1] == Path.VolumeSeparatorChar)
-                && IsDirectorySeparator(path[2])
-                // To match old behavior we'll check the drive character for validity as the path is technically
-                // not qualified if you don't have a valid drive. "=:\" is the "=" file's default data stream.
-                && IsValidDriveChar(path[0]));
-#endif // !PLATFORM_UNIX
-        }
-
-        /// <summary>
+    /// <summary>
         /// On Windows, returns the characters to skip at the start of the path if it starts with space(s) and a drive or directory separator.
         /// (examples are " C:", " \")
         /// This is a legacy behavior of Path.GetFullPath().

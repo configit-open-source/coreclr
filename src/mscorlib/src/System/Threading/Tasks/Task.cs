@@ -16,7 +16,6 @@ using System.Collections.ObjectModel;
 using System.Runtime;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Threading;
@@ -2093,23 +2092,23 @@ namespace System.Threading.Tasks
             return null;
         }
 
-        /// <summary>Gets the exception dispatch infos once the task has faulted.</summary>
-        internal ReadOnlyCollection<ExceptionDispatchInfo> GetExceptionDispatchInfos()
-        {
-            bool exceptionsAvailable = IsFaulted && ExceptionRecorded;
-            Contract.Assert(exceptionsAvailable, "Must only be used when the task has faulted with exceptions.");
-            return exceptionsAvailable ?
-                m_contingentProperties.m_exceptionsHolder.GetExceptionDispatchInfos() :
-                new ReadOnlyCollection<ExceptionDispatchInfo>(new ExceptionDispatchInfo[0]);
-        }
+        ///// <summary>Gets the exception dispatch infos once the task has faulted.</summary>
+        //internal ReadOnlyCollection<ExceptionDispatchInfo> GetExceptionDispatchInfos()
+        //{
+        //    bool exceptionsAvailable = IsFaulted && ExceptionRecorded;
+        //    Contract.Assert(exceptionsAvailable, "Must only be used when the task has faulted with exceptions.");
+        //    return exceptionsAvailable ?
+        //        m_contingentProperties.m_exceptionsHolder.GetExceptionDispatchInfos() :
+        //        new ReadOnlyCollection<ExceptionDispatchInfo>(new ExceptionDispatchInfo[0]);
+        //}
 
-        /// <summary>Gets the ExceptionDispatchInfo containing the OperationCanceledException for this task.</summary>
-        /// <returns>The ExceptionDispatchInfo.  May be null if no OCE was stored for the task.</returns>
-        internal ExceptionDispatchInfo GetCancellationExceptionDispatchInfo()
-        {
-            Contract.Assert(IsCanceled, "Must only be used when the task has canceled.");
-            return Volatile.Read(ref m_contingentProperties)?.m_exceptionsHolder?.GetCancellationExceptionDispatchInfo(); // may be null
-        }
+        ///// <summary>Gets the ExceptionDispatchInfo containing the OperationCanceledException for this task.</summary>
+        ///// <returns>The ExceptionDispatchInfo.  May be null if no OCE was stored for the task.</returns>
+        //internal ExceptionDispatchInfo GetCancellationExceptionDispatchInfo()
+        //{
+        //    Contract.Assert(IsCanceled, "Must only be used when the task has canceled.");
+        //    return Volatile.Read(ref m_contingentProperties)?.m_exceptionsHolder?.GetCancellationExceptionDispatchInfo(); // may be null
+        //}
 
         /// <summary>
         /// Throws an aggregate exception if the task contains exceptions. 
@@ -3491,10 +3490,7 @@ namespace System.Threading.Tasks
                 var oce = cancellationException as OperationCanceledException;
                 if (oce == null)
                 {
-                    var edi = cancellationException as ExceptionDispatchInfo;
-                    Contract.Assert(edi != null, "Expected either an OCE or an EDI");
-                    oce = edi.SourceException as OperationCanceledException;
-                    Contract.Assert(oce != null, "Expected EDI to contain an OCE");
+
                 }
                 Contract.Assert(oce.CancellationToken == tokenToRecord, 
                                 "Expected OCE's token to match the provided token.");
@@ -6152,7 +6148,7 @@ namespace System.Threading.Tasks
                     }
                     else if (canceledTask != null)
                     {
-                        TrySetCanceled(canceledTask.CancellationToken, canceledTask.GetCancellationExceptionDispatchInfo());
+                        
                     }
                     else
                     {
@@ -6404,7 +6400,7 @@ namespace System.Threading.Tasks
                     }
                     else if (canceledTask != null)
                     {
-                        TrySetCanceled(canceledTask.CancellationToken, canceledTask.GetCancellationExceptionDispatchInfo());
+                        
                     }
                     else
                     {

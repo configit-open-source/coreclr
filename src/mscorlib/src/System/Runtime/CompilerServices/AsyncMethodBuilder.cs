@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
-using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Threading;
@@ -1007,33 +1006,13 @@ namespace System.Runtime.CompilerServices
         /// <param name="targetContext">The target context on which to propagate the exception.  Null to use the ThreadPool.</param>
         internal static void ThrowAsync(Exception exception, SynchronizationContext targetContext)
         {
-            // Capture the exception into an ExceptionDispatchInfo so that its 
-            // stack trace and Watson bucket info will be preserved
-            var edi = ExceptionDispatchInfo.Capture(exception);
-
-            // If the user supplied a SynchronizationContext...
-            if (targetContext != null)
-            {
-                try
-                {
-                    // Post the throwing of the exception to that context, and return.
-                    targetContext.Post(state => ((ExceptionDispatchInfo)state).Throw(), edi);
-                    return;
-                }
-                catch (Exception postException)
-                {
-                    // If something goes horribly wrong in the Post, we'll 
-                    // propagate both exceptions on the ThreadPool
-                    edi = ExceptionDispatchInfo.Capture(new AggregateException(exception, postException));
-                }
-            }
 
             // If we have the new error reporting APIs, report this error.  Otherwise, Propagate the exception(s) on the ThreadPool
 #if FEATURE_COMINTEROP
             if (!WindowsRuntimeMarshal.ReportUnhandledError(edi.SourceException))
 #endif // FEATURE_COMINTEROP
             {
-                ThreadPool.QueueUserWorkItem(state => ((ExceptionDispatchInfo)state).Throw(), edi);
+                
             }
         }
 

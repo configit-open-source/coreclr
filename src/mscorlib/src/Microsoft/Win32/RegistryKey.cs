@@ -256,11 +256,7 @@ namespace Microsoft.Win32 {
 
         [System.Security.SecuritySafeCritical]  // auto-generated
         public void Flush() {
-            if (hkey != null) {
-                 if (IsDirty()) {
-                     Win32Native.RegFlushKey(hkey);
-                }
-            }
+            
         }
 
 #if FEATURE_CORECLR
@@ -327,70 +323,7 @@ namespace Microsoft.Win32 {
         [ComVisible(false)]
         private unsafe RegistryKey CreateSubKeyInternal(String subkey, RegistryKeyPermissionCheck permissionCheck, object registrySecurityObj, RegistryOptions registryOptions)
         {
-            ValidateKeyOptions(registryOptions);
-            ValidateKeyName(subkey);
-            ValidateKeyMode(permissionCheck);            
-            EnsureWriteable();
-            subkey = FixupName(subkey); // Fixup multiple slashes to a single slash
             
-            // only keys opened under read mode is not writable
-            if (!remoteKey) {
-                RegistryKey key = InternalOpenSubKey(subkey, (permissionCheck != RegistryKeyPermissionCheck.ReadSubTree));
-                if (key != null)  { // Key already exits
-                    CheckPermission(RegistryInternalCheck.CheckSubKeyWritePermission, subkey, false, RegistryKeyPermissionCheck.Default);
-                    CheckPermission(RegistryInternalCheck.CheckSubTreePermission, subkey, false, permissionCheck);
-                    key.checkMode = permissionCheck;
-                    return key;
-                }
-            }
-
-            CheckPermission(RegistryInternalCheck.CheckSubKeyCreatePermission, subkey, false, RegistryKeyPermissionCheck.Default);      
-            
-            Win32Native.SECURITY_ATTRIBUTES secAttrs = null;
-#if FEATURE_MACL
-            RegistrySecurity registrySecurity = (RegistrySecurity)registrySecurityObj;
-            // For ACL's, get the security descriptor from the RegistrySecurity.
-            if (registrySecurity != null) {
-                secAttrs = new Win32Native.SECURITY_ATTRIBUTES();
-                secAttrs.nLength = (int)Marshal.SizeOf(secAttrs);
-
-                byte[] sd = registrySecurity.GetSecurityDescriptorBinaryForm();
-                // We allocate memory on the stack to improve the speed.
-                // So this part of code can't be refactored into a method.
-                byte* pSecDescriptor = stackalloc byte[sd.Length];
-                Buffer.Memcpy(pSecDescriptor, 0, sd, 0, sd.Length);
-                secAttrs.pSecurityDescriptor = pSecDescriptor;
-            }
-#endif
-            int disposition = 0;
-
-            // By default, the new key will be writable.
-            SafeRegistryHandle result = null;
-            int ret = Win32Native.RegCreateKeyEx(hkey,
-                subkey,
-                0,
-                null,
-                (int)registryOptions /* specifies if the key is volatile */,
-                GetRegistryKeyAccess(permissionCheck != RegistryKeyPermissionCheck.ReadSubTree) | (int)regView,
-                secAttrs,
-                out result,
-                out disposition);
-
-            if (ret == 0 && !result.IsInvalid) {
-                RegistryKey key = new RegistryKey(result, (permissionCheck != RegistryKeyPermissionCheck.ReadSubTree), false, remoteKey, false, regView);                
-                CheckPermission(RegistryInternalCheck.CheckSubTreePermission, subkey, false, permissionCheck);                
-                key.checkMode = permissionCheck;
-                
-                if (subkey.Length == 0)
-                    key.keyName = keyName;
-                else
-                    key.keyName = keyName + "\\" + subkey;
-                return key;
-            }
-            else if (ret != 0) // syscall failed, ret is an error code.
-                Win32Error(ret, keyName + "\\" + subkey);  // Access denied?
-
-            BCLDebug.Assert(false, "Unexpected code path in RegistryKey::CreateSubKey");
             return null;
         }
 
@@ -408,47 +341,7 @@ namespace Microsoft.Win32 {
 
         [System.Security.SecuritySafeCritical]  // auto-generated
         public void DeleteSubKey(String subkey, bool throwOnMissingSubKey) {
-            ValidateKeyName(subkey);        
-            EnsureWriteable();
-            subkey = FixupName(subkey); // Fixup multiple slashes to a single slash
-            CheckPermission(RegistryInternalCheck.CheckSubKeyWritePermission, subkey, false, RegistryKeyPermissionCheck.Default);
-            
-            // Open the key we are deleting and check for children. Be sure to
-            // explicitly call close to avoid keeping an extra HKEY open.
-            //
-            RegistryKey key = InternalOpenSubKey(subkey,false);
-            if (key != null) {
-                try {
-                    if (key.InternalSubKeyCount() > 0) {
-                        ThrowHelper.ThrowInvalidOperationException(ExceptionResource.InvalidOperation_RegRemoveSubKey);
-                    }
-                }
-                finally {
-                    key.Close();
-                }
-
-                int ret;
-
-                try {
-                    ret = Win32Native.RegDeleteKeyEx(hkey, subkey, (int)regView, 0);
-                }
-                catch (EntryPointNotFoundException) {
-                    ret = Win32Native.RegDeleteKey(hkey, subkey);
-                }
-
-                if (ret!=0) {
-                    if (ret == Win32Native.ERROR_FILE_NOT_FOUND) {
-                        if (throwOnMissingSubKey)
-                            ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RegSubKeyAbsent);
-                    }
-                    else
-                        Win32Error(ret, null);
-                }
-            }
-            else { // there is no key which also means there is no subkey
-                if (throwOnMissingSubKey)
-                    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RegSubKeyAbsent);
-            }
+        
         }
 
         /**
@@ -463,83 +356,13 @@ namespace Microsoft.Win32 {
         [System.Security.SecuritySafeCritical]  // auto-generated
         [ComVisible(false)]
         public void DeleteSubKeyTree(String subkey, Boolean throwOnMissingSubKey) {
-            ValidateKeyName(subkey);
             
-            // Security concern: Deleting a hive's "" subkey would delete all
-            // of that hive's contents.  Don't allow "".
-            if (subkey.Length==0 && IsSystemKey()) {
-                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RegKeyDelHive);
-            }
-
-            EnsureWriteable();
-
-            subkey = FixupName(subkey); // Fixup multiple slashes to a single slash
-            CheckPermission(RegistryInternalCheck.CheckSubTreeWritePermission, subkey, false, RegistryKeyPermissionCheck.Default);            
-
-            RegistryKey key = InternalOpenSubKey(subkey, true);
-            if (key != null) {
-                try {
-                    if (key.InternalSubKeyCount() > 0) {
-                        String[] keys = key.InternalGetSubKeyNames();
-
-                        for (int i=0; i<keys.Length; i++) {
-                            key.DeleteSubKeyTreeInternal(keys[i]);
-                        }
-                    }
-                }
-                finally {
-                    key.Close();
-                }
-
-                int ret;
-                try {
-                    ret = Win32Native.RegDeleteKeyEx(hkey, subkey, (int)regView, 0);
-                }
-                catch (EntryPointNotFoundException) {
-                    ret = Win32Native.RegDeleteKey(hkey, subkey);
-                }
-        
-                if (ret!=0) Win32Error(ret, null);
-            }
-            else if(throwOnMissingSubKey) {
-                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RegSubKeyAbsent);
-            }
         }
 
         // An internal version which does no security checks or argument checking.  Skipping the 
         // security checks should give us a slight perf gain on large trees. 
-        [System.Security.SecurityCritical]  // auto-generated
-        private void DeleteSubKeyTreeInternal(string subkey) {
-            RegistryKey key = InternalOpenSubKey(subkey, true);
-            if (key != null) {
-                try {
-                    if (key.InternalSubKeyCount() > 0) {
-                        String[] keys = key.InternalGetSubKeyNames();
 
-                        for (int i=0; i<keys.Length; i++) {
-                            key.DeleteSubKeyTreeInternal(keys[i]);
-                        }
-                    }
-                }
-                finally {
-                    key.Close();
-                }
-
-                int ret;
-                try {
-                    ret = Win32Native.RegDeleteKeyEx(hkey, subkey, (int)regView, 0);
-                }
-                catch (EntryPointNotFoundException) {
-                    ret = Win32Native.RegDeleteKey(hkey, subkey);
-                }
-                if (ret!=0) Win32Error(ret, null);
-            }
-            else {
-                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RegSubKeyAbsent);                
-            }
-        }
-        
-        /**
+      /**
          * Deletes the specified value from this key.
          *
          * @param name Name of value to delete.
@@ -550,24 +373,7 @@ namespace Microsoft.Win32 {
 
         [System.Security.SecuritySafeCritical]  // auto-generated
         public void DeleteValue(String name, bool throwOnMissingValue) {
-            EnsureWriteable();
-            CheckPermission(RegistryInternalCheck.CheckValueWritePermission, name, false, RegistryKeyPermissionCheck.Default);            
-            int errorCode = Win32Native.RegDeleteValue(hkey, name);
-            
-            //
-            // From windows 2003 server, if the name is too long we will get error code ERROR_FILENAME_EXCED_RANGE  
-            // This still means the name doesn't exist. We need to be consistent with previous OS.
-            //
-            if (errorCode == Win32Native.ERROR_FILE_NOT_FOUND || errorCode == Win32Native.ERROR_FILENAME_EXCED_RANGE) {
-                if (throwOnMissingValue) {                
-                    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RegSubKeyValueAbsent);                                    
-                }
-                // Otherwise, just return giving no indication to the user.
-                // (For compatibility)
-            }
-            // We really should throw an exception here if errorCode was bad,
-            // but we can't for compatibility reasons.
-            BCLDebug.Correctness(errorCode == 0, "RegDeleteValue failed.  Here's your error code: "+errorCode);
+           
         }
 
         /**

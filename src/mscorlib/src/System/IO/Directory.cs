@@ -1031,11 +1031,6 @@ namespace System.IO {
 
                 buffer.Length = result;
 
-#if !PLATFORM_UNIX
-                if (buffer.Contains('~'))
-                    return LongPathHelper.GetLongPathName(buffer);
-#endif
-
                 return buffer.ToString();
             }
         }

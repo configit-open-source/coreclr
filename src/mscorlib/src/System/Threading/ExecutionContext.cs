@@ -88,7 +88,6 @@ namespace System.Threading
         }
 
         [SecurityCritical]
-        [HandleProcessCorruptedStateExceptions]
         public static void Run(ExecutionContext executionContext, ContextCallback callback, Object state)
         {
             if (executionContext == null)
@@ -142,7 +141,6 @@ namespace System.Threading
         }
 
         [SecurityCritical]
-        [HandleProcessCorruptedStateExceptions]
         private static void OnContextChanged(ExecutionContext previous, ExecutionContext current)
         {
             Contract.Assert(previous != null);

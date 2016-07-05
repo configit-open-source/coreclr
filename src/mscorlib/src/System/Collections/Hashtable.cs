@@ -23,9 +23,6 @@ namespace System.Collections {
     using System.Runtime.CompilerServices;
     using System.Runtime.ConstrainedExecution;
     using System.Diagnostics.Contracts;
-#if !FEATURE_CORECLR
-    using System.Security.Cryptography;
-#endif
    
     // The Hashtable class represents a dictionary of associated keys and values
     // with constant lookup time.

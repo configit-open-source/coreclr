@@ -15,7 +15,6 @@ using System;
 using System.Diagnostics.Contracts;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Runtime.ExceptionServices;
 using System.Security.Permissions;
 using System.Threading;
 
@@ -199,22 +198,6 @@ namespace System.Threading.Tasks
                 throw new ArgumentException(Environment.GetResourceString("TaskCompletionSourceT_TrySetException_NoExceptions"), "exceptions");
 
             bool rval = m_task.TrySetException(defensiveCopy);
-            if (!rval && !m_task.IsCompleted) SpinUntilCompleted();
-            return rval;
-        }
-
-        /// <summary>Attempts to transition the underlying task to the faulted state.</summary>
-        /// <param name="exceptions">The collection of exception dispatch infos to bind to this task.</param>
-        /// <returns>True if the operation was successful; otherwise, false.</returns>
-        /// <remarks>Unlike the public methods, this method doesn't currently validate that its arguments are correct.</remarks>
-        internal bool TrySetException(IEnumerable<ExceptionDispatchInfo> exceptions)
-        {
-            Contract.Assert(exceptions != null);
-#if DEBUG
-            foreach(var edi in exceptions) Contract.Assert(edi != null, "Contents must be non-null");
-#endif
-
-            bool rval = m_task.TrySetException(exceptions);
             if (!rval && !m_task.IsCompleted) SpinUntilCompleted();
             return rval;
         }

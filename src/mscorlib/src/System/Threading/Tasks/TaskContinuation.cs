@@ -12,7 +12,6 @@
 
 using System.Security;
 using System.Diagnostics.Contracts;
-using System.Runtime.ExceptionServices;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -851,8 +850,7 @@ namespace System.Threading.Tasks
                 if (!WindowsRuntimeMarshal.ReportUnhandledError(exc))
 #endif // FEATURE_COMINTEROP
                 {
-                    var edi = ExceptionDispatchInfo.Capture(exc);
-                    ThreadPool.QueueUserWorkItem(s => ((ExceptionDispatchInfo)s).Throw(), edi);
+                 
                 }
             }
         }

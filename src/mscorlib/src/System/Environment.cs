@@ -440,64 +440,7 @@ namespace System {
 #else
 
             int size;
-
-#if !FEATURE_CORECLR
-            bool isFullTrust = CodeAccessSecurityEngine.QuickCheckForAllDemands();
-
-            // Do a security check to guarantee we can read each of the 
-            // individual environment variables requested here.
-            String[] varArray = name.Split(new char[] {'%'});
-            StringBuilder vars = isFullTrust ? null : new StringBuilder();
-
-            bool fJustExpanded = false; // to accommodate expansion alg.
-
-            for(int i=1; i<varArray.Length-1; i++) { // Skip first and last tokens
-                // ExpandEnvironmentStrings' greedy algorithm expands every
-                // non-boundary %-delimited substring, provided the previous
-                // has not been expanded.
-                // if "foo" is not expandable, and "PATH" is, then both
-                // %foo%PATH% and %foo%foo%PATH% will expand PATH, but
-                // %PATH%PATH% will expand only once.
-                // Therefore, if we've just expanded, skip this substring.
-                if (varArray[i].Length == 0 || fJustExpanded == true)
-                {
-                    fJustExpanded = false;
-                    continue; // Nothing to expand
-                }
-                // Guess a somewhat reasonable initial size, call the method, then if
-                // it fails (ie, the return value is larger than our buffer size),
-                // make a new buffer & try again.
-                blob.Length = 0;
-                String envVar = "%" + varArray[i] + "%";
-                size = Win32Native.ExpandEnvironmentStrings(envVar, blob, currentSize);
-                if (size == 0)
-                    Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
-
-                // some environment variable might be changed while this function is called
-                while (size > currentSize) {
-                    currentSize = size;
-                    blob.Capacity = currentSize;
-                    blob.Length = 0;
-                    size = Win32Native.ExpandEnvironmentStrings(envVar, blob, currentSize);
-                    if (size == 0)
-                        Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
-                }
-
-                if (!isFullTrust) {
-                    String temp = blob.ToString();
-                    fJustExpanded = (temp != envVar);
-                    if (fJustExpanded) { // We expanded successfully, we need to do String comparison here
-                        // since %FOO% can become %FOOD
-                        vars.Append(varArray[i]);
-                        vars.Append(';');
-                    }
-                }
-            }
-     
-            if (!isFullTrust)
-                new EnvironmentPermission(EnvironmentPermissionAccess.Read, vars.ToString()).Demand();
-#endif // !FEATURE_CORECLR
-
+      
             blob.Length = 0;
             size = Win32Native.ExpandEnvironmentStrings(name, blob, currentSize);
             if (size == 0)
@@ -758,90 +701,66 @@ namespace System {
             return block;
         }
 
-        [System.Security.SecuritySafeCritical]  // auto-generated
-        public static IDictionary GetEnvironmentVariables()
-        {
-            if (AppDomain.IsAppXModel() && !AppDomain.IsAppXDesignMode()) {
-                // Environment variable accessors are not approved modern API.
-                // Behave as if no environment variables are defined in this case.
-                return new Hashtable(0);
-            }
+    [System.Security.SecuritySafeCritical]  // auto-generated
+    public static IDictionary GetEnvironmentVariables() {
+      if ( AppDomain.IsAppXModel() && !AppDomain.IsAppXDesignMode() ) {
+        // Environment variable accessors are not approved modern API.
+        // Behave as if no environment variables are defined in this case.
+        return new Hashtable( 0 );
+      }
 
-#if !FEATURE_CORECLR
-            bool isFullTrust = CodeAccessSecurityEngine.QuickCheckForAllDemands();
-            StringBuilder vars = isFullTrust ? null : new StringBuilder();  
-            bool first = true;
-#endif
+      char[] block = GetEnvironmentCharArray();
 
-            char[] block = GetEnvironmentCharArray();
+      Hashtable table = new Hashtable( 20 );
 
-            Hashtable table = new Hashtable(20);
+      // Copy strings out, parsing into pairs and inserting into the table.
+      // The first few environment variable entries start with an '='!
+      // The current working directory of every drive (except for those drives
+      // you haven't cd'ed into in your DOS window) are stored in the 
+      // environment block (as =C:=pwd) and the program's exit code is 
+      // as well (=ExitCode=00000000)  Skip all that start with =.
+      // Read docs about Environment Blocks on MSDN's CreateProcess page.
 
-            // Copy strings out, parsing into pairs and inserting into the table.
-            // The first few environment variable entries start with an '='!
-            // The current working directory of every drive (except for those drives
-            // you haven't cd'ed into in your DOS window) are stored in the 
-            // environment block (as =C:=pwd) and the program's exit code is 
-            // as well (=ExitCode=00000000)  Skip all that start with =.
-            // Read docs about Environment Blocks on MSDN's CreateProcess page.
-            
-            // Format for GetEnvironmentStrings is:
-            // (=HiddenVar=value\0 | Variable=value\0)* \0
-            // See the description of Environment Blocks in MSDN's
-            // CreateProcess page (null-terminated array of null-terminated strings).
-            // Note the =HiddenVar's aren't always at the beginning.
-            
-            for(int i=0; i<block.Length; i++) {
-                int startKey = i;
-                // Skip to key
-                // On some old OS, the environment block can be corrupted. 
-                // Someline will not have '=', so we need to check for '\0'. 
-                while(block[i]!='=' && block[i] != '\0') {
-                    i++;
-                }
+      // Format for GetEnvironmentStrings is:
+      // (=HiddenVar=value\0 | Variable=value\0)* \0
+      // See the description of Environment Blocks in MSDN's
+      // CreateProcess page (null-terminated array of null-terminated strings).
+      // Note the =HiddenVar's aren't always at the beginning.
 
-                if(block[i] == '\0') {
-                    continue;
-                }
-
-                // Skip over environment variables starting with '='
-                if (i-startKey==0) {
-                    while(block[i]!=0) {
-                        i++;
-                    }
-                    continue;
-                }
-                String key = new String(block, startKey, i-startKey);
-                i++;  // skip over '='
-                int startValue = i;
-                while(block[i]!=0) {
-                    // Read to end of this entry 
-                    i++;
-                }
-
-                String value = new String(block, startValue, i-startValue);
-                // skip over 0 handled by for loop's i++
-                table[key]=value;
-
-#if !FEATURE_CORECLR
-                if (!isFullTrust) {
-                    if( first) {      
-                        first = false;
-                    }
-                    else {
-                        vars.Append(';');
-                    }
-                    vars.Append(key);
-                }
-#endif
-            }
-
-#if !FEATURE_CORECLR
-            if (!isFullTrust)
-                new EnvironmentPermission(EnvironmentPermissionAccess.Read, vars.ToString()).Demand();
-#endif
-            return table;
+      for ( int i = 0; i < block.Length; i++ ) {
+        int startKey = i;
+        // Skip to key
+        // On some old OS, the environment block can be corrupted. 
+        // Someline will not have '=', so we need to check for '\0'. 
+        while ( block[i] != '=' && block[i] != '\0' ) {
+          i++;
         }
+
+        if ( block[i] == '\0' ) {
+          continue;
+        }
+
+        // Skip over environment variables starting with '='
+        if ( i - startKey == 0 ) {
+          while ( block[i] != 0 ) {
+            i++;
+          }
+          continue;
+        }
+        String key = new String( block, startKey, i - startKey );
+        i++;  // skip over '='
+        int startValue = i;
+        while ( block[i] != 0 ) {
+          // Read to end of this entry 
+          i++;
+        }
+
+        String value = new String( block, startValue, i - startValue );
+        // skip over 0 handled by for loop's i++
+        table[key] = value;
+      }
+      return table;
+    }
 
 #if FEATURE_WIN32_REGISTRY
         internal static IDictionary GetRegistryKeyNameValuePairs(RegistryKey registryKey) {
@@ -1351,13 +1270,6 @@ namespace System {
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
             get;
         }
-
-#if !FEATURE_CORECLR
-        // This is the temporary Whidbey stub for compatibility flags
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        [System.Security.SecurityCritical]
-        internal static extern bool GetCompatibilityFlag(CompatibilityFlag flag);
-#endif //!FEATURE_CORECLR
 
         public static string UserName {
             [System.Security.SecuritySafeCritical]  // auto-generated

@@ -1075,16 +1075,6 @@ new DS[] { DS.ERROR, DS.TX_NNN,  DS.TX_NNN,  DS.TX_NNN,  DS.ERROR,   DS.ERROR,  
                         LexTraceExit("0200", dps);
                         return (false);
                     }
-
-#if !FEATURE_CORECLR                    
-                    // If DateTimeParseIgnorePunctuation is defined, we want to have the V1.1 behavior of just
-                    // ignoring any unrecognized punctuation and moving on to the next character
-                    if (Environment.GetCompatibilityFlag(CompatibilityFlag.DateTimeParseIgnorePunctuation) && ((result.flags & ParseFlags.CaptureOffset) == 0)) {
-                        str.GetNext();
-                        LexTraceExit("0210 (success)", dps);
-                        return true;
-                    }
-#endif // FEATURE_CORECLR
                     
                     if ((str.m_current == '-' || str.m_current == '+') && ((result.flags & ParseFlags.TimeZoneUsed) == 0)) {
                         Int32 originalIndex = str.Index;

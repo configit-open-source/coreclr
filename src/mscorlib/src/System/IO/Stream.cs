@@ -21,7 +21,6 @@ using System.Threading.Tasks;
 using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
-using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Diagnostics.Contracts;
@@ -962,7 +961,6 @@ namespace System.IO {
             private readonly Object _stateObject;            
             private readonly bool _isWrite;
             private ManualResetEvent _waitHandle;
-            private ExceptionDispatchInfo _exceptionInfo;
 
             private bool _endXxxCalled;
             private Int32 _bytesRead;
@@ -979,7 +977,6 @@ namespace System.IO {
             }
 
             internal SynchronousAsyncResult(Exception ex, Object asyncStateObject, bool isWrite) {
-                _exceptionInfo = ExceptionDispatchInfo.Capture(ex);
                 _stateObject = asyncStateObject;
                 _isWrite = isWrite;                
             }
@@ -1004,8 +1001,7 @@ namespace System.IO {
             }
 
             internal void ThrowIfError() {
-                if (_exceptionInfo != null)
-                    _exceptionInfo.Throw();
+
             }                        
 
             internal static Int32 EndRead(IAsyncResult asyncResult) {

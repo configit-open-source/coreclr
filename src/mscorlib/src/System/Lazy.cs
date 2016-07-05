@@ -23,7 +23,6 @@ using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Diagnostics.Contracts;
-using System.Runtime.ExceptionServices;
 
 namespace System
 {
@@ -71,18 +70,6 @@ namespace System
             internal T m_value;
         }
 
-
-        /// <summary>
-        /// Wrapper class to wrap the excpetion thrown by the value factory
-        /// </summary>
-        class LazyInternalExceptionHolder
-        {
-            internal ExceptionDispatchInfo m_edi;
-            internal LazyInternalExceptionHolder(Exception ex)
-            {
-                m_edi = ExceptionDispatchInfo.Capture(ex);
-            }
-        }
         #endregion
 
         // A dummy delegate used as a  :
@@ -266,7 +253,7 @@ namespace System
         /// </summary>
         internal bool IsValueFaulted
         {
-            get { return m_boxed is LazyInternalExceptionHolder; }
+            get { return m_boxed is object; }
         }
 
         /// <summary>Gets a value indicating whether the <see cref="T:System.Lazy{T}"/> has been initialized.
@@ -321,10 +308,6 @@ namespace System
                     {
                         return boxed.m_value;
                     }
-
-                    LazyInternalExceptionHolder exc = m_boxed as LazyInternalExceptionHolder;
-                    Contract.Assert(exc != null);
-                    exc.m_edi.Throw();
                 }
 
                 // Fall through to the slow path.
@@ -391,9 +374,6 @@ namespace System
                         boxed = m_boxed as Boxed;
                         if (boxed == null) // it is not Boxed, so it is a LazyInternalExceptionHolder
                         {
-                            LazyInternalExceptionHolder exHolder = m_boxed as LazyInternalExceptionHolder;
-                            Contract.Assert(exHolder != null);
-                            exHolder.m_edi.Throw();
                         }
                     }
                 }
@@ -435,8 +415,6 @@ namespace System
                 }
                 catch (Exception ex)
                 {
-                    if (mode != LazyThreadSafetyMode.PublicationOnly) // don't cache the exception for PublicationOnly mode
-                        m_boxed = new LazyInternalExceptionHolder(ex);
                     throw;
                 }
             }
@@ -450,8 +428,6 @@ namespace System
                 catch (System.MissingMethodException)
                 {
                     Exception ex = new System.MissingMemberException(Environment.GetResourceString("Lazy_CreateValue_NoParameterlessCtorForT"));
-                    if (mode != LazyThreadSafetyMode.PublicationOnly) // don't cache the exception for PublicationOnly mode
-                        m_boxed = new LazyInternalExceptionHolder(ex);
                     throw ex;
                 }
             }

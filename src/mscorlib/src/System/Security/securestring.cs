@@ -2,7 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 namespace System.Security {
-    using System.Security.Cryptography;
     using System.Runtime.InteropServices;
 #if FEATURE_CORRUPTING_EXCEPTIONS
     using System.Runtime.ExceptionServices;
@@ -38,16 +37,7 @@ namespace System.Security {
         [System.Security.SecurityCritical]  // auto-generated
         unsafe static bool EncryptionSupported() {
             // check if the enrypt/decrypt function is supported on current OS
-            bool supported = true;                        
-            try {
-                Win32Native.SystemFunction041(
-                    SafeBSTRHandle.Allocate(null , (int)Win32Native.CRYPTPROTECTMEMORY_BLOCK_SIZE),
-                    Win32Native.CRYPTPROTECTMEMORY_BLOCK_SIZE, 
-                    Win32Native.CRYPTPROTECTMEMORY_SAME_PROCESS);
-            }
-            catch (EntryPointNotFoundException) {
-                supported = false;
-            }            
+            bool supported = true;                            
             return supported;
         }
         
@@ -449,28 +439,7 @@ namespace System.Security {
         [System.Security.SecurityCritical]  // auto-generated
         [ReliabilityContract(Consistency.MayCorruptInstance, Cer.MayFail)]
         private void ProtectMemory() {            
-            Contract.Assert(!m_buffer.IsInvalid && m_buffer.Length != 0, "Invalid buffer!");
-            Contract.Assert(m_buffer.Length % BlockSize == 0, "buffer length must be multiple of blocksize!");
-
-            if( m_length == 0 || m_encrypted) {
-                return;
-            }
-
-            RuntimeHelpers.PrepareConstrainedRegions();
-            try {
-            }
-            finally {
-                // RtlEncryptMemory return an NTSTATUS
-                int status = Win32Native.SystemFunction040(m_buffer, (uint)m_buffer.Length * 2, ProtectionScope);
-                if (status < 0)  { // non-negative numbers indicate success
-#if FEATURE_CORECLR
-                    throw new CryptographicException(Win32Native.RtlNtStatusToDosError(status));
-#else
-                    throw new CryptographicException(Win32Native.LsaNtStatusToWinError(status));
-#endif
-                }
-                m_encrypted = true;
-            }            
+                      
         }
         
         [System.Security.SecurityCritical]  // auto-generated
@@ -661,19 +630,8 @@ namespace System.Security {
             try {
             }
             finally {
-                if (m_encrypted) {
-                    // RtlEncryptMemory return an NTSTATUS
-                    int status = Win32Native.SystemFunction041(m_buffer, (uint)m_buffer.Length * 2, ProtectionScope);
-                    if (status < 0)
-                    { // non-negative numbers indicate success
-#if FEATURE_CORECLR
-                        throw new CryptographicException(Win32Native.RtlNtStatusToDosError(status));
-#else
-                        throw new CryptographicException(Win32Native.LsaNtStatusToWinError(status));
-#endif
-                    }
-                    m_encrypted = false;
-                }
+            
+            
             }
         }        
     }
@@ -719,9 +677,9 @@ namespace System.Security {
         }
 
 
-        internal unsafe int Length {
+        internal int Length {
             get {
-                return (int) Win32Native.SysStringLen(this);
+                return -1;
             }
         }
 

@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Runtime;
 using System.Runtime.CompilerServices;
-using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Threading;
@@ -577,12 +576,6 @@ namespace System.Threading.Tasks
             // TCS.{Try}SetException() should have checked for this
             Contract.Assert(exceptionObject != null, "Expected non-null exceptionObject argument");
 
-            // Only accept these types.
-            Contract.Assert(
-                (exceptionObject is Exception) || (exceptionObject is IEnumerable<Exception>) ||
-                (exceptionObject is ExceptionDispatchInfo) || (exceptionObject is IEnumerable<ExceptionDispatchInfo>),
-                "Expected exceptionObject to be either Exception, ExceptionDispatchInfo, or IEnumerable<> of one of those");
-
             bool returnValue = false;
 
             // "Reserve" the completion for this task, while making sure that: (1) No prior reservation
@@ -621,14 +614,6 @@ namespace System.Threading.Tasks
         internal bool TrySetCanceled(CancellationToken tokenToRecord, object cancellationException)
         {
             Contract.Assert(m_action == null, "Task<T>.TrySetCanceled(): non-null m_action");
-#if DEBUG
-            var ceAsEdi = cancellationException as ExceptionDispatchInfo;
-            Contract.Assert(
-                cancellationException == null ||
-                cancellationException is OperationCanceledException ||
-                (ceAsEdi != null && ceAsEdi.SourceException is OperationCanceledException),
-                "Expected null or an OperationCanceledException");
-#endif
 
             bool returnValue = false;
 
