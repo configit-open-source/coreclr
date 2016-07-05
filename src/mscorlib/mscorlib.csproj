@@ -972,7 +972,6 @@
     <Compile Include="src\System\XmlIgnoreMemberAttribute.cs" />
     <Compile Include="src\System\_LocalDataStore.cs" />
     <Compile Include="src\System\_LocalDataStoreMgr.cs" />
-    <Compile Include="src\System\__ComObject.cs" />
     <Compile Include="src\System\__Filters.cs" />
     <Compile Include="src\System\__HResults.cs" />
   </ItemGroup>
