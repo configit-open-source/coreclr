@@ -3,12 +3,10 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!-- Compilation options -->
   <PropertyGroup>
-    <AvailablePlatforms>amd64,x86,arm,arm64</AvailablePlatforms>
+    <AvailablePlatforms>AnyCPU</AvailablePlatforms>
     <Configuration Condition=" '$(Configuration)' == '' ">$(BuildType)</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">$(BuildArch)</Platform>
-    <!-- The CLR properties use amd64 as their platform string, we want to keep in sync with those, so set Platform appropriately,
-         though still use the 'x64' output path (see use of BuildArch below) -->
-    <Platform Condition=" '$(Platform)' == 'x64' ">amd64</Platform>
+    
     <ProjectGuid>{3DA06C3A-2E7B-4CB7-80ED-9B12916013F9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -30,36 +28,7 @@
     <NoWarn>649,3019,414,169,3015</NoWarn>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <DelaySign>true</DelaySign>
-    <DefineConstants>$(DefineConstants);NEW_EXPERIMENTAL_ASYNC_IO;_USE_NLS_PLUS_TABLE;RESOURCE_SATELLITE_CONFIG;INSIDE_CLR;CODE_ANALYSIS_BASELINE</DefineConstants>
-  </PropertyGroup>
-  <!-- Platform specific properties -->
-  <PropertyGroup Condition="'$(Platform)' == 'amd64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <BaseAddress>0x180000000</BaseAddress>
-    <DefineConstants>WIN64;AMD64;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Platform)' == 'x86'">
-    <PlatformTarget>x86</PlatformTarget>
-    <BaseAddress>0x10000000</BaseAddress>
-    <DefineConstants>WIN32;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
-  <!-- Configuration specific properties -->
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug' or '$(Configuration)' == 'Checked'">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <DefineConstants>DBG;_DEBUG;_LOGGING;DEBUG;TRACE;$(DefineConstants)</DefineConstants>
-    <DefineConstants Condition="'$(Platform)' == 'x86' or '$(Platform)' == 'amd64'">CODE_ANALYSIS;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbOnly</DebugType>
-    <DefineConstants>TRACE;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
-  <!-- Roslyn does not support writing PDBs on Unix -->
-  <PropertyGroup Condition="'$(OsEnvironment)' == 'Unix'">
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>none</DebugType>
+    <DefineConstants>$(DefineConstants);WIN32;NEW_EXPERIMENTAL_ASYNC_IO;_USE_NLS_PLUS_TABLE;RESOURCE_SATELLITE_CONFIG;INSIDE_CLR;CODE_ANALYSIS_BASELINE;FEATURE_CORECLR</DefineConstants>
   </PropertyGroup>
   <!-- Assembly attributes -->
   <PropertyGroup>
@@ -1008,15 +977,20 @@
     <ClrProduct>core_clr</ClrProduct>
     <BuildForCoreSystem>true</BuildForCoreSystem>
     <!-- These are needed by BCLRewriter -->
-    <_BuildType Condition="'$(Configuration)' == 'Debug'">chk</_BuildType>
-    <_BuildType Condition="'$(Configuration)' == 'Checked'">chk</_BuildType>
     <_BuildType Condition="'$(Configuration)' == 'Release'">ret</_BuildType>
-    <!-- These are needed to make sure we have the right set of defines -->
-    <TargetArch Condition="'$(Platform)'=='x86'">i386</TargetArch>
-    <TargetArch Condition="'$(Platform)'!='x86'">$(Platform)</TargetArch>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|amd64'">
-    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;DBG;_DEBUG;_LOGGING;WIN64;AMD64;;NEW_EXPERIMENTAL_ASYNC_IO;_USE_NLS_PLUS_TABLE;RESOURCE_SATELLITE_CONFIG;INSIDE_CLR;CODE_ANALYSIS_BASELINE;FEATURE_CORECLR</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>WIN32;NEW_EXPERIMENTAL_ASYNC_IO;_USE_NLS_PLUS_TABLE;RESOURCE_SATELLITE_CONFIG;INSIDE_CLR;CODE_ANALYSIS_BASELINE;FEATURE_CORECLR</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <NoWarn>649,3019,414,169,3015</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbOnly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <!-- CLR Features -->
   <!-- <Import Project="$(MSBuildThisFileDirectory)..\..\clr.coreclr.props" /> -->
