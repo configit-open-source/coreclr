@@ -408,17 +408,20 @@ namespace System {
             return Normalization.Normalize(this, normalizationForm);
         }
 
-        [System.Security.SecurityCritical]  // auto-generated
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static String FastAllocateString(int length);
+      [System.Security.SecurityCritical] // auto-generated
+      [MethodImplAttribute(MethodImplOptions.InternalCall)]
+      internal static String FastAllocateString(int length)
+      {
+        return new String(new char[length]);
+      }
 
-        // Creates a new string from the characters in a subarray.  The new string will
+      // Creates a new string from the characters in a subarray.  The new string will
         // be created from the characters in value between startIndex and
         // startIndex + length - 1.
         //
         [System.Security.SecuritySafeCritical]  // auto-generated
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public extern String(char [] value, int startIndex, int length);
+        public String(char [] value, int startIndex, int length);
     
         // Creates a new string from the characters in a subarray.  The new string will be
         // created from the characters in value.
